@@ -17,7 +17,9 @@ export function NameIntro() {
     try {
       seen = sessionStorage.getItem("port:intro-seen") === "1";
       sessionStorage.setItem("port:intro-seen", "1");
-    } catch {}
+    } catch {
+      // Private browsing can disable session storage.
+    }
     let timer: ReturnType<typeof setInterval> | undefined;
     function settle() {
       clearInterval(timer);

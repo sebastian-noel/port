@@ -181,7 +181,7 @@ dialog nav a { display:flex; align-items:center; justify-content:space-between; 
   .nav-actions { gap:0; }
   .resume-link { background:transparent; padding:0 8px; margin:0; }
   .resume-link > svg { display:none; }
-  .motion-toggle { width:36px; }
+  .motion-toggle { width:44px; }
   .intro-name { font-size:10.5vw; }
   .home-workspace { grid-template-columns:1fr; gap:12px; padding-top:0; padding-bottom:50px; }
   .game-space { min-height:300px; }

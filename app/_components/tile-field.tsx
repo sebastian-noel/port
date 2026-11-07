@@ -12,7 +12,6 @@ export function TileField() {
     const animations = new Set<Animation>();
     let tiles: { face: HTMLSpanElement; x: number; y: number; color: string }[] = [];
     let paused = false;
-    let idle: ReturnType<typeof setInterval> | undefined;
     let resize: number | undefined;
 
     function cancel() {
@@ -79,7 +78,7 @@ export function TileField() {
       resize = requestAnimationFrame(build);
     }
     build();
-    idle = setInterval(idleFlip, 6500);
+    const idle = setInterval(idleFlip, 6500);
     window.addEventListener("resize", onResize);
     window.addEventListener("port:intro-complete", wave);
     window.addEventListener("port:cancel-intro", cancel);
