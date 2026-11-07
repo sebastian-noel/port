@@ -32,7 +32,9 @@ export default function About() {
         <h1>Hi, I’m Sebastian</h1>
       </header>
       <div className="about-columns">
-        <div className="portrait-placeholder tone-coral" aria-hidden="true">S</div>
+        <div className="portrait-placeholder tone-coral" aria-hidden="true">
+          S
+        </div>
         <div className="prose">
           <p className="lead">
             I’m interested in what happens when software meets the physical

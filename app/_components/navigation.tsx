@@ -51,11 +51,44 @@ export function Navigation() {
           {pageLinks()}
         </nav>
         <div className="nav-actions">
-          <a className="resume-link" href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)"><Icon name="file" /><span>Resume</span><Icon name="external" /></a>
+          <a
+            className="resume-link"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume (PDF, opens in a new tab)"
+          >
+            <Icon name="file" />
+            <span>Resume</span>
+            <Icon name="external" />
+          </a>
           {site.profiles.slice(0, 2).map((profile) => (
-            <a className="social-link icon-button" key={profile.label} href={profile.href} aria-label={profile.label} target="_blank" rel="noopener noreferrer"><Icon name={profile.label === "GitHub" ? "github" : "linkedin"} /></a>
+            <a
+              className="social-link icon-button"
+              key={profile.label}
+              href={profile.href}
+              aria-label={profile.label}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name={profile.label === "GitHub" ? "github" : "linkedin"} />
+            </a>
           ))}
-          <button className="motion-toggle icon-button" aria-label={paused ? "Play background motion" : "Pause background motion"} aria-pressed={paused} onClick={() => { setPaused(!paused); window.dispatchEvent(new CustomEvent("port:motion-paused", { detail: !paused })); }}><Icon name={paused ? "play" : "pause"} /></button>
+          <button
+            className="motion-toggle icon-button"
+            aria-label={
+              paused ? "Play background motion" : "Pause background motion"
+            }
+            aria-pressed={paused}
+            onClick={() => {
+              setPaused(!paused);
+              window.dispatchEvent(
+                new CustomEvent("port:motion-paused", { detail: !paused }),
+              );
+            }}
+          >
+            <Icon name={paused ? "play" : "pause"} />
+          </button>
           <button
             className="menu-trigger"
             ref={trigger}
@@ -67,7 +100,8 @@ export function Navigation() {
               setOpen(true);
             }}
           >
-            <Icon name="menu" /><span className="sr-only">Menu</span>
+            <Icon name="menu" />
+            <span className="sr-only">Menu</span>
           </button>
         </div>
       </div>
@@ -104,7 +138,15 @@ export function Navigation() {
         </div>
         <nav aria-label="Mobile">
           {pageLinks()}
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)" onClick={closeMenu}>Resume <Icon name="external" /></a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume (PDF, opens in a new tab)"
+            onClick={closeMenu}
+          >
+            Resume <Icon name="external" />
+          </a>
         </nav>
         <div className="menu-socials">
           {site.profiles.map((profile) => (

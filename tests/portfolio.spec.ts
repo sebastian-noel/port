@@ -118,7 +118,12 @@ test("skip link and project navigation work with the keyboard", async ({
   ).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
-  await page.locator(".compact-section").first().getByRole("link").filter({ hasText: "Permanence" }).click();
+  await page
+    .locator(".compact-section")
+    .first()
+    .getByRole("link")
+    .filter({ hasText: "Permanence" })
+    .click();
   await expect(page).toHaveURL(/\/projects\/permanence$/);
   await page.reload();
   await expect(
@@ -176,9 +181,15 @@ test("capture desktop and mobile with reduced motion", async ({
     fullPage: true,
   });
   await page.goto("/projects");
-  await page.screenshot({ path: testInfo.outputPath("projects.png"), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath("projects.png"),
+    fullPage: true,
+  });
   await page.goto("/experiences");
-  await page.screenshot({ path: testInfo.outputPath("experiences.png"), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath("experiences.png"),
+    fullPage: true,
+  });
   await page.goto("/");
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({
@@ -217,19 +228,33 @@ test("enlarged text and landscape keep navigation usable", async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
   await page.reload();
   await page.getByRole("button", { name: "Menu" }).click();
-  const resume = page.getByRole("dialog").getByRole("link", { name: "Resume (PDF, opens in a new tab)", exact: true });
+  const resume = page
+    .getByRole("dialog")
+    .getByRole("link", {
+      name: "Resume (PDF, opens in a new tab)",
+      exact: true,
+    });
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
 });
 
-test("home hierarchy, PDF new tab, and public PDF asset", async ({ page, request }) => {
+test("home hierarchy, PDF new tab, and public PDF asset", async ({
+  page,
+  request,
+}) => {
   await page.goto("/");
   await expect(page.locator("main a[href='/about']")).toHaveCount(0);
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
-  expect(await page.locator(".game-space").evaluate(el => el.getBoundingClientRect().width)).toBeGreaterThan(
-    await page.locator(".home-sidebar").evaluate(el => el.getBoundingClientRect().width)
+  expect(
+    await page
+      .locator(".game-space")
+      .evaluate((el) => el.getBoundingClientRect().width),
+  ).toBeGreaterThan(
+    await page
+      .locator(".home-sidebar")
+      .evaluate((el) => el.getBoundingClientRect().width),
   );
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
@@ -246,11 +271,18 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({ page, request
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
 });
 
-test("project search covers names, technology, teammate, event, and reset", async ({ page }) => {
+test("project search covers names, technology, teammate, event, and reset", async ({
+  page,
+}) => {
   await page.goto("/projects");
   const search = page.getByRole("searchbox", { name: "Search projects" });
   await expect(page.locator(".project-card")).toHaveCount(12);
-  for (const [query, title] of [["permanence", "Permanence"], ["mongodb", "DishDash"], ["carlos rincon", "Next Step"], ["shellhacks", "Next Step"]]) {
+  for (const [query, title] of [
+    ["permanence", "Permanence"],
+    ["mongodb", "DishDash"],
+    ["carlos rincon", "Next Step"],
+    ["shellhacks", "Next Step"],
+  ]) {
     await search.fill(query);
     await expect(page.locator(".project-card")).toHaveCount(1);
     await expect(page.locator(".project-card h2")).toHaveText(title);
@@ -261,55 +293,127 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await page.getByRole("button", { name: "Clear search" }).click();
   await expect(page.locator(".project-card")).toHaveCount(12);
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
-  const sizes = await page.locator(".project-card").evaluateAll(cards => cards.map(c => ({ width: c.getBoundingClientRect().width, height: c.getBoundingClientRect().height })));
-  expect(Math.max(...sizes.map(s => s.width)) - Math.min(...sizes.map(s => s.width))).toBeLessThan(1);
-  expect(Math.max(...sizes.map(s => s.height)) - Math.min(...sizes.map(s => s.height))).toBeLessThan(1);
+  const sizes = await page
+    .locator(".project-card")
+    .evaluateAll((cards) =>
+      cards.map((c) => ({
+        width: c.getBoundingClientRect().width,
+        height: c.getBoundingClientRect().height,
+      })),
+    );
+  expect(
+    Math.max(...sizes.map((s) => s.width)) -
+      Math.min(...sizes.map((s) => s.width)),
+  ).toBeLessThan(1);
+  expect(
+    Math.max(...sizes.map((s) => s.height)) -
+      Math.min(...sizes.map((s) => s.height)),
+  ).toBeLessThan(1);
 });
 
 test("experience chronology and timeline descriptions", async ({ page }) => {
   const items = collectionEntries("experiences");
-  expect(items.map(e => e.startDate ?? "")).toEqual(["2026-08", "2026-01", "2026-01", "2025-07", "", ""]);
-  expect(() => validateEntries([{ ...records[0], startDate: "2026-13" }])).toThrow(/timeline/);
-  expect(() => validateEntries([{ ...records[0], startDate: "2026-08", endDate: "2025-01" }])).toThrow(/timeline/);
+  expect(items.map((e) => e.startDate ?? "")).toEqual([
+    "2026-08",
+    "2026-01",
+    "2026-01",
+    "2025-07",
+    "",
+    "",
+  ]);
+  expect(() =>
+    validateEntries([{ ...records[0], startDate: "2026-13" }]),
+  ).toThrow(/timeline/);
+  expect(() =>
+    validateEntries([
+      { ...records[0], startDate: "2026-08", endDate: "2025-01" },
+    ]),
+  ).toThrow(/timeline/);
   await page.goto("/experiences");
   await expect(page.locator(".experience-card")).toHaveCount(6);
-  await expect(page.locator(".experience-card").first().getByRole("listitem")).toHaveCount(3);
+  await expect(
+    page.locator(".experience-card").first().getByRole("listitem"),
+  ).toHaveCount(3);
   await expect(page.locator("time").first()).toHaveText("Aug 2026");
 });
 
-test("intro types once, flips tiles, and respects the motion control", async ({ browser }, testInfo) => {
-  const context = await browser.newContext({ baseURL: "http://127.0.0.1:3000", viewport: { width: 1280, height: 900 }, recordVideo: { dir: testInfo.outputPath("motion"), size: { width: 960, height: 675 } } });
+test("intro types once, flips tiles, and respects the motion control", async ({
+  browser,
+}, testInfo) => {
+  const context = await browser.newContext({
+    baseURL: "http://127.0.0.1:3000",
+    viewport: { width: 1280, height: 900 },
+    recordVideo: {
+      dir: testInfo.outputPath("motion"),
+      size: { width: 960, height: 675 },
+    },
+  });
   const page = await context.newPage();
   const errors: string[] = [];
-  page.on("pageerror", e => errors.push(e.message));
+  page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   const intro = page.locator(".intro-name");
   await expect(intro).toHaveAttribute("data-intro-state", "typing");
-  await expect(page.getByRole("heading", { name: "Sebastian Noel", exact: true })).toBeVisible();
-  await expect(page.locator(".tile-field")).toHaveAttribute("data-wave", "active");
-  expect(await page.locator(".tile-field").evaluate(el => el.getAnimations({ subtree: true }).length)).toBeGreaterThan(0);
+  await expect(
+    page.getByRole("heading", { name: "Sebastian Noel", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".tile-field")).toHaveAttribute(
+    "data-wave",
+    "active",
+  );
+  expect(
+    await page
+      .locator(".tile-field")
+      .evaluate((el) => el.getAnimations({ subtree: true }).length),
+  ).toBeGreaterThan(0);
   await page.screenshot({ path: testInfo.outputPath("intro-wave.png") });
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
   await page.getByRole("button", { name: "Pause background motion" }).click();
-  expect(await page.locator(".tile-field").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+  expect(
+    await page
+      .locator(".tile-field")
+      .evaluate((el) => el.getAnimations({ subtree: true }).length),
+  ).toBe(0);
   await page.getByRole("button", { name: "Play background motion" }).click();
-  await page.getByRole("navigation", { name: "Main", exact: true }).getByRole("link", { name: "Projects", exact: true }).click();
-  await page.getByRole("navigation", { name: "Main", exact: true }).getByRole("link", { name: "Home", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "Main", exact: true })
+    .getByRole("link", { name: "Projects", exact: true })
+    .click();
+  await page
+    .getByRole("navigation", { name: "Main", exact: true })
+    .getByRole("link", { name: "Home", exact: true })
+    .click();
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
   expect(await page.locator(".tile").count()).toBeLessThan(750);
   expect(errors).toEqual([]);
   await context.close();
 });
 
-test("reduced motion and early navigation cancel decorative motion", async ({ page }) => {
+test("reduced motion and early navigation cancel decorative motion", async ({
+  page,
+}) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.locator(".intro-name")).toHaveAttribute("data-intro-state", "complete");
-  expect(await page.locator(".tile-field").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+  await expect(page.locator(".intro-name")).toHaveAttribute(
+    "data-intro-state",
+    "complete",
+  );
+  expect(
+    await page
+      .locator(".tile-field")
+      .evaluate((el) => el.getAnimations({ subtree: true }).length),
+  ).toBe(0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.evaluate(() => sessionStorage.clear());
   await page.reload();
-  await page.getByRole("navigation", { name: "Main", exact: true }).getByRole("link", { name: "Projects", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "Main", exact: true })
+    .getByRole("link", { name: "Projects", exact: true })
+    .click();
   await page.waitForTimeout(1600);
-  expect(await page.locator(".tile-field").evaluate(el => el.getAnimations({ subtree: true }).length)).toBe(0);
+  expect(
+    await page
+      .locator(".tile-field")
+      .evaluate((el) => el.getAnimations({ subtree: true }).length),
+  ).toBe(0);
 });

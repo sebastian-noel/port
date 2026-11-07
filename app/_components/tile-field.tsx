@@ -10,7 +10,12 @@ export function TileField() {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const colors = ["#b6ceef", "#dbe2e8", "#f2f4f5", "#8cb1ec", "#527fc8"];
     const animations = new Set<Animation>();
-    let tiles: { face: HTMLSpanElement; x: number; y: number; color: string }[] = [];
+    let tiles: {
+      face: HTMLSpanElement;
+      x: number;
+      y: number;
+      color: string;
+    }[] = [];
     let paused = false;
     let resize: number | undefined;
 
@@ -21,7 +26,10 @@ export function TileField() {
     }
     function build() {
       cancel();
-      const size = Math.max(40, Math.ceil(Math.sqrt(innerWidth * innerHeight / 650)));
+      const size = Math.max(
+        40,
+        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 650)),
+      );
       const cols = Math.ceil(innerWidth / size);
       const rows = Math.ceil(innerHeight / size);
       const fragment = document.createDocumentFragment();
@@ -39,14 +47,23 @@ export function TileField() {
         face.append(document.createElement("i"), document.createElement("i"));
         tile.append(face);
         fragment.append(tile);
-        tiles.push({ face, x: (i % cols + .5) * size, y: (Math.floor(i / cols) + .5) * size, color });
+        tiles.push({
+          face,
+          x: ((i % cols) + 0.5) * size,
+          y: (Math.floor(i / cols) + 0.5) * size,
+          color,
+        });
       }
       element.replaceChildren(fragment);
       element.dataset.tileCount = String(tiles.length);
     }
-    function flip(tile: typeof tiles[number], delay = 0, duration = 900) {
+    function flip(tile: (typeof tiles)[number], delay = 0, duration = 900) {
       const animation = tile.face.animate(
-        [{ transform: "rotateY(0deg)" }, { transform: "rotateY(180deg)", offset: .5 }, { transform: "rotateY(360deg)" }],
+        [
+          { transform: "rotateY(0deg)" },
+          { transform: "rotateY(180deg)", offset: 0.5 },
+          { transform: "rotateY(360deg)" },
+        ],
         { duration, delay, easing: "cubic-bezier(.25,.55,.4,1)" },
       );
       animations.add(animation);
@@ -61,14 +78,21 @@ export function TileField() {
       cancel();
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";
-      tiles.forEach((tile) => flip(tile, Math.hypot(tile.x - x, tile.y - y) / 2.2, 850));
+      tiles.forEach((tile) =>
+        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 2.2, 850),
+      );
     }
     function idleFlip() {
       if (paused || media.matches || document.hidden || animations.size) return;
-      for (let i = 0; i < 3; i++) flip(tiles[Math.floor(Math.random() * tiles.length)], i * 120, 1300);
+      for (let i = 0; i < 3; i++)
+        flip(tiles[Math.floor(Math.random() * tiles.length)], i * 120, 1300);
     }
-    function stopIfHidden() { if (document.hidden) cancel(); }
-    function preferenceChange() { if (media.matches) cancel(); }
+    function stopIfHidden() {
+      if (document.hidden) cancel();
+    }
+    function preferenceChange() {
+      if (media.matches) cancel();
+    }
     function pause(event: Event) {
       paused = (event as CustomEvent<boolean>).detail;
       if (paused) cancel();
@@ -97,5 +121,12 @@ export function TileField() {
       media.removeEventListener("change", preferenceChange);
     };
   }, []);
-  return <div ref={root} className="tile-field" aria-hidden="true" data-wave="idle" />;
+  return (
+    <div
+      ref={root}
+      className="tile-field"
+      aria-hidden="true"
+      data-wave="idle"
+    />
+  );
 }

@@ -46,7 +46,13 @@ export default async function Detail({ params }: Props) {
       {entry.collection === "projects" && <Cover entry={entry} />}
       <div className="detail-body">
         {entry.placeholder && <p>Placeholder. Details will be added later.</p>}
-        {!!entry.bullets?.length && <ul>{entry.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+        {!!entry.bullets?.length && (
+          <ul>
+            {entry.bullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        )}
         {entry.sections.map((section) => (
           <section key={section.heading}>
             <h2>{section.heading}</h2>

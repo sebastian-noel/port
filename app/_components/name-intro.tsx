@@ -36,13 +36,20 @@ export function NameIntro() {
         if (index === name.length) {
           settle();
           const rect = element.getBoundingClientRect();
-          window.dispatchEvent(new CustomEvent("port:intro-complete", {
-            detail: { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 },
-          }));
+          window.dispatchEvent(
+            new CustomEvent("port:intro-complete", {
+              detail: {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              },
+            }),
+          );
         }
       }, 85);
     }
-    function motionChange() { if (media.matches) settle(); }
+    function motionChange() {
+      if (media.matches) settle();
+    }
     media.addEventListener("change", motionChange);
     return () => {
       clearInterval(timer);
@@ -55,10 +62,21 @@ export function NameIntro() {
     <section className="splash">
       <h1 ref={heading} className="intro-name" data-intro-state="complete">
         <span className="sr-only">{name}</span>
-        <span className="name-reserve" aria-hidden="true">{name}</span>
-        <span className="name-typed" aria-hidden="true"><span ref={typed}>{name}</span><span className="caret" /></span>
+        <span className="name-reserve" aria-hidden="true">
+          {name}
+        </span>
+        <span className="name-typed" aria-hidden="true">
+          <span ref={typed}>{name}</span>
+          <span className="caret" />
+        </span>
       </h1>
-      <a className="splash-down icon-button" href="#workspace" aria-label="Explore the site"><Icon name="down" /></a>
+      <a
+        className="splash-down icon-button"
+        href="#workspace"
+        aria-label="Explore the site"
+      >
+        <Icon name="down" />
+      </a>
     </section>
   );
 }
