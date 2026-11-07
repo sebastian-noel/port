@@ -41,9 +41,3 @@ jobs:
           curl --fail --silent --show-error --retry 10 --retry-connrefused \
             --retry-delay 1 --max-time 5 --output /tmp/port-home.html http://127.0.0.1:3000/
           grep -Fq 'Sebastian Noel</h1>' /tmp/port-home.html
-          google-chrome --headless --no-sandbox --disable-dev-shm-usage --no-first-run \
-            --window-size=1280,800 --screenshot=/tmp/port-desktop.png http://127.0.0.1:3000/ 2>/tmp/port-chrome.log
-          google-chrome --headless --no-sandbox --disable-dev-shm-usage --no-first-run \
-            --window-size=390,844 --screenshot=/tmp/port-mobile.png http://127.0.0.1:3000/ 2>>/tmp/port-chrome.log
-          base64 -w 4096 /tmp/port-desktop.png | sed 's/^/PORT_DESKTOP_CHUNK /'
-          base64 -w 4096 /tmp/port-mobile.png | sed 's/^/PORT_MOBILE_CHUNK /'
