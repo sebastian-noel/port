@@ -78,9 +78,10 @@ export function Navigation() {
         aria-labelledby="menu-title"
         onKeyDown={(event) => {
           if (event.key !== "Tab") return;
-          const controls = event.currentTarget.querySelectorAll<HTMLElement>(
-            "button, a[href]",
-          );
+          const controls =
+            event.currentTarget.querySelectorAll<HTMLElement>(
+              "button, a[href]",
+            );
           const first = controls[0];
           const last = controls[controls.length - 1];
           if (event.shiftKey && document.activeElement === first) {

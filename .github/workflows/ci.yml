@@ -29,9 +29,6 @@ jobs:
           node-version-file: .node-version
           package-manager-cache: false
       - run: npm ci
-      - run: npx prettier --write app tests playwright.config.ts .github eslint.config.mjs package.json tsconfig.json docs
-      - name: Export formatted review sources
-        run: python3 .github/scripts/export-review.py source
       - run: npm audit --omit=dev --audit-level=high
       - run: npm run format:check
       - run: npm run lint
@@ -39,6 +36,11 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm test
-      - name: Export visual review evidence
+      - name: Save browser evidence
         if: always()
-        run: python3 .github/scripts/export-review.py images
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: browser-evidence
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7

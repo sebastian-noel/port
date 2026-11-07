@@ -195,7 +195,9 @@ test("enlarged text and landscape keep navigation usable", async ({ page }) => {
   await page.goto("/");
   await page.addStyleTag({ content: "html { font-size: 200%; }" });
   expect(
-    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
   ).toBe(true);
   await page.getByRole("button", { name: "Menu" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -209,6 +211,9 @@ test("enlarged text and landscape keep navigation usable", async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
   await page.reload();
   await page.getByRole("button", { name: "Menu" }).click();
-  await page.getByRole("dialog").getByRole("link", { name: "Resume", exact: true }).click();
+  await page
+    .getByRole("dialog")
+    .getByRole("link", { name: "Resume", exact: true })
+    .click();
   await expect(page).toHaveURL(/\/resume$/);
 });
