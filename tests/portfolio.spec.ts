@@ -84,6 +84,12 @@ test("mobile menu traps focus, closes with Escape, restores focus, and navigates
       await page.evaluate(() => !!document.activeElement?.closest("dialog")),
     ).toBe(true);
   }
+  for (let i = 0; i < 12; i++) {
+    await page.keyboard.press("Shift+Tab");
+    expect(
+      await page.evaluate(() => !!document.activeElement?.closest("dialog")),
+    ).toBe(true);
+  }
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();
   await expect(menu).toBeFocused();
@@ -182,4 +188,27 @@ test("capture desktop and mobile with reduced motion", async ({
     fullPage: true,
   });
   expect(errors).toEqual([]);
+});
+
+test("enlarged text and landscape keep navigation usable", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto("/");
+  await page.addStyleTag({ content: "html { font-size: 200%; }" });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+  ).toBe(true);
+  await page.getByRole("button", { name: "Menu" }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  expect(
+    await page.evaluate(() => {
+      const dialog = document.querySelector("dialog")!;
+      return dialog.scrollWidth <= dialog.clientWidth;
+    }),
+  ).toBe(true);
+  await page.keyboard.press("Escape");
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page.reload();
+  await page.getByRole("button", { name: "Menu" }).click();
+  await page.getByRole("dialog").getByRole("link", { name: "Resume", exact: true }).click();
+  await expect(page).toHaveURL(/\/resume$/);
 });

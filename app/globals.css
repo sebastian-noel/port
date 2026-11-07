@@ -29,6 +29,7 @@ a {
   color: inherit;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 5px;
+  overflow-wrap: anywhere;
 }
 button {
   font: inherit;
@@ -57,6 +58,7 @@ h2,
 h3 {
   line-height: 1.07;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 h1 {
   font-size: clamp(2.8rem, 7vw, 6.5rem);
@@ -203,6 +205,7 @@ dialog::backdrop {
 }
 .menu-top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -621,7 +624,7 @@ dialog nav a[aria-current] {
     inset: 0.5rem -0.5rem;
   }
   .hero h1 {
-    font-size: clamp(3.6rem, 15vw, 6rem);
+    font-size: clamp(2.6rem, 14vw, 6rem);
   }
   .hero-content .eyebrow {
     max-width: 20rem;
