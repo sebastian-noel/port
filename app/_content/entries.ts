@@ -11,13 +11,15 @@ export type Entry = {
   published: boolean;
   featured: boolean;
   award?: string;
-  cover: { placeholder: true } | {
-    placeholder: false;
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+  cover:
+    | { placeholder: true }
+    | {
+        placeholder: false;
+        src: string;
+        alt: string;
+        width: number;
+        height: number;
+      };
   sections: { heading: string; text: string }[];
   links: { label: string; href: string }[];
 };
@@ -28,7 +30,8 @@ export const records: Entry[] = [
     collection: "projects",
     slug: "permanence",
     title: "Permanence",
-    summary: "A robot that remembers objects, even when they disappear from view.",
+    summary:
+      "A robot that remembers objects, even when they disappear from view.",
     context: "Robotics · Knight Hacks IX",
     published: false,
     featured: true,
@@ -44,7 +47,12 @@ export const records: Entry[] = [
         text: "A language request identifies a target, while a tracker maintains its identity and position. The rover can use that remembered world state when the target is no longer visible to its camera.",
       },
     ],
-    links: [{ label: "View on Devpost", href: "https://devpost.com/software/permanence" }],
+    links: [
+      {
+        label: "View on Devpost",
+        href: "https://devpost.com/software/permanence",
+      },
+    ],
   },
   {
     collection: "projects",
@@ -66,13 +74,19 @@ export const records: Entry[] = [
         text: "The system combines a vision pipeline, audio transcription, and semantic search. A web dashboard presents the memory timeline and hardware status. The prototype received second place overall at HackUSF 2026.",
       },
     ],
-    links: [{ label: "View on Devpost", href: "https://devpost.com/software/recall-oswlh3" }],
+    links: [
+      {
+        label: "View on Devpost",
+        href: "https://devpost.com/software/recall-oswlh3",
+      },
+    ],
   },
   {
     collection: "projects",
     slug: "greghouse",
     title: "GregHouse",
-    summary: "A living plant, a moisture sensor, and a multiplayer virtual garden.",
+    summary:
+      "A living plant, a moisture sensor, and a multiplayer virtual garden.",
     context: "Connected devices · BloomKnights 2026",
     published: false,
     featured: true,
@@ -88,13 +102,19 @@ export const records: Entry[] = [
         text: "The team's pipeline carries sensor readings through AWS into the garden. The project brings physical hardware and multiplayer web interactions together, and received third place overall at BloomKnights 2026.",
       },
     ],
-    links: [{ label: "View on Devpost", href: "https://devpost.com/software/greghouse" }],
+    links: [
+      {
+        label: "View on Devpost",
+        href: "https://devpost.com/software/greghouse",
+      },
+    ],
   },
   {
     collection: "experiences",
     slug: "bny",
     title: "BNY",
-    summary: "Exploring engineering through UCF's experiential internship program.",
+    summary:
+      "Exploring engineering through UCF's experiential internship program.",
     context: "Experiential learning · UCF × BNY",
     published: false,
     featured: true,
@@ -118,7 +138,8 @@ export const records: Entry[] = [
     collection: "experiences",
     slug: "graphics-programming-knights",
     title: "Graphics Programming Knights",
-    summary: "Leading development of a student organization's website and Discord bot.",
+    summary:
+      "Leading development of a student organization's website and Discord bot.",
     context: "Student organization · Development lead",
     published: false,
     featured: true,
@@ -132,9 +153,14 @@ export function validateEntries(items: Entry[]) {
   const paths = new Set<string>();
   for (const entry of items) {
     const path = `/${entry.collection}/${entry.slug}`;
-    if (!["projects", "experiences"].includes(entry.collection) ||
-      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.slug) || paths.has(path) ||
-      !entry.title.trim() || !entry.summary.trim() || !entry.context.trim()) {
+    if (
+      !["projects", "experiences"].includes(entry.collection) ||
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.slug) ||
+      paths.has(path) ||
+      !entry.title.trim() ||
+      !entry.summary.trim() ||
+      !entry.context.trim()
+    ) {
       throw new Error(`Invalid or duplicate content record: ${path}`);
     }
     paths.add(path);
@@ -144,15 +170,30 @@ export function validateEntries(items: Entry[]) {
       }
     }
     if (!entry.cover.placeholder) {
-      if (!/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(entry.cover.src) ||
-        !entry.cover.alt.trim() || !Number.isInteger(entry.cover.width) || !Number.isInteger(entry.cover.height) || entry.cover.width <= 0 || entry.cover.height <= 0) {
+      if (
+        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(
+          entry.cover.src,
+        ) ||
+        !entry.cover.alt.trim() ||
+        !Number.isInteger(entry.cover.width) ||
+        !Number.isInteger(entry.cover.height) ||
+        entry.cover.width <= 0 ||
+        entry.cover.height <= 0
+      ) {
         throw new Error(`Invalid cover: ${path}`);
       }
     }
-    if (entry.published && (entry.cover.placeholder || entry.sections.length === 0)) {
+    if (
+      entry.published &&
+      (entry.cover.placeholder || entry.sections.length === 0)
+    ) {
       throw new Error(`Published record needs real media and body: ${path}`);
     }
-    if (entry.sections.some((section) => !section.heading.trim() || !section.text.trim())) {
+    if (
+      entry.sections.some(
+        (section) => !section.heading.trim() || !section.text.trim(),
+      )
+    ) {
       throw new Error(`Empty content section: ${path}`);
     }
   }

@@ -18,12 +18,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={font.className}>
-        <a className="skip-link" href="#content">Skip to content</a>
+        <a className="skip-link" href="#content">
+          Skip to content
+        </a>
         <Navigation />
-        <main id="content" tabIndex={-1}>{children}</main>
+        <main id="content" tabIndex={-1}>
+          {children}
+        </main>
         <footer className="site-footer wrap">
-          <div><Link className="footer-name" href="/">Sebastian Noel<span aria-hidden="true">.</span></Link><p>A little curiosity. A lot of building.</p></div>
-          <nav aria-label="Footer"><Link href="/resume">Resume</Link>{site.profiles.map((profile) => <a href={profile.href} key={profile.label}>{profile.label} ↗</a>)}</nav>
+          <div>
+            <Link className="footer-name" href="/">
+              Sebastian Noel<span aria-hidden="true">.</span>
+            </Link>
+            <p>A little curiosity. A lot of building.</p>
+          </div>
+          <nav aria-label="Footer">
+            <Link href="/resume">Resume</Link>
+            {site.profiles.map((profile) => (
+              <a href={profile.href} key={profile.label}>
+                {profile.label} ↗
+              </a>
+            ))}
+          </nav>
         </footer>
       </body>
     </html>

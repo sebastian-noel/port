@@ -13,7 +13,7 @@ The foundation uses typed records in `app/_content/entries.ts` and shared collec
 
 ## Preview and launch
 
-`site.indexable` in `app/_lib/site.ts` is deliberately false. The entire foundation has `noindex, nofollow`, its sitemap is empty, and draft records are visible for review. Deployment Protection provides access control; noindex alone does not make a page private. After the explicit launch review, enabling indexing removes draft records from all collections, detail routes, Home, and Resume. The sitemap includes only published details and the approved core pages, using `https://snoel.dev`.
+`launchApproved` in `app/_lib/site.ts` is deliberately false. `site.indexable` additionally requires Vercel’s production environment, so development and preview builds stay non-indexable after launch. The entire foundation has `noindex, nofollow`, its sitemap is empty, and draft records are visible for review. Deployment Protection provides access control; noindex alone does not make a page private. After the explicit launch review, enabling indexing removes draft records from all collections, detail routes, Home, and Resume. The sitemap includes only published details and the approved core pages, using `https://snoel.dev`.
 
 Keep search crawlers able to read indexing directives. The initial robots policy disallows GPTBot; it permits ordinary search crawlers. Do not enable indexing on a placeholder preview or use a preview URL as canonical.
 

@@ -13,26 +13,59 @@ export function generateStaticParams() {
 
 async function getEntry(params: Props["params"]) {
   const { collection, slug } = await params;
-  const entry = entries.find((entry) => entry.collection === collection && entry.slug === slug);
+  const entry = entries.find(
+    (entry) => entry.collection === collection && entry.slug === slug,
+  );
   if (!entry) notFound();
   return entry;
 }
 
 export async function generateMetadata({ params }: Props) {
   const entry = await getEntry(params);
-  return pageMetadata(entry.title, entry.summary, `/${entry.collection}/${entry.slug}`);
+  return pageMetadata(
+    entry.title,
+    entry.summary,
+    `/${entry.collection}/${entry.slug}`,
+  );
 }
 
 export default async function Detail({ params }: Props) {
   const entry = await getEntry(params);
-  return <article className="wrap detail">
-    <Link className="back-link" href={`/${entry.collection}`}>← All {entry.collection}</Link>
-    <header className="page-heading"><p className="eyebrow">{entry.context}</p><h1>{entry.title}</h1><p>{entry.summary}</p>{entry.award && <p className="award">{entry.award}</p>}</header>
-    {entry.collection === "projects" && <Cover entry={entry} />}
-    <div className="detail-body">
-      {!entry.published && <p className="draft-note">Case study in progress. Personal contributions, dates, and selected photos are being prepared.</p>}
-      {entry.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><p>{section.text}</p></section>)}
-      {entry.links.length > 0 && <nav className="detail-links" aria-label="Project links">{entry.links.map((link) => <a className="text-link" href={link.href} key={link.href}>{link.label} ↗</a>)}</nav>}
-    </div>
-  </article>;
+  return (
+    <article className="wrap detail">
+      <Link className="back-link" href={`/${entry.collection}`}>
+        ← All {entry.collection}
+      </Link>
+      <header className="page-heading">
+        <p className="eyebrow">{entry.context}</p>
+        <h1>{entry.title}</h1>
+        <p>{entry.summary}</p>
+        {entry.award && <p className="award">{entry.award}</p>}
+      </header>
+      {entry.collection === "projects" && <Cover entry={entry} />}
+      <div className="detail-body">
+        {!entry.published && (
+          <p className="draft-note">
+            Case study in progress. Personal contributions, dates, and selected
+            photos are being prepared.
+          </p>
+        )}
+        {entry.sections.map((section) => (
+          <section key={section.heading}>
+            <h2>{section.heading}</h2>
+            <p>{section.text}</p>
+          </section>
+        ))}
+        {entry.links.length > 0 && (
+          <nav className="detail-links" aria-label="Project links">
+            {entry.links.map((link) => (
+              <a className="text-link" href={link.href} key={link.href}>
+                {link.label} ↗
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
+    </article>
+  );
 }

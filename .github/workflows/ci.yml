@@ -28,7 +28,7 @@ jobs:
         with:
           node-version-file: .node-version
           package-manager-cache: false
-      - run: npm install --ignore-scripts
+      - run: npm ci
       - run: npx prettier --write app tests playwright.config.ts .github eslint.config.mjs package.json tsconfig.json docs
       - name: Export formatted review sources
         run: python3 .github/scripts/export-review.py source
