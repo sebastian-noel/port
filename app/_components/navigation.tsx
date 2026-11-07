@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import { Icon } from "./icons";
 import { site } from "../_lib/site";
 
 const pages = [
@@ -17,6 +18,7 @@ export function Navigation() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   function closeMenu() {
     dialog.current?.close();
@@ -43,20 +45,17 @@ export function Navigation() {
     <header className="site-header">
       <div className="nav-row">
         <Link className="wordmark" href="/" aria-label="Sebastian Noel, home">
-          sn<span aria-hidden="true">.</span>
+          snoel<span>.dev</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main">
           {pageLinks()}
         </nav>
         <div className="nav-actions">
-          <Link className="resume-link" href="/resume">
-            Resume <span aria-hidden="true">↗</span>
-          </Link>
+          <a className="resume-link" href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)"><Icon name="file" /><span>Resume</span><Icon name="external" /></a>
           {site.profiles.slice(0, 2).map((profile) => (
-            <a className="social-link" key={profile.label} href={profile.href}>
-              {profile.label}
-            </a>
+            <a className="social-link icon-button" key={profile.label} href={profile.href} aria-label={profile.label} target="_blank" rel="noopener noreferrer"><Icon name={profile.label === "GitHub" ? "github" : "linkedin"} /></a>
           ))}
+          <button className="motion-toggle icon-button" aria-label={paused ? "Play background motion" : "Pause background motion"} aria-pressed={paused} onClick={() => { setPaused(!paused); window.dispatchEvent(new CustomEvent("port:motion-paused", { detail: !paused })); }}><Icon name={paused ? "play" : "pause"} /></button>
           <button
             className="menu-trigger"
             ref={trigger}
@@ -68,7 +67,7 @@ export function Navigation() {
               setOpen(true);
             }}
           >
-            <span aria-hidden="true">☰</span> Menu
+            <Icon name="menu" /><span className="sr-only">Menu</span>
           </button>
         </div>
       </div>
@@ -100,19 +99,17 @@ export function Navigation() {
         <div className="menu-top">
           <h2 id="menu-title">Explore</h2>
           <button onClick={closeMenu} autoFocus>
-            Close <span aria-hidden="true">×</span>
+            Close <Icon name="close" />
           </button>
         </div>
         <nav aria-label="Mobile">
           {pageLinks()}
-          <Link href="/resume" onClick={closeMenu}>
-            Resume
-          </Link>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume (PDF, opens in a new tab)" onClick={closeMenu}>Resume <Icon name="external" /></a>
         </nav>
         <div className="menu-socials">
           {site.profiles.map((profile) => (
             <a key={profile.label} href={profile.href} onClick={closeMenu}>
-              {profile.label} ↗
+              {profile.label} <Icon name="external" />
             </a>
           ))}
         </div>

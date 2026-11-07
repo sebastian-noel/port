@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Cover } from "../../_components/entries";
+import { Cover, Dates } from "../../_components/entries";
 import { entries } from "../../_content/entries";
 import { pageMetadata } from "../../_lib/site";
 
@@ -37,19 +37,16 @@ export default async function Detail({ params }: Props) {
         ← All {entry.collection}
       </Link>
       <header className="page-heading">
-        <p className="eyebrow">{entry.context}</p>
         <h1>{entry.title}</h1>
+        {entry.role && <p>{entry.role}</p>}
+        <Dates entry={entry} />
         <p>{entry.summary}</p>
         {entry.award && <p className="award">{entry.award}</p>}
       </header>
       {entry.collection === "projects" && <Cover entry={entry} />}
       <div className="detail-body">
-        {!entry.published && (
-          <p className="draft-note">
-            Case study in progress. Personal contributions, dates, and selected
-            photos are being prepared.
-          </p>
-        )}
+        {entry.placeholder && <p>Placeholder. Details will be added later.</p>}
+        {!!entry.bullets?.length && <ul>{entry.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>
         {entry.sections.map((section) => (
           <section key={section.heading}>
             <h2>{section.heading}</h2>

@@ -1,22 +1,29 @@
-# Portfolio content
+# Content and media
 
-The foundation uses typed records in `app/_content/entries.ts` and shared collection/detail templates. Add one record to create a card, direct URL, resume entry, and (when published) sitemap entry. No routing or layout edits are needed. Structured text sections cover the initial case studies without an MDX dependency; richer authoring can be added when needed.
+Edit `app/_content/entries.ts` to add a project or experience. Collection cards and detail routes are generated from the same records.
 
-## Add a project or experience
+- Give each record a stable slug, title, summary, cover, sections, and HTTPS source links.
+- Projects support `technologies`, `team`, and `event` for the search field. Search currently matches plain substrings across these fields and the title. Metadata is incomplete; verify it before expansion.
+- Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and resume-style `bullets`. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
+- `placeholder: true` identifies a future entry. It is visibly labeled, has no collection-card link, and cannot be published.
+- A placeholder cover renders a letter on a flat color. Replace it with an optimized image in `public/media/`, with dimensions and meaningful alt text.
+- `published: true` requires real media and body content. All current records are drafts. Drafts appear in protected previews and are excluded once production indexing is enabled.
+- Review individual contributions, dates, metrics, photo permission, and content before publication.
 
-1. Copy a record and choose `projects` or `experiences`. Use a unique, stable lowercase hyphenated slug. Preserve old URLs with redirects if a slug changes.
-2. Verify the summary, context, awards, dates, and personal contribution against source material. Distinguish team results from personal work. Set `featured` to show the entry on Home.
-3. Add meaningful body sections and verified HTTPS links. Omit unknown dates, metrics, roles, and links.
-4. Put reviewed web-ready media in `public/media/`. Use descriptive lowercase filenames, remove GPS/device metadata, inspect visible private details, and supply accurate alt text and pixel dimensions. Replace `{ placeholder: true }` with `{ placeholder: false, src: "/media/example.webp", alt: "...", width: 1600, height: 1200 }`. Never import original resource directories or private resume copies.
-5. Keep `published: false` while reviewing. The build validates slugs, required metadata, HTTPS links, image metadata, and published content completeness. Real covers must also exist on disk (checked in CI).
-6. Preview desktop/mobile, keyboard navigation, full-page reload, metadata, and social image. Set `published: true` only for approved content.
+The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume, including UCF's experiential context for BNY. Unknown dates remain absent.
 
-## Preview and launch
+## Resume
 
-`launchApproved` in `app/_lib/site.ts` is deliberately false. `site.indexable` additionally requires Vercel’s production environment, so development and preview builds stay non-indexable after launch. The entire foundation has `noindex, nofollow`, its sitemap is empty, and draft records are visible for review. Deployment Protection provides access control; noindex alone does not make a page private. After the explicit launch review, enabling indexing removes draft records from all collections, detail routes, Home, and Resume. The sitemap includes only published details and the approved core pages, using `https://snoel.dev`.
+`public/resume.pdf` is the contact-free public version of the supplied resume. Private contact text was removed from the page drawing operations, not covered visually. It retains the education, experience, projects, and skills sections, plus public profile links as text. Header and footer resume actions open this PDF in a new tab. `/resume` remains a shareable landing page.
 
-Keep search crawlers able to read indexing directives. The initial robots policy disallows GPTBot; it permits ordinary search crawlers. Do not enable indexing on a placeholder preview or use a preview URL as canonical.
+Do not commit the original resume, private contact information, original assets, or secrets. Review text extraction and rendering whenever replacing the public PDF.
 
-The HTML resume is an honest draft generated from the same records. It does not yet include a PDF. Create a public PDF from reviewed contact-free text, inspect extracted text/links/metadata and the visible pages, then add the download link. Do not copy the private source PDF into `public/`.
+## Motion and home layout
 
-The first design, biography, individual contribution statements, approved photographs, exact dates, full resume, and downloadable PDF still require review. Motion and the typing game belong to the next milestone.
+The name types once per tab session, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations; idle motion flips only three tiles at a time. Reduced motion displays the complete name and suppresses decorative animation. The header pause button cancels background motion, and hidden tabs stop active animation.
+
+The blank home section reserves space for the future typing game. Projects and experiences are compact side links. No game logic or backend is implemented yet.
+
+## Release
+
+PR #5 remains the design-review change. Keep it in draft until Sebastian accepts the design. Do not merge into main or deploy to production before explicit approval. Protected previews remain noindex and have an empty sitemap. Real media, complete content, game features, and launch checks follow approval in separate scoped PRs.

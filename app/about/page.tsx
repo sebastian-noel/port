@@ -29,18 +29,10 @@ export default function About() {
         }}
       />
       <header className="page-heading">
-        <p className="eyebrow">The person behind the projects</p>
-        <h1>Hi, I’m Sebastian.</h1>
+        <h1>Hi, I’m Sebastian</h1>
       </header>
       <div className="about-columns">
-        <div className="portrait-placeholder">
-          <div className="personal-tiles" aria-hidden="true">
-            {Array.from({ length: 9 }, (_, i) => (
-              <span key={i} />
-            ))}
-          </div>
-          <p>Portrait coming soon</p>
-        </div>
+        <div className="portrait-placeholder tone-coral" aria-hidden="true">S</div>
         <div className="prose">
           <p className="lead">
             I’m interested in what happens when software meets the physical
