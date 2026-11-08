@@ -532,7 +532,8 @@ dialog nav a {
 .project-copy svg {
   width: 18px;
 }
-.project-card.is-placeholder, .timeline-entry.is-placeholder .experience-card {
+.project-card.is-placeholder,
+.timeline-entry.is-placeholder .experience-card {
   background: #b4c9e9;
 }
 .empty-results {

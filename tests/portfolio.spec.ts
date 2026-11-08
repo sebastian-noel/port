@@ -200,9 +200,15 @@ test("capture desktop and mobile with reduced motion", async ({
   await page.screenshot({ path: testInfo.outputPath("mobile-menu.png") });
   await page.keyboard.press("Escape");
   await page.goto("/projects");
-  await page.screenshot({ path: testInfo.outputPath("mobile-projects.png"), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath("mobile-projects.png"),
+    fullPage: true,
+  });
   await page.goto("/experiences");
-  await page.screenshot({ path: testInfo.outputPath("mobile-experiences.png"), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath("mobile-experiences.png"),
+    fullPage: true,
+  });
   await page.goto("/projects/permanence");
   await page.screenshot({
     path: testInfo.outputPath("mobile-detail.png"),
@@ -261,7 +267,13 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
-  const pdfNavigation = page.context().waitForEvent("request", (request) => request.url().endsWith("/resume.pdf") && request.isNavigationRequest());
+  const pdfNavigation = page
+    .context()
+    .waitForEvent(
+      "request",
+      (request) =>
+        request.url().endsWith("/resume.pdf") && request.isNavigationRequest(),
+    );
   const popupPromise = page.waitForEvent("popup");
   await resume.click();
   const popup = await popupPromise;
@@ -299,20 +311,20 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
   for (const width of [1280, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });
-  const sizes = await page.locator(".project-card").evaluateAll((cards) =>
-    cards.map((c) => ({
-      width: c.getBoundingClientRect().width,
-      height: c.getBoundingClientRect().height,
-    })),
-  );
-  expect(
-    Math.max(...sizes.map((s) => s.width)) -
-      Math.min(...sizes.map((s) => s.width)),
-  ).toBeLessThan(1);
-  expect(
-    Math.max(...sizes.map((s) => s.height)) -
-      Math.min(...sizes.map((s) => s.height)),
-  ).toBeLessThan(1);
+    const sizes = await page.locator(".project-card").evaluateAll((cards) =>
+      cards.map((c) => ({
+        width: c.getBoundingClientRect().width,
+        height: c.getBoundingClientRect().height,
+      })),
+    );
+    expect(
+      Math.max(...sizes.map((s) => s.width)) -
+        Math.min(...sizes.map((s) => s.width)),
+    ).toBeLessThan(1);
+    expect(
+      Math.max(...sizes.map((s) => s.height)) -
+        Math.min(...sizes.map((s) => s.height)),
+    ).toBeLessThan(1);
   }
 });
 
