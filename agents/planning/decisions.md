@@ -128,3 +128,7 @@ Sebastian asked to shelve the tile clusters and scroll drift from [issue #7](htt
 ## 2026-11-08 contrast adjustment
 
 Sebastian chose a color close to the original cornflower blue with 3.5:1 contrast against white. Use `#4e87ec` for the canvas and reserve white for large text. Use dark navy for smaller text and keep coral as the accent. [Issue #9](https://github.com/sebastian-noel/port/issues/9)
+
+## 2026-11-08 UI review evidence
+
+Sebastian confirmed that UI screenshots should be attached directly in the PR description. Use fewer than five screenshots and choose only the most useful views. One desktop Home screenshot is sufficient for the palette change. [Coding workflow](coding-workflow.md#visual-evidence-in-prs)
