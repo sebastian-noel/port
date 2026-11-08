@@ -34,11 +34,13 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
-      - name: Smoke-test the built homepage
-        run: |
-          npm run start -- --hostname 127.0.0.1 --port 3000 &
-          server_pid=$!
-          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
-          curl --fail --silent --show-error --retry 10 --retry-connrefused \
-            --retry-delay 1 --max-time 5 --output /tmp/port-home.html http://127.0.0.1:3000/
-          grep -Fq 'Sebastian Noel</h1>' /tmp/port-home.html
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: browser-evidence
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "format:check": "prettier --check app .github eslint.config.mjs package.json tsconfig.json"
+    "format:check": "prettier --check app tests playwright.config.ts .github eslint.config.mjs package.json tsconfig.json docs",
+    "test": "playwright test"
   },
   "dependencies": {
     "next": "16.4.5",
@@ -25,6 +26,7 @@
     "eslint": "^9.0.0",
     "eslint-config-next": "16.4.5",
     "prettier": "^3.0.0",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "@playwright/test": "1.65.0"
   }
 }
