@@ -2,7 +2,7 @@
 
 ## Project and current stage
 
-Port is Sebastian Noel's personal portfolio at `snoel.dev`. Repository setup, the Next.js scaffold, CI, and the Vercel rehearsal are complete. Sebastian accepted the revised portfolio as a first draft and requested more polish before release. Track review in draft PR #5. Production release requires his explicit approval. Review the [coding workflow](planning/coding-workflow.md) before implementation or GitHub setup.
+Port is Sebastian Noel's personal portfolio at `snoel.dev`. Repository setup, the Next.js scaffold, CI, and the Vercel rehearsal are complete. Sebastian accepted the revised portfolio as a first draft and requested more polish before release. Track the first draft in PR #5. Sebastian approved merging the baseline into `main`. A public launch requires separate approval. Review the [coding workflow](planning/coding-workflow.md) before implementation or GitHub setup.
 
 Read [README.md](README.md), [planning/brief.md](planning/brief.md), and [planning/decisions.md](planning/decisions.md) before continuing. Use the [progression checklist](planning/progression.md) for the next milestone and GitHub Issues for individual work. Record new decisions in the decision log and update the affected specification together.
 
@@ -28,7 +28,7 @@ Read [README.md](README.md), [planning/brief.md](planning/brief.md), and [planni
 - Project and experience details must have their own shareable URLs. Content additions should not require rebuilding page layouts.
 - Do not invent dates, metrics, ownership claims, testimonials, awards, employment status, or project media. Separate Sebastian's contributions from team outcomes.
 - Use current local source documents and project evidence when writing portfolio copy. Prior chat context is a lead to verify, not publication-ready evidence.
-- Keep personal contact details out of public artifacts and Git history. Publish a contact-free, indexable resume and follow the [search and privacy plan](planning/search-visibility.md) for public pages, profiles, and media.
+- Sebastian approved his contact email for public use and wants it available on About. Keep his phone number and other private contact details out of public artifacts and Git history. Publish a contact-free, indexable resume and follow the [search and privacy plan](planning/search-visibility.md) for public pages, profiles, and media.
 - Use plain, concise site copy; avoid em dashes in drafted personal copy unless Sebastian requests them.
 
 ## Git and review

@@ -18,10 +18,11 @@ Write clear, factual summaries that connect Sebastian to the work, role, dates, 
 | Material | Publication rule |
 | --- | --- |
 | Name, public roles and projects, verified profiles, approved photos | Publish on the relevant public pages and include in search metadata where useful. |
+| Approved contact email | Publish in the About contact section. Its presence in Git commit metadata is acceptable. |
 | Phone number and other private details | Keep out of public page text, PDFs, metadata, JSON-LD, client payloads, screenshots, and public Git history. Keep the contact version for direct sharing. |
 | Public resume | Publish readable, indexable HTML at `/resume` and a downloadable, indexable PDF at `/resume.pdf`. Derive both from the same reviewed public facts. Include verified social links, with private contact information removed. |
 
-Generate the public PDF from contact-free source text. Review the PDF’s extracted text, links, and document metadata, then check the visible pages before committing or deploying it. Keep the original contact copy and other private source material out of the public repo, including Git history and public CI artifacts. Check public LinkedIn and GitHub profile fields and public commit author details for contact information as well. When replacing a previously published contact copy, remove it at the source. Copies hosted by others can still appear in search.
+Generate the public PDF from contact-free source text. Review the PDF’s extracted text, links, and document metadata, then check the visible pages before committing or deploying it. Keep the original contact copy and other private source material out of the public repo, including Git history and public CI artifacts. Check public LinkedIn and GitHub profile fields and commit metadata for private contact details. When replacing a previously published contact copy, remove it at the source. Copies hosted by others can still appear in search.
 
 ## Launch and follow-up
 

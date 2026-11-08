@@ -35,6 +35,6 @@ The goal is a personal, playful portfolio with enough clarity for someone to qui
 
 ## Current stage
 
-Sebastian accepted the revised foundation as a first draft. Use [draft PR #5](https://github.com/sebastian-noel/port/pull/5) for the preview and the [progression checklist](planning/progression.md) to track polish and release readiness. Finalize the monthly reset timezone, detailed scoring rules, and owner sign-in method at their listed milestones.
+Sebastian accepted the revised foundation as a first draft. Use [PR #5](https://github.com/sebastian-noel/port/pull/5) for the preview and the [progression checklist](planning/progression.md) to track polish and release readiness. Finalize the monthly reset timezone, detailed scoring rules, and owner sign-in method at their listed milestones.
 
 Suggestions throughout these documents are explicitly labeled. They make the plan reviewable without treating undecided details as commitments.

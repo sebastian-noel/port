@@ -4,7 +4,7 @@ Sebastian is the sole developer and uses Codex for implementation and review. Gi
 
 ## First draft review
 
-Sebastian accepted the revised portfolio as a first draft and requested more polish. Review the baseline in draft PR #5. An explicit production release approval is required before merging into `main`, promoting a deployment, or deploying to production. This takes precedence over general routine-merge permission below.
+Sebastian accepted the revised portfolio as a first draft and requested more polish. Sebastian approved merging the first draft into `main` as a baseline. A public launch, production promotion, or domain connection requires separate approval. This takes precedence over general routine-merge permission below.
 
 ## Branches and merge permissions
 

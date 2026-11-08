@@ -26,7 +26,7 @@ Playwright starts the production server. CI also audits production dependencies 
 
 ## Current review
 
-The portfolio foundation is in draft PR #5. The home page contains a typed-name splash, a subtle tile field, a blank typing-game area, and compact work links. Projects use a searchable catalog; experiences use chronological cards. Resume links open the supplied, contact-free PDF in a new tab.
+PR #5 contains the first portfolio draft. The home page contains a typed-name splash, a subtle tile field, a blank typing-game area, and compact work links. Projects use a searchable catalog; experiences use chronological cards. Resume links open the supplied, contact-free PDF in a new tab.
 
 All content remains draft and all previews remain noindex until the first launch is approved. No ranked game, analytics, or production deployment is enabled. See [content and media](docs/content.md) for authoring conventions.
 
