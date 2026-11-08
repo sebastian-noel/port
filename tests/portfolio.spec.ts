@@ -297,6 +297,8 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await page.getByRole("button", { name: "Clear search" }).click();
   await expect(page.locator(".project-card")).toHaveCount(12);
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
   const sizes = await page.locator(".project-card").evaluateAll((cards) =>
     cards.map((c) => ({
       width: c.getBoundingClientRect().width,
