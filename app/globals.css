@@ -498,6 +498,7 @@ dialog nav a {
 .project-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 30px 24px;
 }
 .project-card {
@@ -531,7 +532,7 @@ dialog nav a {
 .project-copy svg {
   width: 18px;
 }
-.is-placeholder {
+.project-card.is-placeholder, .timeline-entry.is-placeholder .experience-card {
   background: #b4c9e9;
 }
 .empty-results {

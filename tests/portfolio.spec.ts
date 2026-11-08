@@ -199,6 +199,10 @@ test("capture desktop and mobile with reduced motion", async ({
   await page.getByRole("button", { name: "Menu" }).click();
   await page.screenshot({ path: testInfo.outputPath("mobile-menu.png") });
   await page.keyboard.press("Escape");
+  await page.goto("/projects");
+  await page.screenshot({ path: testInfo.outputPath("mobile-projects.png"), fullPage: true });
+  await page.goto("/experiences");
+  await page.screenshot({ path: testInfo.outputPath("mobile-experiences.png"), fullPage: true });
   await page.goto("/projects/permanence");
   await page.screenshot({
     path: testInfo.outputPath("mobile-detail.png"),
@@ -228,12 +232,10 @@ test("enlarged text and landscape keep navigation usable", async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
   await page.reload();
   await page.getByRole("button", { name: "Menu" }).click();
-  const resume = page
-    .getByRole("dialog")
-    .getByRole("link", {
-      name: "Resume (PDF, opens in a new tab)",
-      exact: true,
-    });
+  const resume = page.getByRole("dialog").getByRole("link", {
+    name: "Resume (PDF, opens in a new tab)",
+    exact: true,
+  });
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
 });
@@ -259,10 +261,12 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
+  const pdfNavigation = page.context().waitForEvent("request", (request) => request.url().endsWith("/resume.pdf") && request.isNavigationRequest());
   const popupPromise = page.waitForEvent("popup");
   await resume.click();
   const popup = await popupPromise;
-  await popup.waitForURL("**/resume.pdf");
+  const navigation = await pdfNavigation;
+  expect(navigation.method()).toBe("GET");
   await expect(page).toHaveURL("/");
   await popup.close();
   const pdf = await request.get("/resume.pdf");
@@ -293,14 +297,12 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await page.getByRole("button", { name: "Clear search" }).click();
   await expect(page.locator(".project-card")).toHaveCount(12);
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
-  const sizes = await page
-    .locator(".project-card")
-    .evaluateAll((cards) =>
-      cards.map((c) => ({
-        width: c.getBoundingClientRect().width,
-        height: c.getBoundingClientRect().height,
-      })),
-    );
+  const sizes = await page.locator(".project-card").evaluateAll((cards) =>
+    cards.map((c) => ({
+      width: c.getBoundingClientRect().width,
+      height: c.getBoundingClientRect().height,
+    })),
+  );
   expect(
     Math.max(...sizes.map((s) => s.width)) -
       Math.min(...sizes.map((s) => s.width)),
@@ -309,6 +311,7 @@ test("project search covers names, technology, teammate, event, and reset", asyn
     Math.max(...sizes.map((s) => s.height)) -
       Math.min(...sizes.map((s) => s.height)),
   ).toBeLessThan(1);
+  }
 });
 
 test("experience chronology and timeline descriptions", async ({ page }) => {

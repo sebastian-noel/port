@@ -41,7 +41,9 @@ export function TileField() {
         const face = document.createElement("span");
         face.className = "tile-face";
         const color = colors[(i * 7 + Math.floor(i / cols)) % colors.length];
-        const rest = (i * 37) % 101 < 7 ? "#7ca5eb" : "#6395ee";
+        let noise = Math.imul(i + 1, 0x45d9f3b);
+        noise = Math.imul(noise ^ (noise >>> 16), 0x45d9f3b);
+        const rest = ((noise ^ (noise >>> 16)) >>> 0) % 101 < 5 ? "#7ca5eb" : "#6395ee";
         face.style.setProperty("--tile-rest", rest);
         face.style.setProperty("--tile-back", color);
         face.append(document.createElement("i"), document.createElement("i"));
