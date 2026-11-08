@@ -33,7 +33,7 @@ Use direct names, small functions, and short, single-line comments at important 
 
 ## Visual evidence in PRs
 
-Include screenshots directly in the PR description for every UI, UX, or visual change before marking the PR ready for review or merging. Capture the actual changed interface and relevant states. Include desktop and mobile views when both are affected, and before-and-after screenshots when the comparison helps. Apply this to task, experiment promotion, and release PRs. Release PRs can reuse verified screenshots from the included changes when they still match the release.
+Upload screenshots as GitHub attachments and embed them directly in the PR description for every UI, UX, or visual change before marking it ready or merging. Use one to four images total and choose only the views that show the change. A palette-only change can use one desktop Home screenshot. Add another viewport or a before view when it helps reviewers see a meaningful difference. Apply this to task, experiment promotion, and release PRs. Release PRs can reuse the attachments when they show the same result.
 
 For animation changes, also attach a short screen recording when available and within GitHub’s upload limit. When a recording is unavailable, screenshots of useful states are enough. Preview links can supplement the screenshots. Use sample data when capturing private or admin views.
 
