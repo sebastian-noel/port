@@ -30,4 +30,4 @@ The portfolio foundation is in draft PR #5. The home page contains a typed-name 
 
 All content remains draft and all previews remain noindex until the first launch is approved. No ranked game, analytics, or production deployment is enabled. See [content and media](docs/content.md) for authoring conventions.
 
-Routine changes use GitHub Issues and PRs into `dev`. `main` is reserved for production. Keep the current design iteration in PR #5 until Sebastian accepts it. Private planning in `agents/` and original assets stay out of the public repository.
+Sebastian accepted the revised design as a first draft, with polish still ahead. See the [project plans](agents/README.md) and [progression checklist](agents/planning/progression.md). Routine changes use GitHub Issues and PRs into `dev`. A production release from `main` requires explicit approval.

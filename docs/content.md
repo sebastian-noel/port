@@ -26,4 +26,4 @@ The blank home section reserves space for the future typing game. Projects and e
 
 ## Release
 
-PR #5 remains the design-review change. Keep it in draft until Sebastian accepts the design. Do not merge into main or deploy to production before explicit approval. Protected previews remain noindex and have an empty sitemap. Real media, complete content, game features, and launch checks follow approval in separate scoped PRs.
+PR #5 holds the accepted first draft. Design polish is still pending, and a production release from `main` requires explicit approval. Protected previews remain noindex and have an empty sitemap. Real media, complete content, game features, and launch checks follow approval in separate scoped PRs.
