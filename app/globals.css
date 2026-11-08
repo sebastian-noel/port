@@ -1,5 +1,6 @@
 :root {
-  --blue: #6395ee;
+  --canvas: var(--deep);
+  --on-canvas: #ffffff;
   --ink: #142b4a;
   --deep: #244c86;
   --coral: #ff8a75;
@@ -15,8 +16,8 @@ html {
 }
 body {
   margin: 0;
-  background: var(--blue);
-  color: var(--ink);
+  background: var(--canvas);
+  color: var(--on-canvas);
   font-size: 16px;
   line-height: 1.55;
 }
@@ -53,9 +54,11 @@ button {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-main:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: 5px;
+main:focus-visible,
+.search-field:focus-within {
+  outline: 3px solid var(--on-canvas);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--ink);
 }
 a:hover {
   text-decoration-thickness: 2px;
@@ -105,6 +108,7 @@ main {
   top: -80px;
   z-index: 100;
   background: var(--paper);
+  color: var(--ink);
   padding: 12px 20px;
 }
 .skip-link:focus {
@@ -120,6 +124,7 @@ main {
 }
 .icon-button:hover {
   background: var(--coral);
+  color: var(--ink);
 }
 a svg,
 button svg {
@@ -136,7 +141,7 @@ button:active,
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--blue);
+  background: var(--canvas);
 }
 .nav-row {
   width: min(1320px, calc(100% - 64px));
@@ -151,9 +156,6 @@ button:active,
   font-weight: 800;
   letter-spacing: -0.06em;
   white-space: nowrap;
-}
-.wordmark span {
-  color: var(--ink);
 }
 .desktop-nav {
   display: flex;
@@ -200,6 +202,7 @@ button:active,
   min-height: 44px;
   padding: 0 12px;
   background: var(--coral);
+  color: var(--ink);
   font-size: 14px;
   margin-right: 8px;
 }
@@ -328,7 +331,7 @@ dialog nav a {
   position: absolute;
   left: 0;
   top: 0;
-  background: var(--blue);
+  background: var(--canvas);
 }
 .caret {
   display: inline-block;
@@ -360,7 +363,7 @@ dialog nav a {
   min-height: 450px;
 }
 .home-sidebar {
-  background: var(--blue);
+  background: var(--canvas);
   padding: 12px 0;
 }
 .compact-section + .compact-section {
@@ -453,12 +456,12 @@ dialog nav a {
   font-size: clamp(48px, 7vw, 80px);
   margin-bottom: 24px;
   display: table;
-  background: var(--blue);
+  background: var(--canvas);
 }
 .page-heading > p {
   font-size: 20px;
   max-width: 680px;
-  background: var(--blue);
+  background: var(--canvas);
 }
 .collection-page {
   padding-bottom: 100px;
@@ -466,6 +469,7 @@ dialog nav a {
 .search-field {
   max-width: 440px;
   background: var(--paper);
+  color: var(--ink);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -486,11 +490,9 @@ dialog nav a {
   color: #435671;
   opacity: 1;
 }
-.search-field:focus-within {
-  box-shadow: 0 0 0 2px var(--ink);
-}
 .search-field input:focus-visible {
   outline: 0;
+  box-shadow: none;
 }
 .search-field input::-webkit-search-cancel-button {
   display: none;
@@ -503,6 +505,7 @@ dialog nav a {
 }
 .project-card {
   background: var(--paper);
+  color: var(--ink);
   height: 100%;
   transition: transform 180ms ease;
 }
@@ -575,11 +578,12 @@ dialog nav a {
 }
 .dates {
   font-size: 14px;
-  background: var(--blue);
+  background: var(--canvas);
   line-height: 1.6;
 }
 .experience-card {
   background: var(--paper);
+  color: var(--ink);
   padding: 30px;
 }
 .experience-top {
@@ -634,7 +638,7 @@ dialog nav a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  background: var(--blue);
+  background: var(--canvas);
   text-decoration: underline;
   text-underline-offset: 5px;
 }
@@ -649,6 +653,7 @@ dialog nav a {
 }
 .detail-body {
   background: var(--paper);
+  color: var(--ink);
   padding: 40px;
 }
 .detail-body section + section {
@@ -694,7 +699,7 @@ dialog nav a {
   font-size: 160px;
 }
 .prose {
-  background: var(--blue);
+  background: var(--canvas);
 }
 .lead {
   font-size: 28px;
@@ -706,6 +711,7 @@ dialog nav a {
   align-items: center;
   gap: 12px;
   background: var(--coral);
+  color: var(--ink);
   padding: 16px 22px;
   min-height: 48px;
 }
@@ -721,7 +727,7 @@ dialog nav a {
   justify-content: space-between;
   gap: 24px;
   padding-block: 32px;
-  background: var(--blue);
+  background: var(--canvas);
   font-size: 14px;
 }
 .site-footer nav {
@@ -824,6 +830,7 @@ dialog nav a {
   }
   .resume-link {
     background: transparent;
+    color: var(--on-canvas);
     padding: 0 8px;
     margin: 0;
   }

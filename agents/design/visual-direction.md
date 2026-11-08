@@ -1,6 +1,6 @@
 # Visual direction
 
-Status: cornflower blue `#6395ee`, supporting blues/light grays, white text, and photo tiles are confirmed. Sebastian selected coral `#ff8a75` in the first-design correction, replacing amber. Supporting blue tokens and contrast treatments below are proposals.
+Status: Sebastian selected deep blue `#244c86` with white text for the current palette pass. Coral `#ff8a75` remains the accent. Cornflower blue `#6395ee` is the original canvas color.
 
 ## Overall character
 
@@ -8,22 +8,22 @@ Friendly, confident, and playful. Give real project images and the tiled photo m
 
 Keep the base canvas flat. The tile grid is made of individual solid-color square surfaces without outlines. Avoid gradient washes, frosted-glass cards, arbitrary semi-transparent layers, ornamental dividers, and capsule tag collections.
 
-## Palette proposal
+## Palette
 
 | Role | Hex | Intended use |
 | --- | --- | --- |
-| Cornflower base, confirmed | `#6395ee` | Main background and signature color |
-| Deep blue | `#244c86` | Readable white-text surfaces, navigation, selected large compositions |
+| Cornflower blue | `#6395ee` | Reference color from the first draft |
+| Deep blue | `#244c86` | Current canvas, navigation, and deep covers |
 | Medium blue | `#305da4` | Alternate white-text support or a grid tile tone |
 | Pale blue | `#b9d3f7` | Sparse background/photo grid tiles |
 | Light gray | `#edf2f7` | Occasional quiet surfaces and tile variation |
 | White | `#ffffff` | Text on deep/medium blue surfaces |
-| Ink | `#142b4a` | Text on the base canvas, light gray, and bright accent buttons |
+| Ink | `#142b4a` | Text on light surfaces and coral buttons |
 | Coral, confirmed | `#ff8a75` | Primary actions and selected game/highlight moments |
 
-Use a few named tokens consistently; do not generate dozens of one-off opacity variants. These are possible supporting colors, not an approved final palette.
+Use a few named tokens consistently.
 
-## White text contrast conflict
+## Text contrast
 
 Calculated using the WCAG relative-luminance formula on the actual hex values:
 
@@ -37,9 +37,7 @@ Calculated using the WCAG relative-luminance formula on the actual hex values:
 
 WCAG AA uses at least 4.5:1 for normal text and 3:1 for large text. White on the exact base misses even 3:1; rounding 2.97 up is not a pass. A brand-name exemption does not solve readability for the rest of the site. [Contrast reference](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 
-**Current treatment:** preserve cornflower blue as the dominant canvas and use ink on it. The splash has a large centered name without a dark hero panel. Keep a stable blue surface immediately behind text during the tile impulse. Deep blue supports selected flat placeholder covers; pale surfaces support card text.
-
-This adjustment needs Sebastian's visual review; it is not a silent replacement of the requested palette.
+Use white text on the deep blue canvas, including the splash name and navigation. Keep a stable blue surface behind the name during the tile impulse. Use ink on the pale cards and coral controls.
 
 ## Accent
 
