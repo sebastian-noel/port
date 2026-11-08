@@ -169,12 +169,7 @@ export function TileField() {
     };
   }, []);
   return (
-    <div
-      ref={root}
-      className="tile-field"
-      aria-hidden="true"
-      data-wave="idle"
-    >
+    <div ref={root} className="tile-field" aria-hidden="true" data-wave="idle">
       {clusters.map(({ name, x, y, rows, wide }, clusterIndex) => (
         <div
           key={name}

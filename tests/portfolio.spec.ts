@@ -406,12 +406,17 @@ test("intro types once, flips tiles, and respects the motion control", async ({
   await context.close();
 });
 
-test.describe("scrolling tile clusters", () => {
-  test.use({ video: "on" });
-
-  test("loose pixels follow scroll and respect motion controls", async ({
-    page,
-  }, testInfo) => {
+test("loose pixels follow scroll and respect motion controls", async ({
+  browser,
+  baseURL,
+}, testInfo) => {
+  const context = await browser.newContext({
+    baseURL,
+    viewport: { width: 1280, height: 900 },
+    recordVideo: { dir: testInfo.outputPath("scroll-motion") },
+  });
+  try {
+    const page = await context.newPage();
     await page.addInitScript(() =>
       sessionStorage.setItem("port:intro-seen", "1"),
     );
@@ -452,7 +457,9 @@ test.describe("scrolling tile clusters", () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await scrollTo(500);
     expect(await looseY()).toBeCloseTo(startLoose, 1);
-  });
+  } finally {
+    await context.close();
+  }
 });
 
 test("reduced motion and early navigation cancel decorative motion", async ({
