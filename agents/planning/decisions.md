@@ -10,7 +10,7 @@ Class projects are out of scope. Sebastian’s [Devpost profile](https://devpost
 | --- | --- |
 | Portfolio for Sebastian Noel; planning lives under `agents/` | Workspace setup and planning request |
 | `port_global` provides optional resources; other projects are read-only sources | Workspace setup and ProjectsGuide.md |
-| Deep blue `#244c86` canvas for the current palette pass | Palette follow-up |
+| Cornflower blue `#4e87ec` canvas for the current palette pass | Palette follow-up |
 | Supporting blues/light grays and white text; coral `#ff8a75` as the selected accent | Planning request and follow-up |
 | Home, Experiences, Projects, About; linkable detail/case-study pages | Planning request |
 | Easy addition of projects/experiences and rich media | Planning request |
@@ -35,7 +35,7 @@ Class projects are out of scope. Sebastian’s [Devpost profile](https://devpost
 | Topic | Status | Recommendation/choice needed |
 | --- | --- | --- |
 | Accent | Confirmed starting direction | Use coral `#ff8a75`; replaces the original amber direction |
-| White text contrast | Selected for current review | White text on deep blue, with ink on pale cards and coral controls |
+| White text contrast | Selected for current review | White large headings on cornflower blue, with dark navy for smaller canvas text |
 | Typography | Direction confirmed, family open | Choose a distinctive, readable face during development. Avoid generic type treatments and fonts strongly associated with AI-generated templates. |
 | Responsive review | Confirmed | Review and refine on real layouts during development. Skip the separate prototype and case-study draft for this planning round. |
 | Overall composition | Proposed | Open, image-led layout with broad blue fields and a few grid/photo clusters; no repeated bordered-card shell |
@@ -124,3 +124,7 @@ Sebastian approved merging the verified first draft into `main`. Public launch r
 ## 2026-11-07 palette pass
 
 Sebastian asked to shelve the tile clusters and scroll drift from [issue #7](https://github.com/sebastian-noel/port/issues/7). Use the documented deep blue canvas and white main text for this pass. Review the palette in the existing tile layout. [Issue #9](https://github.com/sebastian-noel/port/issues/9)
+
+## 2026-11-08 contrast adjustment
+
+Sebastian chose a color close to the original cornflower blue with 3.5:1 contrast against white. Use `#4e87ec` for the canvas and reserve white for large text. Use dark navy for smaller text and keep coral as the accent. [Issue #9](https://github.com/sebastian-noel/port/issues/9)

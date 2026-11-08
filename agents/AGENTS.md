@@ -19,7 +19,7 @@ Read [README.md](README.md), [planning/brief.md](planning/brief.md), and [planni
 ## Requirements and decisions
 
 - A **confirmed requirement** comes directly from Sebastian. A **proposal** is an implementation or design recommendation awaiting discussion. An **open question** has no settled answer. Never silently promote a proposal to a confirmed requirement.
-- Next.js, Vercel hosting, and the `snoel.dev` domain through Cloudflare are confirmed. For the current palette pass, use deep blue `#244c86` with white text on the canvas.
+- Next.js, Vercel hosting, and the `snoel.dev` domain through Cloudflare are confirmed. For the current palette pass, use cornflower blue `#4e87ec` with white large headings and dark navy body text.
 - Use coral `#ff8a75` with the blue canvas. The home page centers the typed name, followed by a blank typing-game area and compact project/experience links at the side. Do not add an About promotion to home, eyebrows, decorative numbering, or generic subtext. The wordmark is `snoel.dev`.
 - Hosting and every additional service must cost $0. Use actual free plans, not paid trials, paid tiers with credits, or pay-as-you-go defaults. Design for quota limits; do not assume uninterrupted unlimited service.
 - Use 30-word passage completion as the working interpretation of Sebastian’s latest length instruction. Passages use lowercase letters and spaces. Keep the 100 WPM win threshold and show a live ghost cursor at that pace. Count confirmed fraudulent attempts as losses. The monthly leaderboard accepts only verified wins.

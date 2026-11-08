@@ -1,6 +1,6 @@
 # Visual direction
 
-Status: Sebastian selected deep blue `#244c86` with white text for the current palette pass. Coral `#ff8a75` remains the accent. Cornflower blue `#6395ee` is the original canvas color.
+Status: Sebastian selected a return to cornflower blue with 3.5:1 contrast against white. The tuned canvas is `#4e87ec`. Coral `#ff8a75` remains the accent. Cornflower blue `#6395ee` is the original canvas color.
 
 ## Overall character
 
@@ -12,12 +12,14 @@ Keep the base canvas flat. The tile grid is made of individual solid-color squar
 
 | Role | Hex | Intended use |
 | --- | --- | --- |
-| Cornflower blue | `#6395ee` | Reference color from the first draft |
-| Deep blue | `#244c86` | Current canvas, navigation, and deep covers |
+| Cornflower blue | `#4e87ec` | Current canvas and navigation |
+| Original cornflower | `#6395ee` | Resting tile highlights |
+| Deep blue | `#244c86` | Deep covers |
 | Medium blue | `#305da4` | Alternate white-text support or a grid tile tone |
 | Pale blue | `#b9d3f7` | Sparse background/photo grid tiles |
 | Light gray | `#edf2f7` | Occasional quiet surfaces and tile variation |
-| White | `#ffffff` | Text on deep/medium blue surfaces |
+| White | `#ffffff` | Large headings on the canvas and text on deep blue |
+| Canvas ink | `#0d2038` | Smaller text on the canvas |
 | Ink | `#142b4a` | Text on light surfaces and coral buttons |
 | Coral, confirmed | `#ff8a75` | Primary actions and selected game/highlight moments |
 
@@ -29,7 +31,9 @@ Calculated using the WCAG relative-luminance formula on the actual hex values:
 
 | Foreground | Background | Contrast |
 | --- | --- | --- |
-| White `#ffffff` | Base `#6395ee` | 2.97:1 |
+| White `#ffffff` | Canvas `#4e87ec` | 3.50:1 |
+| Canvas ink `#0d2038` | Canvas `#4e87ec` | 4.69:1 |
+| White `#ffffff` | Original cornflower `#6395ee` | 2.97:1 |
 | White `#ffffff` | Deep blue `#244c86` | 8.56:1 |
 | White `#ffffff` | Medium blue `#305da4` | 6.51:1 |
 | Ink `#142b4a` | Base `#6395ee` | 4.79:1 |
@@ -37,7 +41,7 @@ Calculated using the WCAG relative-luminance formula on the actual hex values:
 
 WCAG AA uses at least 4.5:1 for normal text and 3:1 for large text. White on the exact base misses even 3:1; rounding 2.97 up is not a pass. A brand-name exemption does not solve readability for the rest of the site. [Contrast reference](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 
-Use white text on the deep blue canvas, including the splash name and navigation. Keep a stable blue surface behind the name during the tile impulse. Use ink on the pale cards and coral controls.
+Use white for the splash name, wordmark, and large headings. Use canvas ink for smaller copy and navigation. Keep a solid blue surface behind the white headings and use ink on pale cards and coral controls.
 
 ## Accent
 
