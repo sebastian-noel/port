@@ -120,3 +120,7 @@ This revision supersedes earlier home composition, accent, and resume-action gui
 ## 2026-11-07 baseline and contact
 
 Sebastian approved merging the verified first draft into `main`. Public launch remains a separate milestone. His contact email may be public, including in Git history, and About will have a contact section. Keep his phone number, other private details, and original assets out of the public repository.
+
+## 2026-11-07 tile background polish
+
+Use much smaller squares in deliberate clusters. Give the pixels a light drop shadow and let a few edge pieces drift down as the page scrolls. Keep the name ripple and honor the pause control and reduced motion. Review the background on its own before changing other parts of the site. [Issue #7](https://github.com/sebastian-noel/port/issues/7)

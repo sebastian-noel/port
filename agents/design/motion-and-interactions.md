@@ -7,7 +7,7 @@ Status: the interaction ideas are confirmed; timings, technical approach, and to
 1. Render the real name in the initial HTML. Reserve the final name's dimensions so typing does not shift the layout.
 2. On the first home visit in a browser session, progressively reveal a visual copy of “Sebastian Noel” over roughly 1–1.5 seconds. Keep one complete accessible heading; hide the animated duplicate from assistive technology.
 3. When the final character appears, launch a radial impulse from the name's center through the background tiles. Approximate propagation delay from each tile's distance to that origin; give each tile one controlled 3D flip.
-4. The active wave lasts roughly another 0.8–1.4 seconds. Base tiles settle back into a sparse, quiet pattern. Selected photo patches persist after the impulse.
+4. The active wave lasts roughly another 0.8–1.4 seconds. The tiles settle into their fixed clusters. Selected photo patches can persist after the impulse when real media is added.
 5. Allow the visitor to scroll, click, and navigate immediately. Navigating away cancels the animation. Returning home in the same session shows the settled composition rather than replaying an obligatory intro.
 
 An optional “Replay intro” action can live in a later command menu. It is not needed in primary navigation.
@@ -19,8 +19,8 @@ An optional “Replay intro” action can live in a later command menu. It is no
 - The wave belongs to the decorative background. Do not rotate text, buttons, navigation, or complete content cards with it.
 - Keep the dark areas supplying text contrast stable during the flip. No flashing sequence or rapidly alternating full-screen colors.
 - Model one page-level wave, but animate only visible/nearby tiles. Do not mount thousands of tiles across the full document. Below-fold sections can use settled photo patches and restrained first-entry reveals.
-- Cap active tiles, enlarge them on narrow screens, avoid per-tile React state updates per frame, and profile before adding Canvas or WebGL.
-- Decorative layers use no pointer interception and are hidden from assistive technology. Stop idle motion when offscreen or when the tab is hidden.
+- Use 8 px tiles on desktop and 6 px tiles on phones. Keep the tile count bounded, avoid per-tile React state updates, and profile before adding Canvas or WebGL.
+- Decorative layers use no pointer interception and are hidden from assistive technology. Stop motion updates when the tab is hidden.
 - Reduced motion shows the complete name immediately and the grid in its settled state, with an optional brief opacity change instead of a traveling flip.
 - A hydration or animation failure leaves the normal name and page visible.
 
@@ -74,4 +74,4 @@ Freeze ambient motion around the active typing test so performance and visual at
 
 ## Current foundation scope
 
-The name intro and radial impulse are part of the foundation, not deferred polish. The background uses a bounded visible viewport field, only three idle flips at a time, a pause/play control, hidden-tab cancellation, and reduced-motion support. Reserve the game area without fake controls. Flat letter placeholders do not inherit the tile-photo treatment; real photos and their reveals come later.
+The name intro and radial impulse are part of the foundation. Small, fixed clusters with subtle shadows form the settled background. A few edge pixels drift downward in proportion to scroll distance and move back on the way up. The pause control freezes the drift, and reduced motion keeps every cluster at rest. Reserve the game area for the future typing game. Flat letter placeholders retain their solid covers until real photos are added.

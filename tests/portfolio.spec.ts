@@ -401,9 +401,58 @@ test("intro types once, flips tiles, and respects the motion control", async ({
     .getByRole("link", { name: "Home", exact: true })
     .click();
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
-  expect(await page.locator(".tile").count()).toBeLessThan(750);
+  expect(await page.locator(".tile").count()).toBeLessThan(250);
   expect(errors).toEqual([]);
   await context.close();
+});
+
+test.describe("scrolling tile clusters", () => {
+  test.use({ video: "on" });
+
+  test("loose pixels follow scroll and respect motion controls", async ({
+    page,
+  }, testInfo) => {
+    await page.addInitScript(() =>
+      sessionStorage.setItem("port:intro-seen", "1"),
+    );
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    const loose = page.locator(".tile-drift").first();
+    const fixed = page.locator(".tile:not(.tile-drift)").first();
+    const looseY = () =>
+      loose.evaluate((tile) => tile.getBoundingClientRect().y);
+    const fixedY = () =>
+      fixed.evaluate((tile) => tile.getBoundingClientRect().y);
+
+    async function scrollTo(top: number) {
+      await page.evaluate(async (y) => {
+        window.scrollTo({ top: y, behavior: "instant" });
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        );
+      }, top);
+    }
+
+    const startLoose = await looseY();
+    const startFixed = await fixedY();
+    await page.screenshot({ path: testInfo.outputPath("tiles-at-rest.png") });
+    await page.mouse.move(640, 620);
+    await page.mouse.wheel(0, 500);
+    await expect.poll(looseY).toBeGreaterThan(startLoose + 10);
+    expect(await fixedY()).toBeCloseTo(startFixed, 1);
+    await page.screenshot({ path: testInfo.outputPath("tiles-scrolled.png") });
+
+    await page.getByRole("button", { name: "Pause background motion" }).click();
+    const pausedY = await looseY();
+    await scrollTo(0);
+    expect(await looseY()).toBeCloseTo(pausedY, 1);
+    await page.getByRole("button", { name: "Play background motion" }).click();
+    await expect.poll(looseY).toBeCloseTo(startLoose, 1);
+
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await scrollTo(500);
+    expect(await looseY()).toBeCloseTo(startLoose, 1);
+  });
 });
 
 test("reduced motion and early navigation cancel decorative motion", async ({

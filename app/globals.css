@@ -274,6 +274,10 @@ dialog nav a {
   gap: 6px;
 }
 .tile-field {
+  --tile-size: 8px;
+  --tile-gap: 2px;
+  --tile-edge: 44px;
+  --tile-scroll: 0;
   position: fixed;
   inset: 0;
   overflow: hidden;
@@ -281,9 +285,25 @@ dialog nav a {
   z-index: 0;
   contain: strict;
 }
-.tile {
+.tile-cluster {
   position: absolute;
-  perspective: 600px;
+  left: clamp(var(--tile-edge), var(--cluster-x), 100% - var(--tile-edge));
+  top: var(--cluster-y);
+  display: grid;
+  grid-auto-columns: var(--tile-size);
+  grid-auto-rows: var(--tile-size);
+  gap: var(--tile-gap);
+  transform: translate(-50%, -50%);
+}
+.tile {
+  perspective: 80px;
+}
+.tile-drift {
+  transform: translate3d(
+    calc(var(--tile-fall-x) * var(--tile-scroll)),
+    calc(var(--tile-fall-y) * var(--tile-scroll)),
+    0
+  );
 }
 .tile-face {
   display: block;
@@ -292,14 +312,20 @@ dialog nav a {
   position: relative;
   transform-style: preserve-3d;
 }
-.tile-face i {
+.tile-face::before,
+.tile-face::after {
+  content: "";
   position: absolute;
-  inset: 1px;
-  display: block;
+  inset: 0;
   backface-visibility: hidden;
+  box-shadow:
+    1px 2px 2px rgb(20 43 74 / 24%),
+    inset 0 1px rgb(255 255 255 / 24%);
+}
+.tile-face::before {
   background: var(--tile-rest);
 }
-.tile-face i:last-child {
+.tile-face::after {
   transform: rotateY(180deg);
   background: var(--tile-back);
 }
@@ -809,6 +835,14 @@ dialog nav a {
   }
 }
 @media (max-width: 600px) {
+  .tile-field {
+    --tile-size: 6px;
+    --tile-gap: 1px;
+    --tile-edge: 32px;
+  }
+  .tile-cluster-wide {
+    display: none;
+  }
   .wrap {
     width: calc(100% - 40px);
   }
@@ -950,7 +984,8 @@ dialog nav a {
     animation: none !important;
     transition: none !important;
   }
-  .tile-face {
+  .tile-face,
+  .tile-drift {
     transform: none !important;
   }
 }

@@ -20,7 +20,7 @@ Do not commit the original resume, private contact information, original assets,
 
 ## Motion and home layout
 
-The name types once per tab session, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations; idle motion flips only three tiles at a time. Reduced motion displays the complete name and suppresses decorative animation. The header pause button cancels background motion, and hidden tabs stop active animation.
+The name types once per tab session, then triggers a radial flip through the background clusters. The complete accessible heading is present from server rendering. The clusters use 8 px tiles on desktop and 6 px tiles on phones, with small shadows for depth. A few edge pixels drift down as you scroll and return as you scroll back. The header pause button freezes the drift and cancels the ripple. Reduced motion keeps the clusters still, and hidden tabs stop updating motion.
 
 The blank home section reserves space for the future typing game. Projects and experiences are compact side links. No game logic or backend is implemented yet.
 
