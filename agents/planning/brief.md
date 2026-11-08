@@ -10,7 +10,7 @@ Introduce Sebastian Noel, present his experience and projects with evidence, and
 
 | ID | Requirement | Specification |
 | --- | --- | --- |
-| V1 | Primary background is cornflower blue, specifically `#6395ee` | [Visual direction](../design/visual-direction.md) |
+| V1 | Use cornflower blue `#4e87ec` with 3.50:1 contrast against white | [Visual direction](../design/visual-direction.md) |
 | V2 | Supporting blues, possible light grays, and white text; coral `#ff8a75` as the selected accent | [Visual direction](../design/visual-direction.md) |
 | V3 | Large, centered name types on initial entry; completion triggers an impulse through the site | [Motion](../design/motion-and-interactions.md) |
 | V4 | A background grid of individual square tiles in blue/light-blue/gray tones, without outlines; tiles flip as the impulse passes | [Motion](../design/motion-and-interactions.md) |

@@ -43,8 +43,8 @@ export function TileField() {
         const color = colors[(i * 7 + Math.floor(i / cols)) % colors.length];
         let noise = Math.imul(i + 1, 0x45d9f3b);
         noise = Math.imul(noise ^ (noise >>> 16), 0x45d9f3b);
-        const rest =
-          ((noise ^ (noise >>> 16)) >>> 0) % 101 < 5 ? "#7ca5eb" : "#6395ee";
+        const highlighted = ((noise ^ (noise >>> 16)) >>> 0) % 101 < 5;
+        const rest = highlighted ? "#6395ee" : "transparent";
         face.style.setProperty("--tile-rest", rest);
         face.style.setProperty("--tile-back", color);
         face.append(document.createElement("i"), document.createElement("i"));
