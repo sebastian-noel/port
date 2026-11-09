@@ -16,7 +16,6 @@ export function TileField() {
       y: number;
       color: string;
     }[] = [];
-    let paused = false;
     let resize: number | undefined;
 
     function cancel() {
@@ -27,8 +26,8 @@ export function TileField() {
     function build() {
       cancel();
       const size = Math.max(
-        40,
-        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 650)),
+        18,
+        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 3000)),
       );
       const cols = Math.ceil(innerWidth / size);
       const rows = Math.ceil(innerHeight / size);
@@ -77,16 +76,16 @@ export function TileField() {
       };
     }
     function wave(event: Event) {
-      if (paused || media.matches || document.hidden) return;
+      if (media.matches || document.hidden) return;
       cancel();
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";
       tiles.forEach((tile) =>
-        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 1200),
+        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 220),
       );
     }
     function idleFlip() {
-      if (paused || media.matches || document.hidden || animations.size) return;
+      if (media.matches || document.hidden || animations.size) return;
       for (let i = 0; i < 3; i++)
         flip(tiles[Math.floor(Math.random() * tiles.length)], i * 120, 1300);
     }
@@ -95,10 +94,6 @@ export function TileField() {
     }
     function preferenceChange() {
       if (media.matches) cancel();
-    }
-    function pause(event: Event) {
-      paused = (event as CustomEvent<boolean>).detail;
-      if (paused) cancel();
     }
     function onResize() {
       cancelAnimationFrame(resize ?? 0);
@@ -109,7 +104,6 @@ export function TileField() {
     window.addEventListener("resize", onResize);
     window.addEventListener("port:intro-complete", wave);
     window.addEventListener("port:cancel-intro", cancel);
-    window.addEventListener("port:motion-paused", pause);
     document.addEventListener("visibilitychange", stopIfHidden);
     media.addEventListener("change", preferenceChange);
     return () => {
@@ -119,7 +113,6 @@ export function TileField() {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("port:intro-complete", wave);
       window.removeEventListener("port:cancel-intro", cancel);
-      window.removeEventListener("port:motion-paused", pause);
       document.removeEventListener("visibilitychange", stopIfHidden);
       media.removeEventListener("change", preferenceChange);
     };

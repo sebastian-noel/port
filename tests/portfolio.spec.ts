@@ -354,7 +354,7 @@ test("experience chronology and timeline descriptions", async ({ page }) => {
   await expect(page.locator("time").first()).toHaveText("Aug 2026");
 });
 
-test("intro types once, flips tiles, and respects the motion control", async ({
+test("intro replays on home navigation and refresh", async ({
   browser,
 }, testInfo) => {
   const context = await browser.newContext({
@@ -390,24 +390,8 @@ test("intro types once, flips tiles, and respects the motion control", async ({
   await page.screenshot({ path: testInfo.outputPath("intro-wave.png") });
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
   await expect(caret).toHaveCSS("opacity", "0");
-  await page.evaluate(() => {
-    window.dispatchEvent(
-      new CustomEvent("port:intro-complete", {
-        detail: { x: innerWidth / 2, y: innerHeight / 2 },
-      }),
-    );
-  });
-  await expect(page.locator(".tile-field")).toHaveAttribute(
-    "data-wave",
-    "active",
-  );
-  await page.getByRole("button", { name: "Pause background motion" }).click();
-  expect(
-    await page
-      .locator(".tile-field")
-      .evaluate((el) => el.getAnimations({ subtree: true }).length),
-  ).toBe(0);
-  await page.getByRole("button", { name: "Play background motion" }).click();
+  await expect(page.locator(".tile").first()).toHaveCSS("width", "20px");
+  await expect(page.locator(".motion-toggle")).toHaveCount(0);
   await page
     .getByRole("navigation", { name: "Main", exact: true })
     .getByRole("link", { name: "Projects", exact: true })
@@ -416,8 +400,17 @@ test("intro types once, flips tiles, and respects the motion control", async ({
     .getByRole("navigation", { name: "Main", exact: true })
     .getByRole("link", { name: "Home", exact: true })
     .click();
-  await expect(intro).toHaveAttribute("data-intro-state", "complete");
-  expect(await page.locator(".tile").count()).toBeLessThan(750);
+  await expect(intro).toHaveAttribute("data-intro-state", "typing");
+  await expect(page.locator(".tile-field")).toHaveAttribute(
+    "data-wave",
+    "active",
+  );
+  await page.reload();
+  await expect(intro).toHaveAttribute("data-intro-state", "typing");
+  await expect(page.locator(".tile-field")).toHaveAttribute(
+    "data-wave",
+    "active",
+  );
   expect(errors).toEqual([]);
   await context.close();
 });
@@ -438,7 +431,6 @@ test("reduced motion and early navigation cancel decorative motion", async ({
       .evaluate((el) => el.getAnimations({ subtree: true }).length),
   ).toBe(0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.evaluate(() => sessionStorage.clear());
   await page.reload();
   await page
     .getByRole("navigation", { name: "Main", exact: true })
