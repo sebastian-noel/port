@@ -46,4 +46,4 @@ What changes for the visitor or maintainer, and why?
 Migration versions, configuration, backup reference, recovery steps, or owner approval when relevant. For changes to public content, note publication and search checks as applicable.
 ```
 
-For a release PR, summarize the included changes in a short list, include the tested `dev` revision, and use `Closes #<issue>` for issues shipping to `main`. Link any owner or experiment approval. After the release run, record the merged SHA, the deployment link, and the staged and live smoke check results.
+For a release PR, summarize the included changes in a short list, include the tested `dev` revision, and use `Closes #<issue>` for issues shipping to `main`. Link the exact `dev` preview and record Sebastian’s explicit approval before merging into `main`. Link any separate experiment approval. After the release run, record the merged SHA, the deployment link, and the staged and live smoke check results.
