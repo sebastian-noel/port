@@ -9,15 +9,14 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: ci-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   verify:
     name: Verify
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    concurrency:
+      group: ci-${{ github.event_name }}-${{ github.ref }}
+      cancel-in-progress: true
     env:
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
@@ -44,3 +43,86 @@ jobs:
           path: test-results/
           if-no-files-found: ignore
           retention-days: 7
+
+  release-rehearsal:
+    name: Release rehearsal
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: rehearsal
+    concurrency:
+      group: vercel-port-rehearsal
+      cancel-in-progress: false
+    env:
+      VERCEL_ORG_ID: team_TxTSxeGthy7LfQyxFezxTUCG
+      VERCEL_PROJECT_ID: prj_rpOtuCeKRGKXLEQAbxTfj06oSV13
+      VERCEL_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+      - run: npm install --global vercel@65.12.1
+      - name: Stage, verify, and promote
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          require_latest_dev() {
+            local latest_sha
+            latest_sha="$(git ls-remote --exit-code origin refs/heads/dev | cut -f1)"
+            if [[ "$latest_sha" != "$GITHUB_SHA" ]]; then
+              echo "A newer commit is on dev. Skipping this rehearsal."
+              exit 0
+            fi
+          }
+
+          smoke() {
+            DEPLOYMENT_URL="$1" node --input-type=module <<'JS'
+          const base = new URL(process.env.DEPLOYMENT_URL);
+          const rehearsalHost = /^port-rehearsal(?:-[a-z0-9-]+)?\.vercel\.app$/;
+          if (base.origin !== process.env.DEPLOYMENT_URL ||
+              base.protocol !== "https:" || !rehearsalHost.test(base.hostname) || base.port) {
+            throw new Error("Expected a Vercel rehearsal URL");
+          }
+
+          const checks = [
+            ["/rehearsal-revision.txt", "text/plain", (body) => body.trim() === process.env.GITHUB_SHA],
+            ["/", "text/html", (body) => body.includes("Sebastian Noel")],
+            ["/projects/permanence", "text/html", (body) => body.includes("Permanence")],
+            ["/experiences", "text/html", (body) => body.includes("Experiences")],
+            ["/resume.pdf", "application/pdf", (body) => body.startsWith("%PDF-")],
+          ];
+          for (const [path, contentType, matches] of checks) {
+            const response = await fetch(new URL(path, base), {
+              headers: { "x-vercel-protection-bypass": process.env.VERCEL_AUTOMATION_BYPASS_SECRET },
+              redirect: "error",
+              signal: AbortSignal.timeout(15000),
+            });
+            if (response.status !== 200 ||
+                !response.headers.get("content-type")?.startsWith(contentType) ||
+                !matches(await response.text())) {
+              throw new Error(`Smoke check failed for ${path} (HTTP ${response.status})`);
+            }
+            console.log(`Passed ${path}`);
+          }
+          JS
+          }
+
+          require_latest_dev
+          : "${VERCEL_TOKEN:?Set VERCEL_TOKEN in the rehearsal environment}"
+          : "${VERCEL_AUTOMATION_BYPASS_SECRET:?Set VERCEL_AUTOMATION_BYPASS_SECRET in the rehearsal environment}"
+
+          # Mark the uploaded build so both smoke checks can confirm its revision.
+          printf '%s\n' "$GITHUB_SHA" > public/rehearsal-revision.txt
+          candidate="$(vercel deploy --prod --skip-domain --yes --project "$VERCEL_PROJECT_ID")"
+          smoke "$candidate"
+          require_latest_dev
+          vercel promote "$candidate" --yes
+          smoke https://port-rehearsal.vercel.app
