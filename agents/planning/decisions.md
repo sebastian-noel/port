@@ -4,6 +4,8 @@ Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. 
 
 ## Confirmed decisions
 
+**November 9, 2026 intro refinement:** Sebastian requested a slightly slower tile wave, a repeatable typing rhythm with varied character delays, and a caret that blinks twice after the final letter and fades out.
+
 **November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
 
 **November 8, 2026 merge policy:** Sebastian authorized Codex to merge non-experimental PRs into `dev` and `main` after review and passing CI. Experimental changes stay isolated unless he explicitly approves them for release, including changes copied or cherry-picked from an experiment.

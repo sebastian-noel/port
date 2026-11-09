@@ -378,6 +378,8 @@ test("intro types once, flips tiles, and respects the motion control", async ({
     "data-wave",
     "active",
   );
+  const caret = intro.locator(".caret");
+  await expect(caret).toHaveCSS("animation-iteration-count", "2, 1");
   expect(
     await page
       .locator(".tile-field")
@@ -385,6 +387,7 @@ test("intro types once, flips tiles, and respects the motion control", async ({
   ).toBeGreaterThan(0);
   await page.screenshot({ path: testInfo.outputPath("intro-wave.png") });
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
+  await expect(caret).toHaveCSS("opacity", "0");
   await page.getByRole("button", { name: "Pause background motion" }).click();
   expect(
     await page
@@ -415,6 +418,7 @@ test("reduced motion and early navigation cancel decorative motion", async ({
     "data-intro-state",
     "complete",
   );
+  await expect(page.locator(".intro-name .caret")).toHaveCSS("opacity", "0");
   expect(
     await page
       .locator(".tile-field")
