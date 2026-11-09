@@ -343,9 +343,16 @@ dialog nav a {
   margin-left: 0.065em;
   background: var(--coral);
   vertical-align: -0.01em;
+  opacity: 0;
 }
-[data-intro-state="typing"] .caret {
-  animation: caret 500ms steps(1, end) 3;
+[data-intro-state="typing"] .caret,
+[data-intro-state="finishing"] .caret {
+  opacity: 1;
+}
+[data-intro-state="finishing"] .caret {
+  animation:
+    caret-blink 440ms steps(1, end) 2,
+    caret-fade 260ms ease-out 880ms forwards;
 }
 .splash-down {
   position: absolute;
@@ -749,8 +756,17 @@ dialog nav a {
 .site-footer a svg {
   width: 16px;
 }
-@keyframes caret {
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
   50% {
+    opacity: 0;
+  }
+}
+@keyframes caret-fade {
+  to {
     opacity: 0;
   }
 }
