@@ -7,7 +7,7 @@ Status: the interaction ideas are confirmed; timings, technical approach, and to
 1. Render the real name in the initial HTML. Reserve the final name's dimensions so typing does not shift the layout.
 2. On each home visit or refresh, progressively reveal a visual copy of “Sebastian Noel” over roughly 1.8 seconds. Use a fixed sequence of varied delays between characters. Keep one complete accessible heading and hide the animated duplicate from assistive technology.
 3. When the final character appears, launch a radial impulse from the name's center through the background tiles. The caret completes three blinks, spending half a second visible and half a second hidden each time. On the fourth blink it stays visible for half a second, then fades out.
-4. Tiles start at 18 CSS pixels wide and scale up on larger viewports to limit the tile count. Tiles flip over 220 milliseconds, with each flip starting later as the wave moves outward at 1.2 CSS pixels per millisecond. The total duration varies with the viewport. Base tiles settle back into a sparse, quiet pattern. Selected photo patches persist after the impulse.
+4. Tiles start at 18 CSS pixels wide and scale up on larger viewports to limit the tile count. Tiles flip over 220 milliseconds, with each flip starting later as the wave moves outward at 1.2 CSS pixels per millisecond. The total duration varies with the viewport. Tiles are visible only during the wave. The name sits on a solid canvas-blue backing while it types and as the wave passes. Selected photo patches persist after the impulse.
 5. Allow the visitor to scroll, click, and navigate immediately. Navigating away cancels the animation. Returning home starts the intro again.
 
 An optional “Replay intro” action can live in a later command menu. It is not needed in primary navigation.
@@ -20,7 +20,7 @@ An optional “Replay intro” action can live in a later command menu. It is no
 - Keep the dark areas supplying text contrast stable during the flip. No flashing sequence or rapidly alternating full-screen colors.
 - Model one page-level wave, but animate only visible/nearby tiles. Do not mount thousands of tiles across the full document. Below-fold sections can use settled photo patches and restrained first-entry reveals.
 - Cap active tiles, enlarge them on narrow screens, avoid per-tile React state updates per frame, and profile before adding Canvas or WebGL.
-- Decorative layers use no pointer interception and are hidden from assistive technology. Stop idle motion when offscreen or when the tab is hidden.
+- Decorative layers use no pointer interception and are hidden from assistive technology. Cancel the wave when the tab is hidden.
 - Reduced motion shows the complete name immediately and the grid in its settled state, with an optional brief opacity change instead of a traveling flip.
 - A hydration or animation failure leaves the normal name and page visible.
 
@@ -55,7 +55,6 @@ Reserve one image aspect ratio for both states, record independent crops, and av
 | Card entry | Short opacity/translation reveal; content is never held invisible waiting for a scroll trigger |
 | Page change | Subtle exit/entry or supported view transition; keep URL, history, focus, and scroll correct |
 | Mobile menu | Short slide/fade; opening and closing can interrupt each other |
-| Idle grid | Occasional low-amplitude movement in a few cells, not constant movement everywhere |
 | Game win | Brief local tile/confetti burst, no blocking overlay; reduced motion uses a static success treatment |
 | Live counters | Stable tabular numbers; do not animate every digit change during an active test |
 
@@ -74,4 +73,4 @@ Freeze ambient motion around the active typing test so performance and visual at
 
 ## Current foundation scope
 
-The name intro and radial impulse are part of the foundation, not deferred polish. The background uses a bounded visible viewport field, only three idle flips at a time, hidden-tab cancellation, and reduced-motion support. Reserve the game area without fake controls. Flat letter placeholders do not inherit the tile-photo treatment; real photos and their reveals come later.
+The name intro and radial impulse are part of the foundation, not deferred polish. The background uses a bounded visible viewport field, hidden-tab cancellation, and reduced-motion support. Reserve the game area without fake controls. Flat letter placeholders do not inherit the tile-photo treatment; real photos and their reveals come later.
