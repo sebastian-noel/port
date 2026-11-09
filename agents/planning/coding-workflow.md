@@ -1,17 +1,17 @@
 # Coding workflow
 
-Sebastian is the sole developer and uses Codex for implementation and review. GitHub Issues track work, pull requests capture changes, and GitHub Actions runs checks on every branch push. Aim for under 15 minutes for a simple change when review and verification fit. Keep the change pending if a check needs more time or fails. The branch and approval rules below reflect Sebastian’s instructions. Merge methods, release gates for sensitive changes, and deployment details are recommendations to adopt during setup.
+Sebastian is the sole developer and uses Codex for implementation and review. GitHub Issues track work, pull requests capture changes, and GitHub Actions runs checks on every branch push. Aim for under 15 minutes for a simple change when review and verification fit. Keep the change pending if a check needs more time or fails. The branch and approval rules below reflect Sebastian’s instructions. Merge methods and deployment details are recommendations to adopt during setup.
 
 ## First draft review
 
-Sebastian accepted the revised portfolio as a first draft and requested more polish. Sebastian approved merging the first draft into `main` as a baseline. A public launch, production promotion, or domain connection requires separate approval. This takes precedence over general routine-merge permission below.
+Sebastian accepted the revised portfolio as a first draft and requested more polish. Sebastian approved merging the first draft into `main` as a baseline. The first public launch, manual production promotion, and domain connection are separate operational decisions.
 
 ## Branches and merge permissions
 
 | Branch | Starts from | How changes move forward |
 | --- | --- | --- |
 | `main` | Existing production branch | Keep as the default branch. Routine releases arrive through a `dev` → `main` PR. A merge here starts the production pipeline once release automation is configured. |
-| `dev` | `main` | Integration branch for work ready to consider for release. Land small PRs from task branches here. Codex may merge ordinary release PRs after review and passing checks. |
+| `dev` | `main` | Integration branch for work ready to consider for release. Land small PRs from task branches here. Codex may merge non-experimental PRs after review and passing checks. |
 | `feat/<issue>-<name>`, `fix/<issue>-<name>`, `chore/<issue>-<name>`, `docs/<issue>-<name>` | Latest `dev` | One issue or cohesive change per branch. Squash merge the PR into `dev`, then clean up the branch. |
 | `exp/<name>` | Latest `dev` or a deliberately chosen baseline | Use for redesigns or optional features. Keep experimental work isolated until Sebastian explicitly approves the specific change for promotion. |
 | `hotfix/<issue>-<name>` | Latest `main` | Exceptional path for a production incident. Review through a PR into `main`, then merge `main` back into `dev` before the next release. Apply the same risk and approval rules. |
@@ -51,9 +51,9 @@ Codex may review PRs and submit a GitHub approval when the acting identity is el
 
 | Decision | Who makes it |
 | --- | --- |
-| Routine scoped code and content changes with passing checks | Codex can implement, review, and merge through the PR process. |
+| Non-experimental PRs into `dev` or `main` | Codex can merge after review and passing CI, including PRs that change deployment workflows. |
 | Promotion of any experiment | Sebastian explicitly approves the specific change. This is required even if the change reaches production indirectly. |
-| First public launch, major design or public copy decisions, auth/privacy or sensitive data changes, production migrations, billing and deployment configuration | Bring Sebastian a reviewable diff or preview and obtain approval before merging or applying the sensitive change. Record approval on the PR or issue. |
+| Separate operational actions, including the first public launch, manual production promotion, domain changes, production migrations, and billing changes | Bring Sebastian a reviewable plan before applying the operational change and record approval on the PR or issue. |
 
 For routine work, post one compact update per meaningful milestone with the issue/PR link, visible change, verification, and current status. Ask for input at a concrete decision point. A suitable release update is “PR #18 merged and deployed. The project cards now reveal the team photo on hover or tap. CI passed and I checked the mobile toggle.”
 
