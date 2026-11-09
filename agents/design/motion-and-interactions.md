@@ -7,7 +7,7 @@ Status: the interaction ideas are confirmed; timings, technical approach, and to
 1. Render the real name in the initial HTML. Reserve the final name's dimensions so typing does not shift the layout.
 2. On the first home visit in a browser session, progressively reveal a visual copy of “Sebastian Noel” over roughly 1–1.5 seconds. Keep one complete accessible heading; hide the animated duplicate from assistive technology.
 3. When the final character appears, launch a radial impulse from the name's center through the background tiles. Approximate propagation delay from each tile's distance to that origin; give each tile one controlled 3D flip.
-4. The active wave lasts roughly another 0.8–1.4 seconds. Base tiles settle back into a sparse, quiet pattern. Selected photo patches persist after the impulse.
+4. Tiles flip over 1.1 seconds, with each flip starting later as the wave moves outward at 1.35 CSS pixels per millisecond. The total duration varies with the viewport. Base tiles settle back into a sparse, quiet pattern. Selected photo patches persist after the impulse.
 5. Allow the visitor to scroll, click, and navigate immediately. Navigating away cancels the animation. Returning home in the same session shows the settled composition rather than replaying an obligatory intro.
 
 An optional “Replay intro” action can live in a later command menu. It is not needed in primary navigation.
