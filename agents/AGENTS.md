@@ -34,7 +34,7 @@ Read [README.md](README.md), [planning/brief.md](planning/brief.md), and [planni
 ## Git and review
 
 - Use `main` for production and `dev` for integrated work. Use task branches for routine changes and `exp/` for experiments.
-- Require Sebastian’s explicit approval for the specific experiment before integrating any of its changes into the release path, including cherry-picked or copied changes. Codex may merge routine releases after the documented review and CI checks.
+- Codex may merge non-experimental PRs into `dev` and `main` after review and passing CI. Keep experimental changes out of both branches, including cherry-picked or copied changes, until Sebastian explicitly approves the specific change for release.
 - Keep code readable and use short, single-line comments where they explain important intent.
 
 ## Implementation principles for later work
