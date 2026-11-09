@@ -858,9 +858,6 @@ dialog nav a {
   .resume-link > svg {
     display: none;
   }
-  .motion-toggle {
-    width: 44px;
-  }
   .intro-name {
     font-size: 10.5vw;
   }

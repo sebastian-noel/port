@@ -16,20 +16,13 @@ export function NameIntro() {
     const element = heading.current!;
     const text = typed.current!;
     const media = matchMedia("(prefers-reduced-motion: reduce)");
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem("port:intro-seen") === "1";
-      sessionStorage.setItem("port:intro-seen", "1");
-    } catch {
-      // Private browsing can disable session storage.
-    }
     let timer: ReturnType<typeof setTimeout> | undefined;
     function settle() {
       clearTimeout(timer);
       text.textContent = name;
       element.dataset.introState = "complete";
     }
-    if (seen || media.matches) settle();
+    if (media.matches) settle();
     else {
       let index = 0;
       text.textContent = "";
