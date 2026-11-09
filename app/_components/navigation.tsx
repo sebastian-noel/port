@@ -18,7 +18,6 @@ export function Navigation() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
-  const [paused, setPaused] = useState(false);
 
   function closeMenu() {
     dialog.current?.close();
@@ -74,21 +73,6 @@ export function Navigation() {
               <Icon name={profile.label === "GitHub" ? "github" : "linkedin"} />
             </a>
           ))}
-          <button
-            className="motion-toggle icon-button"
-            aria-label={
-              paused ? "Play background motion" : "Pause background motion"
-            }
-            aria-pressed={paused}
-            onClick={() => {
-              setPaused(!paused);
-              window.dispatchEvent(
-                new CustomEvent("port:motion-paused", { detail: !paused }),
-              );
-            }}
-          >
-            <Icon name={paused ? "play" : "pause"} />
-          </button>
           <button
             className="menu-trigger"
             ref={trigger}

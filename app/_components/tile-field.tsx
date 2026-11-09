@@ -14,9 +14,7 @@ export function TileField() {
       face: HTMLSpanElement;
       x: number;
       y: number;
-      color: string;
     }[] = [];
-    let paused = false;
     let resize: number | undefined;
 
     function cancel() {
@@ -27,8 +25,8 @@ export function TileField() {
     function build() {
       cancel();
       const size = Math.max(
-        40,
-        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 650)),
+        18,
+        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 3000)),
       );
       const cols = Math.ceil(innerWidth / size);
       const rows = Math.ceil(innerHeight / size);
@@ -41,33 +39,27 @@ export function TileField() {
         const face = document.createElement("span");
         face.className = "tile-face";
         const color = colors[(i * 7 + Math.floor(i / cols)) % colors.length];
-        let noise = Math.imul(i + 1, 0x45d9f3b);
-        noise = Math.imul(noise ^ (noise >>> 16), 0x45d9f3b);
-        const highlighted = ((noise ^ (noise >>> 16)) >>> 0) % 101 < 5;
-        const rest = highlighted ? "#6395ee" : "transparent";
-        face.style.setProperty("--tile-rest", rest);
         face.style.setProperty("--tile-back", color);
-        face.append(document.createElement("i"), document.createElement("i"));
+        face.append(document.createElement("i"));
         tile.append(face);
         fragment.append(tile);
         tiles.push({
           face,
           x: ((i % cols) + 0.5) * size,
           y: (Math.floor(i / cols) + 0.5) * size,
-          color,
         });
       }
       element.replaceChildren(fragment);
       element.dataset.tileCount = String(tiles.length);
     }
-    function flip(tile: (typeof tiles)[number], delay = 0, duration = 900) {
+    function flip(tile: (typeof tiles)[number], delay: number) {
       const animation = tile.face.animate(
         [
           { transform: "rotateY(0deg)" },
           { transform: "rotateY(180deg)", offset: 0.5 },
           { transform: "rotateY(360deg)" },
         ],
-        { duration, delay, easing: "cubic-bezier(.25,.55,.4,1)" },
+        { duration: 220, delay, easing: "cubic-bezier(.25,.55,.4,1)" },
       );
       animations.add(animation);
       animation.onfinish = () => {
@@ -77,18 +69,13 @@ export function TileField() {
       };
     }
     function wave(event: Event) {
-      if (paused || media.matches || document.hidden) return;
+      if (media.matches || document.hidden) return;
       cancel();
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";
       tiles.forEach((tile) =>
-        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 1200),
+        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2),
       );
-    }
-    function idleFlip() {
-      if (paused || media.matches || document.hidden || animations.size) return;
-      for (let i = 0; i < 3; i++)
-        flip(tiles[Math.floor(Math.random() * tiles.length)], i * 120, 1300);
     }
     function stopIfHidden() {
       if (document.hidden) cancel();
@@ -96,30 +83,22 @@ export function TileField() {
     function preferenceChange() {
       if (media.matches) cancel();
     }
-    function pause(event: Event) {
-      paused = (event as CustomEvent<boolean>).detail;
-      if (paused) cancel();
-    }
     function onResize() {
       cancelAnimationFrame(resize ?? 0);
       resize = requestAnimationFrame(build);
     }
     build();
-    const idle = setInterval(idleFlip, 6500);
     window.addEventListener("resize", onResize);
     window.addEventListener("port:intro-complete", wave);
     window.addEventListener("port:cancel-intro", cancel);
-    window.addEventListener("port:motion-paused", pause);
     document.addEventListener("visibilitychange", stopIfHidden);
     media.addEventListener("change", preferenceChange);
     return () => {
-      clearInterval(idle);
       cancelAnimationFrame(resize ?? 0);
       cancel();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("port:intro-complete", wave);
       window.removeEventListener("port:cancel-intro", cancel);
-      window.removeEventListener("port:motion-paused", pause);
       document.removeEventListener("visibilitychange", stopIfHidden);
       media.removeEventListener("change", preferenceChange);
     };
