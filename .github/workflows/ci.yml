@@ -124,5 +124,49 @@ jobs:
           candidate="$(vercel deploy --prod --skip-domain --yes --project "$VERCEL_PROJECT_ID")"
           smoke "$candidate"
           require_latest_dev
-          vercel promote "$candidate" --yes
+          # Address the project directly with the team-scoped CI token.
+          DEPLOYMENT_URL="$candidate" node --input-type=module <<'JS'
+          import { setTimeout } from "node:timers/promises";
+
+          const { DEPLOYMENT_URL, VERCEL_ORG_ID, VERCEL_PROJECT_ID, VERCEL_TOKEN } = process.env;
+          const hostname = new URL(DEPLOYMENT_URL).hostname;
+
+          async function vercelRequest(path, method = "GET") {
+            const url = new URL(path, "https://api.vercel.com");
+            url.searchParams.set("teamId", VERCEL_ORG_ID);
+            const response = await fetch(url, {
+              method,
+              headers: {
+                Authorization: `Bearer ${VERCEL_TOKEN}`,
+                "Content-Type": "application/json",
+              },
+              body: method === "POST" ? "{}" : undefined,
+              redirect: "error",
+              signal: AbortSignal.timeout(15000),
+            });
+            if (!response.ok) {
+              throw new Error(`Vercel ${method} ${path} failed (HTTP ${response.status})`);
+            }
+            return response;
+          }
+
+          const deployment = await (await vercelRequest(`/v13/deployments/${hostname}`)).json();
+          if (deployment.projectId !== VERCEL_PROJECT_ID || deployment.url !== hostname ||
+              deployment.target !== "production" || deployment.readyState !== "READY" ||
+              !/^dpl_[a-zA-Z0-9]+$/.test(deployment.id)) {
+            throw new Error("Expected the ready rehearsal deployment that passed smoke checks");
+          }
+          await vercelRequest(`/v10/projects/${VERCEL_PROJECT_ID}/promote/${deployment.id}`, "POST");
+
+          const deadline = Date.now() + 60000;
+          while (Date.now() < deadline) {
+            const alias = await (await vercelRequest("/v4/aliases/port-rehearsal.vercel.app")).json();
+            if (alias.projectId === VERCEL_PROJECT_ID && alias.deploymentId === deployment.id) {
+              console.log(`Rehearsal domain points to ${deployment.id}`);
+              process.exit(0);
+            }
+            await setTimeout(2000);
+          }
+          throw new Error("Timed out waiting for the rehearsal domain to point to the tested deployment");
+          JS
           smoke https://port-rehearsal.vercel.app
