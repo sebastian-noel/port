@@ -10,7 +10,7 @@ Sebastian accepted the revised portfolio as a first draft and requested more pol
 
 | Branch | Starts from | How changes move forward |
 | --- | --- | --- |
-| `main` | Existing production branch | Keep as the default branch. Routine releases arrive through a `dev` → `main` PR. A merge here starts the production pipeline once release automation is configured. |
+| `main` | Existing production branch | Keep as the default branch. Release PRs require Sebastian’s explicit approval after he reviews the exact `dev` preview. A merge here starts the production pipeline once release automation is configured. |
 | `dev` | `main` | Integration branch for work ready to consider for release. Land small PRs from task branches here. Codex may merge non-experimental PRs after review and passing checks. |
 | `feat/<issue>-<name>`, `fix/<issue>-<name>`, `chore/<issue>-<name>`, `docs/<issue>-<name>` | Latest `dev` | One issue or cohesive change per branch. Squash merge the PR into `dev`, then clean up the branch. |
 | `exp/<name>` | Latest `dev` or a deliberately chosen baseline | Use for redesigns or optional features. Keep experimental work isolated until Sebastian explicitly approves the specific change for promotion. |
@@ -26,8 +26,9 @@ The experiment gate applies to the **change itself**, including copied or cherry
 2. Give Codex the issue number, base branch, and relevant plan links. Have it read the project instructions, inspect existing code, and work in one task branch or linked worktree. Establish a root `AGENTS.md` pointer to the planning index as part of the later setup.
 3. Open a draft PR into `dev` when feedback would help. Explain the behavior change, record actual checks and their results, and include the required screenshots for UI, UX, and visual changes. Use `Refs #42` in PRs to `dev`.
 4. Review the diff against its target, preferably from a fresh Codex review context. The local CLI supports `codex review --base origin/dev` and `codex review --base origin/main`. Check acceptance criteria, unintended changes, and any special review gate. Fix blockers and recheck the current diff when it changes.
-5. Merge the task PR after checks pass. When `dev` contains a coherent release, open or update one `dev` → `main` PR. Review the complete diff so unready work cannot ride along. Confirm `dev` includes the current production changes, verify CI and relevant preview results for the revision being merged, and include `Closes #42` for issues shipping in this release. GitHub applies closing keywords on PRs targeting the default branch. If deployment later fails, track it on the release PR or reopen the issue as appropriate. [GitHub issue linking](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
-6. After merge, follow the production pipeline below. Report the release PR, deployment revision, and verification result. Mark the release live only after confirming the revision and smoke checks on `snoel.dev`.
+5. Merge the task PR after checks pass. When `dev` contains a coherent release, open or update one `dev` → `main` PR. Review the complete diff so unready work cannot ride along. Confirm `dev` includes the current production changes, verify CI and preview results for the revision being merged, and include `Closes #42` for issues shipping in this release. GitHub applies closing keywords on PRs targeting the default branch. If deployment later fails, track it on the release PR or reopen the issue as appropriate. [GitHub issue linking](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
+6. Share the exact `dev` preview, commit, and release scope with Sebastian. Record his explicit approval before merging into `main`. If the release scope changes after approval, share the updated preview and obtain approval again.
+7. After merge, follow the production pipeline below. Report the release PR, deployment revision, and verification result. Mark the release live only after confirming the revision and smoke checks on `snoel.dev`.
 
 Use direct names, small functions, and short, single-line comments at important points where the reason is easy to miss. Examples include why attempt settlement must be atomic or why a preview bypasses production analytics. Prefer readable code for ordinary operations. Keep dependency and formatting churn out of unrelated PRs.
 
@@ -51,13 +52,16 @@ Codex may review PRs and submit a GitHub approval when the acting identity is el
 
 | Decision | Who makes it |
 | --- | --- |
-| Non-experimental PRs into `dev` or `main` | Codex can merge after review and passing CI, including PRs that change deployment workflows. |
+| Non-experimental task PRs into `dev` | Codex can merge after review and passing CI. |
+| Release PRs into `main` | Sebastian reviews the `dev` preview and explicitly approves the release. Codex can then merge after CI passes. |
 | Promotion of any experiment | Sebastian explicitly approves the specific change. This is required even if the change reaches production indirectly. |
 | Separate operational actions, including the first public launch, manual production promotion, domain changes, production migrations, and billing changes | Bring Sebastian a reviewable plan before applying the operational change and record approval on the PR or issue. |
 
 For routine work, post one compact update per meaningful milestone with the issue/PR link, visible change, verification, and current status. Ask for input at a concrete decision point. A suitable release update is “PR #18 merged and deployed. The project cards now reveal the team photo on hover or tap. CI passed and I checked the mobile toggle.”
 
 ## CI and deployment
+
+Production promotion automation is pending. GitHub Actions verifies `main`, and Vercel stages its production builds with automatic domain assignment off. The release job on `dev` targets the rehearsal project. The planned production workflow below promotes the exact tested `main` deployment after CI and staged smoke checks pass.
 
 **Public repository setup:** Sebastian has made the repository public. Use GitHub Free branch protections and environment restrictions with standard hosted runners. Review files and media for publication before adding them, especially resume copies, environment files, and planning notes. [Branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) · [Deployment environments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments) · [Actions billing](https://docs.github.com/en/actions/concepts/billing-and-usage)
 
