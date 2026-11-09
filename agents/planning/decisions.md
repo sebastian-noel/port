@@ -4,7 +4,7 @@ Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. 
 
 ## Confirmed decisions
 
-**November 9, 2026 intro refinement:** Sebastian requested a slightly slower tile wave, a repeatable typing rhythm with varied character delays, and a caret that blinks twice after the final letter and fades out. He asked to slow the name typing further after reviewing the preview. The next timing pass takes about 1.8 seconds.
+**November 9, 2026 intro refinement:** Sebastian requested a slightly slower tile wave and a repeatable typing rhythm with varied character delays. After reviewing the preview, he asked to extend the typing to about 1.8 seconds and give the caret three full blinks at half a second visible and half a second hidden. The fourth blink ends in a fade.
 
 **November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
 
