@@ -8,6 +8,8 @@ Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. 
 
 **November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
 
+**November 9, 2026 merge policy:** Codex may merge reviewed non-experimental task PRs into `dev` after CI passes. Sebastian reviews the exact `dev` preview and explicitly approves the release before it moves into `main`. Experimental changes stay isolated unless he explicitly approves them for release, including changes copied or cherry-picked from an experiment.
+
 Class projects are out of scope. Sebastian’s [Devpost profile](https://devpost.com/sebastian-noel) is a source for hackathon projects that are unavailable locally.
 
 | Decision | Source/context |
@@ -119,7 +121,7 @@ On subsequent decisions, record the date, what was selected, why it matters, and
 
 Sebastian rejected the oversized featured-work layout and requested the original typed-name splash and radial blue/gray/white square impulse now. Confirmed coral, `snoel.dev` wordmark, flat letter placeholders, less copy, small home side links, no home About promotion, and blank game space. Resume actions open the supplied contact-free PDF in a new tab. Projects expand to ten verified Devpost entries plus clearly marked future entries, with uniform cards and basic search. Experiences use chronological cards with verified resume dates and bullets. Unknown dates remain absent.
 
-This revision supersedes earlier home composition, accent, and resume-action guidance. Sebastian accepted it as a first draft, with polish still ahead. Add the shared planning docs to draft PR #5. Merging into `main` or releasing to production requires his explicit approval.
+This revision supersedes earlier home composition, accent, and resume-action guidance. Sebastian accepted it as a first draft, with polish still ahead. Add the shared planning docs to draft PR #5. The first public launch is a separate milestone.
 
 ## 2026-11-07 baseline and contact
 
