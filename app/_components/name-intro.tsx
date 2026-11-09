@@ -5,7 +5,7 @@ import { Icon } from "./icons";
 
 const name = "Sebastian Noel";
 const typingDelays = [
-  100, 72, 92, 54, 126, 60, 76, 144, 68, 108, 152, 66, 95, 118,
+  135, 97, 124, 73, 170, 81, 103, 194, 92, 146, 205, 89, 128, 159,
 ];
 
 export function NameIntro() {

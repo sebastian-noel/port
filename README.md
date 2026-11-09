@@ -30,4 +30,4 @@ PR #5 contains the first portfolio draft. The home page contains a typed-name sp
 
 All content remains draft and all previews remain noindex until the first launch is approved. No ranked game, analytics, or production deployment is enabled. See [content and media](docs/content.md) for authoring conventions.
 
-Sebastian accepted the revised design as a first draft, with polish still ahead. See the [project plans](agents/README.md) and [progression checklist](agents/planning/progression.md). Routine changes use GitHub Issues and PRs into `dev`. A production release from `main` requires explicit approval.
+Sebastian accepted the revised design as a first draft, with polish still ahead. See the [project plans](agents/README.md) and [progression checklist](agents/planning/progression.md). Routine changes use GitHub Issues and PRs into `dev`. Codex may merge reviewed non-experimental PRs into `dev` after CI passes. Sebastian reviews the `dev` preview and explicitly approves each release before it moves into `main`. Experimental changes require separate approval.
