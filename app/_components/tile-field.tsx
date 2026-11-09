@@ -14,7 +14,6 @@ export function TileField() {
       face: HTMLSpanElement;
       x: number;
       y: number;
-      color: string;
     }[] = [];
     let resize: number | undefined;
 
@@ -40,26 +39,20 @@ export function TileField() {
         const face = document.createElement("span");
         face.className = "tile-face";
         const color = colors[(i * 7 + Math.floor(i / cols)) % colors.length];
-        let noise = Math.imul(i + 1, 0x45d9f3b);
-        noise = Math.imul(noise ^ (noise >>> 16), 0x45d9f3b);
-        const highlighted = ((noise ^ (noise >>> 16)) >>> 0) % 101 < 5;
-        const rest = highlighted ? "#6395ee" : "transparent";
-        face.style.setProperty("--tile-rest", rest);
         face.style.setProperty("--tile-back", color);
-        face.append(document.createElement("i"), document.createElement("i"));
+        face.append(document.createElement("i"));
         tile.append(face);
         fragment.append(tile);
         tiles.push({
           face,
           x: ((i % cols) + 0.5) * size,
           y: (Math.floor(i / cols) + 0.5) * size,
-          color,
         });
       }
       element.replaceChildren(fragment);
       element.dataset.tileCount = String(tiles.length);
     }
-    function flip(tile: (typeof tiles)[number], delay = 0, duration = 900) {
+    function flip(tile: (typeof tiles)[number], delay: number, duration: number) {
       const animation = tile.face.animate(
         [
           { transform: "rotateY(0deg)" },
@@ -84,11 +77,6 @@ export function TileField() {
         flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 220),
       );
     }
-    function idleFlip() {
-      if (media.matches || document.hidden || animations.size) return;
-      for (let i = 0; i < 3; i++)
-        flip(tiles[Math.floor(Math.random() * tiles.length)], i * 120, 1300);
-    }
     function stopIfHidden() {
       if (document.hidden) cancel();
     }
@@ -100,14 +88,12 @@ export function TileField() {
       resize = requestAnimationFrame(build);
     }
     build();
-    const idle = setInterval(idleFlip, 6500);
     window.addEventListener("resize", onResize);
     window.addEventListener("port:intro-complete", wave);
     window.addEventListener("port:cancel-intro", cancel);
     document.addEventListener("visibilitychange", stopIfHidden);
     media.addEventListener("change", preferenceChange);
     return () => {
-      clearInterval(idle);
       cancelAnimationFrame(resize ?? 0);
       cancel();
       window.removeEventListener("resize", onResize);

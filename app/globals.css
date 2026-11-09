@@ -302,9 +302,6 @@ dialog nav a {
   inset: 1px;
   display: block;
   backface-visibility: hidden;
-  background: var(--tile-rest);
-}
-.tile-face i:last-child {
   transform: rotateY(180deg);
   background: var(--tile-back);
 }
@@ -318,6 +315,8 @@ dialog nav a {
 }
 .intro-name {
   position: relative;
+  background: var(--canvas);
+  box-shadow: 0 0 0 0.08em var(--canvas);
   color: var(--on-canvas);
   font-size: clamp(48px, 8.2vw, 108px);
   font-weight: 650;
@@ -334,7 +333,6 @@ dialog nav a {
   position: absolute;
   left: 0;
   top: 0;
-  background: var(--canvas);
 }
 .caret {
   display: inline-block;
