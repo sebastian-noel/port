@@ -52,14 +52,14 @@ export function TileField() {
       element.replaceChildren(fragment);
       element.dataset.tileCount = String(tiles.length);
     }
-    function flip(tile: (typeof tiles)[number], delay: number, duration: number) {
+    function flip(tile: (typeof tiles)[number], delay: number) {
       const animation = tile.face.animate(
         [
           { transform: "rotateY(0deg)" },
           { transform: "rotateY(180deg)", offset: 0.5 },
           { transform: "rotateY(360deg)" },
         ],
-        { duration, delay, easing: "cubic-bezier(.25,.55,.4,1)" },
+        { duration: 220, delay, easing: "cubic-bezier(.25,.55,.4,1)" },
       );
       animations.add(animation);
       animation.onfinish = () => {
@@ -74,7 +74,7 @@ export function TileField() {
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";
       tiles.forEach((tile) =>
-        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 220),
+        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2),
       );
     }
     function stopIfHidden() {

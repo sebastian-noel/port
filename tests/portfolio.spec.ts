@@ -386,7 +386,10 @@ test("intro replays on home navigation and refresh", async ({
   await page.screenshot({ path: testInfo.outputPath("intro-wave.png") });
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
   await expect(caret).toHaveCSS("opacity", "0");
-  await expect(page.locator(".tile-field")).toHaveAttribute("data-wave", "idle");
+  await expect(page.locator(".tile-field")).toHaveAttribute(
+    "data-wave",
+    "idle",
+  );
   await expect(page.locator(".tile").first().locator("i")).toHaveCount(1);
   await expect(page.locator(".tile").first()).toHaveCSS("width", "20px");
   await expect(page.locator(".motion-toggle")).toHaveCount(0);
