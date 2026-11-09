@@ -82,7 +82,7 @@ export function TileField() {
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";
       tiles.forEach((tile) =>
-        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 2.2, 850),
+        flip(tile, Math.hypot(tile.x - x, tile.y - y) / 1.2, 1200),
       );
     }
     function idleFlip() {

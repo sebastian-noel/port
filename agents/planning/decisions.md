@@ -4,6 +4,10 @@ Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. 
 
 ## Confirmed decisions
 
+**November 9, 2026 intro refinement:** Sebastian requested a slightly slower tile wave, a repeatable typing rhythm with varied character delays, and a caret that blinks twice after the final letter and fades out.
+
+**November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
+
 Class projects are out of scope. Sebastian’s [Devpost profile](https://devpost.com/sebastian-noel) is a source for hackathon projects that are unavailable locally.
 
 | Decision | Source/context |
