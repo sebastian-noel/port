@@ -431,7 +431,7 @@ test("reduced motion and early navigation cancel decorative motion", async ({
     .getByRole("navigation", { name: "Main", exact: true })
     .getByRole("link", { name: "Projects", exact: true })
     .click();
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(2100);
   expect(
     await page
       .locator(".tile-field")
