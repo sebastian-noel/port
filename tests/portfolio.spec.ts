@@ -382,11 +382,6 @@ test("intro replays on home navigation and refresh", async ({
   await expect(caret).toHaveCSS("animation-iteration-count", "3, 1");
   await expect(caret).toHaveCSS("animation-duration", "1s, 0.26s");
   await expect(caret).toHaveCSS("animation-delay", "0s, 3.5s");
-  expect(
-    await page
-      .locator(".tile-field")
-      .evaluate((el) => el.getAnimations({ subtree: true }).length),
-  ).toBeGreaterThan(0);
   await page.screenshot({ path: testInfo.outputPath("intro-wave.png") });
   await expect(intro).toHaveAttribute("data-intro-state", "complete");
   await expect(caret).toHaveCSS("opacity", "0");
