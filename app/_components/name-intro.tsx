@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import { Icon } from "./icons";
 
 const name = "Sebastian Noel";
+const typingDelays = [
+  100, 72, 92, 54, 126, 60, 76, 144, 68, 108, 152, 66, 95, 118,
+];
 
 export function NameIntro() {
   const heading = useRef<HTMLHeadingElement>(null);
@@ -20,9 +23,9 @@ export function NameIntro() {
     } catch {
       // Private browsing can disable session storage.
     }
-    let timer: ReturnType<typeof setInterval> | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     function settle() {
-      clearInterval(timer);
+      clearTimeout(timer);
       text.textContent = name;
       element.dataset.introState = "complete";
     }
@@ -31,28 +34,31 @@ export function NameIntro() {
       let index = 0;
       text.textContent = "";
       element.dataset.introState = "typing";
-      timer = setInterval(() => {
+      function typeNext() {
         text.textContent = name.slice(0, ++index);
-        if (index === name.length) {
-          settle();
-          const rect = element.getBoundingClientRect();
-          window.dispatchEvent(
-            new CustomEvent("port:intro-complete", {
-              detail: {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2,
-              },
-            }),
-          );
+        if (index < name.length) {
+          timer = setTimeout(typeNext, typingDelays[index]);
+          return;
         }
-      }, 85);
+        element.dataset.introState = "finishing";
+        const rect = element.getBoundingClientRect();
+        window.dispatchEvent(
+          new CustomEvent("port:intro-complete", {
+            detail: {
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2,
+            },
+          }),
+        );
+      }
+      timer = setTimeout(typeNext, typingDelays[0]);
     }
     function motionChange() {
       if (media.matches) settle();
     }
     media.addEventListener("change", motionChange);
     return () => {
-      clearInterval(timer);
+      clearTimeout(timer);
       media.removeEventListener("change", motionChange);
       window.dispatchEvent(new Event("port:cancel-intro"));
     };
@@ -67,7 +73,14 @@ export function NameIntro() {
         </span>
         <span className="name-typed" aria-hidden="true">
           <span ref={typed}>{name}</span>
-          <span className="caret" />
+          <span
+            className="caret"
+            onAnimationEnd={(event) => {
+              if (event.animationName === "caret-fade" && heading.current) {
+                heading.current.dataset.introState = "complete";
+              }
+            }}
+          />
         </span>
       </h1>
       <a
