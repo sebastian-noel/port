@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Sniglet } from "next/font/google";
+import { Varela_Round } from "next/font/google";
 import { TileField } from "./_components/tile-field";
 import { Icon } from "./_components/icons";
 import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Sniglet({ weight: "400", subsets: ["latin"], display: "swap" });
+const font = Varela_Round({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),
