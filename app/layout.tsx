@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Balsamiq_Sans } from "next/font/google";
+import { Sniglet } from "next/font/google";
 import { TileField } from "./_components/tile-field";
 import { Icon } from "./_components/icons";
 import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Balsamiq_Sans({
-  weight: ["400", "700"],
+const font = Sniglet({
+  weight: ["400", "800"],
   subsets: ["latin"],
   display: "swap",
 });
