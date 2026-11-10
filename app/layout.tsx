@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Poetsen_One } from "next/font/google";
+import { Balsamiq_Sans } from "next/font/google";
 import { TileField } from "./_components/tile-field";
 import { Icon } from "./_components/icons";
 import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Poetsen_One({
-  weight: "400",
+const font = Balsamiq_Sans({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
