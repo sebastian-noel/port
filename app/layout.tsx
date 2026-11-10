@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Roboto } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { TileField } from "./_components/tile-field";
 import { Icon } from "./_components/icons";
 import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Roboto({ subsets: ["latin"], display: "swap" });
+const font = Nunito({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),
