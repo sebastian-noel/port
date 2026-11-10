@@ -21,7 +21,7 @@ Use dark navy and navy–stone blends beneath white text. Use full-strength ston
 
 ## Type and layout
 
-- Use Nunito sitewide, including the typed name in the hero.
+- Use Poetsen One sitewide, including the typed name in the hero.
 - Use one display/body family initially; an optional monospace face belongs only in the typing prompt or arcade score table if it improves legibility.
 - Let the name be large and expressive; body paragraphs stay comfortable to read, approximately 45–75 characters per line.
 - Use balanced heading wrapping, normal tracking, deliberate line breaks where needed, and avoid single-word trailing lines. Do not apply negative tracking globally.
