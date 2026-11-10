@@ -48,7 +48,7 @@ export const records: Entry[] = [
     context: "Robotics · Knight Hacks IX",
     published: false,
     featured: true,
-    award: "1st overall · NVIDIA · Hugging Face",
+    award: "1st overall · 1st NVIDIA · 1st Hugging Face",
     cover: {
       placeholder: true,
     },
@@ -118,7 +118,7 @@ export const records: Entry[] = [
     collection: "projects",
     slug: "greghouse",
     demoVideoId: "eeHd84B9r5A",
-    title: "GregHouse",
+    title: "Greghouse",
     summary:
       "A living plant, a moisture sensor, and a multiplayer virtual garden.",
     context: "Connected devices · BloomKnights 2026",
@@ -131,7 +131,7 @@ export const records: Entry[] = [
     sections: [
       {
         heading: "A garden in two worlds",
-        text: "GregHouse connects a real plant to a shared pixel-art garden. An ESP32 reads soil moisture, and that reading influences the virtual plant's mood. Visitors can explore together and alert the owner when a plant needs water.",
+        text: "Greghouse connects a real plant to a shared pixel-art garden. An ESP32 reads soil moisture, and that reading influences the virtual plant's mood. Visitors can explore together and alert the owner when a plant needs water.",
       },
       {
         heading: "From sensor to shared experience",

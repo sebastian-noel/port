@@ -76,9 +76,12 @@ export function ProjectCard({
       <div className="project-copy">
         <Heading>
           {entry.title}
-          {!entry.placeholder && <Icon name="external" />}
+          {!featured && !entry.placeholder && <Icon name="external" />}
         </Heading>
         <p>{entry.summary}</p>
+        {featured && entry.award && (
+          <p className="project-awards">{entry.award}</p>
+        )}
       </div>
     </>
   );

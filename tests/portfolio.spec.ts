@@ -254,8 +254,13 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
   const featured = page.getByRole("region", { name: "Featured Projects" });
   const projectTitles = featured.getByRole("heading", { level: 3 });
-  await expect(projectTitles).toHaveText(["Permanence", "Recall", "GregHouse"]);
+  await expect(projectTitles).toHaveText(["Recall", "Permanence", "Greghouse"]);
   const cards = featured.locator(".project-card");
+  await expect(featured.locator(".project-awards")).toHaveText([
+    "2nd overall",
+    "1st overall · 1st NVIDIA · 1st Hugging Face",
+    "3rd overall",
+  ]);
   const cardRows = await cards.evaluateAll((items) =>
     items.map((card) => card.getBoundingClientRect().top),
   );

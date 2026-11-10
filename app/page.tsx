@@ -26,9 +26,10 @@ export default function Home() {
     title,
     entries: experiences.filter((entry) => slugs.includes(entry.slug)),
   }));
-  const featuredProjects = collectionEntries("projects")
-    .filter((entry) => entry.featured)
-    .slice(0, 3);
+  const projects = collectionEntries("projects");
+  const featuredProjects = ["recall", "permanence", "greghouse"].flatMap(
+    (slug) => projects.filter((entry) => entry.slug === slug),
+  );
 
   return (
     <>

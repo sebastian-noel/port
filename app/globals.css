@@ -375,28 +375,44 @@ dialog nav a[aria-current] {
 .featured-projects {
   scroll-margin-top: 88px;
   background: var(--sky);
-  color: var(--canvas);
+  color: var(--on-canvas);
 }
 .featured-projects h2,
 .featured-experiences h2 {
   margin: 0 0 28px;
   text-align: center;
 }
+.featured-projects h2 {
+  width: fit-content;
+  margin-inline: auto;
+  padding: 6px 20px;
+  background: var(--canvas);
+  font-size: clamp(30px, 4vw, 48px);
+}
 .featured-projects .project-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr) minmax(0, 1fr);
+  grid-auto-rows: auto;
+  column-gap: clamp(24px, 4vw, 64px);
+  align-items: start;
 }
 .featured-projects .project-card {
-  background: transparent;
-  color: inherit;
+  height: auto;
+  background: var(--canvas);
 }
 .featured-projects .project-copy {
-  padding: 14px 0 0;
+  padding: 14px 16px 16px;
 }
 .featured-projects .project-copy h3 {
   margin: 0 0 4px;
+  color: var(--accent);
 }
 .featured-projects .project-copy p {
   min-height: 0;
+}
+.featured-projects .project-copy .project-awards {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--sky);
 }
 .featured-media {
   position: relative;
