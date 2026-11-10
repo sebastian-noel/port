@@ -371,7 +371,7 @@ test("intro replays on home navigation and refresh", async ({
   await page.goto("/");
   const intro = page.locator(".intro-name");
   await expect(intro).toHaveAttribute("data-intro-state", "typing");
-  await expect(intro).toHaveCSS("background-color", "rgb(78, 135, 236)");
+  await expect(intro).toHaveCSS("background-color", "rgb(3, 32, 61)");
   await expect(
     page.getByRole("heading", { name: "Sebastian Noel", exact: true }),
   ).toBeVisible();
