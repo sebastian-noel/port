@@ -256,8 +256,9 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   const featured = page.getByRole("region", { name: "Featured Projects" });
   const projectTitles = featured.getByRole("heading", { level: 3 });
   await expect(projectTitles).toHaveText(["Permanence", "Recall", "GregHouse"]);
-  const cardRows = await featured.locator(".project-card").evaluateAll((cards) =>
-    cards.map((card) => card.getBoundingClientRect().top),
+  const cards = featured.locator(".project-card");
+  const cardRows = await cards.evaluateAll((items) =>
+    items.map((card) => card.getBoundingClientRect().top),
   );
   expect(new Set(cardRows).size).toBe(1);
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);

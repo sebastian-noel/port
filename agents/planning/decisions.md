@@ -1,11 +1,12 @@
 # Decisions and open questions
 
-**November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions
 
 **November 9, 2026 intro refinement:** Sebastian requested a slightly slower tile wave and a repeatable typing rhythm with varied character delays. After reviewing the preview, he asked to extend the typing to about 1.8 seconds and give the caret three full blinks at half a second visible and half a second hidden. The fourth blink ends in a fade.
+
+**November 8, 2026 motion adjustment:** Sebastian requested a slower homepage tile impulse for review on `dev`. The first timing pass slows the outward wave and lengthens each tile flip.
 
 **November 9, 2026 merge policy:** Codex may merge reviewed non-experimental task PRs into `dev` after CI passes. Sebastian reviews the exact `dev` preview and explicitly approves the release before it moves into `main`. Experimental changes stay isolated unless he explicitly approves them for release, including changes copied or cherry-picked from an experiment.
 
