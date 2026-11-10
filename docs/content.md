@@ -22,7 +22,7 @@ Do not commit the original resume, private contact information, original assets,
 
 The name types once per tab session, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations; idle motion flips only three tiles at a time. Reduced motion displays the complete name and suppresses decorative animation. The header pause button cancels background motion, and hidden tabs stop active animation.
 
-The blank home section reserves space for the future typing game. Projects and experiences are compact side links. No game logic or backend is implemented yet.
+The homepage features three projects and three experience highlights above the space reserved for the typing game. Add an approved, optimized WebM or MP4 under `public/media/` and set the project’s `demoClip` to its `/media/` path for a muted loop. Add the approved team photo as `winnerPhoto` using the same fields as a real cover. Until the clips arrive, project cards display their demo thumbnails. No game logic or backend is implemented yet.
 
 ## Release
 

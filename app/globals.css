@@ -367,28 +367,56 @@ dialog nav a[aria-current] {
 .splash-down:hover svg {
   transform: translateY(4px);
 }
-.featured-projects {
+.featured-projects,
+.featured-experiences {
   padding-block: 48px;
+}
+.featured-projects {
   scroll-margin-top: 88px;
   background: var(--sky);
+  color: var(--canvas);
 }
-.featured-projects h2 {
-  width: fit-content;
-  margin: 0 auto 28px;
-  padding: 8px 18px;
-  background: var(--canvas);
+.featured-projects h2,
+.featured-experiences h2 {
+  margin: 0 0 28px;
   text-align: center;
 }
 .featured-projects .project-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.featured-projects .project-card {
+  background: transparent;
+  color: inherit;
+}
+.featured-projects .project-copy {
+  padding: 14px 0 0;
+}
+.featured-projects .project-copy h3 {
+  margin: 0 0 4px;
+}
+.featured-projects .project-copy p {
+  min-height: 0;
+}
 .featured-media {
   position: relative;
   background: var(--canvas);
 }
+.featured-clip,
 .winner-photo {
   position: absolute;
   inset: 0;
+}
+.featured-clip {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (prefers-reduced-motion: reduce) {
+  .featured-clip {
+    display: none;
+  }
+}
+.winner-photo {
   visibility: hidden;
 }
 .project-card a:focus-visible .winner-photo {
@@ -399,66 +427,39 @@ dialog nav a[aria-current] {
     visibility: visible;
   }
 }
-.home-workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 278px;
-  gap: 64px;
-  align-items: start;
-  padding: 44px 0 100px;
-  scroll-margin-top: 100px;
+.experience-highlight {
+  padding: 20px;
+  background: var(--sky);
+  color: var(--canvas);
 }
-.game-space {
-  min-height: 450px;
+.experience-highlight h3 {
+  margin: 0 0 10px;
 }
-.home-sidebar {
-  background: var(--canvas);
-  padding: 12px 0;
+.experience-highlight ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.compact-section + .compact-section {
-  margin-top: 40px;
-}
-.compact-section h2 {
-  color: var(--on-canvas);
-  margin: 0 0 14px;
-  font-size: 23px;
-}
-.compact-section h2 a {
+.experience-highlight a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   min-height: 44px;
 }
-.compact-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.compact-section li a {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 9px 0;
-  font-size: 15px;
-  font-weight: 500;
-}
-.compact-section li a > span {
-  flex: 1;
-}
-.compact-section li a > svg {
-  width: 16px;
-}
-.compact-section .cover {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  aspect-ratio: 1;
-}
-.compact-section .cover span {
-  font-size: 22px;
-}
-.compact-section a:hover > span {
+.experience-highlight a:hover,
+.site-footer a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+.featured-projects a:focus-visible,
+.experience-highlight a:focus-visible,
+.footer-band a:focus-visible {
+  outline-color: var(--canvas);
+  box-shadow: none;
+}
+.game-space {
+  min-height: 450px;
 }
 .cover {
   overflow: hidden;
@@ -776,6 +777,7 @@ dialog nav a[aria-current] {
 }
 .footer-band {
   background: var(--sky);
+  color: var(--canvas);
 }
 .site-footer {
   display: flex;
@@ -795,11 +797,6 @@ dialog nav a[aria-current] {
   align-items: center;
   gap: 6px;
   min-height: 44px;
-}
-.site-footer > span,
-.site-footer a {
-  background: var(--canvas);
-  padding: 8px 12px;
 }
 .site-footer a svg {
   width: 16px;
@@ -846,9 +843,6 @@ dialog nav a[aria-current] {
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .home-workspace {
-    gap: 36px;
-  }
 }
 @media (max-width: 900px) {
   .desktop-nav {
@@ -865,9 +859,6 @@ dialog nav a[aria-current] {
   }
   .splash {
     min-height: calc(100svh - 76px);
-  }
-  .home-workspace {
-    grid-template-columns: minmax(0, 1fr) 250px;
   }
   .timeline-entry {
     grid-template-columns: 140px minmax(0, 1fr);
@@ -909,22 +900,8 @@ dialog nav a[aria-current] {
   .intro-name {
     font-size: 10.5vw;
   }
-  .home-workspace {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding-top: 0;
-    padding-bottom: 50px;
-  }
   .game-space {
     min-height: 300px;
-  }
-  .home-sidebar {
-    max-width: 340px;
-    width: 100%;
-    margin-left: auto;
-  }
-  .compact-section + .compact-section {
-    margin-top: 28px;
   }
   .page-heading {
     padding-top: 40px;

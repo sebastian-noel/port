@@ -262,15 +262,15 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   expect(new Set(cardRows).size).toBe(1);
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
-  expect(
-    await page
-      .locator(".game-space")
-      .evaluate((el) => el.getBoundingClientRect().width),
-  ).toBeGreaterThan(
-    await page
-      .locator(".home-sidebar")
-      .evaluate((el) => el.getBoundingClientRect().width),
-  );
+  const experiences = page.getByRole("region", {
+    name: "Featured Experiences",
+  });
+  await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
+    "2× SWE @ BNY",
+    "Undergrad Research @ Institute of Artificial Intelligence",
+    "Mentor & Outreach @ Knight Hacks",
+  ]);
+  await expect(experiences.getByRole("link")).toHaveCount(4);
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");

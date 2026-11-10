@@ -49,6 +49,21 @@ export function ProjectCard({
           ) : (
             <Cover entry={entry} />
           )}
+          {entry.demoClip && (
+            <video
+              className="featured-clip"
+              aria-hidden="true"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source
+                src={entry.demoClip}
+                media="(prefers-reduced-motion: no-preference)"
+              />
+            </video>
+          )}
           {entry.winnerPhoto && (
             <div className="winner-photo">
               <Cover entry={{ ...entry, cover: entry.winnerPhoto }} />
@@ -140,37 +155,5 @@ export function ExperienceList({ items }: { items: Entry[] }) {
         </article>
       ))}
     </div>
-  );
-}
-
-export function CompactList({
-  title,
-  collection,
-  items,
-}: {
-  title: string;
-  collection: "projects" | "experiences";
-  items: Entry[];
-}) {
-  return (
-    <section className="compact-section">
-      <h2>
-        <Link href={`/${collection}`}>
-          {title}
-          <Icon name="arrow" />
-        </Link>
-      </h2>
-      <ul>
-        {items.map((entry) => (
-          <li key={entry.slug}>
-            <Link href={`/${collection}/${entry.slug}`}>
-              <Cover entry={entry} />
-              <span>{entry.title}</span>
-              <Icon name="external" />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }

@@ -30,6 +30,7 @@ export type Entry = {
   bullets?: string[];
   cover: { placeholder: true } | ProjectPhoto;
   demoVideoId?: string;
+  demoClip?: string;
   winnerPhoto?: ProjectPhoto;
   sections: { heading: string; text: string }[];
   links: { label: string; href: string }[];
@@ -606,6 +607,13 @@ export function validateEntries(items: Entry[]) {
 
 validateEntries(records);
 for (const entry of records) {
+  if (
+    entry.demoClip &&
+    (!/^\/media\/[a-z0-9/-]+\.(webm|mp4)$/.test(entry.demoClip) ||
+      !existsSync(`public${entry.demoClip}`))
+  ) {
+    throw new Error(`Invalid demo clip: ${entry.demoClip}`);
+  }
   for (const photo of [entry.cover, entry.winnerPhoto]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
       throw new Error(`Missing cover file: ${photo.src}`);

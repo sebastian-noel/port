@@ -1,5 +1,7 @@
+import Link from "next/link";
+import { ProjectCard } from "./_components/entries";
+import { Icon } from "./_components/icons";
 import { NameIntro } from "./_components/name-intro";
-import { CompactList, ProjectCard } from "./_components/entries";
 import { collectionEntries } from "./_content/entries";
 import { pageMetadata } from "./_lib/site";
 
@@ -9,7 +11,21 @@ export const metadata = pageMetadata(
   "/",
 );
 
+const experienceHighlights = [
+  { title: "2× SWE @ BNY", slugs: ["bny", "bny-spring"] },
+  {
+    title: "Undergrad Research @ Institute of Artificial Intelligence",
+    slugs: ["ucf-ai"],
+  },
+  { title: "Mentor & Outreach @ Knight Hacks", slugs: ["knight-hacks"] },
+];
+
 export default function Home() {
+  const experiences = collectionEntries("experiences");
+  const featuredExperiences = experienceHighlights.map(({ title, slugs }) => ({
+    title,
+    entries: experiences.filter((entry) => slugs.includes(entry.slug)),
+  }));
   const featuredProjects = collectionEntries("projects")
     .filter((entry) => entry.featured)
     .slice(0, 3);
@@ -33,22 +49,36 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="wrap home-workspace">
-        <section className="game-space" aria-labelledby="game-heading">
-          <h2 className="sr-only" id="game-heading">
-            Typing game, coming later
-          </h2>
-        </section>
-        <aside className="home-sidebar" aria-label="Selected work">
-          <CompactList
-            title="Experiences"
-            collection="experiences"
-            items={collectionEntries("experiences")
-              .filter((entry) => entry.featured)
-              .slice(0, 3)}
-          />
-        </aside>
-      </div>
+      <section
+        className="wrap featured-experiences"
+        aria-labelledby="featured-experiences-heading"
+      >
+        <h2 id="featured-experiences-heading">Featured Experiences</h2>
+        <div className="project-grid">
+          {featuredExperiences
+            .filter(({ entries }) => entries.length > 0)
+            .map(({ title, entries }) => (
+              <article className="experience-highlight" key={title}>
+                <h3>{title}</h3>
+                <ul>
+                  {entries.map((entry) => (
+                    <li key={entry.slug}>
+                      <Link href={`/experiences/${entry.slug}`}>
+                        {entry.summary}
+                        <Icon name="arrow" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+        </div>
+      </section>
+      <section className="wrap game-space" aria-labelledby="game-heading">
+        <h2 className="sr-only" id="game-heading">
+          Typing game, coming later
+        </h2>
+      </section>
     </>
   );
 }
