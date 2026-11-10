@@ -13,11 +13,11 @@ Keep the base canvas flat. The tile grid is made of individual solid-color squar
 | Role | Hex | Intended use |
 | --- | --- | --- |
 | Navy | `#03203d` | Canvas, navigation, name backing, and dark surfaces |
-| Sky blue | `#639cc5` | Wave tiles, timeline lines, and mixes for secondary surfaces |
-| Red | `#eb2f33` | Caret, active indicators, and action outlines |
+| Stone blue | `#639cc5` | Featured Projects strip, footer, wave tiles, and secondary surfaces |
+| Red | `#eb2f33` | Caret, current-page underlines, and action outlines |
 | White | `#ffffff` | All site text, including navigation, cards, and controls |
 
-Use dark navy and navy–sky blends beneath white text. Reserve full-strength sky blue and red for decorative elements or outlines so body text and action labels stay readable. Use the same navy, white, and red for the social preview image.
+Use dark navy and navy–stone blends beneath white text. Use full-strength stone blue for the Featured Projects strip and footer, with dark backings for white text. Use scarlet underlines for the current navigation page. Use the same navy, white, and red for the social preview image.
 
 ## Type and layout
 
@@ -36,4 +36,4 @@ Review at 320/375/390 px phones, tablet, wide desktop, landscape, 200% zoom, and
 
 ## First-design correction
 
-Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. Home work links are small side content, with a blank area reserved for the typing game. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.
+Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. The home page leads from the splash into a full-width Featured Projects strip. Permanence, Recall, and GregHouse sit in one row on desktop and stack on phones. Each card shows a demo still, name, and summary. An approved winner photo replaces the still on hover or keyboard focus when available. Experiences remain in the sidebar beside the reserved typing-game area. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.

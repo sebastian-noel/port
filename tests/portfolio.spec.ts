@@ -253,6 +253,13 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await page.goto("/");
   await expect(page.locator("main a[href='/about']")).toHaveCount(0);
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
+  const featured = page.getByRole("region", { name: "Featured Projects" });
+  const projectTitles = featured.getByRole("heading", { level: 3 });
+  await expect(projectTitles).toHaveText(["Permanence", "Recall", "GregHouse"]);
+  const cardRows = await featured.locator(".project-card").evaluateAll((cards) =>
+    cards.map((card) => card.getBoundingClientRect().top),
+  );
+  expect(new Set(cardRows).size).toBe(1);
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
   expect(

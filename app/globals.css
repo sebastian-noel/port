@@ -84,7 +84,7 @@ p {
   margin-inline: auto;
 }
 main,
-.site-footer {
+.footer-band {
   position: relative;
   z-index: 1;
 }
@@ -188,6 +188,9 @@ button:active,
 .desktop-nav a:hover {
   font-weight: 600;
 }
+.desktop-nav a[aria-current]::after {
+  background: var(--accent);
+}
 .desktop-nav a[aria-current]::after,
 .desktop-nav a:hover::after {
   transform: scaleX(1);
@@ -279,6 +282,10 @@ dialog nav a {
   min-height: 44px;
   gap: 6px;
 }
+dialog nav a[aria-current] {
+  text-decoration: underline 3px var(--accent);
+  text-underline-offset: 6px;
+}
 .tile-field {
   position: fixed;
   inset: 0;
@@ -359,6 +366,38 @@ dialog nav a {
 }
 .splash-down:hover svg {
   transform: translateY(4px);
+}
+.featured-projects {
+  padding-block: 48px;
+  scroll-margin-top: 88px;
+  background: var(--sky);
+}
+.featured-projects h2 {
+  width: fit-content;
+  margin: 0 auto 28px;
+  padding: 8px 18px;
+  background: var(--canvas);
+  text-align: center;
+}
+.featured-projects .project-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.featured-media {
+  position: relative;
+  background: var(--canvas);
+}
+.winner-photo {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+}
+.project-card a:focus-visible .winner-photo {
+  visibility: visible;
+}
+@media (hover: hover) {
+  .project-card a:hover .winner-photo {
+    visibility: visible;
+  }
 }
 .home-workspace {
   display: grid;
@@ -531,7 +570,8 @@ dialog nav a {
 .project-copy {
   padding: 22px;
 }
-.project-copy h2 {
+.project-copy h2,
+.project-copy h3 {
   display: flex;
   justify-content: space-between;
   gap: 14px;
@@ -734,13 +774,15 @@ dialog nav a {
 .resume-caption {
   margin-top: 24px;
 }
+.footer-band {
+  background: var(--sky);
+}
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   padding-block: 32px;
-  background: var(--canvas);
   font-size: 14px;
 }
 .site-footer nav {
@@ -753,6 +795,11 @@ dialog nav a {
   align-items: center;
   gap: 6px;
   min-height: 44px;
+}
+.site-footer > span,
+.site-footer a {
+  background: var(--canvas);
+  padding: 8px 12px;
 }
 .site-footer a svg {
   width: 16px;
@@ -889,7 +936,8 @@ dialog nav a {
   .page-heading > p {
     font-size: 18px;
   }
-  .project-grid {
+  .project-grid,
+  .featured-projects .project-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }

@@ -27,30 +27,32 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main id="content" tabIndex={-1}>
           {children}
         </main>
-        <footer className="site-footer wrap">
-          <span>© 2026 Sebastian Noel</span>
-          <nav aria-label="Footer">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Resume (PDF, opens in a new tab)"
-            >
-              <Icon name="file" />
-              Resume
-            </a>
-            {site.profiles.map((profile) => (
+        <footer className="footer-band">
+          <div className="site-footer wrap">
+            <span>© 2026 Sebastian Noel</span>
+            <nav aria-label="Footer">
               <a
-                href={profile.href}
-                key={profile.label}
+                href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Resume (PDF, opens in a new tab)"
               >
-                {profile.label}
-                <Icon name="external" />
+                <Icon name="file" />
+                Resume
               </a>
-            ))}
-          </nav>
+              {site.profiles.map((profile) => (
+                <a
+                  href={profile.href}
+                  key={profile.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {profile.label}
+                  <Icon name="external" />
+                </a>
+              ))}
+            </nav>
+          </div>
         </footer>
       </body>
     </html>

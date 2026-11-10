@@ -2,6 +2,14 @@ import { existsSync } from "node:fs";
 import { site } from "../_lib/site";
 
 export type Collection = "projects" | "experiences";
+type ProjectPhoto = {
+  placeholder: false;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 export type Entry = {
   collection: Collection;
   slug: string;
@@ -20,15 +28,9 @@ export type Entry = {
   startDate?: string;
   endDate?: string | null;
   bullets?: string[];
-  cover:
-    | { placeholder: true }
-    | {
-        placeholder: false;
-        src: string;
-        alt: string;
-        width: number;
-        height: number;
-      };
+  cover: { placeholder: true } | ProjectPhoto;
+  demoVideoId?: string;
+  winnerPhoto?: ProjectPhoto;
   sections: { heading: string; text: string }[];
   links: { label: string; href: string }[];
 };
@@ -38,6 +40,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "permanence",
+    demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
     summary:
       "A robot that remembers objects, even when they disappear from view.",
@@ -71,6 +74,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "recall",
+    demoVideoId: "Htq-73zA4mw",
     title: "Recall",
     summary: "Wearable AI memory, built into a pair of glasses.",
     context: "Wearables · HackUSF 2026",
@@ -112,6 +116,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "greghouse",
+    demoVideoId: "eeHd84B9r5A",
     title: "GregHouse",
     summary:
       "A living plant, a moisture sensor, and a multiplayer virtual garden.",
@@ -568,16 +573,15 @@ export function validateEntries(items: Entry[]) {
         throw new Error(`Invalid content link: ${path}`);
       }
     }
-    if (!entry.cover.placeholder) {
+    for (const photo of [entry.cover, entry.winnerPhoto]) {
+      if (!photo || photo.placeholder) continue;
       if (
-        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(
-          entry.cover.src,
-        ) ||
-        !entry.cover.alt.trim() ||
-        !Number.isInteger(entry.cover.width) ||
-        !Number.isInteger(entry.cover.height) ||
-        entry.cover.width <= 0 ||
-        entry.cover.height <= 0
+        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(photo.src) ||
+        !photo.alt.trim() ||
+        !Number.isInteger(photo.width) ||
+        !Number.isInteger(photo.height) ||
+        photo.width <= 0 ||
+        photo.height <= 0
       ) {
         throw new Error(`Invalid cover: ${path}`);
       }
@@ -602,8 +606,10 @@ export function validateEntries(items: Entry[]) {
 
 validateEntries(records);
 for (const entry of records) {
-  if (!entry.cover.placeholder && !existsSync(`public${entry.cover.src}`)) {
-    throw new Error(`Missing cover file: ${entry.cover.src}`);
+  for (const photo of [entry.cover, entry.winnerPhoto]) {
+    if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
+      throw new Error(`Missing cover file: ${photo.src}`);
+    }
   }
 }
 
