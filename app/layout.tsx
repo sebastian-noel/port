@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { TileField } from "./_components/tile-field";
 import { Icon } from "./_components/icons";
 import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Bricolage_Grotesque({ subsets: ["latin"], display: "swap" });
+const font = Roboto({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),

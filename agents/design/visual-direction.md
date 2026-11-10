@@ -21,7 +21,7 @@ Use dark navy and navy–stone blends beneath white text. Use full-strength ston
 
 ## Type and layout
 
-- Choose a distinctive, readable primary family during implementation using the actual hero and body copy. Avoid generic type treatments, fonts strongly associated with AI-generated templates, Instrument Serif, and excessive italic styling.
+- Use Roboto sitewide, including the typed name in the hero.
 - Use one display/body family initially; an optional monospace face belongs only in the typing prompt or arcade score table if it improves legibility.
 - Let the name be large and expressive; body paragraphs stay comfortable to read, approximately 45–75 characters per line.
 - Use balanced heading wrapping, normal tracking, deliberate line breaks where needed, and avoid single-word trailing lines. Do not apply negative tracking globally.
