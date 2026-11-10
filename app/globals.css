@@ -19,6 +19,7 @@ body {
   background: var(--canvas);
   color: var(--on-canvas);
   font-size: 16px;
+  font-synthesis-weight: none;
   line-height: 1.55;
 }
 a {

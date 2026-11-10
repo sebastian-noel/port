@@ -7,11 +7,7 @@ import { Navigation } from "./_components/navigation";
 import { site } from "./_lib/site";
 import "./globals.css";
 
-const font = Sniglet({
-  weight: ["400", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
+const font = Sniglet({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),
