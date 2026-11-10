@@ -118,12 +118,11 @@ test("skip link and project navigation work with the keyboard", async ({
   ).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
-  await page
-    .locator(".compact-section")
-    .first()
-    .getByRole("link")
-    .filter({ hasText: "Permanence" })
-    .click();
+  const projectLink = page
+    .getByRole("region", { name: "Featured Projects" })
+    .getByRole("link", { name: /Permanence/ });
+  await projectLink.focus();
+  await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/projects\/permanence$/);
   await page.reload();
   await expect(
