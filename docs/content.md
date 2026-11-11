@@ -12,6 +12,12 @@ Edit `app/_content/entries.ts` to add a project or experience. Collection cards 
 
 The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume, including UCF's experiential context for BNY. Unknown dates remain absent.
 
+## Contact
+
+The About page links directly to Sebastian's approved public email,
+`sebastian@snoel.dev`, using a `mailto:` link. Edit `app/about/page.tsx` to update
+the address. The public resume remains contact-free.
+
 ## Resume
 
 `public/resume.pdf` is the contact-free public version of the supplied resume. Private contact text was removed from the page drawing operations, not covered visually. It retains the education, experience, projects, and skills sections, plus public profile links as text. Header and footer resume actions open this PDF in a new tab. `/resume` remains a shareable landing page.

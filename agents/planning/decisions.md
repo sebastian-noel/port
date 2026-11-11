@@ -138,3 +138,10 @@ Sebastian chose a color close to the original cornflower blue with 3.5:1 contras
 ## 2026-11-08 UI review evidence
 
 Sebastian confirmed that UI screenshots should be attached directly in the PR description. Use fewer than five screenshots and choose only the most useful views. One desktop Home screenshot is sufficient for the palette change. [Coding workflow](coding-workflow.md#visual-evidence-in-prs)
+
+## 2026-11-10 About contact link
+
+Sebastian supplied `sebastian@snoel.dev` and requested a direct email link on About,
+without a contact form. Use the existing text-link styling in a Contact section so
+visitors can see the address and open their email app. The public resume remains
+contact-free. Updated the search and privacy specification and content guide.

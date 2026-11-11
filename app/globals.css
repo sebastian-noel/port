@@ -695,6 +695,9 @@ dialog nav a {
 .about-page {
   padding-bottom: 100px;
 }
+.about-contact {
+  margin-top: 32px;
+}
 .about-columns {
   display: grid;
   grid-template-columns: 1fr 1.35fr;

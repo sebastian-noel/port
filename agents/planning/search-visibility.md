@@ -18,7 +18,7 @@ Write clear, factual summaries that connect Sebastian to the work, role, dates, 
 | Material | Publication rule |
 | --- | --- |
 | Name, public roles and projects, verified profiles, approved photos | Publish on the relevant public pages and include in search metadata where useful. |
-| Approved contact email | Publish in the About contact section. Its presence in Git commit metadata is acceptable. |
+| Approved contact email | Publish `sebastian@snoel.dev` as a direct `mailto:` link in the About contact section, without a contact form. Its presence in Git commit metadata is acceptable. |
 | Phone number and other private details | Keep out of public page text, PDFs, metadata, JSON-LD, client payloads, screenshots, and public Git history. Keep the contact version for direct sharing. |
 | Public resume | Publish readable, indexable HTML at `/resume` and a downloadable, indexable PDF at `/resume.pdf`. Derive both from the same reviewed public facts. Include verified social links, with private contact information removed. |
 

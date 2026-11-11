@@ -53,9 +53,16 @@ for (const route of routes) {
       "noindex, nofollow",
     );
     await expect(page.locator('meta[property="og:image"]')).toHaveCount(1);
-    await expect(
-      page.locator("a[href^='tel:'], a[href^='mailto:']"),
-    ).toHaveCount(0);
+    await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
+    const emailLinks = page.locator("a[href^='mailto:']");
+    await expect(emailLinks).toHaveCount(route === "/about" ? 1 : 0);
+    if (route === "/about") {
+      await expect(emailLinks).toHaveAttribute(
+        "href",
+        "mailto:sebastian@snoel.dev",
+      );
+      await expect(emailLinks).toHaveText("sebastian@snoel.dev");
+    }
     for (const width of [1280, 768, 390, 320]) {
       await page.setViewportSize({ width, height: 900 });
       expect(
@@ -190,6 +197,11 @@ test("capture desktop and mobile with reduced motion", async ({
     path: testInfo.outputPath("experiences.png"),
     fullPage: true,
   });
+  await page.goto("/about");
+  await page.screenshot({
+    path: testInfo.outputPath("about.png"),
+    fullPage: true,
+  });
   await page.goto("/");
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({
@@ -212,6 +224,11 @@ test("capture desktop and mobile with reduced motion", async ({
   await page.goto("/projects/permanence");
   await page.screenshot({
     path: testInfo.outputPath("mobile-detail.png"),
+    fullPage: true,
+  });
+  await page.goto("/about");
+  await page.screenshot({
+    path: testInfo.outputPath("mobile-about.png"),
     fullPage: true,
   });
   expect(errors).toEqual([]);
