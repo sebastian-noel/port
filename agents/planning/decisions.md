@@ -1,5 +1,25 @@
 # Decisions and open questions
 
+## 2026-11-12 experimental homepage showcase
+
+Sebastian requested a complete redesign of the homepage projects and featured
+experiences on an experimental branch, using the latest repository updates.
+Issue #39 tracks `exp/homepage-showcase`, based on `dev` at `e23c15c`.
+
+Confirmed for this experiment: Recall left, Permanence emphasized in the center,
+Greghouse right, equal outer margins, scroll reveals in the order Recall,
+Greghouse, Permanence, scarlet award accents, video placeholders instead of the
+current thumbnails, and desktop/mobile performance work. Creative freedom applies
+to these sections while retaining the base palette.
+
+The implementation proposes larger media frames with an elevated center feature,
+a scarlet first-place banner, and an open experience list instead of compact cards.
+Phones follow the reveal order vertically so each project enters naturally while
+scrolling. Native observers and transform/opacity animation keep the client small;
+server-rendered content stays available without JavaScript. See the experimental
+section in `design/visual-direction.md` and the media instructions in
+`docs/content.md`. These choices are for review, not approved for integration.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

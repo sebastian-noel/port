@@ -26,9 +26,39 @@ Do not commit the original resume, private contact information, original assets,
 
 ## Motion and home layout
 
-The name types once per tab session, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations; idle motion flips only three tiles at a time. Reduced motion displays the complete name and suppresses decorative animation. The header pause button cancels background motion, and hidden tabs stop active animation.
+The name types on each home visit, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations. Reduced motion displays the complete name and suppresses decorative animation. Hidden tabs cancel the active wave.
 
-The homepage features three projects and three experience highlights above the space reserved for the typing game. Add an approved, optimized WebM or MP4 under `public/media/` and set the project’s `demoClip` to its `/media/` path for a muted loop. Add the approved team photo as `winnerPhoto` using the same fields as a real cover. Until the clips arrive, project cards display their demo thumbnails. No game logic or backend is implemented yet.
+The experimental homepage has a wide project showcase, with Recall on the left,
+Permanence larger in the center, and Greghouse on the right. Desktop reveals run
+in the order Recall, Greghouse, Permanence. Below 900px, the projects stack in that
+same reading order. Three experience rows follow, with separate links for both
+BNY internships. The typing-game space is still reserved.
+
+Each featured project's `demoBrief` describes the clip to supply. These labeled
+placeholders replace the old YouTube thumbnails on Home. Collection and detail
+pages retain their existing media. To add an approved loop:
+
+1. Export a short, silent WebM or MP4 into `public/media/`. Start with 6 to 10
+   seconds, 720px resolution, and a target of 1 to 2 MB per clip. Remove the audio
+   track, crop intentionally, and check that the important action remains visible
+   in both the desktop portrait frame and the phone landscape frame.
+2. Set the record's `demoClip` to its `/media/` path. Set `demoPoster` to an approved
+   optimized WebP or AVIF still for a meaningful static fallback. Without a poster,
+   the text placeholder remains the fallback. The build checks that files exist.
+3. Verify playback in the actual browser, including mobile, reduced motion, pause,
+   background tabs, and an unavailable clip. Project summaries and detail links
+   must remain understandable without video.
+
+The small client motion component uses IntersectionObserver and Web Animations,
+with no animation dependency or per-frame React updates. Clip sources attach only
+when visible; playback pauses offscreen, in hidden tabs, and with the sticky Pause
+motion control. Reduced motion and a browser's Save-Data preference prevent
+autoplay. Placeholder progress accents pause offscreen. Content remains readable
+and linked without JavaScript. The reveal is one-time per page mount, and keyboard
+focus immediately reveals the focused project or experience.
+
+This design is isolated on `exp/homepage-showcase` for review in issue #39. It is
+not approved for `dev` or `main`. No game logic or backend is implemented yet.
 
 ## Release
 

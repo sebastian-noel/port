@@ -31,6 +31,8 @@ export type Entry = {
   cover: { placeholder: true } | ProjectPhoto;
   demoVideoId?: string;
   demoClip?: string;
+  demoPoster?: string;
+  demoBrief?: string;
   winnerPhoto?: ProjectPhoto;
   sections: { heading: string; text: string }[];
   links: { label: string; href: string }[];
@@ -41,6 +43,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "permanence",
+    demoBrief: "Robot tracking an object as it disappears from view.",
     demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
     summary:
@@ -75,6 +78,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "recall",
+    demoBrief: "Glasses capturing a moment. A memory recalled on screen.",
     demoVideoId: "Htq-73zA4mw",
     title: "Recall",
     summary: "Wearable AI memory, built into a pair of glasses.",
@@ -117,6 +121,7 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "greghouse",
+    demoBrief: "A real plant. Its pixel garden responding to water.",
     demoVideoId: "eeHd84B9r5A",
     title: "Greghouse",
     summary:
@@ -613,6 +618,15 @@ for (const entry of records) {
       !existsSync(`public${entry.demoClip}`))
   ) {
     throw new Error(`Invalid demo clip: ${entry.demoClip}`);
+  }
+  if (
+    entry.demoPoster &&
+    (!/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(
+      entry.demoPoster,
+    ) ||
+      !existsSync(`public${entry.demoPoster}`))
+  ) {
+    throw new Error(`Invalid demo poster: ${entry.demoPoster}`);
   }
   for (const photo of [entry.cover, entry.winnerPhoto]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {

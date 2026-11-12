@@ -1,5 +1,25 @@
 # Visual direction
 
+## Experimental homepage showcase, November 12
+
+On `exp/homepage-showcase`, issue #39 supersedes the compact homepage card layout
+for review only. Use a wide navy project stage, larger video placeholders, stone
+blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
+larger, elevated Permanence panel with symmetric outer gutters. Reveal Recall,
+Greghouse, then Permanence. Stack in that order on phones. Keep Varela Round and
+use scale and spacing to establish the new hierarchy without another font download.
+
+Featured experiences become spacious rows on a stone-blue field, with a sticky
+section heading on desktop and a normal stacked heading on mobile. Retain the
+verified BNY, UCF AI research, and Knight Hacks content and their direct links.
+Use lighter scarlet for small text on navy and full scarlet for large award accents.
+Media placeholders describe the needed clips; do not reuse the existing thumbnails.
+
+Prefer one-time entrance animations, small hover/focus responses, and visible
+short silent loops. Pause offscreen media and hidden-tab activity. Include a pause
+control, reduced-motion handling, and normal scrolling. These are experimental
+implementation choices, not approval to merge into either integration or production.
+
 Status: Sebastian requested this palette for review on a preview before merging.
 
 ## Overall character

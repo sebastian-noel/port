@@ -271,28 +271,23 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
   const featured = page.getByRole("region", { name: "Featured Projects" });
   const projectTitles = featured.getByRole("heading", { level: 3 });
-  await expect(projectTitles).toHaveText(["Recall", "Permanence", "Greghouse"]);
-  const cards = featured.locator(".project-card");
-  await expect(featured.locator(".project-awards")).toHaveText([
-    "2nd overall",
-    "1st overall · 1st NVIDIA · 1st Hugging Face",
-    "3rd overall",
-  ]);
-  const cardRows = await cards.evaluateAll((items) =>
-    items.map((card) => card.getBoundingClientRect().top),
-  );
-  expect(new Set(cardRows).size).toBe(1);
+  await expect(projectTitles).toHaveText(["Recall", "Greghouse", "Permanence"]);
+  await expect(featured).toContainText("2nd overall");
+  await expect(featured).toContainText("3rd overall");
+  await expect(featured).toContainText("1st overall");
+  await expect(featured).toContainText("1st NVIDIA");
+  await expect(featured).toContainText("1st Hugging Face");
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
   const experiences = page.getByRole("region", {
     name: "Featured Experiences",
   });
   await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
-    "2× SWE @ BNY",
-    "Undergrad Research @ Institute of Artificial Intelligence",
-    "Mentor & Outreach @ Knight Hacks",
+    "BNY",
+    "UCF Institute of AI",
+    "Knight Hacks",
   ]);
-  await expect(experiences.getByRole("link")).toHaveCount(4);
+  await expect(experiences.getByRole("link")).toHaveCount(5);
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
