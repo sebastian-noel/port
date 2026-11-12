@@ -125,12 +125,11 @@ test("skip link and project navigation work with the keyboard", async ({
   ).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
-  await page
-    .locator(".compact-section")
-    .first()
-    .getByRole("link")
-    .filter({ hasText: "Permanence" })
-    .click();
+  const projectLink = page
+    .getByRole("region", { name: "Featured Projects" })
+    .getByRole("link", { name: /Permanence/ });
+  await projectLink.focus();
+  await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/projects\/permanence$/);
   await page.reload();
   await expect(
@@ -270,17 +269,30 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await page.goto("/");
   await expect(page.locator("main a[href='/about']")).toHaveCount(0);
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
+  const featured = page.getByRole("region", { name: "Featured Projects" });
+  const projectTitles = featured.getByRole("heading", { level: 3 });
+  await expect(projectTitles).toHaveText(["Recall", "Permanence", "Greghouse"]);
+  const cards = featured.locator(".project-card");
+  await expect(featured.locator(".project-awards")).toHaveText([
+    "2nd overall",
+    "1st overall · 1st NVIDIA · 1st Hugging Face",
+    "3rd overall",
+  ]);
+  const cardRows = await cards.evaluateAll((items) =>
+    items.map((card) => card.getBoundingClientRect().top),
+  );
+  expect(new Set(cardRows).size).toBe(1);
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
-  expect(
-    await page
-      .locator(".game-space")
-      .evaluate((el) => el.getBoundingClientRect().width),
-  ).toBeGreaterThan(
-    await page
-      .locator(".home-sidebar")
-      .evaluate((el) => el.getBoundingClientRect().width),
-  );
+  const experiences = page.getByRole("region", {
+    name: "Featured Experiences",
+  });
+  await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
+    "2× SWE @ BNY",
+    "Undergrad Research @ Institute of Artificial Intelligence",
+    "Mentor & Outreach @ Knight Hacks",
+  ]);
+  await expect(experiences.getByRole("link")).toHaveCount(4);
   const resume = page.locator(".resume-link");
   await expect(resume).toHaveAttribute("target", "_blank");
   await expect(resume).toHaveAttribute("href", "/resume.pdf");
@@ -388,7 +400,7 @@ test("intro replays on home navigation and refresh", async ({
   await page.goto("/");
   const intro = page.locator(".intro-name");
   await expect(intro).toHaveAttribute("data-intro-state", "typing");
-  await expect(intro).toHaveCSS("background-color", "rgb(78, 135, 236)");
+  await expect(intro).toHaveCSS("background-color", "rgb(3, 32, 61)");
   await expect(
     page.getByRole("heading", { name: "Sebastian Noel", exact: true }),
   ).toBeVisible();

@@ -1,6 +1,6 @@
 # Visual direction
 
-Status: Sebastian selected a return to cornflower blue with 3.5:1 contrast against white. The tuned canvas is `#4e87ec`. Coral `#ff8a75` remains the accent. Cornflower blue `#6395ee` is the original canvas color.
+Status: Sebastian requested this palette for review on a preview before merging.
 
 ## Overall character
 
@@ -12,44 +12,16 @@ Keep the base canvas flat. The tile grid is made of individual solid-color squar
 
 | Role | Hex | Intended use |
 | --- | --- | --- |
-| Cornflower blue | `#4e87ec` | Current canvas and navigation |
-| Original cornflower | `#6395ee` | Resting tile highlights |
-| Deep blue | `#244c86` | Deep covers |
-| Medium blue | `#305da4` | Alternate white-text support or a grid tile tone |
-| Pale blue | `#b9d3f7` | Sparse background/photo grid tiles |
-| Light gray | `#edf2f7` | Occasional quiet surfaces and tile variation |
-| White | `#ffffff` | Large headings on the canvas and text on deep blue |
-| Canvas ink | `#0d2038` | Smaller text on the canvas |
-| Ink | `#142b4a` | Text on light surfaces and coral buttons |
-| Coral, confirmed | `#ff8a75` | Primary actions and selected game/highlight moments |
+| Navy | `#03203d` | Canvas, navigation, name backing, and dark surfaces |
+| Stone blue | `#639cc5` | Featured Projects strip, footer, wave tiles, and secondary surfaces |
+| Red | `#eb2f33` | Caret, current-page underlines, and action outlines |
+| White | `#ffffff` | Text on navy surfaces, including the hero and navigation |
 
-Use a few named tokens consistently.
-
-## Text contrast
-
-Calculated using the WCAG relative-luminance formula on the actual hex values:
-
-| Foreground | Background | Contrast |
-| --- | --- | --- |
-| White `#ffffff` | Canvas `#4e87ec` | 3.50:1 |
-| Canvas ink `#0d2038` | Canvas `#4e87ec` | 4.69:1 |
-| White `#ffffff` | Original cornflower `#6395ee` | 2.97:1 |
-| White `#ffffff` | Deep blue `#244c86` | 8.56:1 |
-| White `#ffffff` | Medium blue `#305da4` | 6.51:1 |
-| Ink `#142b4a` | Base `#6395ee` | 4.79:1 |
-| Ink `#142b4a` | Light gray `#edf2f7` | 12.65:1 |
-
-WCAG AA uses at least 4.5:1 for normal text and 3:1 for large text. White on the exact base misses even 3:1; rounding 2.97 up is not a pass. A brand-name exemption does not solve readability for the rest of the site. [Contrast reference](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
-
-Use white for the splash name, wordmark, and large headings. Use canvas ink for smaller copy and navigation. Keep a solid blue surface behind the white headings and use ink on pale cards and coral controls.
-
-## Accent
-
-Coral `#ff8a75` is the sole warm accent. Ink `#142b4a` on coral has approximately 6.20:1 contrast. Use it sparingly for the caret, resume action, current navigation indicator, and timeline marks. Text, icons, and visible focus must remain readable without relying on accent contrast alone.
+Use dark navy and navy–stone blends beneath white text. Use full-strength stone blue for the Featured Projects strip and footer, with navy surfaces behind the Featured Projects heading and card copy for contrast. Use scarlet underlines for the current navigation page. Use the same navy, white, and red for the social preview image.
 
 ## Type and layout
 
-- Choose a distinctive, readable primary family during implementation using the actual hero and body copy. Avoid generic type treatments, fonts strongly associated with AI-generated templates, Instrument Serif, and excessive italic styling.
+- Use regular-weight Varela Round sitewide, including the typed name in the hero.
 - Use one display/body family initially; an optional monospace face belongs only in the typing prompt or arcade score table if it improves legibility.
 - Let the name be large and expressive; body paragraphs stay comfortable to read, approximately 45–75 characters per line.
 - Use balanced heading wrapping, normal tracking, deliberate line breaks where needed, and avoid single-word trailing lines. Do not apply negative tracking globally.
@@ -64,4 +36,4 @@ Review at 320/375/390 px phones, tablet, wide desktop, landscape, 200% zoom, and
 
 ## First-design correction
 
-Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. Home work links are small side content, with a blank area reserved for the typing game. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.
+Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. The home page leads from the splash into a full-width Featured Projects strip. Recall, Permanence, and Greghouse sit in one row on desktop, with more room for Permanence in the center. The cards stack on phones. Each card shows a muted looping demo clip when available, a scarlet name, a short summary, and the project’s awards. Use a demo still while clips are pending and for reduced motion. An approved winner photo replaces the media on hover or keyboard focus. Feature three stone-blue experience cards below the projects, grouping both BNY internships alongside UCF AI research and Knight Hacks mentoring and outreach. Keep the reserved typing-game area below those sections. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.

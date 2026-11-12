@@ -8,7 +8,7 @@ export function TileField() {
   useEffect(() => {
     const element = root.current!;
     const media = matchMedia("(prefers-reduced-motion: reduce)");
-    const colors = ["#b6ceef", "#dbe2e8", "#f2f4f5", "#8cb1ec", "#527fc8"];
+    const colors = ["var(--sky)", "var(--deep)", "var(--on-canvas)"];
     const animations = new Set<Animation>();
     let tiles: {
       face: HTMLSpanElement;

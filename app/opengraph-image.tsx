@@ -11,8 +11,8 @@ export default function SocialImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        background: "#6395ee",
-        color: "#142b4a",
+        background: "#03203d",
+        color: "#ffffff",
         padding: 80,
       }}
     >
@@ -30,7 +30,7 @@ export default function SocialImage() {
             width: 12,
             height: 90,
             marginLeft: 20,
-            background: "#ff8a75",
+            background: "#eb2f33",
           }}
         />
       </div>

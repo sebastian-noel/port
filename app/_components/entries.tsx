@@ -24,16 +24,64 @@ export function Cover({ entry }: { entry: Entry }) {
   );
 }
 
-export function ProjectCard({ entry }: { entry: Entry }) {
+export function ProjectCard({
+  entry,
+  featured = false,
+}: {
+  entry: Entry;
+  featured?: boolean;
+}) {
+  const Heading = featured ? "h3" : "h2";
   const body = (
     <>
-      <Cover entry={entry} />
+      {featured ? (
+        <div className="featured-media">
+          {entry.cover.placeholder && entry.demoVideoId ? (
+            <div className="cover">
+              <Image
+                src={`https://i.ytimg.com/vi/${entry.demoVideoId}/hqdefault.jpg`}
+                alt=""
+                width={480}
+                height={360}
+                unoptimized
+              />
+            </div>
+          ) : (
+            <Cover entry={entry} />
+          )}
+          {entry.demoClip && (
+            <video
+              className="featured-clip"
+              aria-hidden="true"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source
+                src={entry.demoClip}
+                media="(prefers-reduced-motion: no-preference)"
+              />
+            </video>
+          )}
+          {entry.winnerPhoto && (
+            <div className="winner-photo">
+              <Cover entry={{ ...entry, cover: entry.winnerPhoto }} />
+            </div>
+          )}
+        </div>
+      ) : (
+        <Cover entry={entry} />
+      )}
       <div className="project-copy">
-        <h2>
+        <Heading>
           {entry.title}
-          {!entry.placeholder && <Icon name="external" />}
-        </h2>
+          {!featured && !entry.placeholder && <Icon name="external" />}
+        </Heading>
         <p>{entry.summary}</p>
+        {featured && entry.award && (
+          <p className="project-awards">{entry.award}</p>
+        )}
       </div>
     </>
   );
@@ -110,37 +158,5 @@ export function ExperienceList({ items }: { items: Entry[] }) {
         </article>
       ))}
     </div>
-  );
-}
-
-export function CompactList({
-  title,
-  collection,
-  items,
-}: {
-  title: string;
-  collection: "projects" | "experiences";
-  items: Entry[];
-}) {
-  return (
-    <section className="compact-section">
-      <h2>
-        <Link href={`/${collection}`}>
-          {title}
-          <Icon name="arrow" />
-        </Link>
-      </h2>
-      <ul>
-        {items.map((entry) => (
-          <li key={entry.slug}>
-            <Link href={`/${collection}/${entry.slug}`}>
-              <Cover entry={entry} />
-              <span>{entry.title}</span>
-              <Icon name="external" />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }

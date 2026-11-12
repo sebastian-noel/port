@@ -1,12 +1,11 @@
 :root {
-  --canvas: #4e87ec;
-  --canvas-text: #0d2038;
+  --canvas: #03203d;
   --on-canvas: #ffffff;
-  --ink: #142b4a;
-  --deep: #244c86;
-  --coral: #ff8a75;
-  --paper: #eef3fa;
-  --line: #1b3a65;
+  --sky: #639cc5;
+  --accent: #eb2f33;
+  --paper: color-mix(in srgb, var(--canvas), var(--sky) 16%);
+  --deep: color-mix(in srgb, var(--canvas), var(--sky) 24%);
+  --line: var(--sky);
 }
 * {
   box-sizing: border-box;
@@ -18,8 +17,9 @@ html {
 body {
   margin: 0;
   background: var(--canvas);
-  color: var(--canvas-text);
+  color: var(--on-canvas);
   font-size: 16px;
+  font-synthesis-weight: none;
   line-height: 1.55;
 }
 a {
@@ -59,7 +59,7 @@ main:focus-visible,
 .search-field:focus-within {
   outline: 3px solid var(--on-canvas);
   outline-offset: 3px;
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 3px var(--on-canvas);
 }
 a:hover {
   text-decoration-thickness: 2px;
@@ -85,7 +85,7 @@ p {
   margin-inline: auto;
 }
 main,
-.site-footer {
+.footer-band {
   position: relative;
   z-index: 1;
 }
@@ -109,7 +109,7 @@ main {
   top: -80px;
   z-index: 100;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   padding: 12px 20px;
 }
 .skip-link:focus {
@@ -124,8 +124,9 @@ main {
   background: transparent;
 }
 .icon-button:hover {
-  background: var(--coral);
-  color: var(--ink);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--accent);
+  color: var(--on-canvas);
 }
 a svg,
 button svg {
@@ -188,6 +189,9 @@ button:active,
 .desktop-nav a:hover {
   font-weight: 600;
 }
+.desktop-nav a[aria-current]::after {
+  background: var(--accent);
+}
 .desktop-nav a[aria-current]::after,
 .desktop-nav a:hover::after {
   transform: scaleX(1);
@@ -203,8 +207,9 @@ button:active,
   gap: 8px;
   min-height: 44px;
   padding: 0 12px;
-  background: var(--coral);
-  color: var(--ink);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--accent);
+  color: var(--on-canvas);
   font-size: 14px;
   margin-right: 8px;
 }
@@ -223,7 +228,7 @@ dialog {
   width: min(520px, calc(100% - 32px));
   padding: 28px;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   border: 0;
   max-height: calc(100svh - 32px);
   overflow: auto;
@@ -232,7 +237,7 @@ dialog[open] {
   animation: menu-enter 180ms ease-out;
 }
 dialog::backdrop {
-  background: #142b4a80;
+  background: #03203d80;
 }
 .menu-top {
   display: flex;
@@ -277,6 +282,10 @@ dialog nav a {
   align-items: center;
   min-height: 44px;
   gap: 6px;
+}
+dialog nav a[aria-current] {
+  text-decoration: underline 3px var(--accent);
+  text-underline-offset: 6px;
 }
 .tile-field {
   position: fixed;
@@ -339,7 +348,7 @@ dialog nav a {
   width: 0.055em;
   height: 0.82em;
   margin-left: 0.065em;
-  background: var(--coral);
+  background: var(--accent);
   vertical-align: -0.01em;
   opacity: 0;
 }
@@ -359,66 +368,115 @@ dialog nav a {
 .splash-down:hover svg {
   transform: translateY(4px);
 }
-.home-workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 278px;
-  gap: 64px;
-  align-items: start;
-  padding: 44px 0 100px;
-  scroll-margin-top: 100px;
+.featured-projects,
+.featured-experiences {
+  padding-block: 48px;
 }
-.game-space {
-  min-height: 450px;
-}
-.home-sidebar {
-  background: var(--canvas);
-  padding: 12px 0;
-}
-.compact-section + .compact-section {
-  margin-top: 40px;
-}
-.compact-section h2 {
+.featured-projects {
+  scroll-margin-top: 88px;
+  background: var(--sky);
   color: var(--on-canvas);
-  margin: 0 0 14px;
-  font-size: 23px;
 }
-.compact-section h2 a {
+.featured-projects h2,
+.featured-experiences h2 {
+  margin: 0 0 28px;
+  text-align: center;
+}
+.featured-projects h2 {
+  width: fit-content;
+  margin-inline: auto;
+  padding: 6px 20px;
+  background: var(--canvas);
+  font-size: clamp(36px, 5.5vw, 64px);
+}
+.featured-projects .project-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr) minmax(0, 1fr);
+  grid-auto-rows: auto;
+  column-gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+.featured-projects .project-card {
+  height: auto;
+  background: var(--canvas);
+}
+.featured-projects .project-copy {
+  padding: 14px 16px 16px;
+}
+.featured-projects .project-copy h3 {
+  margin: 0 0 4px;
+  color: var(--accent);
+}
+.featured-projects .project-copy p {
+  min-height: 0;
+}
+.featured-projects .project-copy .project-awards {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--sky);
+}
+.featured-media {
+  position: relative;
+  background: var(--canvas);
+}
+.featured-clip,
+.winner-photo {
+  position: absolute;
+  inset: 0;
+}
+.featured-clip {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (prefers-reduced-motion: reduce) {
+  .featured-clip {
+    display: none;
+  }
+}
+.winner-photo {
+  visibility: hidden;
+}
+.project-card a:focus-visible .winner-photo {
+  visibility: visible;
+}
+@media (hover: hover) {
+  .project-card a:hover .winner-photo {
+    visibility: visible;
+  }
+}
+.experience-highlight {
+  padding: 20px;
+  background: var(--sky);
+  color: var(--canvas);
+}
+.experience-highlight h3 {
+  margin: 0 0 10px;
+}
+.experience-highlight ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.experience-highlight a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   min-height: 44px;
 }
-.compact-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.compact-section li a {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 9px 0;
-  font-size: 15px;
-  font-weight: 500;
-}
-.compact-section li a > span {
-  flex: 1;
-}
-.compact-section li a > svg {
-  width: 16px;
-}
-.compact-section .cover {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  aspect-ratio: 1;
-}
-.compact-section .cover span {
-  font-size: 22px;
-}
-.compact-section a:hover > span {
+.experience-highlight a:hover,
+.site-footer a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+.featured-projects a:focus-visible,
+.experience-highlight a:focus-visible,
+.footer-band a:focus-visible {
+  outline-color: var(--canvas);
+  box-shadow: none;
+}
+.game-space {
+  min-height: 450px;
 }
 .cover {
   overflow: hidden;
@@ -439,24 +497,25 @@ dialog nav a {
   letter-spacing: -0.05em;
 }
 .tone-pale {
-  background: #dce7f5;
-  color: var(--ink);
+  background: color-mix(in srgb, var(--canvas), var(--sky) 36%);
+  color: var(--on-canvas);
 }
 .tone-coral {
-  background: var(--coral);
-  color: var(--ink);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--accent);
+  color: var(--on-canvas);
 }
 .tone-slate {
-  background: #b4c1d1;
-  color: var(--ink);
+  background: color-mix(in srgb, var(--canvas), var(--sky) 28%);
+  color: var(--on-canvas);
 }
 .tone-deep {
   background: var(--deep);
-  color: #f3f6fa;
+  color: var(--on-canvas);
 }
 .tone-muted {
-  background: #a7bde1;
-  color: var(--ink);
+  background: color-mix(in srgb, var(--canvas), var(--sky) 42%);
+  color: var(--on-canvas);
 }
 .page-heading {
   padding: 66px 0 34px;
@@ -479,7 +538,7 @@ dialog nav a {
 .search-field {
   max-width: 440px;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -497,7 +556,7 @@ dialog nav a {
   width: 100%;
 }
 .search-field input::placeholder {
-  color: #435671;
+  color: var(--on-canvas);
   opacity: 1;
 }
 .search-field input:focus-visible {
@@ -515,7 +574,7 @@ dialog nav a {
 }
 .project-card {
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   height: 100%;
   transition: transform 180ms ease;
 }
@@ -529,7 +588,8 @@ dialog nav a {
 .project-copy {
   padding: 22px;
 }
-.project-copy h2 {
+.project-copy h2,
+.project-copy h3 {
   display: flex;
   justify-content: space-between;
   gap: 14px;
@@ -547,7 +607,7 @@ dialog nav a {
 }
 .project-card.is-placeholder,
 .timeline-entry.is-placeholder .experience-card {
-  background: #b4c9e9;
+  background: color-mix(in srgb, var(--canvas), var(--sky) 24%);
 }
 .empty-results {
   padding: 40px 0 100px;
@@ -579,7 +639,7 @@ dialog nav a {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: var(--coral);
+  background: var(--accent);
   left: 191px;
   top: 10px;
 }
@@ -593,7 +653,7 @@ dialog nav a {
 }
 .experience-card {
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   padding: 30px;
 }
 .experience-top {
@@ -663,7 +723,7 @@ dialog nav a {
 }
 .detail-body {
   background: var(--paper);
-  color: var(--ink);
+  color: var(--on-canvas);
   padding: 40px;
 }
 .detail-body section + section {
@@ -723,8 +783,9 @@ dialog nav a {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: var(--coral);
-  color: var(--ink);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--accent);
+  color: var(--on-canvas);
   padding: 16px 22px;
   min-height: 48px;
 }
@@ -734,13 +795,16 @@ dialog nav a {
 .resume-caption {
   margin-top: 24px;
 }
+.footer-band {
+  background: var(--sky);
+  color: var(--canvas);
+}
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   padding-block: 32px;
-  background: var(--canvas);
   font-size: 14px;
 }
 .site-footer nav {
@@ -799,9 +863,6 @@ dialog nav a {
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .home-workspace {
-    gap: 36px;
-  }
 }
 @media (max-width: 900px) {
   .desktop-nav {
@@ -818,9 +879,6 @@ dialog nav a {
   }
   .splash {
     min-height: calc(100svh - 76px);
-  }
-  .home-workspace {
-    grid-template-columns: minmax(0, 1fr) 250px;
   }
   .timeline-entry {
     grid-template-columns: 140px minmax(0, 1fr);
@@ -852,7 +910,7 @@ dialog nav a {
   }
   .resume-link {
     background: transparent;
-    color: var(--canvas-text);
+    color: var(--on-canvas);
     padding: 0 8px;
     margin: 0;
   }
@@ -862,22 +920,8 @@ dialog nav a {
   .intro-name {
     font-size: 10.5vw;
   }
-  .home-workspace {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding-top: 0;
-    padding-bottom: 50px;
-  }
   .game-space {
     min-height: 300px;
-  }
-  .home-sidebar {
-    max-width: 340px;
-    width: 100%;
-    margin-left: auto;
-  }
-  .compact-section + .compact-section {
-    margin-top: 28px;
   }
   .page-heading {
     padding-top: 40px;
@@ -889,7 +933,8 @@ dialog nav a {
   .page-heading > p {
     font-size: 18px;
   }
-  .project-grid {
+  .project-grid,
+  .featured-projects .project-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
