@@ -3,12 +3,16 @@
 ## Experimental homepage showcase, November 12
 
 On `exp/homepage-showcase`, issue #39 supersedes the compact homepage card layout
-for review only. Use a wide navy project stage, larger video placeholders, stone
+for review only. Use a wide dark navy (`#020f20`) project stage, larger 16:9 previews, stone
 blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
 larger, elevated Permanence panel with symmetric outer gutters. Use landscape
-16:9 video frames and place the project name and fuller description inside a dark
-bottom fade. Let narrow frames grow if necessary to fit readable text. All five
-awards receive prominent scarlet badges with the same SVG trophy. Reveal Recall,
+16:9 video frames and place only the project name inside a dark bottom fade. Place
+the fuller description below. All five awards receive prominent scarlet badges
+above the media, with event/company logos and exact resume-backed submission counts.
+Use "Best Overall" for overall placements. Pair event and placement on opposite
+sides of the Recall and Greghouse header. Arch Permanence's badges with NVIDIA left,
+Best Overall raised in the middle, and Hugging Face right. Use the supplied winners
+collage as Permanence's temporary poster. Reveal Recall,
 Greghouse, then Permanence. Stack in that order on phones. Keep Varela Round and
 use scale and spacing to establish the new hierarchy without another font download.
 
@@ -16,7 +20,7 @@ Featured experiences become spacious rows on a stone-blue field, with a sticky
 section heading on desktop and a normal stacked heading on mobile. Retain the
 verified BNY, UCF AI research, and Knight Hacks content and their direct links.
 Use lighter scarlet for small text on navy and full scarlet for large award accents.
-Media placeholders describe the needed clips; do not reuse the existing thumbnails.
+Remaining media placeholders describe the needed clips; do not reuse the existing thumbnails.
 
 Prefer one-time entrance animations and visible short silent loops. Hover/focus
 lifts and expands the project, gently zooms the media, and restores its color.

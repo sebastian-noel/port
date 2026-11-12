@@ -34,21 +34,31 @@ in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack in 
 same reading order. Three experience rows follow, with separate links for both
 BNY internships. The typing-game space is still reserved.
 
-Each featured project's `demoBrief` describes the clip to supply. These labeled
-placeholders replace the old YouTube thumbnails on Home. Collection and detail
-pages retain their existing media. The homepage's longer `featuredSummary` copy
-comes from the local project READMEs; collection summaries remain concise. Titles
-and summaries sit inside the media over a dark bottom fade. Desktop frames are
-16:9; narrow screens can grow to keep all copy readable. All five wins use scarlet
-badges and the same inline SVG trophy. To add an approved loop:
+The project section uses a darker navy (`#020f20`) than the landing screen and
+wider 16:9 media frames. Only the project name overlays the bottom fade; the longer
+`featuredSummary` sits below the media. That copy comes from the local READMEs.
+Collection and detail pages retain their concise summaries and existing media.
+
+`featuredAwards` holds each placement, category, submitted-project count, and logo.
+Badges sit above the media, opposite the event name on Recall and Greghouse.
+Permanence's badges form an arch: NVIDIA left, Best Overall raised in the middle,
+and Hugging Face right. Counts come from Sebastian's supplied resume: 1/212 overall,
+1/21 NVIDIA, 1/78 Hugging Face, 2/85 Recall, and 3/86 Greghouse. See
+[asset sources](media-assets.md) for the event logos, company SVGs, and selected
+Permanence winners collage.
+
+Each project's `demoBrief` describes the clip to supply. Recall and Greghouse still
+show labeled placeholders; Permanence uses its approved collage as a static poster.
+To add an approved loop:
 
 1. Export a short, silent WebM or MP4 into `public/media/`. Start with 6 to 10
    seconds, 720px resolution, and a target of 1 to 2 MB per clip. Remove the audio
    track and use a 16:9 landscape crop. Keep the important action above the bottom
-   text overlay, and check the crop on both desktop and phones.
+   title overlay, and check the crop on both desktop and phones.
 2. Set the record's `demoClip` to its `/media/` path. Set `demoPoster` to an approved
-   optimized WebP or AVIF still for a meaningful static fallback. Without a poster,
-   the text placeholder remains the fallback. The build checks that files exist.
+   optimized WebP or AVIF still with `demoPosterAlt` for a meaningful static fallback.
+   Posters render as responsive, lazy-loaded images even without a clip. Without a
+   poster, the text placeholder remains the fallback. The build checks that files exist.
 3. Verify playback in the actual browser, including mobile, reduced motion,
    background tabs, and an unavailable clip. Project summaries and detail links
    must remain understandable without video.
@@ -65,6 +75,9 @@ focus immediately reveals the focused project or experience.
 
 This design is isolated on `exp/homepage-showcase` for review in issue #39. It is
 not approved for `dev` or `main`. No game logic or backend is implemented yet.
+
+The shared footer centers "Made with <3 by Sebastian" between the copyright and
+profile links on desktop. The three groups stack and remain centered on phones.
 
 ## Release
 

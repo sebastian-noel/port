@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { collectionEntries, type Entry } from "../_content/entries";
 import { Icon } from "./icons";
 import { ShowcaseMotion } from "./showcase-motion";
@@ -6,7 +7,7 @@ import styles from "./showcase.module.css";
 
 function FeaturedProject({ entry }: { entry: Entry }) {
   const centerpiece = entry.slug === "permanence";
-  const awards = entry.award?.split(" · ") ?? [];
+  const awards = entry.featuredAwards ?? [];
   return (
     <article
       className={`${styles.project} ${centerpiece ? styles.centerpiece : ""}`}
@@ -18,15 +19,50 @@ function FeaturedProject({ entry }: { entry: Entry }) {
         className={styles.projectLink}
         aria-labelledby={`${entry.slug}-title`}
       >
-        <div className={styles.projectTopline}>
-          <span>{entry.event}</span>
-          <span title={entry.demoBrief}>
-            {entry.demoClip ? "Demo loop" : "Video placeholder"}
-          </span>
+        <div className={styles.projectHeader}>
+          <span className={styles.event}>{entry.event}</span>
+          {awards.length > 0 && (
+            <ul className={styles.awards} aria-label={`${entry.title} awards`}>
+              {awards.map((award) => (
+                <li
+                  className={styles.awardFlag}
+                  key={award.id}
+                  data-award={award.id}
+                  aria-label={`${award.placement} ${award.label}, out of ${award.total} projects`}
+                >
+                  <span className={styles.awardLogo}>
+                    <Image src={award.logo} alt="" width={64} height={64} />
+                  </span>
+                  <span className={styles.awardCopy}>
+                    <span className={styles.awardLabel}>
+                      {award.placement} {award.label}
+                    </span>
+                    <span className={styles.awardRank} aria-hidden="true">
+                      <strong>{award.placement}</strong>
+                      <span> / {award.total}</span>
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div className={styles.media} data-showcase-media>
           <div className={styles.mediaVisual} data-showcase-visual>
-            <div className={styles.mediaPlaceholder} aria-hidden="true" />
+            {entry.demoPoster ? (
+              <Image
+                className={styles.clip}
+                src={entry.demoPoster}
+                alt={entry.demoPosterAlt ?? ""}
+                fill
+                sizes="(max-width: 899px) 94vw, (max-width: 1199px) 820px, (max-width: 2200px) 40vw, 880px"
+              />
+            ) : (
+              <div className={styles.mediaPlaceholder}>
+                <span>Video placeholder</span>
+                <p>{entry.demoBrief}</p>
+              </div>
+            )}
             {entry.demoClip && (
               <video
                 className={styles.clip}
@@ -47,21 +83,11 @@ function FeaturedProject({ entry }: { entry: Entry }) {
                 <Icon name="external" />
               </span>
             </div>
-            <p className={styles.summary}>
-              {entry.featuredSummary ?? entry.summary}
-            </p>
           </div>
         </div>
-        {awards.length > 0 && (
-          <ul className={styles.awards} aria-label={`${entry.title} awards`}>
-            {awards.map((award) => (
-              <li className={styles.awardFlag} key={award}>
-                <Icon name="trophy" />
-                {award}
-              </li>
-            ))}
-          </ul>
-        )}
+        <p className={styles.summary} data-project-description>
+          {entry.featuredSummary ?? entry.summary}
+        </p>
       </Link>
     </article>
   );

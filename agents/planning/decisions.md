@@ -33,6 +33,18 @@ layout shifts, keyboard focus receives the hover treatment, and touch devices sh
 color by default. Reduced motion, Save-Data, hidden-tab and offscreen playback
 safeguards remain. This feedback does not authorize promotion out of the experiment.
 
+The next refinement widens the preview frames, keeps only project names over the
+fade, and moves descriptions below. The projects field becomes darker navy to
+separate it from the landing screen. Badges move above the frames with "Best Overall"
+wording and the supplied resume's exact counts: Permanence 1/212, NVIDIA 1/21,
+Hugging Face 1/78, Recall 2/85, and Greghouse 3/86. Permanence's sponsor badges flank
+its raised overall badge. Sebastian supplied the event logos and winners collage;
+official NVIDIA and Hugging Face SVGs complete the badges. The NVIDIA artboard is
+cropped to a padded square while preserving its complete eyemark and wordmark.
+Local optimized assets avoid third-party image requests. The footer adds the
+requested centered "Made with <3 by Sebastian" credit, using equal outer grid
+columns to keep the credit centered despite different copyright/link widths.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

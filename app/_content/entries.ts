@@ -20,6 +20,13 @@ export type Entry = {
   published: boolean;
   featured: boolean;
   award?: string;
+  featuredAwards?: {
+    id: string;
+    label: string;
+    placement: string;
+    total: number;
+    logo: string;
+  }[];
   placeholder?: boolean;
   tone?: "pale" | "coral" | "slate" | "deep" | "muted";
   technologies?: string[];
@@ -33,6 +40,7 @@ export type Entry = {
   demoVideoId?: string;
   demoClip?: string;
   demoPoster?: string;
+  demoPosterAlt?: string;
   demoBrief?: string;
   winnerPhoto?: ProjectPhoto;
   sections: { heading: string; text: string }[];
@@ -54,7 +62,33 @@ export const records: Entry[] = [
     context: "Robotics · Knight Hacks IX",
     published: false,
     featured: true,
-    award: "1st overall · 1st NVIDIA · 1st Hugging Face",
+    award: "1st Best Overall · 1st NVIDIA · 1st Hugging Face",
+    featuredAwards: [
+      {
+        id: "nvidia",
+        label: "NVIDIA",
+        placement: "1st",
+        total: 21,
+        logo: "/media/awards/nvidia.svg",
+      },
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "1st",
+        total: 212,
+        logo: "/media/awards/knight-hacks-ix.svg",
+      },
+      {
+        id: "hugging-face",
+        label: "Hugging Face",
+        placement: "1st",
+        total: 78,
+        logo: "/media/awards/hugging-face.svg",
+      },
+    ],
+    demoPoster: "/media/permanence-winners.webp",
+    demoPosterAlt:
+      "Permanence's winning team on stage for Best Overall, NVIDIA, and Hugging Face at Knight Hacks IX.",
     cover: {
       placeholder: true,
     },
@@ -90,7 +124,16 @@ export const records: Entry[] = [
     context: "Wearables · HackUSF 2026",
     published: false,
     featured: true,
-    award: "2nd overall",
+    award: "2nd Best Overall",
+    featuredAwards: [
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "2nd",
+        total: 85,
+        logo: "/media/awards/hackusf.webp",
+      },
+    ],
     cover: {
       placeholder: true,
     },
@@ -136,7 +179,16 @@ export const records: Entry[] = [
     context: "Connected devices · BloomKnights 2026",
     published: false,
     featured: true,
-    award: "3rd overall",
+    award: "3rd Best Overall",
+    featuredAwards: [
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "3rd",
+        total: 86,
+        logo: "/media/awards/bloomknights.svg",
+      },
+    ],
     cover: {
       placeholder: true,
     },

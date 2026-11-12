@@ -272,9 +272,9 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   const featured = page.getByRole("region", { name: "Featured Projects" });
   const projectTitles = featured.getByRole("heading", { level: 3 });
   await expect(projectTitles).toHaveText(["Recall", "Greghouse", "Permanence"]);
-  await expect(featured).toContainText("2nd overall");
-  await expect(featured).toContainText("3rd overall");
-  await expect(featured).toContainText("1st overall");
+  await expect(featured).toContainText("2nd Best Overall");
+  await expect(featured).toContainText("3rd Best Overall");
+  await expect(featured).toContainText("1st Best Overall");
   await expect(featured).toContainText("1st NVIDIA");
   await expect(featured).toContainText("1st Hugging Face");
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);

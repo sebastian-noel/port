@@ -12,12 +12,40 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   const showcase = page.getByRole("region", { name: "Featured Projects" });
   await expect(showcase.getByRole("link")).toHaveCount(3);
   await expect(showcase.getByRole("listitem")).toHaveCount(5);
-  await expect(showcase.locator("li svg")).toHaveCount(5);
+  await expect(showcase.locator("li img")).toHaveCount(5);
+  for (const label of [
+    "2nd Best Overall, out of 85 projects",
+    "3rd Best Overall, out of 86 projects",
+    "1st Best Overall, out of 212 projects",
+    "1st NVIDIA, out of 21 projects",
+    "1st Hugging Face, out of 78 projects",
+  ]) {
+    await expect(
+      showcase.getByRole("listitem", { name: label, exact: true }),
+    ).toBeVisible();
+  }
   await expect(
     showcase.getByRole("link", { name: "All projects" }),
   ).toHaveCount(0);
   await expect(page.getByRole("button", { name: /motion/ })).toHaveCount(0);
-  expect(await showcase.locator("svg").count()).toBe(8);
+  expect(await showcase.locator("svg").count()).toBe(3);
+  expect(
+    await showcase
+      .locator("[data-project='permanence'] [data-award]")
+      .evaluateAll((elements) =>
+        elements.map((element) => element.getAttribute("data-award")),
+      ),
+  ).toEqual(["nvidia", "overall", "hugging-face"]);
+  expect(
+    await showcase
+      .locator("[data-project='permanence'] [data-award]")
+      .evaluateAll((elements) => {
+        const [left, center, right] = elements.map((element) =>
+          element.getBoundingClientRect(),
+        );
+        return center.top < left.top && center.top < right.top;
+      }),
+  ).toBe(true);
   const boxes = await page.locator("[data-project]").evaluateAll((elements) =>
     Object.fromEntries(
       elements.map((element) => {
@@ -32,6 +60,8 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   expect(boxes.recall.right).toBeLessThan(boxes.permanence.left);
   expect(boxes.permanence.right).toBeLessThan(boxes.greghouse.left);
   expect(boxes.permanence.width).toBeGreaterThan(boxes.recall.width * 1.3);
+  expect(boxes.recall.width).toBeGreaterThan(390);
+  expect(boxes.permanence.width).toBeGreaterThan(530);
   expect(
     Math.abs(boxes.recall.left - (1440 - boxes.greghouse.right)),
   ).toBeLessThan(1);
@@ -48,7 +78,6 @@ test("showcase has a centered lead project and balanced outer margins", async ({
     frames.forEach((ratio) => expect(ratio).toBeCloseTo(16 / 9, 1));
   }
   await page.setViewportSize({ width: 1440, height: 1100 });
-  expect((await showcase.boundingBox())!.height).toBeLessThan(800);
   expect(
     Math.abs((boxes.permanence.left + boxes.permanence.right) / 2 - 720),
   ).toBeLessThan(1);
@@ -69,6 +98,11 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   await page.getByRole("region", { name: "Featured Experiences" }).screenshot({
     path: testInfo.outputPath("showcase-experiences.png"),
   });
+  const footer = page.getByRole("contentinfo");
+  await expect(footer).toContainText("Made with <3 by Sebastian");
+  const credit = await footer.locator(".footer-credit").boundingBox();
+  expect(Math.abs(credit!.x + credit!.width / 2 - 720)).toBeLessThan(1);
+  await footer.screenshot({ path: testInfo.outputPath("showcase-footer.png") });
   await page.getByRole("link", { name: "Permanence", exact: true }).click();
   await expect(page).toHaveURL(/\/projects\/permanence$/);
 });
@@ -168,18 +202,29 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
       `${width}px overflow`,
     ).toBe(true);
     expect(
-      await page.locator("[data-project-copy]").evaluateAll((elements) =>
+      await page.locator("[data-project]").evaluateAll((elements) =>
         elements.every((element) => {
-          const copy = element.getBoundingClientRect();
-          const frame = element.parentElement!.getBoundingClientRect();
+          const frame = element
+            .querySelector("[data-showcase-media]")!
+            .getBoundingClientRect();
+          const title = element
+            .querySelector("[data-project-copy]")!
+            .getBoundingClientRect();
+          const description = element
+            .querySelector("[data-project-description]")!
+            .getBoundingClientRect();
+          const awards = [...element.querySelectorAll("[data-award]")];
           return (
-            copy.top >= frame.top &&
-            copy.bottom <= frame.bottom &&
-            element.scrollHeight <= element.clientHeight
+            title.top >= frame.top &&
+            title.bottom <= frame.bottom &&
+            description.top >= frame.bottom &&
+            awards.every(
+              (award) => award.getBoundingClientRect().bottom < frame.top,
+            )
           );
         }),
       ),
-      `${width}px copy fits inside frame`,
+      `${width}px titles overlay media, descriptions below, awards above`,
     ).toBe(true);
   }
   await page.setViewportSize({ width: 390, height: 844 });
@@ -191,7 +236,9 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
         element.getBoundingClientRect().top + window.scrollY - 120,
       ),
     );
-  await page.screenshot({ path: testInfo.outputPath("showcase-mobile.png") });
+  await page
+    .locator("[data-project='permanence']")
+    .screenshot({ path: testInfo.outputPath("showcase-mobile.png") });
   const link = page.getByRole("link", {
     name: "Infrastructure engineering",
     exact: true,
@@ -202,7 +249,7 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
   await expect(page).toHaveURL(/\/experiences\/bny$/);
 });
 
-test("showcase stays readable without JavaScript and requests no replacement media", async ({
+test("showcase stays readable without JavaScript and loads only approved media", async ({
   browser,
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
@@ -216,10 +263,16 @@ test("showcase stays readable without JavaScript and requests no replacement med
   await expect(page.locator("[data-project]")).toHaveCount(3);
   await expect(
     page.getByText("Video placeholder", { exact: true }),
-  ).toHaveCount(3);
-  expect(
-    media.filter((url) => /ytimg|\/media\/|\.webm|\.mp4/.test(url)),
-  ).toEqual([]);
+  ).toHaveCount(2);
+  const poster = page.getByRole("img", { name: /Permanence's winning team/ });
+  await poster.scrollIntoViewIfNeeded();
+  await expect(poster).toBeVisible();
+  await expect
+    .poll(() =>
+      poster.evaluate((element) => (element as HTMLImageElement).naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  expect(media.filter((url) => /ytimg|\.webm|\.mp4/.test(url))).toEqual([]);
   await page.getByRole("link", { name: "Greghouse", exact: true }).click();
   await expect(page).toHaveURL(/\/projects\/greghouse$/);
   await context.close();
