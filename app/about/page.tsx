@@ -59,6 +59,12 @@ export default function About() {
               </a>
             ))}
           </nav>
+          <section className="about-contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Contact</h2>
+            <a className="text-link" href="mailto:sebastian@snoel.dev">
+              sebastian@snoel.dev
+            </a>
+          </section>
         </div>
       </div>
     </div>

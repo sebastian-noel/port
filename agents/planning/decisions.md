@@ -138,3 +138,18 @@ Sebastian chose a color close to the original cornflower blue with 3.5:1 contras
 ## 2026-11-08 UI review evidence
 
 Sebastian confirmed that UI screenshots should be attached directly in the PR description. Use fewer than five screenshots and choose only the most useful views. One desktop Home screenshot is sufficient for the palette change. [Coding workflow](coding-workflow.md#visual-evidence-in-prs)
+
+## 2026-11-10 palette preview and featured projects
+
+Sebastian kept the navy landing background and requested scarlet current-page underlines, a stone-blue footer, and a stone-blue Featured Projects strip below the splash. Permanence, Recall, and GregHouse share a desktop row and stack on phones. The cards use demo thumbnails and can reveal approved team photos on hover or keyboard focus. Experiences stay in the sidebar. Review this direction in [PR #32](https://github.com/sebastian-noel/port/pull/32).
+
+## 2026-11-10 homepage highlights refinement
+
+Use stone blue as the visible field behind the featured project copy and footer, and as the surface for three homepage experience cards. Use navy text on those surfaces for contrast. Group both BNY internships together and feature UCF AI research and Knight Hacks mentoring and outreach alongside them. Use approved muted demo loops and team-stage photo reveals for the three existing featured projects. Keep stills while media is pending. Review in [PR #32](https://github.com/sebastian-noel/port/pull/32).
+
+## 2026-11-10 About contact link
+
+Sebastian supplied `sebastian@snoel.dev` and requested a direct email link on About,
+without a contact form. Use the existing text-link styling in a Contact section so
+visitors can see the address and open their email app. The public resume remains
+contact-free. Updated the search and privacy specification and content guide.

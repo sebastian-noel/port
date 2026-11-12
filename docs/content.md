@@ -12,6 +12,12 @@ Edit `app/_content/entries.ts` to add a project or experience. Collection cards 
 
 The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume, including UCF's experiential context for BNY. Unknown dates remain absent.
 
+## Contact
+
+The About page links directly to Sebastian's approved public email,
+`sebastian@snoel.dev`, using a `mailto:` link. Edit `app/about/page.tsx` to update
+the address. The public resume remains contact-free.
+
 ## Resume
 
 `public/resume.pdf` is the contact-free public version of the supplied resume. Private contact text was removed from the page drawing operations, not covered visually. It retains the education, experience, projects, and skills sections, plus public profile links as text. Header and footer resume actions open this PDF in a new tab. `/resume` remains a shareable landing page.
@@ -22,7 +28,7 @@ Do not commit the original resume, private contact information, original assets,
 
 The name types once per tab session, then triggers a radial tile flip. The complete accessible heading is present from server rendering. The background uses a viewport-sized, bounded tile field and Web Animations; idle motion flips only three tiles at a time. Reduced motion displays the complete name and suppresses decorative animation. The header pause button cancels background motion, and hidden tabs stop active animation.
 
-The blank home section reserves space for the future typing game. Projects and experiences are compact side links. No game logic or backend is implemented yet.
+The homepage features three projects and three experience highlights above the space reserved for the typing game. Add an approved, optimized WebM or MP4 under `public/media/` and set the project’s `demoClip` to its `/media/` path for a muted loop. Add the approved team photo as `winnerPhoto` using the same fields as a real cover. Until the clips arrive, project cards display their demo thumbnails. No game logic or backend is implemented yet.
 
 ## Release
 
