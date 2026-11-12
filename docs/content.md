@@ -30,30 +30,36 @@ The name types on each home visit, then triggers a radial tile flip. The complet
 
 The experimental homepage has a wide project showcase, with Recall on the left,
 Permanence larger in the center, and Greghouse on the right. Desktop reveals run
-in the order Recall, Greghouse, Permanence. Below 900px, the projects stack in that
+in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack in that
 same reading order. Three experience rows follow, with separate links for both
 BNY internships. The typing-game space is still reserved.
 
 Each featured project's `demoBrief` describes the clip to supply. These labeled
 placeholders replace the old YouTube thumbnails on Home. Collection and detail
-pages retain their existing media. To add an approved loop:
+pages retain their existing media. The homepage's longer `featuredSummary` copy
+comes from the local project READMEs; collection summaries remain concise. Titles
+and summaries sit inside the media over a dark bottom fade. Desktop frames are
+16:9; narrow screens can grow to keep all copy readable. All five wins use scarlet
+badges and the same inline SVG trophy. To add an approved loop:
 
 1. Export a short, silent WebM or MP4 into `public/media/`. Start with 6 to 10
    seconds, 720px resolution, and a target of 1 to 2 MB per clip. Remove the audio
-   track, crop intentionally, and check that the important action remains visible
-   in both the desktop portrait frame and the phone landscape frame.
+   track and use a 16:9 landscape crop. Keep the important action above the bottom
+   text overlay, and check the crop on both desktop and phones.
 2. Set the record's `demoClip` to its `/media/` path. Set `demoPoster` to an approved
    optimized WebP or AVIF still for a meaningful static fallback. Without a poster,
    the text placeholder remains the fallback. The build checks that files exist.
-3. Verify playback in the actual browser, including mobile, reduced motion, pause,
+3. Verify playback in the actual browser, including mobile, reduced motion,
    background tabs, and an unavailable clip. Project summaries and detail links
    must remain understandable without video.
 
 The small client motion component uses IntersectionObserver and Web Animations,
 with no animation dependency or per-frame React updates. Clip sources attach only
-when visible; playback pauses offscreen, in hidden tabs, and with the sticky Pause
-motion control. Reduced motion and a browser's Save-Data preference prevent
-autoplay. Placeholder progress accents pause offscreen. Content remains readable
+when visible; playback pauses offscreen and in hidden tabs. Reduced motion and a
+browser's Save-Data preference prevent autoplay. There is no motion button or
+simulated video progress line. Hover or keyboard focus lifts and enlarges the
+project, zooms the media slightly, and restores its color. Touch devices show color
+without requiring hover. Reduced motion disables the lift and zoom. Content remains readable
 and linked without JavaScript. The reveal is one-time per page mount, and keyboard
 focus immediately reveals the focused project or experience.
 

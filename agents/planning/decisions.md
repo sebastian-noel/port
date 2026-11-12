@@ -20,6 +20,19 @@ server-rendered content stays available without JavaScript. See the experimental
 section in `design/visual-direction.md` and the media instructions in
 `docs/content.md`. These choices are for review, not approved for integration.
 
+Sebastian's follow-up requests prominent treatment for all five wins, a consistent
+trophy instead of an emoji, one project arrow by the name, removal of the motion
+control and All projects action, hover expansion and video zoom/color, no progress
+line, richer source-backed copy, and a shorter section with desktop 16:9 media and
+text inside a dark bottom fade. The refinement uses the existing inline SVG icon
+system instead of adding an icon dependency. README-backed `featuredSummary`
+fields keep expanded homepage copy separate from compact collection summaries.
+The layout stacks below 1200px so three landscape panels do not force unreadably
+small text; very narrow cards can grow to fit the overlay. CSS transforms avoid
+layout shifts, keyboard focus receives the hover treatment, and touch devices show
+color by default. Reduced motion, Save-Data, hidden-tab and offscreen playback
+safeguards remain. This feedback does not authorize promotion out of the experiment.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

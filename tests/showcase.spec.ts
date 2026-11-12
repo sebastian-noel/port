@@ -9,6 +9,15 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   await page.setViewportSize({ width: 1440, height: 1100 });
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
+  const showcase = page.getByRole("region", { name: "Featured Projects" });
+  await expect(showcase.getByRole("link")).toHaveCount(3);
+  await expect(showcase.getByRole("listitem")).toHaveCount(5);
+  await expect(showcase.locator("li svg")).toHaveCount(5);
+  await expect(
+    showcase.getByRole("link", { name: "All projects" }),
+  ).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /motion/ })).toHaveCount(0);
+  expect(await showcase.locator("svg").count()).toBe(8);
   const boxes = await page.locator("[data-project]").evaluateAll((elements) =>
     Object.fromEntries(
       elements.map((element) => {
@@ -26,6 +35,20 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   expect(
     Math.abs(boxes.recall.left - (1440 - boxes.greghouse.right)),
   ).toBeLessThan(1);
+  for (const width of [1200, 1280, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 1100 });
+    const frames = await page
+      .locator("[data-showcase-media]")
+      .evaluateAll((elements) =>
+        elements.map((element) => {
+          const box = element.getBoundingClientRect();
+          return box.width / box.height;
+        }),
+      );
+    frames.forEach((ratio) => expect(ratio).toBeCloseTo(16 / 9, 1));
+  }
+  await page.setViewportSize({ width: 1440, height: 1100 });
+  expect((await showcase.boundingBox())!.height).toBeLessThan(800);
   expect(
     Math.abs((boxes.permanence.left + boxes.permanence.right) / 2 - 720),
   ).toBeLessThan(1);
@@ -50,9 +73,9 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   await expect(page).toHaveURL(/\/projects\/permanence$/);
 });
 
-test("scroll reveals Recall, Greghouse, then Permanence and pause stops ambient motion", async ({
+test("scroll reveals in order and hover lifts, zooms, and restores color", async ({
   page,
-}) => {
+}, testInfo) => {
   await page.addInitScript(() => {
     const original = Element.prototype.animate;
     const reveals: string[] = [];
@@ -90,28 +113,26 @@ test("scroll reveals Recall, Greghouse, then Permanence and pause stops ambient 
     "opacity",
     "1",
   );
-  const pause = page.getByRole("button", { name: "Pause motion" });
-  await pause.click();
-  await expect(page.locator("[data-motion]")).toHaveAttribute(
-    "data-motion",
-    "paused",
+  const project = page.getByRole("link", { name: "Permanence", exact: true });
+  const visual = project.locator("[data-showcase-visual]");
+  await expect(visual).toHaveCSS("filter", "grayscale(1)");
+  await project.hover();
+  await expect(visual).toHaveCSS("filter", "grayscale(0)");
+  await expect(visual).toHaveCSS("transform", "matrix(1.06, 0, 0, 1.06, 0, 0)");
+  await expect(project).toHaveCSS(
+    "transform",
+    "matrix(1.025, 0, 0, 1.025, 0, -8)",
   );
-  await expect(
-    page.getByRole("button", { name: "Resume motion" }),
-  ).toHaveAttribute("aria-pressed", "true");
-  expect(
-    await page
-      .locator("[data-project]")
-      .evaluateAll((elements) =>
-        elements.every((element) => getComputedStyle(element).opacity === "1"),
-      ),
-  ).toBe(true);
-  await page.getByRole("button", { name: "Resume motion" }).click();
-  await expect(page.locator("[data-motion]")).toHaveAttribute(
-    "data-motion",
-    "playing",
-  );
+  await page
+    .locator("#workspace")
+    .screenshot({ path: testInfo.outputPath("showcase-hover.png") });
+  await page.mouse.move(0, 0);
+  await expect(visual).toHaveCSS("filter", "grayscale(1)");
+  await project.focus();
+  await expect(visual).toHaveCSS("filter", "grayscale(0)");
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(project).toHaveCSS("transform", "none");
+  await expect(visual).toHaveCSS("transform", "none");
   await expect(page.locator("[data-motion]")).toHaveAttribute(
     "data-motion",
     "paused",
@@ -138,7 +159,7 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
     );
   expect(topPositions[0]).toBeLessThan(topPositions[1]);
   expect(topPositions[1]).toBeLessThan(topPositions[2]);
-  for (const width of [320, 375, 390, 768, 900, 1024, 1920]) {
+  for (const width of [320, 375, 390, 768, 900, 1024, 1199, 1200, 1920]) {
     await page.setViewportSize({ width, height: 844 });
     expect(
       await page.evaluate(
@@ -146,9 +167,30 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
       ),
       `${width}px overflow`,
     ).toBe(true);
+    expect(
+      await page.locator("[data-project-copy]").evaluateAll((elements) =>
+        elements.every((element) => {
+          const copy = element.getBoundingClientRect();
+          const frame = element.parentElement!.getBoundingClientRect();
+          return (
+            copy.top >= frame.top &&
+            copy.bottom <= frame.bottom &&
+            element.scrollHeight <= element.clientHeight
+          );
+        }),
+      ),
+      `${width}px copy fits inside frame`,
+    ).toBe(true);
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.locator("[data-project='permanence']").scrollIntoViewIfNeeded();
+  await page
+    .locator("[data-project='permanence']")
+    .evaluate((element) =>
+      window.scrollTo(
+        0,
+        element.getBoundingClientRect().top + window.scrollY - 120,
+      ),
+    );
   await page.screenshot({ path: testInfo.outputPath("showcase-mobile.png") });
   const link = page.getByRole("link", {
     name: "Infrastructure engineering",

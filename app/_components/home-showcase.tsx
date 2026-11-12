@@ -20,52 +20,48 @@ function FeaturedProject({ entry }: { entry: Entry }) {
       >
         <div className={styles.projectTopline}>
           <span>{entry.event}</span>
-          <Icon name="external" />
-        </div>
-        <div className={styles.media} data-showcase-media>
-          <div className={styles.mediaPlaceholder}>
-            <span className={styles.placeholderLabel}>Video placeholder</span>
-            <p>{entry.demoBrief}</p>
-            <span className={styles.placeholderFooter}>
-              <span>Short, silent loop</span>
-              <Icon name="play" />
-            </span>
-          </div>
-          {entry.demoClip && (
-            <video
-              className={styles.clip}
-              data-src={entry.demoClip}
-              poster={entry.demoPoster}
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-hidden="true"
-            />
-          )}
-          {awards[0] && (
-            <span className={styles.awardFlag}>
-              <span aria-hidden="true">✳</span> {awards[0]}
-            </span>
-          )}
-        </div>
-        <div className={styles.projectTitle}>
-          <h3 id={`${entry.slug}-title`}>{entry.title}</h3>
-          <span className={styles.projectArrow}>
-            <Icon name="external" />
+          <span title={entry.demoBrief}>
+            {entry.demoClip ? "Demo loop" : "Video placeholder"}
           </span>
         </div>
-        <p className={styles.summary}>{entry.summary}</p>
-        {awards.length > 1 && (
-          <p className={styles.otherAwards}>
-            {awards.slice(1).map((award) => (
-              <span key={award}>✳ {award}</span>
+        <div className={styles.media} data-showcase-media>
+          <div className={styles.mediaVisual} data-showcase-visual>
+            <div className={styles.mediaPlaceholder} aria-hidden="true" />
+            {entry.demoClip && (
+              <video
+                className={styles.clip}
+                data-src={entry.demoClip}
+                poster={entry.demoPoster}
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-hidden="true"
+              />
+            )}
+          </div>
+          <div className={styles.projectCopy} data-project-copy>
+            <div className={styles.projectTitle}>
+              <h3 id={`${entry.slug}-title`}>{entry.title}</h3>
+              <span className={styles.projectArrow}>
+                <Icon name="external" />
+              </span>
+            </div>
+            <p className={styles.summary}>
+              {entry.featuredSummary ?? entry.summary}
+            </p>
+          </div>
+        </div>
+        {awards.length > 0 && (
+          <ul className={styles.awards} aria-label={`${entry.title} awards`}>
+            {awards.map((award) => (
+              <li className={styles.awardFlag} key={award}>
+                <Icon name="trophy" />
+                {award}
+              </li>
             ))}
-          </p>
+          </ul>
         )}
-        <span className={styles.projectCta}>
-          Explore project <Icon name="arrow" />
-        </span>
       </Link>
     </article>
   );
@@ -121,9 +117,6 @@ export function HomeShowcase() {
               Projects<span className={styles.period}>.</span>
             </span>
           </h2>
-          <Link className={styles.allLink} href="/projects">
-            All projects <Icon name="external" />
-          </Link>
         </div>
         <div className={styles.projectStage} data-project-stage>
           {featured.map((entry) => (

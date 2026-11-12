@@ -5,7 +5,10 @@
 On `exp/homepage-showcase`, issue #39 supersedes the compact homepage card layout
 for review only. Use a wide navy project stage, larger video placeholders, stone
 blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
-larger, elevated Permanence panel with symmetric outer gutters. Reveal Recall,
+larger, elevated Permanence panel with symmetric outer gutters. Use landscape
+16:9 video frames and place the project name and fuller description inside a dark
+bottom fade. Let narrow frames grow if necessary to fit readable text. All five
+awards receive prominent scarlet badges with the same SVG trophy. Reveal Recall,
 Greghouse, then Permanence. Stack in that order on phones. Keep Varela Round and
 use scale and spacing to establish the new hierarchy without another font download.
 
@@ -15,9 +18,12 @@ verified BNY, UCF AI research, and Knight Hacks content and their direct links.
 Use lighter scarlet for small text on navy and full scarlet for large award accents.
 Media placeholders describe the needed clips; do not reuse the existing thumbnails.
 
-Prefer one-time entrance animations, small hover/focus responses, and visible
-short silent loops. Pause offscreen media and hidden-tab activity. Include a pause
-control, reduced-motion handling, and normal scrolling. These are experimental
+Prefer one-time entrance animations and visible short silent loops. Hover/focus
+lifts and expands the project, gently zooms the media, and restores its color.
+Touch devices show color without hover; reduced motion disables lift and zoom.
+Pause offscreen media and hidden-tab activity. Remove the pause control, simulated
+progress line, All projects action, and duplicate arrows, retaining one arrow next
+to each project name. Keep normal scrolling. These are experimental
 implementation choices, not approval to merge into either integration or production.
 
 Status: Sebastian requested this palette for review on a preview before merging.

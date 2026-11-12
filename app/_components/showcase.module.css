@@ -4,49 +4,18 @@
   position: relative;
   background: var(--canvas);
 }
-.motionBar {
-  visibility: hidden;
-  position: sticky;
-  top: 100px;
-  height: 44px;
-  margin-bottom: -44px;
-  display: flex;
-  justify-content: flex-end;
-  padding-inline: var(--gutter);
-  z-index: 2;
-}
-.showcase[data-motion] .motionBar {
-  visibility: visible;
-}
-.motionControl {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  padding: 8px 12px;
-  color: var(--sky);
-  background: var(--canvas);
-  font-size: 13px;
-}
-.motionControl:hover {
-  color: white;
-}
 .work {
   max-width: 1920px;
   margin-inline: auto;
-  padding: 80px var(--gutter) 120px;
+  padding: 64px var(--gutter) 76px;
   scroll-margin-top: 70px;
 }
 .sectionHeading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 28px;
-  margin-bottom: 56px;
+  margin-bottom: 44px;
 }
 .sectionHeading h2 {
   margin: 0;
-  font-size: clamp(60px, 7.8vw, 140px);
+  font-size: clamp(60px, 6.2vw, 104px);
   font-weight: 400;
   line-height: 0.94;
   letter-spacing: -0.065em;
@@ -74,12 +43,12 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.36fr) minmax(0, 1fr);
   grid-template-areas: "recall permanence greghouse";
-  gap: clamp(22px, 3vw, 64px);
+  gap: clamp(22px, 2vw, 40px);
   align-items: start;
 }
 .project {
   min-width: 0;
-  padding-top: 104px;
+  padding-top: 64px;
 }
 .showcase [data-pending="true"] {
   opacity: 0;
@@ -89,6 +58,9 @@
 }
 .projectLink {
   display: block;
+  position: relative;
+  transform-origin: center;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .projectLink:focus-visible {
   outline-offset: 10px;
@@ -100,73 +72,49 @@
   justify-content: space-between;
   gap: 8px;
   color: var(--sky);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-size: 12px;
 }
-.projectTopline > svg {
-  width: 16px;
+.projectTopline > :last-child {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  display: grid;
+  overflow: hidden;
   isolation: isolate;
-  background: #1b405e;
+  background: #17364c;
+  border: 1px solid #51718a;
+  transition:
+    border-color 300ms,
+    box-shadow 380ms;
 }
-.centerpiece .media {
-  aspect-ratio: 1 / 1.12;
+.media::before {
+  content: "";
+  grid-area: 1 / 1;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.mediaVisual {
+  position: absolute;
+  inset: 0;
+  filter: grayscale(1);
+  transition:
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 500ms;
 }
 .mediaPlaceholder {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(20px, 2.5vw, 42px);
-  background: #244c6b;
-  color: #c0d8e9;
+  background: #426f8e;
 }
 .centerpiece .mediaPlaceholder {
   background: var(--sky);
-  color: var(--canvas);
 }
 .project[data-project="greghouse"] .mediaPlaceholder {
-  background: #143a58;
-}
-.placeholderLabel {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.mediaPlaceholder p {
-  max-width: 12em;
-  margin: 50px 0;
-  font-size: clamp(22px, 2.25vw, 38px);
-  line-height: 1.2;
-  letter-spacing: -0.04em;
-  text-wrap: balance;
-}
-.placeholderFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 11px;
-}
-.mediaPlaceholder::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: var(--accent);
-  transform-origin: left;
-  animation: loop-line 8s linear infinite;
-  animation-play-state: paused;
-}
-.media[data-visible="true"] .mediaPlaceholder::after {
-  animation-play-state: running;
+  background: #355f70;
 }
 .clip {
   position: absolute;
@@ -178,95 +126,132 @@
 .clip[data-unavailable="true"] {
   display: none;
 }
-.awardFlag {
+.projectCopy {
+  position: relative;
+  grid-area: 1 / 1;
+  align-self: end;
+  padding: 16px 18px 18px;
+  background: linear-gradient(180deg, #04121dcc, #04121df5);
+  pointer-events: none;
+}
+.projectCopy::before {
+  content: "";
   position: absolute;
-  left: 0;
-  bottom: -1px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--canvas);
-  color: var(--scarlet-text);
-  padding: 14px 18px 0 0;
-  font-size: 15px;
-}
-.awardFlag > span {
-  font-size: 24px;
-  line-height: 1;
-}
-.centerpiece .awardFlag {
-  left: auto;
-  right: -12px;
-  bottom: 24px;
-  background: var(--accent);
-  color: white;
-  padding: 14px 24px;
-  font-size: clamp(24px, 2.2vw, 36px);
-  transform: rotate(-4deg);
-}
-.centerpiece .awardFlag > span {
-  font-size: 32px;
+  inset: auto 0 100%;
+  height: 64px;
+  background: linear-gradient(180deg, transparent, #04121dcc);
 }
 .projectTitle {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 26px;
 }
 .projectTitle h3 {
   margin: 0;
-  font-size: clamp(28px, 2.8vw, 48px);
+  font-size: clamp(28px, 2.5vw, 42px);
   font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
 }
 .projectArrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
-  border: 1px solid var(--sky);
+  border: 1px solid #b8c9d5;
   border-radius: 50%;
   transition:
-    background 180ms,
-    border-color 180ms,
-    transform 180ms;
+    background 200ms,
+    border-color 200ms,
+    transform 300ms;
 }
-.projectLink:hover .projectArrow,
+.summary {
+  margin: 10px 0 0;
+  max-width: 36em;
+  font-size: clamp(13px, 1.02vw, 16px);
+  line-height: 1.5;
+  color: #e1e9ef;
+}
+.awards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+.awardFlag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: white;
+  font-size: clamp(17px, 1.4vw, 24px);
+  line-height: 1.2;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.awardFlag > svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.awardFlag:first-child {
+  font-size: clamp(22px, 1.8vw, 30px);
+  transform: rotate(-3deg);
+  margin-bottom: 2px;
+}
+.centerpiece .awardFlag:first-child {
+  margin-right: 35%;
+}
+.projectLink:focus-visible {
+  transform: translateY(-8px) scale(1.025);
+}
+.projectLink:focus-visible .media {
+  border-color: var(--accent);
+  box-shadow: 0 18px 40px #0004;
+}
+.projectLink:focus-visible .mediaVisual {
+  filter: grayscale(0);
+  transform: scale(1.06);
+}
 .projectLink:focus-visible .projectArrow {
   background: var(--accent);
   border-color: var(--accent);
   transform: rotate(45deg);
 }
-.summary {
-  margin: 14px 0 0;
-  max-width: 32em;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #c0d8e9;
+.projectLink:focus-visible .awardFlag {
+  transform: rotate(0deg);
 }
-.otherAwards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  margin: 16px 0 0;
-  font-size: 13px;
-  color: var(--scarlet-text);
+@media (hover: hover) and (pointer: fine) {
+  .projectLink:hover {
+    transform: translateY(-8px) scale(1.025);
+  }
+  .projectLink:hover .media {
+    border-color: var(--accent);
+    box-shadow: 0 18px 40px #0004;
+  }
+  .projectLink:hover .mediaVisual {
+    filter: grayscale(0);
+    transform: scale(1.06);
+  }
+  .projectLink:hover .projectArrow {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: rotate(45deg);
+  }
+  .projectLink:hover .awardFlag {
+    transform: rotate(0deg);
+  }
 }
-.projectCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 22px;
-  font-size: 13px;
-  color: var(--sky);
-}
-.projectCta svg {
-  width: 16px;
-}
-.projectLink:hover .projectCta {
-  color: white;
+@media (hover: none) {
+  .mediaVisual {
+    filter: none;
+  }
 }
 .experiences {
   display: grid;
@@ -365,21 +350,34 @@
   outline-color: var(--canvas);
   box-shadow: none;
 }
-.showcase[data-motion="paused"] *,
-.showcase[data-motion="paused"] .mediaPlaceholder::after {
-  animation-play-state: paused;
-}
-@keyframes loop-line {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 @media (max-width: 1199px) {
   .projectStage {
-    gap: 24px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "recall" "greghouse" "permanence";
+    gap: 40px;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .project {
+    padding-top: 0;
+  }
+  .projectCopy {
+    padding: 56px 28px 28px;
+  }
+  .projectTitle h3 {
+    font-size: clamp(30px, 5vw, 46px);
+  }
+  .summary {
+    font-size: 16px;
+  }
+  .awardFlag {
+    font-size: 20px;
+  }
+  .awardFlag:first-child {
+    font-size: 26px;
+  }
+  .centerpiece .awardFlag:first-child {
+    margin-right: 0;
   }
   .experiences {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
@@ -391,45 +389,10 @@
 }
 @media (max-width: 899px) {
   .work {
-    padding-top: 90px;
-    padding-bottom: 72px;
-  }
-  .sectionHeading {
-    margin-bottom: 44px;
+    padding-block: 60px;
   }
   .sectionHeading h2 {
     font-size: clamp(56px, 10vw, 88px);
-  }
-  .projectStage {
-    grid-template-columns: 1fr;
-    grid-template-areas: "recall" "greghouse" "permanence";
-    gap: 56px;
-  }
-  .project {
-    padding-top: 0;
-  }
-  .media {
-    aspect-ratio: 16 / 10;
-  }
-  .centerpiece .media {
-    aspect-ratio: 4 / 3;
-  }
-  .mediaPlaceholder {
-    padding: 28px;
-  }
-  .mediaPlaceholder p {
-    font-size: clamp(24px, 5vw, 38px);
-    margin: 30px 0;
-  }
-  .projectTitle h3 {
-    font-size: 40px;
-  }
-  .centerpiece .projectTitle h3 {
-    font-size: clamp(42px, 7vw, 58px);
-  }
-  .centerpiece .awardFlag {
-    right: -8px;
-    font-size: 28px;
   }
   .experiences {
     grid-template-columns: 1fr;
@@ -447,33 +410,32 @@
     font-size: 32px;
   }
 }
+@media (max-width: 599px) {
+  .projectCopy {
+    padding: 48px 16px 16px;
+  }
+  .summary {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .awards {
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .awardFlag {
+    padding: 9px 12px;
+    font-size: 17px;
+  }
+  .awardFlag:first-child {
+    font-size: 23px;
+  }
+}
 @media (max-width: 479px) {
   .sectionHeading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 22px;
+    margin-bottom: 32px;
   }
   .sectionHeading h2 {
     font-size: 58px;
-  }
-  .mediaPlaceholder {
-    padding: 22px;
-  }
-  .mediaPlaceholder p {
-    font-size: 25px;
-    margin: 26px 0;
-  }
-  .placeholderLabel,
-  .placeholderFooter {
-    font-size: 10px;
-  }
-  .projectTitle h3 {
-    font-size: 36px;
-  }
-  .centerpiece .awardFlag {
-    bottom: 16px;
-    padding: 12px 16px;
-    font-size: 25px;
   }
   .experience {
     grid-template-columns: 44px minmax(0, 1fr);
@@ -496,15 +458,13 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .motionBar {
-    display: none;
-  }
-  .mediaPlaceholder::after {
-    animation: none;
-    transform: scaleX(1);
-  }
-  .experienceMark,
-  .projectArrow {
+  .projectLink,
+  .media,
+  .mediaVisual,
+  .projectArrow,
+  .awardFlag,
+  .experienceMark {
+    transition: none;
     transform: none !important;
   }
 }

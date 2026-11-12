@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Icon } from "./icons";
+import { useEffect, useRef, type ReactNode } from "react";
 import styles from "./showcase.module.css";
 
 export function ShowcaseMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const element = root.current;
     if (!element) return;
     if (!("IntersectionObserver" in window)) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    const wide = matchMedia("(min-width: 900px)");
+    const wide = matchMedia("(min-width: 1200px)");
     const connection = (
       navigator as Navigator & {
         connection?: { saveData?: boolean };
@@ -29,7 +27,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
     ];
 
     // Only enhance content below the viewport; restored positions stay readable.
-    if (!paused && !reduced.matches) {
+    if (!reduced.matches) {
       revealTargets.forEach((target) => {
         if (
           !target.dataset.revealed &&
@@ -42,15 +40,15 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
 
     function syncMotion() {
       if (!element) return;
-      const stopped = paused || reduced.matches || document.hidden;
+      const stopped = reduced.matches || document.hidden;
       element.dataset.motion = stopped ? "paused" : "playing";
-      if (paused || reduced.matches) {
+      if (reduced.matches) {
         revealTargets.forEach((target) => {
           delete target.dataset.pending;
         });
       }
       for (const animation of animations) {
-        if (paused || reduced.matches) animation.finish();
+        if (reduced.matches) animation.finish();
         else if (document.hidden) animation.pause();
         else animation.play();
       }
@@ -78,8 +76,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       if (target.dataset.revealed) return;
       target.dataset.revealed = "true";
       delete target.dataset.pending;
-      if (paused || reduced.matches || target.getBoundingClientRect().top < 80)
-        return;
+      if (reduced.matches || target.getBoundingClientRect().top < 80) return;
       const animation = target.animate(
         [
           { opacity: 0, transform: "translateY(56px)" },
@@ -131,7 +128,6 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       (entries) => {
         for (const entry of entries) {
           const media = entry.target as HTMLElement;
-          media.dataset.visible = String(entry.isIntersecting);
           const video = media.querySelector("video");
           if (!video) continue;
           if (entry.isIntersecting) visibleVideos.add(video);
@@ -171,20 +167,10 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
         delete target.dataset.pending;
       });
     };
-  }, [paused]);
+  }, []);
 
   return (
     <div className={styles.showcase} ref={root}>
-      <div className={styles.motionBar}>
-        <button
-          className={styles.motionControl}
-          onClick={() => setPaused(!paused)}
-          aria-pressed={paused}
-        >
-          <Icon name={paused ? "play" : "pause"} />
-          {paused ? "Resume motion" : "Pause motion"}
-        </button>
-      </div>
       {children}
     </div>
   );

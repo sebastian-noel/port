@@ -15,6 +15,7 @@ export type Entry = {
   slug: string;
   title: string;
   summary: string;
+  featuredSummary?: string;
   context: string;
   published: boolean;
   featured: boolean;
@@ -43,6 +44,8 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "permanence",
+    featuredSummary:
+      "A robot with a persistent 3D memory. It tracks objects through occlusion and follows language commands to find them, even when its camera can no longer see them.",
     demoBrief: "Robot tracking an object as it disappears from view.",
     demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
@@ -78,6 +81,8 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "recall",
+    featuredSummary:
+      "AI memory, built into a pair of glasses. Captures everyday sights and conversations, then turns them into searchable memories you can recall with a question.",
     demoBrief: "Glasses capturing a moment. A memory recalled on screen.",
     demoVideoId: "Htq-73zA4mw",
     title: "Recall",
@@ -121,6 +126,8 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "greghouse",
+    featuredSummary:
+      "A real plant, connected to a shared pixel garden. Soil sensors shape its virtual mood while friends explore, leave messages, and remind you when it needs water.",
     demoBrief: "A real plant. Its pixel garden responding to water.",
     demoVideoId: "eeHd84B9r5A",
     title: "Greghouse",
