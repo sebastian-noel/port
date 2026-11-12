@@ -808,11 +808,20 @@ dialog nav a[aria-current] {
   font-size: 14px;
 }
 .footer-credit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   text-align: center;
   white-space: nowrap;
 }
 .footer-heart {
+  display: inline-flex;
   color: #9c151c;
+}
+.footer-heart svg {
+  width: 16px;
+  height: 16px;
 }
 .site-footer nav {
   display: flex;

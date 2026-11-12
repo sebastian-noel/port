@@ -5,12 +5,14 @@
 On `exp/homepage-showcase`, issue #39 supersedes the compact homepage card layout
 for review only. Use a wide dark navy (`#020f20`) project stage, larger 16:9 previews, stone
 blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
-larger, elevated Permanence panel with symmetric outer gutters. Use landscape
+larger Permanence panel with symmetric outer gutters and aligned media/card bottoms. Use landscape
 16:9 video frames and place only the project name inside a dark bottom fade. Place
 the fuller description below. All five awards receive prominent scarlet badges
 above the media, with event/company logos and exact resume-backed submission counts.
-Use "Best Overall" for overall placements. Pair event and placement on opposite
-sides of the Recall and Greghouse header. Arch Permanence's badges with NVIDIA left,
+Use "Best Overall" for overall placements. Keep hackathon names on case-study
+pages. Use compact rounded badges, large ranks, transparent logos, and a slight
+right tilt for Recall and Greghouse. On hover/focus, enlarge and push badges outward
+while preserving their angles. Arch Permanence's badges with NVIDIA left,
 Best Overall raised in the middle, and Hugging Face right. Use the supplied winners
 collage as Permanence's temporary poster. Reveal Recall,
 Greghouse, then Permanence. Stack in that order on phones. Keep Varela Round and

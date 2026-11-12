@@ -131,7 +131,7 @@ export const records: Entry[] = [
         label: "Best Overall",
         placement: "2nd",
         total: 85,
-        logo: "/media/awards/hackusf.webp",
+        logo: "/media/awards/hackusf-transparent.webp",
       },
     ],
     cover: {

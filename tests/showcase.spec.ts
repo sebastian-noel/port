@@ -29,6 +29,9 @@ test("showcase has a centered lead project and balanced outer margins", async ({
   ).toHaveCount(0);
   await expect(page.getByRole("button", { name: /motion/ })).toHaveCount(0);
   expect(await showcase.locator("svg").count()).toBe(3);
+  await expect(showcase).not.toContainText(
+    /HackUSF|Knight Hacks IX|BloomKnights/,
+  );
   expect(
     await showcase
       .locator("[data-project='permanence'] [data-award]")
@@ -72,10 +75,19 @@ test("showcase has a centered lead project and balanced outer margins", async ({
       .evaluateAll((elements) =>
         elements.map((element) => {
           const box = element.getBoundingClientRect();
-          return box.width / box.height;
+          return { ratio: box.width / box.height, bottom: box.bottom };
         }),
       );
-    frames.forEach((ratio) => expect(ratio).toBeCloseTo(16 / 9, 1));
+    frames.forEach((frame) => {
+      expect(frame.ratio).toBeCloseTo(16 / 9, 1);
+      expect(Math.abs(frame.bottom - frames[0].bottom)).toBeLessThan(1);
+    });
+    const bottoms = await page
+      .locator("[data-project]")
+      .evaluateAll((elements) =>
+        elements.map((element) => element.getBoundingClientRect().bottom),
+      );
+    expect(Math.max(...bottoms) - Math.min(...bottoms)).toBeLessThan(1);
   }
   await page.setViewportSize({ width: 1440, height: 1100 });
   expect(
@@ -99,7 +111,9 @@ test("showcase has a centered lead project and balanced outer margins", async ({
     path: testInfo.outputPath("showcase-experiences.png"),
   });
   const footer = page.getByRole("contentinfo");
-  await expect(footer).toContainText("Made with <3 by Sebastian");
+  await expect(footer).toContainText("Made with by Sebastian");
+  await expect(footer.getByRole("img", { name: "love" })).toBeVisible();
+  await expect(footer.locator(".footer-heart svg")).toHaveCount(1);
   const credit = await footer.locator(".footer-credit").boundingBox();
   expect(Math.abs(credit!.x + credit!.width / 2 - 720)).toBeLessThan(1);
   await footer.screenshot({ path: testInfo.outputPath("showcase-footer.png") });
@@ -150,6 +164,34 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   const project = page.getByRole("link", { name: "Permanence", exact: true });
   const visual = project.locator("[data-showcase-visual]");
   await expect(visual).toHaveCSS("filter", "grayscale(1)");
+  const badgeTransforms = () =>
+    project.locator("[data-award]").evaluateAll((elements) =>
+      elements.map((element) => {
+        const matrix = new DOMMatrixReadOnly(
+          getComputedStyle(element).transform,
+        );
+        return {
+          angle: Math.atan2(matrix.b, matrix.a),
+          scale: Math.hypot(matrix.a, matrix.b),
+          x: matrix.e,
+          y: matrix.f,
+        };
+      }),
+    );
+  const restingBadges = await badgeTransforms();
+  expect(restingBadges[0].angle).toBeLessThan(0);
+  expect(restingBadges[2].angle).toBeGreaterThan(0);
+  for (const slug of ["recall", "greghouse"]) {
+    const angle = await page
+      .locator(`[data-project='${slug}'] [data-award]`)
+      .evaluate((element) => {
+        const matrix = new DOMMatrixReadOnly(
+          getComputedStyle(element).transform,
+        );
+        return Math.atan2(matrix.b, matrix.a);
+      });
+    expect(angle).toBeGreaterThan(0);
+  }
   await project.hover();
   await expect(visual).toHaveCSS("filter", "grayscale(0)");
   await expect(visual).toHaveCSS("transform", "matrix(1.06, 0, 0, 1.06, 0, 0)");
@@ -157,6 +199,14 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
     "transform",
     "matrix(1.025, 0, 0, 1.025, 0, -8)",
   );
+  const hoveringBadges = await badgeTransforms();
+  hoveringBadges.forEach((badge, index) => {
+    expect(badge.angle).toBeCloseTo(restingBadges[index].angle, 3);
+    expect(badge.scale).toBeGreaterThan(restingBadges[index].scale);
+    expect(badge.y).toBeLessThan(restingBadges[index].y);
+  });
+  expect(hoveringBadges[0].x).toBeLessThan(0);
+  expect(hoveringBadges[2].x).toBeGreaterThan(0);
   await page
     .locator("#workspace")
     .screenshot({ path: testInfo.outputPath("showcase-hover.png") });
@@ -167,6 +217,13 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(project).toHaveCSS("transform", "none");
   await expect(visual).toHaveCSS("transform", "none");
+  const reducedBadges = await badgeTransforms();
+  reducedBadges.forEach((badge, index) => {
+    expect(badge.angle).toBeCloseTo(restingBadges[index].angle, 3);
+    expect(badge.scale).toBeCloseTo(1, 3);
+    expect(badge.x).toBe(0);
+    expect(badge.y).toBe(0);
+  });
   await expect(page.locator("[data-motion]")).toHaveAttribute(
     "data-motion",
     "paused",

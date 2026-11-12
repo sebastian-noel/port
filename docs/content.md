@@ -40,7 +40,12 @@ wider 16:9 media frames. Only the project name overlays the bottom fade; the lon
 Collection and detail pages retain their concise summaries and existing media.
 
 `featuredAwards` holds each placement, category, submitted-project count, and logo.
-Badges sit above the media, opposite the event name on Recall and Greghouse.
+Badges sit above the media; hackathon names stay on the case-study pages.
+Shared CSS grid rows align every desktop media frame and card bottom while the
+wider Permanence frame grows upward. Rounded badges use transparent logos and
+large placement numbers. Recall and Greghouse tilt right. Hover/focus enlarges
+badges and moves them outward without changing their resting angles; reduced
+motion preserves the static angles and disables the movement.
 Permanence's badges form an arch: NVIDIA left, Best Overall raised in the middle,
 and Hugging Face right. Counts come from Sebastian's supplied resume: 1/212 overall,
 1/21 NVIDIA, 1/78 Hugging Face, 2/85 Recall, and 3/86 Greghouse. See
@@ -76,7 +81,7 @@ focus immediately reveals the focused project or experience.
 This design is isolated on `exp/homepage-showcase` for review in issue #39. It is
 not approved for `dev` or `main`. No game logic or backend is implemented yet.
 
-The shared footer centers "Made with <3 by Sebastian" between the copyright and
+The shared footer centers "Made with [heart] by Sebastian" between the copyright and
 profile links on desktop. The three groups stack and remain centered on phones.
 
 ## Release

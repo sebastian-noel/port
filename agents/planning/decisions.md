@@ -45,6 +45,18 @@ Local optimized assets avoid third-party image requests. The footer adds the
 requested centered "Made with <3 by Sebastian" credit, using equal outer grid
 columns to keep the credit centered despite different copyright/link widths.
 
+The latest feedback aligns all desktop media and card bottoms, with the center
+frame growing upward through its larger 16:9 dimensions. Nested CSS subgrids share
+rows without JavaScript measurements or fixed description heights. Compact rounded
+badges emphasize ranks and use transparent logo backgrounds. Recall and Greghouse
+tilt right; hover/focus retains each angle while scaling and pushing outward.
+Reduced motion keeps static tilts but disables movement. Hackathon names move off
+the homepage, remaining on case studies. The footer replaces the typed heart with
+an inline SVG and an accessible "love" label, avoiding a platform-specific glyph.
+The supplied HackUSF raster receives a transparent background cutout via built-in
+imagegen, exported to a small WebP. The original asset remains untouched. No new
+runtime dependencies are needed. This remains an isolated experiment.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

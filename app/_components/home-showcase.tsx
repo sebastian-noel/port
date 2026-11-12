@@ -12,76 +12,77 @@ function FeaturedProject({ entry }: { entry: Entry }) {
     <article
       className={`${styles.project} ${centerpiece ? styles.centerpiece : ""}`}
       data-project={entry.slug}
-      style={{ gridArea: entry.slug }}
     >
       <Link
         href={`/projects/${entry.slug}`}
         className={styles.projectLink}
         aria-labelledby={`${entry.slug}-title`}
       >
-        <div className={styles.projectHeader}>
-          <span className={styles.event}>{entry.event}</span>
-          {awards.length > 0 && (
-            <ul className={styles.awards} aria-label={`${entry.title} awards`}>
-              {awards.map((award) => (
-                <li
-                  className={styles.awardFlag}
-                  key={award.id}
-                  data-award={award.id}
-                  aria-label={`${award.placement} ${award.label}, out of ${award.total} projects`}
-                >
-                  <span className={styles.awardLogo}>
-                    <Image src={award.logo} alt="" width={64} height={64} />
-                  </span>
-                  <span className={styles.awardCopy}>
-                    <span className={styles.awardLabel}>
-                      {award.placement} {award.label}
+        <div className={styles.projectPreview}>
+          <div className={styles.projectHeader}>
+            {awards.length > 0 && (
+              <ul
+                className={styles.awards}
+                aria-label={`${entry.title} awards`}
+              >
+                {awards.map((award) => (
+                  <li
+                    className={styles.awardFlag}
+                    key={award.id}
+                    data-award={award.id}
+                    aria-label={`${award.placement} ${award.label}, out of ${award.total} projects`}
+                  >
+                    <span className={styles.awardLogo}>
+                      <Image src={award.logo} alt="" width={64} height={64} />
                     </span>
-                    <span className={styles.awardRank} aria-hidden="true">
-                      <strong>{award.placement}</strong>
-                      <span> / {award.total}</span>
+                    <span className={styles.awardCopy}>
+                      <span className={styles.awardRank} aria-hidden="true">
+                        <strong>{award.placement}</strong>
+                        <span> / {award.total}</span>
+                      </span>
+                      <span className={styles.awardLabel}>{award.label}</span>
                     </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className={styles.media} data-showcase-media>
-          <div className={styles.mediaVisual} data-showcase-visual>
-            {entry.demoPoster ? (
-              <Image
-                className={styles.clip}
-                src={entry.demoPoster}
-                alt={entry.demoPosterAlt ?? ""}
-                fill
-                sizes="(max-width: 899px) 94vw, (max-width: 1199px) 820px, (max-width: 2200px) 40vw, 880px"
-              />
-            ) : (
-              <div className={styles.mediaPlaceholder}>
-                <span>Video placeholder</span>
-                <p>{entry.demoBrief}</p>
-              </div>
-            )}
-            {entry.demoClip && (
-              <video
-                className={styles.clip}
-                data-src={entry.demoClip}
-                poster={entry.demoPoster}
-                muted
-                loop
-                playsInline
-                preload="none"
-                aria-hidden="true"
-              />
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
-          <div className={styles.projectCopy} data-project-copy>
-            <div className={styles.projectTitle}>
-              <h3 id={`${entry.slug}-title`}>{entry.title}</h3>
-              <span className={styles.projectArrow}>
-                <Icon name="external" />
-              </span>
+          <div className={styles.media} data-showcase-media>
+            <div className={styles.mediaVisual} data-showcase-visual>
+              {entry.demoPoster ? (
+                <Image
+                  className={styles.clip}
+                  src={entry.demoPoster}
+                  alt={entry.demoPosterAlt ?? ""}
+                  fill
+                  sizes="(max-width: 899px) 94vw, (max-width: 1199px) 820px, (max-width: 2200px) 40vw, 880px"
+                />
+              ) : (
+                <div className={styles.mediaPlaceholder}>
+                  <span>Video placeholder</span>
+                  <p>{entry.demoBrief}</p>
+                </div>
+              )}
+              {entry.demoClip && (
+                <video
+                  className={styles.clip}
+                  data-src={entry.demoClip}
+                  poster={entry.demoPoster}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+            <div className={styles.projectCopy} data-project-copy>
+              <div className={styles.projectTitle}>
+                <h3 id={`${entry.slug}-title`}>{entry.title}</h3>
+                <span className={styles.projectArrow}>
+                  <Icon name="external" />
+                </span>
+              </div>
             </div>
           </div>
         </div>

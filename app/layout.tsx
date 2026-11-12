@@ -35,8 +35,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="site-footer wrap">
             <span>© 2026 Sebastian Noel</span>
             <span className="footer-credit">
-              Made with <span className="footer-heart">{"<3"}</span> by
-              Sebastian
+              Made with{" "}
+              <span className="footer-heart" role="img" aria-label="love">
+                <Icon name="heart" fill="currentColor" />
+              </span>{" "}
+              by Sebastian
             </span>
             <nav aria-label="Footer">
               <a
