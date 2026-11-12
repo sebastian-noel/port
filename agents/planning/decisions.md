@@ -146,3 +146,10 @@ Sebastian kept the navy landing background and requested scarlet current-page un
 ## 2026-11-10 homepage highlights refinement
 
 Use stone blue as the visible field behind the featured project copy and footer, and as the surface for three homepage experience cards. Use navy text on those surfaces for contrast. Group both BNY internships together and feature UCF AI research and Knight Hacks mentoring and outreach alongside them. Use approved muted demo loops and team-stage photo reveals for the three existing featured projects. Keep stills while media is pending. Review in [PR #32](https://github.com/sebastian-noel/port/pull/32).
+
+## 2026-11-10 About contact link
+
+Sebastian supplied `sebastian@snoel.dev` and requested a direct email link on About,
+without a contact form. Use the existing text-link styling in a Contact section so
+visitors can see the address and open their email app. The public resume remains
+contact-free. Updated the search and privacy specification and content guide.
