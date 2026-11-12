@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+test.use({ video: { mode: "on", size: { width: 1280, height: 900 } } });
+
 test("showcase has a centered lead project and balanced outer margins", async ({
   page,
 }, testInfo) => {
@@ -35,11 +37,13 @@ test("showcase has a centered lead project and balanced outer margins", async ({
         element.getBoundingClientRect().top + window.scrollY - 100,
       ),
     );
-  await page.screenshot({ path: testInfo.outputPath("showcase-desktop.png") });
+  await page
+    .locator("#workspace")
+    .screenshot({ path: testInfo.outputPath("showcase-desktop.png") });
   await page
     .getByRole("region", { name: "Featured Experiences" })
     .scrollIntoViewIfNeeded();
-  await page.screenshot({
+  await page.getByRole("region", { name: "Featured Experiences" }).screenshot({
     path: testInfo.outputPath("showcase-experiences.png"),
   });
   await page.getByRole("link", { name: "Permanence", exact: true }).click();
@@ -82,6 +86,10 @@ test("scroll reveals Recall, Greghouse, then Permanence and pause stops ambient 
       ),
     )
     .toEqual(["recall", "greghouse", "permanence"]);
+  await expect(page.locator("[data-project='permanence']")).toHaveCSS(
+    "opacity",
+    "1",
+  );
   const pause = page.getByRole("button", { name: "Pause motion" });
   await pause.click();
   await expect(page.locator("[data-motion]")).toHaveAttribute(
