@@ -7,6 +7,10 @@
   position: relative;
   background: #020f20;
 }
+.filters {
+  position: absolute;
+  pointer-events: none;
+}
 .work {
   max-width: 2200px;
   margin-inline: auto;
@@ -102,6 +106,35 @@
 .skeletonLines span:nth-child(3) {
   width: 58%;
 }
+.skeletonMedia,
+.skeletonLines span {
+  position: relative;
+  overflow: hidden;
+}
+.skeletonMedia::after,
+.skeletonLines span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, #b8d8f52e, transparent);
+  transform: translateX(-100%);
+}
+.project[data-pending="true"][data-skeleton-visible="true"]
+  .skeletonMedia::after,
+.project[data-pending="true"][data-skeleton-visible="true"]
+  .skeletonLines
+  span::after {
+  animation: skeleton-sweep 1.25s ease-in-out infinite;
+}
+.showcase[data-motion="paused"] .skeletonMedia::after,
+.showcase[data-motion="paused"] .skeletonLines span::after {
+  animation-play-state: paused;
+}
+@keyframes skeleton-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
 .projectLink {
   display: grid;
   grid-row: 1 / span 2;
@@ -168,6 +201,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.project[data-project="recall"] .awardLogo img,
+[data-award="nvidia"] .awardLogo img {
+  filter: url(#award-logo-outline);
 }
 .awardCopy {
   display: flex;
@@ -610,6 +647,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .skeletonMedia::after,
+  .skeletonLines span::after {
+    animation: none !important;
+  }
   .projectLink,
   .media,
   .mediaVisual,

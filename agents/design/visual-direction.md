@@ -18,7 +18,9 @@ Best Overall raised in the middle, and Hugging Face right. Use the supplied winn
 collage as Permanence's temporary poster. Reveal Recall,
 Greghouse, then Permanence, with 0.95-second entrances spaced 1 second apart
 after the stage enters farther into view. Use decorative skeleton frames and
-text lines during the wait and crossfade them into the content. Bring the stage
+text lines with a left-to-right shimmer during the wait. Fade the skeleton out
+in 110 ms before the card begins appearing to prevent double exposure. Apply
+white alpha outlines to HackUSF, NVIDIA, and Knight Hacks IX logos. Bring the stage
 closer to the heading on desktop to occupy the empty space above the left panel. Stack Permanence, Recall, Greghouse on phones. Keep Varela Round and
 use scale and spacing to establish the new hierarchy without another font download.
 

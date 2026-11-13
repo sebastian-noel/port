@@ -36,3 +36,7 @@ shapes, code-bracket shapes, gold texture, original proportions and arrangement
 exactly. Do not redesign, add lettering, add shadows, add a border, or add any
 elements. Square composition with modest transparent padding. This is a small
 website award logo."
+
+The homepage's shared SVG alpha-dilation filter gives the HackUSF and NVIDIA logo
+images a white outline matching the Knight Hacks IX treatment. Their original
+artwork and transparency remain unchanged; this is a rendering effect.

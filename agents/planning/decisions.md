@@ -82,6 +82,14 @@ for reduced motion or keyboard focus. No fake network delay, live region, timers
 React loading state, or new dependency is added. Server content remains visible
 without JavaScript. These changes stay on the experimental branch for review.
 
+Sebastian requested matching white outlines for HackUSF and NVIDIA. A shared inline
+SVG alpha-dilation filter adds those outlines at render time, preserving the
+selected artwork and transparency. Skeleton frames and text lines now sweep a
+subtle highlight left to right, using transform animation only while pending and
+visible. Hidden tabs pause the sweep and reduced motion disables it. The skeleton
+fade shortens to 110 ms and completes before content entrance begins, removing
+the double exposure seen in the previous crossfade. No new dependency or timers.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

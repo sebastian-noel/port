@@ -140,6 +140,36 @@ export function HomeShowcase() {
 
   return (
     <ShowcaseMotion>
+      <svg
+        className={styles.filters}
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <filter
+            id="award-logo-outline"
+            x="-15%"
+            y="-15%"
+            width="130%"
+            height="130%"
+          >
+            <feMorphology
+              in="SourceAlpha"
+              operator="dilate"
+              radius="0.8"
+              result="outline"
+            />
+            <feFlood floodColor="white" />
+            <feComposite in2="outline" operator="in" />
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
       <section
         className={styles.work}
         id="workspace"

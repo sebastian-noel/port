@@ -143,7 +143,11 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   await page.addInitScript(() => {
     const original = Element.prototype.animate;
     const reveals: { project: string; duration: number; delay: number }[] = [];
-    Object.assign(window, { showcaseReveals: reveals });
+    const fades: { project: string; duration: number; delay: number }[] = [];
+    Object.assign(window, {
+      showcaseReveals: reveals,
+      showcaseSkeletonFades: fades,
+    });
     Element.prototype.animate = function (keyframes, options) {
       const project = this.hasAttribute("data-project-reveal")
         ? this.closest("[data-project]")?.getAttribute("data-project")
@@ -154,6 +158,17 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
           duration: Number(options.duration),
           delay: Number(options.delay ?? 0),
         });
+      if (
+        this.hasAttribute("data-project-skeleton") &&
+        typeof options === "object"
+      ) {
+        fades.push({
+          project:
+            this.closest("[data-project]")!.getAttribute("data-project")!,
+          duration: Number(options.duration),
+          delay: Number(options.delay ?? 0),
+        });
+      }
       return original.call(this, keyframes, options);
     };
   });
@@ -188,6 +203,24 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
         }
       ).showcaseReveals!,
   );
+  const fades = await page.evaluate(
+    () =>
+      (
+        window as Window & {
+          showcaseSkeletonFades?: {
+            project: string;
+            duration: number;
+            delay: number;
+          }[];
+        }
+      ).showcaseSkeletonFades!,
+  );
+  fades.forEach((fade, index) => {
+    expect(fade.duration).toBeLessThan(200);
+    expect(timings[index].delay).toBeGreaterThanOrEqual(
+      fade.delay + fade.duration,
+    );
+  });
   timings.forEach((timing, index) => {
     expect(timing.duration).toBeGreaterThanOrEqual(700);
     expect(timing.duration).toBeLessThan(1200);
@@ -206,6 +239,14 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   await expect(
     page.locator("[data-project='permanence'] [data-project-skeleton]"),
   ).toHaveCSS("opacity", "1");
+  const shimmer = page
+    .locator("[data-project='permanence'] [data-project-skeleton] > div")
+    .first();
+  expect(
+    await shimmer.evaluate(
+      (element) => getComputedStyle(element, "::after").animationName,
+    ),
+  ).not.toBe("none");
   await page
     .locator("#workspace")
     .screenshot({ path: testInfo.outputPath("showcase-skeleton.png") });
@@ -215,6 +256,11 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   await expect(
     page.locator("[data-project='permanence'] [data-project-skeleton]"),
   ).toHaveCSS("opacity", "0");
+  expect(
+    await shimmer.evaluate(
+      (element) => getComputedStyle(element, "::after").animationName,
+    ),
+  ).toBe("none");
   const project = page.getByRole("link", { name: "Permanence", exact: true });
   const visual = project.locator("[data-showcase-visual]");
   await expect(visual).toHaveCSS("filter", "grayscale(1)");

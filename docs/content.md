@@ -46,7 +46,8 @@ dashboard. Collection and detail pages retain their concise summaries and existi
 Badges overlap the top edge of every video frame; hackathon names stay on the case-study pages.
 Shared CSS grid rows align every desktop media frame and card bottom while the
 wider Permanence frame grows upward. Equal-sized rounded badges use larger transparent logos on the left,
-scaled to the text block with optical alignment offsets. On desktop, Recall's badge sits
+scaled to the text block with optical alignment offsets. HackUSF and NVIDIA use
+the same white alpha-dilation outline as the Knight Hacks IX sigil. On desktop, Recall's badge sits
 on the left and tilts left; Greghouse's sits on the right and tilts right. Hover/focus enlarges
 badges and moves them outward without changing their resting angles; reduced
 motion preserves the static angles and disables the movement.
@@ -81,8 +82,8 @@ project, zooms the media slightly, and restores its color. Touch devices show co
 without requiring hover. Reduced motion disables the lift and zoom. Content remains readable
 and linked without JavaScript. Desktop reveals begin after the stage enters farther into the viewport, with
 0.95-second entrances spaced 1 second apart. Decorative skeleton frames and text
-lines occupy the same grid rows while cards wait, then crossfade away during the
-entrance. They do not indicate a network request or add screen-reader announcements.
+lines occupy the same grid rows while cards wait, with a left-to-right shimmer while visible. Skeletons fade out in 110 ms before
+the card starts appearing, avoiding double exposure. They do not indicate a network request or add screen-reader announcements.
 Mobile project entrances last 0.75 seconds. Without JavaScript or with reduced
 motion, the real content appears immediately. The reveal is one-time per page mount, and keyboard
 focus immediately reveals the focused project or experience.

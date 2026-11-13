@@ -88,6 +88,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
         delete target.dataset.pending;
         return;
       }
+      const skeletonFade = skeleton ? 110 : 0;
       const animation = content.animate(
         [
           { opacity: 0, transform: "translateY(56px)" },
@@ -95,7 +96,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
         ],
         {
           duration: duration ?? (skeleton ? 750 : 850),
-          delay,
+          delay: delay + skeletonFade,
           easing: "cubic-bezier(.16,1,.3,1)",
           fill: "both",
         },
@@ -104,8 +105,9 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       let fade: Animation | undefined;
       if (skeleton) {
         fade = skeleton.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 350,
+          duration: skeletonFade,
           delay,
+          easing: "ease-out",
           fill: "both",
         });
         animations.add(fade);
@@ -127,8 +129,11 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
     const reveals = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
           const target = entry.target as HTMLElement;
+          if (target.hasAttribute("data-project")) {
+            target.dataset.skeletonVisible = String(entry.isIntersecting);
+          }
+          if (!entry.isIntersecting) continue;
           if (wide.matches && target.hasAttribute("data-project")) continue;
           reveal(target);
           reveals.unobserve(target);
@@ -209,6 +214,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       videos.forEach((video) => video.pause());
       revealTargets.forEach((target) => {
         delete target.dataset.pending;
+        delete target.dataset.skeletonVisible;
       });
     };
   }, []);
