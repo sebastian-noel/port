@@ -1,5 +1,114 @@
 # Decisions and open questions
 
+## 2026-11-13 showcase integration and navigation polish
+
+Sebastian approved moving the showcase to `dev` after the requested refinements.
+The exact `dev` preview still needs his explicit approval before a release to `main`.
+Preview links open the homepage root. The centered desktop navigation uses equal
+outer columns, while accessible icon-only actions retain their labels. A staggered
+wordmark fill, restrained icon scaling, and a layered animated footer heart use CSS
+and respect reduced motion. The scroll hint waits for the intro and tile wave to
+finish, then disappears after scrolling. The footer resume uses the same arrow as
+its neighboring links.
+
+## 2026-11-12 experimental homepage showcase
+
+Sebastian requested a complete redesign of the homepage projects and featured
+experiences on an experimental branch, using the latest repository updates.
+Issue #39 tracks `exp/homepage-showcase`, based on `dev` at `e23c15c`.
+
+Confirmed for this experiment: Recall left, Permanence emphasized in the center,
+Greghouse right, equal outer margins, scroll reveals in the order Recall,
+Greghouse, Permanence, scarlet award accents, video placeholders instead of the
+current thumbnails, and desktop/mobile performance work. Creative freedom applies
+to these sections while retaining the base palette.
+
+The implementation proposes larger media frames with an elevated center feature,
+a scarlet first-place banner, and an open experience list instead of compact cards.
+Phones follow the reveal order vertically so each project enters naturally while
+scrolling. Native observers and transform/opacity animation keep the client small;
+server-rendered content stays available without JavaScript. See the experimental
+section in `design/visual-direction.md` and the media instructions in
+`docs/content.md`. These choices are for review, not approved for integration.
+
+Sebastian's follow-up requests prominent treatment for all five wins, a consistent
+trophy instead of an emoji, one project arrow by the name, removal of the motion
+control and All projects action, hover expansion and video zoom/color, no progress
+line, richer source-backed copy, and a shorter section with desktop 16:9 media and
+text inside a dark bottom fade. The refinement uses the existing inline SVG icon
+system instead of adding an icon dependency. README-backed `featuredSummary`
+fields keep expanded homepage copy separate from compact collection summaries.
+The layout stacks below 1200px so three landscape panels do not force unreadably
+small text; very narrow cards can grow to fit the overlay. CSS transforms avoid
+layout shifts, keyboard focus receives the hover treatment, and touch devices show
+color by default. Reduced motion, Save-Data, hidden-tab and offscreen playback
+safeguards remain. This feedback does not authorize promotion out of the experiment.
+
+The next refinement widens the preview frames, keeps only project names over the
+fade, and moves descriptions below. The projects field becomes darker navy to
+separate it from the landing screen. Badges move above the frames with "Best Overall"
+wording and the supplied resume's exact counts: Permanence 1/212, NVIDIA 1/21,
+Hugging Face 1/78, Recall 2/85, and Greghouse 3/86. Permanence's sponsor badges flank
+its raised overall badge. Sebastian supplied the event logos and winners collage;
+official NVIDIA and Hugging Face SVGs complete the badges. The NVIDIA artboard is
+cropped to a padded square while preserving its complete eyemark and wordmark.
+Local optimized assets avoid third-party image requests. The footer adds the
+requested centered "Made with <3 by Sebastian" credit, using equal outer grid
+columns to keep the credit centered despite different copyright/link widths.
+
+The latest feedback aligns all desktop media and card bottoms, with the center
+frame growing upward through its larger 16:9 dimensions. Nested CSS subgrids share
+rows without JavaScript measurements or fixed description heights. Compact rounded
+badges emphasize ranks and use transparent logo backgrounds. Recall and Greghouse
+tilt right; hover/focus retains each angle while scaling and pushing outward.
+Reduced motion keeps static tilts but disables movement. Hackathon names move off
+the homepage, remaining on case studies. The footer replaces the typed heart with
+an inline SVG and an accessible "love" label, avoiding a platform-specific glyph.
+The supplied HackUSF raster receives a transparent background cutout via built-in
+imagegen, exported to a small WebP. The original asset remains untouched. No new
+runtime dependencies are needed. This remains an isolated experiment.
+
+Sebastian then requested the logo-left treatment on every badge and an attached
+appearance. All badges now overlap the video frame's top edge; the center overall
+badge is taller to preserve the arch while every badge stays attached. Small-screen
+logos and typography scale to fit the horizontal layout without hiding award text.
+Desktop Recall moves to the left edge with a left tilt. Desktop reveal entrances
+last 1.2 seconds with 1.25 seconds between starts, triggered farther into the
+viewport to give each project a distinct moment. Mobile source order becomes
+Permanence, Recall, Greghouse so visual, screen-reader, and keyboard order agree;
+desktop reveal order remains Recall, Greghouse, Permanence. CSS keeps desktop
+positions and aligned bottoms, without adding runtime dependencies.
+
+The next refinement standardizes every award badge's width and height per viewport.
+Larger logos match the visible height of the placement/category text, with small
+per-asset optical scale and position offsets. A white alpha-based outline improves
+the Knight Hacks IX sigil's contrast; the supplied original remains untouched.
+The center badge is raised instead of taller to retain the arch. Desktop heading
+spacing lets the project composition occupy the empty space beside and below it.
+Permanence gains a third README-backed sentence about its Jetson hardware, rover
+action, and live 3D dashboard. Desktop entrances shorten to 950 ms, staggered by
+1000 ms; mobile entrances use 750 ms. Decorative, aria-hidden skeletons share the
+same grid rows as real content, crossfade during entrance, and disappear immediately
+for reduced motion or keyboard focus. No fake network delay, live region, timers,
+React loading state, or new dependency is added. Server content remains visible
+without JavaScript. These changes stay on the experimental branch for review.
+
+Sebastian requested matching white outlines for HackUSF and NVIDIA. A shared inline
+SVG alpha-dilation filter adds those outlines at render time, preserving the
+selected artwork and transparency. Skeleton frames and text lines now sweep a
+subtle highlight left to right, using transform animation only while pending and
+visible. Hidden tabs pause the sweep and reduced motion disables it. The skeleton
+fade shortens to 110 ms and completes before content entrance begins, removing
+the double exposure seen in the previous crossfade. No new dependency or timers.
+
+Sebastian extended the same thin white outline to Hugging Face and BloomKnights
+for consistent badge contrast. Reuse the existing shared rendering filter so no
+logo source changes or additional assets are required.
+
+Sebastian requested logo outlines at half their previous weight. Halve the alpha
+expansion radius in both the shared badge filter and the Knight Hacks IX sigil's
+derived SVG so all five logos retain a consistent, lighter edge.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions
