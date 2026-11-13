@@ -15,10 +15,18 @@ export type Entry = {
   slug: string;
   title: string;
   summary: string;
+  featuredSummary?: string;
   context: string;
   published: boolean;
   featured: boolean;
   award?: string;
+  featuredAwards?: {
+    id: string;
+    label: string;
+    placement: string;
+    total: number;
+    logo: string;
+  }[];
   placeholder?: boolean;
   tone?: "pale" | "coral" | "slate" | "deep" | "muted";
   technologies?: string[];
@@ -31,6 +39,9 @@ export type Entry = {
   cover: { placeholder: true } | ProjectPhoto;
   demoVideoId?: string;
   demoClip?: string;
+  demoPoster?: string;
+  demoPosterAlt?: string;
+  demoBrief?: string;
   winnerPhoto?: ProjectPhoto;
   sections: { heading: string; text: string }[];
   links: { label: string; href: string }[];
@@ -41,6 +52,9 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "permanence",
+    featuredSummary:
+      "A robot with a persistent 3D memory. It tracks objects through occlusion and follows language commands to find them, even when its camera can no longer see them. Running on an NVIDIA Jetson Orin Nano, it turns that memory into action, driving toward hidden objects while a live 3D dashboard shows what it remembers.",
+    demoBrief: "Robot tracking an object as it disappears from view.",
     demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
     summary:
@@ -48,7 +62,33 @@ export const records: Entry[] = [
     context: "Robotics · Knight Hacks IX",
     published: false,
     featured: true,
-    award: "1st overall · 1st NVIDIA · 1st Hugging Face",
+    award: "1st Best Overall · 1st NVIDIA · 1st Hugging Face",
+    featuredAwards: [
+      {
+        id: "nvidia",
+        label: "NVIDIA",
+        placement: "1st",
+        total: 21,
+        logo: "/media/awards/nvidia.svg",
+      },
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "1st",
+        total: 212,
+        logo: "/media/awards/knight-hacks-ix.svg",
+      },
+      {
+        id: "hugging-face",
+        label: "Hugging Face",
+        placement: "1st",
+        total: 78,
+        logo: "/media/awards/hugging-face.svg",
+      },
+    ],
+    demoPoster: "/media/permanence-winners.webp",
+    demoPosterAlt:
+      "Permanence's winning team on stage for Best Overall, NVIDIA, and Hugging Face at Knight Hacks IX.",
     cover: {
       placeholder: true,
     },
@@ -75,13 +115,25 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "recall",
+    featuredSummary:
+      "AI memory, built into a pair of glasses. Captures everyday sights and conversations, then turns them into searchable memories you can recall with a question.",
+    demoBrief: "Glasses capturing a moment. A memory recalled on screen.",
     demoVideoId: "Htq-73zA4mw",
     title: "Recall",
     summary: "Wearable AI memory, built into a pair of glasses.",
     context: "Wearables · HackUSF 2026",
     published: false,
     featured: true,
-    award: "2nd overall",
+    award: "2nd Best Overall",
+    featuredAwards: [
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "2nd",
+        total: 85,
+        logo: "/media/awards/hackusf-transparent.webp",
+      },
+    ],
     cover: {
       placeholder: true,
     },
@@ -117,6 +169,9 @@ export const records: Entry[] = [
   {
     collection: "projects",
     slug: "greghouse",
+    featuredSummary:
+      "A real plant, connected to a shared pixel garden. Soil sensors shape its virtual mood while friends explore, leave messages, and remind you when it needs water.",
+    demoBrief: "A real plant. Its pixel garden responding to water.",
     demoVideoId: "eeHd84B9r5A",
     title: "Greghouse",
     summary:
@@ -124,7 +179,16 @@ export const records: Entry[] = [
     context: "Connected devices · BloomKnights 2026",
     published: false,
     featured: true,
-    award: "3rd overall",
+    award: "3rd Best Overall",
+    featuredAwards: [
+      {
+        id: "overall",
+        label: "Best Overall",
+        placement: "3rd",
+        total: 86,
+        logo: "/media/awards/bloomknights.svg",
+      },
+    ],
     cover: {
       placeholder: true,
     },
@@ -613,6 +677,15 @@ for (const entry of records) {
       !existsSync(`public${entry.demoClip}`))
   ) {
     throw new Error(`Invalid demo clip: ${entry.demoClip}`);
+  }
+  if (
+    entry.demoPoster &&
+    (!/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(
+      entry.demoPoster,
+    ) ||
+      !existsSync(`public${entry.demoPoster}`))
+  ) {
+    throw new Error(`Invalid demo poster: ${entry.demoPoster}`);
   }
   for (const photo of [entry.cover, entry.winnerPhoto]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
