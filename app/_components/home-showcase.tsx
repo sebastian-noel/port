@@ -13,10 +13,19 @@ function FeaturedProject({ entry }: { entry: Entry }) {
       className={`${styles.project} ${centerpiece ? styles.centerpiece : ""}`}
       data-project={entry.slug}
     >
+      <div className={styles.skeleton} data-project-skeleton aria-hidden="true">
+        <div className={styles.skeletonMedia} />
+        <div className={styles.skeletonLines}>
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
       <Link
         href={`/projects/${entry.slug}`}
         className={styles.projectLink}
         aria-labelledby={`${entry.slug}-title`}
+        data-project-reveal
       >
         <div className={styles.projectPreview}>
           <div className={styles.projectHeader}>

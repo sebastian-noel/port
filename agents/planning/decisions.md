@@ -68,6 +68,20 @@ Permanence, Recall, Greghouse so visual, screen-reader, and keyboard order agree
 desktop reveal order remains Recall, Greghouse, Permanence. CSS keeps desktop
 positions and aligned bottoms, without adding runtime dependencies.
 
+The next refinement standardizes every award badge's width and height per viewport.
+Larger logos match the visible height of the placement/category text, with small
+per-asset optical scale and position offsets. A white alpha-based outline improves
+the Knight Hacks IX sigil's contrast; the supplied original remains untouched.
+The center badge is raised instead of taller to retain the arch. Desktop heading
+spacing lets the project composition occupy the empty space beside and below it.
+Permanence gains a third README-backed sentence about its Jetson hardware, rover
+action, and live 3D dashboard. Desktop entrances shorten to 950 ms, staggered by
+1000 ms; mobile entrances use 750 ms. Decorative, aria-hidden skeletons share the
+same grid rows as real content, crossfade during entrance, and disappear immediately
+for reduced motion or keyboard focus. No fake network delay, live region, timers,
+React loading state, or new dependency is added. Server content remains visible
+without JavaScript. These changes stay on the experimental branch for review.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

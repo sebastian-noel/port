@@ -72,26 +72,51 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       }
     }
 
-    function reveal(target: HTMLElement, delay = 0, duration = 850) {
+    function reveal(target: HTMLElement, delay = 0, duration?: number) {
       if (target.dataset.revealed) return;
       target.dataset.revealed = "true";
-      delete target.dataset.pending;
-      if (reduced.matches || target.getBoundingClientRect().top < 80) return;
-      const animation = target.animate(
+      const content =
+        target.querySelector<HTMLElement>("[data-project-reveal]") ?? target;
+      const skeleton = target.querySelector<HTMLElement>(
+        "[data-project-skeleton]",
+      );
+      if (
+        reduced.matches ||
+        !target.dataset.pending ||
+        target.getBoundingClientRect().top < 80
+      ) {
+        delete target.dataset.pending;
+        return;
+      }
+      const animation = content.animate(
         [
           { opacity: 0, transform: "translateY(56px)" },
           { opacity: 1, transform: "translateY(0)" },
         ],
         {
-          duration,
+          duration: duration ?? (skeleton ? 750 : 850),
           delay,
           easing: "cubic-bezier(.16,1,.3,1)",
           fill: "both",
         },
       );
       animations.add(animation);
+      let fade: Animation | undefined;
+      if (skeleton) {
+        fade = skeleton.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 350,
+          delay,
+          fill: "both",
+        });
+        animations.add(fade);
+      }
       void animation.finished.then(
         () => {
+          delete target.dataset.pending;
+          if (fade) {
+            animations.delete(fade);
+            fade.cancel();
+          }
           animations.delete(animation);
           animation.cancel();
         },
@@ -124,7 +149,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
           const project = element.querySelector<HTMLElement>(
             `[data-project="${slug}"]`,
           );
-          if (project) reveal(project, 150 + index * 1250, 1200);
+          if (project) reveal(project, 100 + index * 1000, 950);
         });
         desktopReveal.disconnect();
       },
@@ -157,7 +182,16 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       if (!target) return;
       target.dataset.revealed = "true";
       delete target.dataset.pending;
-      target.getAnimations().forEach((animation) => animation.finish());
+      for (const animation of animations) {
+        const effect = animation.effect;
+        if (
+          effect instanceof KeyframeEffect &&
+          effect.target &&
+          target.contains(effect.target)
+        ) {
+          animation.finish();
+        }
+      }
     }
 
     syncMotion();

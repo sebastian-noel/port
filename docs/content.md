@@ -37,17 +37,20 @@ BNY internships. The typing-game space is still reserved.
 The project section uses a darker navy (`#020f20`) than the landing screen and
 wider 16:9 media frames. Only the project name overlays the bottom fade; the longer
 `featuredSummary` sits below the media. That copy comes from the local READMEs.
-Collection and detail pages retain their concise summaries and existing media.
+The desktop heading overlaps the otherwise empty space above the left panel,
+bringing the project composition closer to the heading. Permanence's three-sentence
+homepage description also explains its Jetson hardware, rover action, and live 3D
+dashboard. Collection and detail pages retain their concise summaries and existing media.
 
 `featuredAwards` holds each placement, category, submitted-project count, and logo.
 Badges overlap the top edge of every video frame; hackathon names stay on the case-study pages.
 Shared CSS grid rows align every desktop media frame and card bottom while the
-wider Permanence frame grows upward. Rounded badges use transparent logos and
-large placement numbers with logos on the left. On desktop, Recall's badge sits
+wider Permanence frame grows upward. Equal-sized rounded badges use larger transparent logos on the left,
+scaled to the text block with optical alignment offsets. On desktop, Recall's badge sits
 on the left and tilts left; Greghouse's sits on the right and tilts right. Hover/focus enlarges
 badges and moves them outward without changing their resting angles; reduced
 motion preserves the static angles and disables the movement.
-Permanence's badges form an arch through a taller center badge: NVIDIA left, Best Overall in the middle,
+Permanence's badges form an arch through a raised center badge: NVIDIA left, Best Overall in the middle,
 and Hugging Face right. Counts come from Sebastian's supplied resume: 1/212 overall,
 1/21 NVIDIA, 1/78 Hugging Face, 2/85 Recall, and 3/86 Greghouse. See
 [asset sources](media-assets.md) for the event logos, company SVGs, and selected
@@ -77,7 +80,11 @@ simulated video progress line. Hover or keyboard focus lifts and enlarges the
 project, zooms the media slightly, and restores its color. Touch devices show color
 without requiring hover. Reduced motion disables the lift and zoom. Content remains readable
 and linked without JavaScript. Desktop reveals begin after the stage enters farther into the viewport, with
-1.2-second entrances spaced 1.25 seconds apart. The reveal is one-time per page mount, and keyboard
+0.95-second entrances spaced 1 second apart. Decorative skeleton frames and text
+lines occupy the same grid rows while cards wait, then crossfade away during the
+entrance. They do not indicate a network request or add screen-reader announcements.
+Mobile project entrances last 0.75 seconds. Without JavaScript or with reduced
+motion, the real content appears immediately. The reveal is one-time per page mount, and keyboard
 focus immediately reveals the focused project or experience.
 
 This design is isolated on `exp/homepage-showcase` for review in issue #39. It is

@@ -78,6 +78,13 @@ test("showcase has a centered lead project and balanced outer margins", async ({
           return { ratio: box.width / box.height, bottom: box.bottom };
         }),
       );
+    const sizes = await page.locator("[data-award]").evaluateAll((elements) =>
+      elements.map((element) => ({
+        width: (element as HTMLElement).offsetWidth,
+        height: (element as HTMLElement).offsetHeight,
+      })),
+    );
+    sizes.forEach((size) => expect(size).toEqual(sizes[0]));
     frames.forEach((frame) => {
       expect(frame.ratio).toBeCloseTo(16 / 9, 1);
       expect(Math.abs(frame.bottom - frames[0].bottom)).toBeLessThan(1);
@@ -90,6 +97,15 @@ test("showcase has a centered lead project and balanced outer margins", async ({
     expect(Math.max(...bottoms) - Math.min(...bottoms)).toBeLessThan(1);
   }
   await page.setViewportSize({ width: 1440, height: 1100 });
+  const headingGap = await page.locator("#workspace").evaluate((section) => {
+    const heading = section.querySelector("h2")!.getBoundingClientRect();
+    const badge = section
+      .querySelector("[data-project='recall'] [data-award]")!
+      .getBoundingClientRect();
+    return badge.top - heading.bottom;
+  });
+  expect(headingGap).toBeLessThan(75);
+  expect(headingGap).toBeGreaterThan(0);
   expect(
     Math.abs((boxes.permanence.left + boxes.permanence.right) / 2 - 720),
   ).toBeLessThan(1);
@@ -129,7 +145,9 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
     const reveals: { project: string; duration: number; delay: number }[] = [];
     Object.assign(window, { showcaseReveals: reveals });
     Element.prototype.animate = function (keyframes, options) {
-      const project = this.getAttribute("data-project");
+      const project = this.hasAttribute("data-project-reveal")
+        ? this.closest("[data-project]")?.getAttribute("data-project")
+        : null;
       if (project && typeof options === "object")
         reveals.push({
           project,
@@ -144,10 +162,9 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
     "data-motion",
     "playing",
   );
-  await expect(page.locator("[data-project='permanence']")).toHaveCSS(
-    "opacity",
-    "0",
-  );
+  await expect(
+    page.locator("[data-project='permanence'] [data-project-reveal]"),
+  ).toHaveCSS("opacity", "0");
   await page.locator("[data-project-stage]").evaluate((element) =>
     window.scrollTo({
       top: element.getBoundingClientRect().top + window.scrollY - 280,
@@ -172,24 +189,32 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
       ).showcaseReveals!,
   );
   timings.forEach((timing, index) => {
-    expect(timing.duration).toBeGreaterThanOrEqual(1000);
+    expect(timing.duration).toBeGreaterThanOrEqual(700);
+    expect(timing.duration).toBeLessThan(1200);
     if (index)
       expect(timing.delay - timings[index - 1].delay).toBeGreaterThanOrEqual(
-        1000,
+        900,
       );
   });
-  await expect(page.locator("[data-project='recall']")).toHaveCSS(
-    "opacity",
-    "1",
-  );
+  await expect(
+    page.locator("[data-project='recall'] [data-project-reveal]"),
+  ).toHaveCSS("opacity", "1");
   const leadOpacity = await page
-    .locator("[data-project='permanence']")
+    .locator("[data-project='permanence'] [data-project-reveal]")
     .evaluate((element) => Number(getComputedStyle(element).opacity));
   expect(leadOpacity).toBeLessThan(0.2);
-  await expect(page.locator("[data-project='permanence']")).toHaveCSS(
-    "opacity",
-    "1",
-  );
+  await expect(
+    page.locator("[data-project='permanence'] [data-project-skeleton]"),
+  ).toHaveCSS("opacity", "1");
+  await page
+    .locator("#workspace")
+    .screenshot({ path: testInfo.outputPath("showcase-skeleton.png") });
+  await expect(
+    page.locator("[data-project='permanence'] [data-project-reveal]"),
+  ).toHaveCSS("opacity", "1");
+  await expect(
+    page.locator("[data-project='permanence'] [data-project-skeleton]"),
+  ).toHaveCSS("opacity", "0");
   const project = page.getByRole("link", { name: "Permanence", exact: true });
   const visual = project.locator("[data-showcase-visual]");
   await expect(visual).toHaveCSS("filter", "grayscale(1)");
@@ -295,6 +320,15 @@ test("mobile leads with Permanence and keeps visible keyboard links", async ({
       ),
       `${width}px overflow`,
     ).toBe(true);
+    const badgeSizes = await page
+      .locator("[data-award]")
+      .evaluateAll((elements) =>
+        elements.map((element) => [
+          (element as HTMLElement).offsetWidth,
+          (element as HTMLElement).offsetHeight,
+        ]),
+      );
+    badgeSizes.forEach((size) => expect(size).toEqual(badgeSizes[0]));
     expect(
       await page.locator("[data-project]").evaluateAll((elements) =>
         elements.every((element) => {

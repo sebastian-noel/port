@@ -53,7 +53,7 @@ export const records: Entry[] = [
     collection: "projects",
     slug: "permanence",
     featuredSummary:
-      "A robot with a persistent 3D memory. It tracks objects through occlusion and follows language commands to find them, even when its camera can no longer see them.",
+      "A robot with a persistent 3D memory. It tracks objects through occlusion and follows language commands to find them, even when its camera can no longer see them. Running on an NVIDIA Jetson Orin Nano, it turns that memory into action, driving toward hidden objects while a live 3D dashboard shows what it remembers.",
     demoBrief: "Robot tracking an object as it disappears from view.",
     demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
