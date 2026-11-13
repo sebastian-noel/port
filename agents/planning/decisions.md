@@ -90,6 +90,10 @@ visible. Hidden tabs pause the sweep and reduced motion disables it. The skeleto
 fade shortens to 110 ms and completes before content entrance begins, removing
 the double exposure seen in the previous crossfade. No new dependency or timers.
 
+Sebastian extended the same thin white outline to Hugging Face and BloomKnights
+for consistent badge contrast. Reuse the existing shared rendering filter so no
+logo source changes or additional assets are required.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

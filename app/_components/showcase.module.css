@@ -203,7 +203,9 @@
   object-fit: contain;
 }
 .project[data-project="recall"] .awardLogo img,
-[data-award="nvidia"] .awardLogo img {
+.project[data-project="greghouse"] .awardLogo img,
+[data-award="nvidia"] .awardLogo img,
+[data-award="hugging-face"] .awardLogo img {
   filter: url(#award-logo-outline);
 }
 .awardCopy {

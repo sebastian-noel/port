@@ -46,7 +46,7 @@ dashboard. Collection and detail pages retain their concise summaries and existi
 Badges overlap the top edge of every video frame; hackathon names stay on the case-study pages.
 Shared CSS grid rows align every desktop media frame and card bottom while the
 wider Permanence frame grows upward. Equal-sized rounded badges use larger transparent logos on the left,
-scaled to the text block with optical alignment offsets. HackUSF and NVIDIA use
+scaled to the text block with optical alignment offsets. HackUSF, NVIDIA, Hugging Face, and BloomKnights use
 the same white alpha-dilation outline as the Knight Hacks IX sigil. On desktop, Recall's badge sits
 on the left and tilts left; Greghouse's sits on the right and tilts right. Hover/focus enlarges
 badges and moves them outward without changing their resting angles; reduced
