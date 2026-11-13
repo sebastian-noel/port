@@ -1,5 +1,43 @@
 # Visual direction
 
+## Experimental homepage showcase, November 12
+
+On `exp/homepage-showcase`, issue #39 supersedes the compact homepage card layout
+for review only. Use a wide dark navy (`#020f20`) project stage, larger 16:9 previews, stone
+blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
+larger Permanence panel with symmetric outer gutters and aligned media/card bottoms. Use landscape
+16:9 video frames and place only the project name inside a dark bottom fade. Place
+the fuller description below. All five awards receive prominent scarlet badges
+overlapping the media's top edge, with logos on the left and exact resume-backed submission counts.
+Use "Best Overall" for overall placements. Keep hackathon names on case-study
+pages. Use equal-sized rounded badges, large ranks, larger transparent logos matching
+the text block height with optical alignment, and a slight
+left tilt for Recall on the desktop left edge and a right tilt for Greghouse. On hover/focus, enlarge and push badges outward
+while preserving their angles. Arch Permanence's badges with NVIDIA left,
+Best Overall raised in the middle, and Hugging Face right. Use the supplied winners
+collage as Permanence's temporary poster. Reveal Recall,
+Greghouse, then Permanence, with 0.95-second entrances spaced 1 second apart
+after the stage enters farther into view. Use decorative skeleton frames and
+text lines with a left-to-right shimmer during the wait. Fade the skeleton out
+in 110 ms before the card begins appearing to prevent double exposure. Apply
+white alpha outlines to HackUSF, NVIDIA, and Knight Hacks IX logos. Bring the stage
+closer to the heading on desktop to occupy the empty space above the left panel. Stack Permanence, Recall, Greghouse on phones. Keep Varela Round and
+use scale and spacing to establish the new hierarchy without another font download.
+
+Featured experiences become spacious rows on a stone-blue field, with a sticky
+section heading on desktop and a normal stacked heading on mobile. Retain the
+verified BNY, UCF AI research, and Knight Hacks content and their direct links.
+Use lighter scarlet for small text on navy and full scarlet for large award accents.
+Remaining media placeholders describe the needed clips; do not reuse the existing thumbnails.
+
+Prefer one-time entrance animations and visible short silent loops. Hover/focus
+lifts and expands the project, gently zooms the media, and restores its color.
+Touch devices show color without hover; reduced motion disables lift and zoom.
+Pause offscreen media and hidden-tab activity. Remove the pause control, simulated
+progress line, All projects action, and duplicate arrows, retaining one arrow next
+to each project name. Keep normal scrolling. These are experimental
+implementation choices, not approval to merge into either integration or production.
+
 Status: Sebastian requested this palette for review on a preview before merging.
 
 ## Overall character

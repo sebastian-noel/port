@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { Icon } from "./icons";
 import { site } from "../_lib/site";
 
@@ -44,7 +44,17 @@ export function Navigation() {
     <header className="site-header">
       <div className="nav-row">
         <Link className="wordmark" href="/" aria-label="Sebastian Noel, home">
-          snoel<span>.dev</span>
+          <span aria-hidden="true">
+            {Array.from("snoel.dev", (letter, index) => (
+              <span
+                className="wordmark-letter"
+                key={index}
+                style={{ "--letter-index": index } as CSSProperties}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
         </Link>
         <nav className="desktop-nav" aria-label="Main">
           {pageLinks()}
@@ -58,8 +68,6 @@ export function Navigation() {
             aria-label="Resume (PDF, opens in a new tab)"
           >
             <Icon name="file" />
-            <span>Resume</span>
-            <Icon name="external" />
           </a>
           {site.profiles.slice(0, 2).map((profile) => (
             <a
