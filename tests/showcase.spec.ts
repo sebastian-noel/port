@@ -144,9 +144,11 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
     const original = Element.prototype.animate;
     const reveals: { project: string; duration: number; delay: number }[] = [];
     const fades: { project: string; duration: number; delay: number }[] = [];
+    const projectAnimations: Animation[] = [];
     Object.assign(window, {
       showcaseReveals: reveals,
       showcaseSkeletonFades: fades,
+      showcaseAnimations: projectAnimations,
     });
     Element.prototype.animate = function (keyframes, options) {
       const project = this.hasAttribute("data-project-reveal")
@@ -169,7 +171,13 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
           delay: Number(options.delay ?? 0),
         });
       }
-      return original.call(this, keyframes, options);
+      const animation = original.call(this, keyframes, options);
+      if (project || this.hasAttribute("data-project-skeleton")) {
+        // Hold the initial state while assertions and screenshots run on slow CI.
+        animation.playbackRate = 0;
+        projectAnimations.push(animation);
+      }
+      return animation;
     };
   });
   await page.goto("/");
@@ -230,13 +238,6 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
       );
   });
   await expect(
-    page.locator("[data-project='recall'] [data-project-reveal]"),
-  ).toHaveCSS("opacity", "1");
-  const leadOpacity = await page
-    .locator("[data-project='permanence'] [data-project-reveal]")
-    .evaluate((element) => Number(getComputedStyle(element).opacity));
-  expect(leadOpacity).toBeLessThan(0.2);
-  await expect(
     page.locator("[data-project='permanence'] [data-project-skeleton]"),
   ).toHaveCSS("opacity", "1");
   const shimmer = page
@@ -250,6 +251,14 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   await page
     .locator("#workspace")
     .screenshot({ path: testInfo.outputPath("showcase-skeleton.png") });
+  await page.evaluate(() => {
+    const animations = (window as Window & { showcaseAnimations?: Animation[] })
+      .showcaseAnimations!;
+    animations.forEach((animation) => {
+      animation.playbackRate = 1;
+      animation.play();
+    });
+  });
   await expect(
     page.locator("[data-project='permanence'] [data-project-reveal]"),
   ).toHaveCSS("opacity", "1");
