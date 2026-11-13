@@ -94,6 +94,10 @@ Sebastian extended the same thin white outline to Hugging Face and BloomKnights
 for consistent badge contrast. Reuse the existing shared rendering filter so no
 logo source changes or additional assets are required.
 
+Sebastian requested logo outlines at half their previous weight. Halve the alpha
+expansion radius in both the shared badge filter and the Knight Hacks IX sigil's
+derived SVG so all five logos retain a consistent, lighter edge.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

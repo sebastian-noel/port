@@ -158,7 +158,7 @@ export function HomeShowcase() {
             <feMorphology
               in="SourceAlpha"
               operator="dilate"
-              radius="0.8"
+              radius="0.4"
               result="outline"
             />
             <feFlood floodColor="white" />

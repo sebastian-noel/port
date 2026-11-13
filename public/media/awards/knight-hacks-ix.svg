@@ -22,7 +22,7 @@
       <stop offset="1" stop-color="#c262cc" />
     </linearGradient>
     <filter id="sigil-outline" x="-10%" y="-10%" width="120%" height="120%">
-      <feMorphology in="SourceAlpha" operator="dilate" radius="10" result="outline" />
+      <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="outline" />
       <feFlood flood-color="white" />
       <feComposite in2="outline" operator="in" />
       <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
