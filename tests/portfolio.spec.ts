@@ -271,7 +271,7 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await expect(page.locator(".wordmark")).toHaveText("snoel.dev");
   const featured = page.getByRole("region", { name: "Featured Projects" });
   const projectTitles = featured.getByRole("heading", { level: 3 });
-  await expect(projectTitles).toHaveText(["Recall", "Greghouse", "Permanence"]);
+  await expect(projectTitles).toHaveText(["Permanence", "Recall", "Greghouse"]);
   for (const placement of [
     "2nd Best Overall",
     "3rd Best Overall",

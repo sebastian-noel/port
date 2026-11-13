@@ -81,9 +81,12 @@
   min-width: 0;
 }
 .projectHeader {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: flex-end;
-  padding: 18px 12px 22px;
+  padding: 18px 12px 0;
+  margin-bottom: -14px;
 }
 .awards {
   display: flex;
@@ -146,21 +149,19 @@
 }
 .centerpiece .projectHeader {
   justify-content: center;
-  padding: 26px 10px 22px;
+  padding: 26px 10px 0;
 }
 .centerpiece .awards {
   display: grid;
-  grid-template-columns: 1fr 1.14fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.14fr) minmax(0, 1fr);
   align-items: end;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  max-width: 460px;
+  max-width: 500px;
 }
 .centerpiece .awardFlag {
-  flex-direction: column;
-  gap: 6px;
-  padding: 9px 8px;
-  text-align: center;
+  gap: 8px;
+  padding: 10px;
 }
 .centerpiece .awardLogo {
   width: 32px;
@@ -168,17 +169,16 @@
   flex-basis: 32px;
 }
 .centerpiece .awardRank strong {
-  font-size: 30px;
+  font-size: 28px;
 }
 .centerpiece [data-award="overall"] {
   --badge-angle: 0deg;
   --badge-outward: 0px;
   --badge-lift: -10px;
-  position: relative;
-  top: -16px;
+  padding-block: 18px;
 }
 .centerpiece [data-award="overall"] .awardRank strong {
-  font-size: 38px;
+  font-size: 34px;
 }
 .centerpiece [data-award="nvidia"] {
   --badge-angle: -7deg;
@@ -430,6 +430,15 @@
   outline-color: var(--canvas);
   box-shadow: none;
 }
+@media (min-width: 1200px) {
+  .project[data-project="recall"] .projectHeader {
+    justify-content: flex-start;
+  }
+  .project[data-project="recall"] .awardFlag {
+    --badge-angle: -6deg;
+    --badge-outward: -5px;
+  }
+}
 @media (max-width: 1199px) {
   .projectStage {
     grid-template-columns: 1fr;
@@ -501,23 +510,36 @@
     padding-inline: 6px;
   }
   .centerpiece .awards {
-    gap: 10px;
+    gap: 6px;
   }
   .centerpiece .awardFlag {
-    padding: 9px 5px;
+    gap: 4px;
+    padding: 9px 4px;
     border-radius: 14px;
+  }
+  .centerpiece .awardLogo {
+    width: clamp(20px, 5.6vw, 28px);
+    height: clamp(20px, 5.6vw, 28px);
+    flex-basis: clamp(20px, 5.6vw, 28px);
   }
   .centerpiece .awardLabel {
     font-size: 10px;
+    white-space: normal;
+  }
+  .centerpiece .awardCopy {
+    min-width: 0;
   }
   .centerpiece .awardRank strong {
-    font-size: 26px;
+    font-size: clamp(20px, 5.6vw, 26px);
+  }
+  .centerpiece [data-award="overall"] {
+    padding-block: 16px;
   }
   .centerpiece [data-award="overall"] .awardRank strong {
-    font-size: 32px;
+    font-size: clamp(24px, 6.6vw, 30px);
   }
   .centerpiece .awardRank > span {
-    font-size: 12px;
+    font-size: clamp(9px, 2.5vw, 12px);
   }
 }
 @media (max-width: 479px) {

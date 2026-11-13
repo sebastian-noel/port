@@ -126,11 +126,16 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
 }, testInfo) => {
   await page.addInitScript(() => {
     const original = Element.prototype.animate;
-    const reveals: string[] = [];
+    const reveals: { project: string; duration: number; delay: number }[] = [];
     Object.assign(window, { showcaseReveals: reveals });
     Element.prototype.animate = function (keyframes, options) {
       const project = this.getAttribute("data-project");
-      if (project) reveals.push(project);
+      if (project && typeof options === "object")
+        reveals.push({
+          project,
+          duration: Number(options.duration),
+          delay: Number(options.delay ?? 0),
+        });
       return original.call(this, keyframes, options);
     };
   });
@@ -151,12 +156,36 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   );
   await expect
     .poll(() =>
-      page.evaluate(
-        () =>
-          (window as Window & { showcaseReveals?: string[] }).showcaseReveals,
+      page.evaluate(() =>
+        (
+          window as Window & { showcaseReveals?: { project: string }[] }
+        ).showcaseReveals?.map((reveal) => reveal.project),
       ),
     )
     .toEqual(["recall", "greghouse", "permanence"]);
+  const timings = await page.evaluate(
+    () =>
+      (
+        window as Window & {
+          showcaseReveals?: { duration: number; delay: number }[];
+        }
+      ).showcaseReveals!,
+  );
+  timings.forEach((timing, index) => {
+    expect(timing.duration).toBeGreaterThanOrEqual(1000);
+    if (index)
+      expect(timing.delay - timings[index - 1].delay).toBeGreaterThanOrEqual(
+        1000,
+      );
+  });
+  await expect(page.locator("[data-project='recall']")).toHaveCSS(
+    "opacity",
+    "1",
+  );
+  const leadOpacity = await page
+    .locator("[data-project='permanence']")
+    .evaluate((element) => Number(getComputedStyle(element).opacity));
+  expect(leadOpacity).toBeLessThan(0.2);
   await expect(page.locator("[data-project='permanence']")).toHaveCSS(
     "opacity",
     "1",
@@ -190,7 +219,8 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
         );
         return Math.atan2(matrix.b, matrix.a);
       });
-    expect(angle).toBeGreaterThan(0);
+    if (slug === "recall") expect(angle).toBeLessThan(0);
+    else expect(angle).toBeGreaterThan(0);
   }
   await project.hover();
   await expect(visual).toHaveCSS("filter", "grayscale(0)");
@@ -237,12 +267,19 @@ test("scroll reveals in order and hover lifts, zooms, and restores color", async
   ).toBe(true);
 });
 
-test("mobile keeps the reveal reading order and visible keyboard links", async ({
+test("mobile leads with Permanence and keeps visible keyboard links", async ({
   page,
 }, testInfo) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
+  expect(
+    await page
+      .locator("[data-project]")
+      .evaluateAll((elements) =>
+        elements.map((element) => element.getAttribute("data-project")),
+      ),
+  ).toEqual(["permanence", "recall", "greghouse"]);
   const topPositions = await page
     .locator("[data-project]")
     .evaluateAll((elements) =>
@@ -275,13 +312,23 @@ test("mobile keeps the reveal reading order and visible keyboard links", async (
             title.top >= frame.top &&
             title.bottom <= frame.bottom &&
             description.top >= frame.bottom &&
-            awards.every(
-              (award) => award.getBoundingClientRect().bottom < frame.top,
-            )
+            awards.every((award) => {
+              const badge = award.getBoundingClientRect();
+              const logo = award.querySelector("img")!.getBoundingClientRect();
+              const rank = award
+                .querySelector("strong")!
+                .getBoundingClientRect();
+              return (
+                badge.top < frame.top &&
+                badge.bottom > frame.top &&
+                badge.bottom < frame.top + 40 &&
+                logo.left < rank.left
+              );
+            })
           );
         }),
       ),
-      `${width}px titles overlay media, descriptions below, awards above`,
+      `${width}px title overlay, description below, logo-left awards attached to media`,
     ).toBe(true);
   }
   await page.setViewportSize({ width: 390, height: 844 });

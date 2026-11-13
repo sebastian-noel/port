@@ -72,7 +72,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       }
     }
 
-    function reveal(target: HTMLElement, delay = 0) {
+    function reveal(target: HTMLElement, delay = 0, duration = 850) {
       if (target.dataset.revealed) return;
       target.dataset.revealed = "true";
       delete target.dataset.pending;
@@ -83,7 +83,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
           { opacity: 1, transform: "translateY(0)" },
         ],
         {
-          duration: 850,
+          duration,
           delay,
           easing: "cubic-bezier(.16,1,.3,1)",
           fill: "both",
@@ -104,25 +104,34 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           const target = entry.target as HTMLElement;
-          if (target.hasAttribute("data-project-stage")) {
-            if (!wide.matches) continue;
-            target
-              .querySelectorAll<HTMLElement>("[data-project]")
-              .forEach((project, index) => reveal(project, index * 180));
-          } else {
-            if (wide.matches && target.hasAttribute("data-project")) continue;
-            reveal(target);
-          }
+          if (wide.matches && target.hasAttribute("data-project")) continue;
+          reveal(target);
           reveals.unobserve(target);
         }
       },
       { threshold: 0.12 },
     );
     element
-      .querySelectorAll<HTMLElement>(
-        "[data-project-stage], [data-project], [data-experience]",
-      )
+      .querySelectorAll<HTMLElement>("[data-project], [data-experience]")
       .forEach((target) => reveals.observe(target));
+
+    const desktopReveal = new IntersectionObserver(
+      (entries) => {
+        if (!wide.matches || !entries.some((entry) => entry.isIntersecting))
+          return;
+        // Desktop pacing is independent of the mobile-first source order.
+        ["recall", "greghouse", "permanence"].forEach((slug, index) => {
+          const project = element.querySelector<HTMLElement>(
+            `[data-project="${slug}"]`,
+          );
+          if (project) reveal(project, 150 + index * 1250, 1200);
+        });
+        desktopReveal.disconnect();
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -18% 0px" },
+    );
+    const stage = element.querySelector("[data-project-stage]");
+    if (stage) desktopReveal.observe(stage);
 
     const playback = new IntersectionObserver(
       (entries) => {
@@ -157,6 +166,7 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
     element.addEventListener("focusin", revealFocus);
     return () => {
       reveals.disconnect();
+      desktopReveal.disconnect();
       playback.disconnect();
       reduced.removeEventListener("change", syncMotion);
       document.removeEventListener("visibilitychange", syncMotion);

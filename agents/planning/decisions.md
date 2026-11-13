@@ -57,6 +57,17 @@ The supplied HackUSF raster receives a transparent background cutout via built-i
 imagegen, exported to a small WebP. The original asset remains untouched. No new
 runtime dependencies are needed. This remains an isolated experiment.
 
+Sebastian then requested the logo-left treatment on every badge and an attached
+appearance. All badges now overlap the video frame's top edge; the center overall
+badge is taller to preserve the arch while every badge stays attached. Small-screen
+logos and typography scale to fit the horizontal layout without hiding award text.
+Desktop Recall moves to the left edge with a left tilt. Desktop reveal entrances
+last 1.2 seconds with 1.25 seconds between starts, triggered farther into the
+viewport to give each project a distinct moment. Mobile source order becomes
+Permanence, Recall, Greghouse so visual, screen-reader, and keyboard order agree;
+desktop reveal order remains Recall, Greghouse, Permanence. CSS keeps desktop
+positions and aligned bottoms, without adding runtime dependencies.
+
 Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. **Proposed** means a recommendation has been documented but not approved. **Open** means the preference or necessary fact is still missing.
 
 ## Confirmed decisions

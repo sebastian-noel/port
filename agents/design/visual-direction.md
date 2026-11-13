@@ -8,14 +8,15 @@ blue supporting fields, and scarlet award emphasis. Recall and Greghouse flank a
 larger Permanence panel with symmetric outer gutters and aligned media/card bottoms. Use landscape
 16:9 video frames and place only the project name inside a dark bottom fade. Place
 the fuller description below. All five awards receive prominent scarlet badges
-above the media, with event/company logos and exact resume-backed submission counts.
+overlapping the media's top edge, with logos on the left and exact resume-backed submission counts.
 Use "Best Overall" for overall placements. Keep hackathon names on case-study
 pages. Use compact rounded badges, large ranks, transparent logos, and a slight
-right tilt for Recall and Greghouse. On hover/focus, enlarge and push badges outward
+left tilt for Recall on the desktop left edge and a right tilt for Greghouse. On hover/focus, enlarge and push badges outward
 while preserving their angles. Arch Permanence's badges with NVIDIA left,
-Best Overall raised in the middle, and Hugging Face right. Use the supplied winners
+Best Overall taller in the middle, and Hugging Face right. Use the supplied winners
 collage as Permanence's temporary poster. Reveal Recall,
-Greghouse, then Permanence. Stack in that order on phones. Keep Varela Round and
+Greghouse, then Permanence, with 1.2-second entrances spaced 1.25 seconds apart
+after the stage enters farther into view. Stack Permanence, Recall, Greghouse on phones. Keep Varela Round and
 use scale and spacing to establish the new hierarchy without another font download.
 
 Featured experiences become spacious rows on a stone-blue field, with a sticky

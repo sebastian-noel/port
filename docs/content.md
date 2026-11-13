@@ -30,8 +30,8 @@ The name types on each home visit, then triggers a radial tile flip. The complet
 
 The experimental homepage has a wide project showcase, with Recall on the left,
 Permanence larger in the center, and Greghouse on the right. Desktop reveals run
-in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack in that
-same reading order. Three experience rows follow, with separate links for both
+in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack as
+Permanence, Recall, Greghouse, matching source and keyboard order. Three experience rows follow, with separate links for both
 BNY internships. The typing-game space is still reserved.
 
 The project section uses a darker navy (`#020f20`) than the landing screen and
@@ -40,13 +40,14 @@ wider 16:9 media frames. Only the project name overlays the bottom fade; the lon
 Collection and detail pages retain their concise summaries and existing media.
 
 `featuredAwards` holds each placement, category, submitted-project count, and logo.
-Badges sit above the media; hackathon names stay on the case-study pages.
+Badges overlap the top edge of every video frame; hackathon names stay on the case-study pages.
 Shared CSS grid rows align every desktop media frame and card bottom while the
 wider Permanence frame grows upward. Rounded badges use transparent logos and
-large placement numbers. Recall and Greghouse tilt right. Hover/focus enlarges
+large placement numbers with logos on the left. On desktop, Recall's badge sits
+on the left and tilts left; Greghouse's sits on the right and tilts right. Hover/focus enlarges
 badges and moves them outward without changing their resting angles; reduced
 motion preserves the static angles and disables the movement.
-Permanence's badges form an arch: NVIDIA left, Best Overall raised in the middle,
+Permanence's badges form an arch through a taller center badge: NVIDIA left, Best Overall in the middle,
 and Hugging Face right. Counts come from Sebastian's supplied resume: 1/212 overall,
 1/21 NVIDIA, 1/78 Hugging Face, 2/85 Recall, and 3/86 Greghouse. See
 [asset sources](media-assets.md) for the event logos, company SVGs, and selected
@@ -75,7 +76,8 @@ browser's Save-Data preference prevent autoplay. There is no motion button or
 simulated video progress line. Hover or keyboard focus lifts and enlarges the
 project, zooms the media slightly, and restores its color. Touch devices show color
 without requiring hover. Reduced motion disables the lift and zoom. Content remains readable
-and linked without JavaScript. The reveal is one-time per page mount, and keyboard
+and linked without JavaScript. Desktop reveals begin after the stage enters farther into the viewport, with
+1.2-second entrances spaced 1.25 seconds apart. The reveal is one-time per page mount, and keyboard
 focus immediately reveals the focused project or experience.
 
 This design is isolated on `exp/homepage-showcase` for review in issue #39. It is

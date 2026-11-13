@@ -124,8 +124,8 @@ const experienceHighlights = [
 export function HomeShowcase() {
   const projects = collectionEntries("projects");
   const experiences = collectionEntries("experiences");
-  // Source order is the reveal order and the natural reading order on phones.
-  const featured = ["recall", "greghouse", "permanence"].flatMap((slug) =>
+  // Source order keeps the lead project first for mobile and keyboard navigation.
+  const featured = ["permanence", "recall", "greghouse"].flatMap((slug) =>
     projects.filter((entry) => entry.slug === slug),
   );
 
