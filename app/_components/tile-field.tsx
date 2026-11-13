@@ -18,9 +18,11 @@ export function TileField() {
     let resize: number | undefined;
 
     function cancel() {
+      const wasActive = element.dataset.wave === "active";
       animations.forEach((animation) => animation.cancel());
       animations.clear();
       element.dataset.wave = "idle";
+      if (wasActive) window.dispatchEvent(new Event("port:wave-complete"));
     }
     function build() {
       cancel();
@@ -65,11 +67,17 @@ export function TileField() {
       animation.onfinish = () => {
         animations.delete(animation);
         animation.cancel();
-        if (!animations.size) element.dataset.wave = "idle";
+        if (!animations.size) {
+          element.dataset.wave = "idle";
+          window.dispatchEvent(new Event("port:wave-complete"));
+        }
       };
     }
     function wave(event: Event) {
-      if (media.matches || document.hidden) return;
+      if (media.matches || document.hidden) {
+        window.dispatchEvent(new Event("port:wave-complete"));
+        return;
+      }
       cancel();
       const { x, y } = (event as CustomEvent<{ x: number; y: number }>).detail;
       element.dataset.wave = "active";

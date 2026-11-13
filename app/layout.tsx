@@ -37,7 +37,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <span className="footer-credit">
               Made with{" "}
               <span className="footer-heart" role="img" aria-label="love">
-                <Icon name="heart" fill="currentColor" />
+                <svg viewBox="0 0 32 30" aria-hidden="true">
+                  <path
+                    className="heart-back"
+                    d="M16 27S2 19 2 10C2 3 10 0 16 7 22 0 30 3 30 10c0 9-14 17-14 17Z"
+                  />
+                  <path
+                    className="heart-front"
+                    d="M16 24S5 17 5 10c0-5 6-7 11-1 5-6 11-4 11 1 0 7-11 14-11 14Z"
+                  />
+                </svg>
+                <span className="heart-particles" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <i />
+                </span>
               </span>{" "}
               by Sebastian
             </span>
@@ -48,8 +63,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 rel="noopener noreferrer"
                 aria-label="Resume (PDF, opens in a new tab)"
               >
-                <Icon name="file" />
-                Resume
+                Resume <Icon name="external" />
               </a>
               {site.profiles.map((profile) => (
                 <a

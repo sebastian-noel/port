@@ -474,3 +474,16 @@ test("reduced motion and early navigation cancel decorative motion", async ({
       .evaluate((el) => el.getAnimations({ subtree: true }).length),
   ).toBe(0);
 });
+
+test("scroll hint waits for the intro and disappears after scrolling", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const hint = page.locator(".scroll-hint");
+  await expect(hint).not.toHaveClass(/is-visible/);
+  await expect(hint).toHaveClass(/is-visible/, { timeout: 10000 });
+  await page.evaluate(() => window.scrollTo(0, 100));
+  await expect(hint).not.toHaveClass(/is-visible/);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(hint).not.toHaveClass(/is-visible/);
+});

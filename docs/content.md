@@ -88,8 +88,9 @@ Mobile project entrances last 0.75 seconds. Without JavaScript or with reduced
 motion, the real content appears immediately. The reveal is one-time per page mount, and keyboard
 focus immediately reveals the focused project or experience.
 
-This design is isolated on `exp/homepage-showcase` for review in issue #39. It is
-not approved for `dev` or `main`. No game logic or backend is implemented yet.
+Sebastian approved this showcase for `dev` after the requested final refinements.
+Production remains subject to review of the exact `dev` preview. No game logic or
+backend is implemented yet.
 
 The shared footer centers "Made with [heart] by Sebastian" between the copyright and
 profile links on desktop. The three groups stack and remain centered on phones.

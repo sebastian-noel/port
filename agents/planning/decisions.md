@@ -1,5 +1,16 @@
 # Decisions and open questions
 
+## 2026-11-13 showcase integration and navigation polish
+
+Sebastian approved moving the showcase to `dev` after the requested refinements.
+The exact `dev` preview still needs his explicit approval before a release to `main`.
+Preview links open the homepage root. The centered desktop navigation uses equal
+outer columns, while accessible icon-only actions retain their labels. A staggered
+wordmark fill, restrained icon scaling, and a layered animated footer heart use CSS
+and respect reduced motion. The scroll hint waits for the intro and tile wave to
+finish, then disappears after scrolling. The footer resume uses the same arrow as
+its neighboring links.
+
 ## 2026-11-12 experimental homepage showcase
 
 Sebastian requested a complete redesign of the homepage projects and featured

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
 
 const name = "Sebastian Noel";
@@ -11,16 +11,47 @@ const typingDelays = [
 export function NameIntro() {
   const heading = useRef<HTMLHeadingElement>(null);
   const typed = useRef<HTMLSpanElement>(null);
+  const [hint, setHint] = useState(false);
 
   useEffect(() => {
     const element = heading.current!;
     const text = typed.current!;
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let hintTimer: ReturnType<typeof setTimeout> | undefined;
+    let introDone = false;
+    let waveDone = false;
+    let scrolled = window.scrollY > 0;
+    function scheduleHint() {
+      if (introDone && waveDone && !scrolled) {
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => setHint(true), 1000);
+      }
+    }
+    function finishIntro() {
+      introDone = true;
+      scheduleHint();
+    }
+    function finishWave() {
+      waveDone = true;
+      scheduleHint();
+    }
+    function onScroll() {
+      if (window.scrollY > 0) {
+        scrolled = true;
+        clearTimeout(hintTimer);
+        setHint(false);
+      }
+    }
+    window.addEventListener("port:wave-complete", finishWave);
+    window.addEventListener("port:caret-complete", finishIntro);
+    window.addEventListener("scroll", onScroll, { passive: true });
     function settle() {
       clearTimeout(timer);
       text.textContent = name;
       element.dataset.introState = "complete";
+      waveDone = true;
+      finishIntro();
     }
     if (media.matches) settle();
     else {
@@ -52,6 +83,10 @@ export function NameIntro() {
     media.addEventListener("change", motionChange);
     return () => {
       clearTimeout(timer);
+      clearTimeout(hintTimer);
+      window.removeEventListener("port:wave-complete", finishWave);
+      window.removeEventListener("port:caret-complete", finishIntro);
+      window.removeEventListener("scroll", onScroll);
       media.removeEventListener("change", motionChange);
       window.dispatchEvent(new Event("port:cancel-intro"));
     };
@@ -71,11 +106,18 @@ export function NameIntro() {
             onAnimationEnd={(event) => {
               if (event.animationName === "caret-fade" && heading.current) {
                 heading.current.dataset.introState = "complete";
+                window.dispatchEvent(new Event("port:caret-complete"));
               }
             }}
           />
         </span>
       </h1>
+      <span
+        className={`scroll-hint${hint ? " is-visible" : ""}`}
+        aria-hidden="true"
+      >
+        Scroll down...
+      </span>
       <a
         className="splash-down icon-button"
         href="#workspace"
