@@ -685,7 +685,7 @@ dialog nav a[aria-current] {
   line-height: 1.6;
 }
 .experience-card {
-  background: var(--paper);
+  background: color-mix(in srgb, var(--canvas), var(--sky) 8%);
   color: var(--on-canvas);
   padding: 30px;
 }
@@ -725,8 +725,9 @@ dialog nav a[aria-current] {
   margin: 0;
 }
 .experience-card li strong {
-  color: color-mix(in srgb, var(--accent) 65%, white);
-  font-weight: inherit;
+  color: color-mix(in srgb, var(--accent) 75%, white);
+  font-weight: 700;
+  font-synthesis-weight: auto;
 }
 .experience-card li + li,
 .detail-body li + li {
