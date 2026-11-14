@@ -455,12 +455,12 @@ export const records: Entry[] = [
     startDate: "2026-08",
     endDate: null,
     summary:
-      "Building cloud infrastructure, service monitoring, and recovery workflows for financial microservices in the UCF × BNY experiential program.",
+      "Building cloud infrastructure, service monitoring, and recovery workflows for financial microservices.",
     bullets: [
-      "Provisioned Azure VMs with Terraform to host five Spring Boot services via Docker Compose for repeatable builds.",
-      "Balanced traffic across two VMs using Azure Application Gateway and health probes for node failover.",
-      "Reduced fund-query database reads by 40% with Azure Managed Redis caching, easing PostgreSQL load during valuation.",
-      "Instrumented five services with Prometheus and Grafana for health tracking at 15-second intervals with 200-hour retention.",
+      "Provisioned **Azure VMs** with **Terraform** to host **five Spring Boot** services via **Docker Compose** for repeatable builds.",
+      "Balanced traffic across **two VMs** using **Azure Application Gateway** and health probes for node failover.",
+      "Reduced fund-query database reads by **40%** with **Azure Managed Redis** caching, easing **PostgreSQL** load during valuation.",
+      "Instrumented **five** services with **Prometheus** and **Grafana** for health tracking at **15-second** intervals with **200-hour** retention.",
     ],
     tone: "coral",
     context: "Software Engineer Intern",
@@ -485,12 +485,12 @@ export const records: Entry[] = [
     startDate: "2026-01",
     endDate: "2026-04",
     summary:
-      "Built automated issue detection and remediation for financial microservices in the UCF × BNY experiential program.",
+      "Built automated issue detection and remediation for financial microservices.",
     bullets: [
-      "Architected a four-stage fault-remediation agent pipeline with Python, FastAPI, and Docker, handling more than ten fault types end to end.",
-      "Sped up fault detection by 75% by parallelizing Prometheus, Grafana, and Docker SDK operations across five Java Spring Boot services.",
-      "Achieved microservice health remediation in under 90 seconds by routing edge cases to an LLM fallback and persisting results to PostgreSQL.",
-      "Trained IsolationForest, RandomForest, and XGBoost on 4,250 samples to classify six microservice fault types.",
+      "Architected a **four-stage** fault-remediation agent pipeline with **Python**, **FastAPI**, and **Docker**, handling **more than ten** fault types end to end.",
+      "Sped up fault detection by **75%** by parallelizing **Prometheus**, **Grafana**, and **Docker SDK** operations across **five Java Spring Boot** services.",
+      "Achieved microservice health remediation in **under 90 seconds** by routing edge cases to an **LLM** fallback and persisting results to **PostgreSQL**.",
+      "Trained **IsolationForest**, **RandomForest**, and **XGBoost** on **4,250** samples to classify **six** microservice fault types.",
     ],
     tone: "pale",
     context: "Software Engineer Intern",
@@ -517,10 +517,10 @@ export const records: Entry[] = [
     summary:
       "Studied efficient test-time adaptation for long videos, reducing repeated computation while preserving temporal context.",
     bullets: [
-      "Co-authored an ECCV 2026 paper on a Frame Forgetting Network for Test-Time Training.",
-      "Optimized long-form video segmentation by eliminating redundant sliding-window computations to process only three frames per update.",
-      "Established ground-truth evaluation baselines across 2.5 million frames from 47 videos using SAM 3 and Slurm on an HPC cluster.",
-      "Automated COCO and RLE data parsing with Python, PyTorch, and Bash pipelines to standardize research preprocessing.",
+      "Co-authored an **ECCV 2026** paper on a **Frame Forgetting Network** for **Test-Time Training**.",
+      "Optimized long-form video segmentation by eliminating redundant sliding-window computations to process only **three frames** per update.",
+      "Established ground-truth evaluation baselines across **2.5 million** frames from **47** videos using **SAM 3** and **Slurm** on an **HPC** cluster.",
+      "Automated **COCO** and **RLE** data parsing with **Python**, **PyTorch**, and **Bash** pipelines to standardize research preprocessing.",
     ],
     tone: "slate",
     context: "Undergraduate Researcher",
@@ -552,9 +552,9 @@ export const records: Entry[] = [
     summary:
       "Co-founded a graphics programming community at UCF and now lead its website and Discord bot development team.",
     bullets: [
-      "Co-founded the student organization, growing membership to more than 200 through outreach and events.",
-      "Led ten developers building the organization’s website with TypeScript and Next.js.",
-      "Reduced website deployment time by 25% with Docker and GitHub Actions CI/CD.",
+      "**Co-founded** the student organization, growing membership to **more than 200** through outreach and events.",
+      "Led **ten developers** building the organization’s website with **TypeScript** and **Next.js**.",
+      "Reduced website deployment time by **25%** with **Docker** and **GitHub Actions CI/CD**.",
     ],
     tone: "deep",
     context: "Co-founder, Secretary & Software Engineer Lead",
@@ -635,10 +635,10 @@ export const records: Entry[] = [
     summary:
       "Investigated reproducible 3D reconstruction from photos and evaluated workflows for creating textured, riggable assets for Unity VR.",
     bullets: [
-      "Researched and validated a four-stage photogrammetry pipeline, converting photos into textured, VR-ready 3D assets.",
-      "Evaluated RealityScan alignment and reconstruction workflows, producing more than ten 3D models to demonstrate pipeline reproducibility.",
-      "Authored a 23-page research guide and more than 17 minutes of tutorials documenting methods, tradeoffs, and common pitfalls.",
-      "Used Blender decimation to simplify geometry by 99.5%, from two million to ten thousand, for VR applications.",
+      "Researched and validated a **four-stage photogrammetry pipeline**, converting photos into textured, **VR**-ready 3D assets.",
+      "Evaluated **RealityScan** alignment and reconstruction workflows, producing **more than ten 3D models** to demonstrate pipeline reproducibility.",
+      "Authored a **23-page research guide** and **more than 17 minutes** of tutorials documenting methods, tradeoffs, and common pitfalls.",
+      "Used **Blender** decimation to simplify geometry by **99.5%**, from **two million** to **ten thousand**, for **VR** applications.",
     ],
     tone: "slate",
     context: "Research & Development Intern",
@@ -670,9 +670,9 @@ export const records: Entry[] = [
     summary:
       "Studied solar cell defects and electrical performance by combining image analysis with voltage prediction. Built photovoltaic image-processing pipelines and refactored Python and Marimo tooling.",
     bullets: [
-      "Engineered a Python multimodal pipeline aligning 2,075 solar cell images with IV performance data for photovoltaic defect analysis.",
-      "Implemented wavelet-enhanced LSTM models for time-series analysis, achieving 77% voltage prediction accuracy.",
-      "Developed an image-processing pipeline with Marimo notebooks, decreasing data processing time by 30%.",
+      "Engineered a **Python** multimodal pipeline aligning **2,075** solar cell images with IV performance data for photovoltaic defect analysis.",
+      "Implemented wavelet-enhanced **LSTM** models for time-series analysis, achieving **77%** voltage prediction accuracy.",
+      "Developed an image-processing pipeline with **Marimo** notebooks, decreasing data processing time by **30%**.",
     ],
     tone: "coral",
     context: "Software Engineer Intern",

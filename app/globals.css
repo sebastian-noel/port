@@ -724,6 +724,10 @@ dialog nav a[aria-current] {
   padding-left: 20px;
   margin: 0;
 }
+.experience-card li strong {
+  color: color-mix(in srgb, var(--accent) 65%, white);
+  font-weight: inherit;
+}
 .experience-card li + li,
 .detail-body li + li {
   margin-top: 10px;

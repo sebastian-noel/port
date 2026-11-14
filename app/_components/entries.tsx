@@ -172,7 +172,17 @@ export function ExperienceList({ items }: { items: Entry[] }) {
             {!!entry.bullets?.length && (
               <ul>
                 {entry.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
+                  <li key={bullet}>
+                    {bullet
+                      .split(/(\*\*[^*]+\*\*)/g)
+                      .map((part, index) =>
+                        part.startsWith("**") ? (
+                          <strong key={index}>{part.slice(2, -2)}</strong>
+                        ) : (
+                          part
+                        ),
+                      )}
+                  </li>
                 ))}
               </ul>
             )}
