@@ -11,7 +11,7 @@ export const site = {
     { label: "GitHub", href: "https://github.com/sebastian-noel" },
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/in/sebastian-noel-ucf/",
+      href: "https://www.linkedin.com/in/snoel-dev/",
     },
     { label: "Devpost", href: "https://devpost.com/sebastian-noel" },
   ],

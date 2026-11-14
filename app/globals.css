@@ -731,6 +731,29 @@ dialog nav a[aria-current] {
 .detail-body li + li {
   margin-top: 10px;
 }
+.experience-roles {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.experience-roles .role {
+  font-weight: 600;
+}
+.experience-roles .dates {
+  background: transparent;
+  margin: 4px 0 0;
+}
+.experience-resources {
+  margin-top: 28px;
+}
+.experience-card .experience-resources h3,
+.detail-body .experience-resources h2 {
+  font-size: 18px;
+  margin: 0;
+}
+.experience-resources .detail-links {
+  margin-top: 8px;
+}
 .detail {
   max-width: 1000px;
   padding-top: 44px;

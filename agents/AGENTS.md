@@ -28,7 +28,7 @@ Read [README.md](README.md), [planning/brief.md](planning/brief.md), and [planni
 - Project and experience details must have their own shareable URLs. Content additions should not require rebuilding page layouts.
 - Do not invent dates, metrics, ownership claims, testimonials, awards, employment status, or project media. Separate Sebastian's contributions from team outcomes.
 - Use current local source documents and project evidence when writing portfolio copy. Prior chat context is a lead to verify, not publication-ready evidence.
-- Sebastian approved his contact email for public use and wants it available on About. Keep his phone number and other private contact details out of public artifacts and Git history. Publish a contact-free, indexable resume and follow the [search and privacy plan](planning/search-visibility.md) for public pages, profiles, and media.
+- Sebastian approved his contact email for public use and wants it available on About. Keep his phone number and other private contact details out of public artifacts and Git history. Publish the owner-selected, indexable resume with his approved public email and follow the [search and privacy plan](planning/search-visibility.md) for public pages, profiles, and media.
 - Use plain, concise site copy; avoid em dashes in drafted personal copy unless Sebastian requests them.
 
 ## Git and review

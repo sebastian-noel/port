@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Cover, Dates } from "../../_components/entries";
+import {
+  Cover,
+  Dates,
+  ExperienceResources,
+  ExperienceRoles,
+} from "../../_components/entries";
 import { entries } from "../../_content/entries";
 import { pageMetadata } from "../../_lib/site";
 
@@ -46,6 +51,7 @@ export default async function Detail({ params }: Props) {
       {entry.collection === "projects" && <Cover entry={entry} />}
       <div className="detail-body">
         {entry.placeholder && <p>Placeholder. Details will be added later.</p>}
+        <ExperienceRoles entry={entry} />
         {!!entry.bullets?.length && (
           <ul>
             {entry.bullets.map((bullet) => (
@@ -59,7 +65,8 @@ export default async function Detail({ params }: Props) {
             <p>{section.text}</p>
           </section>
         ))}
-        {entry.links.length > 0 && (
+        <ExperienceResources entry={entry} detail />
+        {entry.collection === "projects" && entry.links.length > 0 && (
           <nav className="detail-links" aria-label="Project links">
             {entry.links.map((link) => (
               <a className="text-link" href={link.href} key={link.href}>

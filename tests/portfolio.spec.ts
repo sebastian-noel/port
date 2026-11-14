@@ -358,14 +358,18 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   }
 });
 
-test("experience chronology and timeline descriptions", async ({ page }) => {
+test("experience chronology and timeline descriptions", async ({
+  page,
+}, testInfo) => {
   const items = collectionEntries("experiences");
   expect(items.map((e) => e.startDate ?? "")).toEqual([
     "2026-08",
+    "2026-05",
+    "2026-01",
     "2026-01",
     "2026-01",
     "2025-07",
-    "",
+    "2025-05",
     "",
   ]);
   expect(() =>
@@ -377,11 +381,53 @@ test("experience chronology and timeline descriptions", async ({ page }) => {
     ]),
   ).toThrow(/timeline/);
   await page.goto("/experiences");
-  await expect(page.locator(".experience-card")).toHaveCount(6);
+  await expect(page.locator(".experience-card")).toHaveCount(8);
   await expect(
     page.locator(".experience-card").first().getByRole("listitem"),
-  ).toHaveCount(3);
+  ).toHaveCount(4);
   await expect(page.locator("time").first()).toHaveText("Aug 2026");
+  const ist = page
+    .locator(".timeline-entry")
+    .filter({ hasText: "UCF Institute for Simulation and Training" });
+  await expect(ist.locator("time")).toHaveText(["May 2026", "Jul 2026"]);
+  await expect(ist.getByRole("listitem")).toHaveCount(4);
+  const fsec = page
+    .locator(".timeline-entry")
+    .filter({ hasText: "Florida Solar Energy Center" });
+  await expect(fsec.locator(".role")).toHaveText("Software Engineer Intern");
+  await expect(fsec.locator("time")).toHaveText(["May 2025", "Sep 2025"]);
+  await expect(fsec.getByRole("listitem")).toHaveCount(3);
+  await page.goto("/experiences/knight-hacks");
+  await expect(
+    page.locator(".experience-roles").getByText("Mentor", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".experience-roles time")).toHaveText([
+    "Sep 2026",
+    "Jan 2026",
+  ]);
+  await expect(page.getByText("(bullet 2)", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "Knight Hacks resources" })
+      .getByRole("link"),
+  ).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/snoel-dev/details/experience/",
+  );
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/experiences/ucf-ist");
+    await expect(page.getByText(/99.5%/)).toBeVisible();
+    await page.screenshot({
+      path: testInfo.outputPath(`ist-${width}.png`),
+      fullPage: true,
+    });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
 });
 
 test("intro replays on home navigation and refresh", async ({

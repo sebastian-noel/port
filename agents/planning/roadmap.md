@@ -66,7 +66,7 @@ Exit: only the approved owner can read analytics, including via direct API reque
 - Review free provider limits, usage monitoring, bounded retention/exports, privacy text, inactivity restoration, and quota-exhaustion behavior. Do not enable paid features.
 - Connect the domain using current Vercel-provided DNS values and verify redirects/HTTPS when deployment is authorized.
 - Confirm previews use isolated data. Verify the [staged release and recovery flow](coding-workflow.md#production-release-and-recovery), including read-only smoke checks before promotion and on `snoel.dev`.
-- Complete the [search launch checks](search-visibility.md#launch-and-follow-up), including the contact-free resume, indexable pages and photos, and sitemap submission after promotion.
+- Complete the [search launch checks](search-visibility.md#launch-and-follow-up), including the reviewed public resume, indexable pages and photos, and sitemap submission after promotion.
 
 Exit: all requested features are present and validated, or any explicit user-approved scope changes are recorded. DNS/publishing are separate execution steps, not completed by this plan.
 

@@ -108,13 +108,53 @@ export function Dates({ entry }: { entry: Entry }) {
   return (
     <p className="dates">
       <time dateTime={entry.startDate}>{month(entry.startDate)}</time>
-      <span> — </span>
+      <span> to </span>
       {entry.endDate ? (
         <time dateTime={entry.endDate}>{month(entry.endDate)}</time>
       ) : (
         "Present"
       )}
     </p>
+  );
+}
+
+export function ExperienceRoles({ entry }: { entry: Entry }) {
+  if (!entry.roles?.length) return null;
+  return (
+    <div className="experience-roles">
+      {entry.roles.map((role) => (
+        <div key={role.title}>
+          <p className="role">{role.title}</p>
+          <Dates entry={{ ...entry, ...role }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function ExperienceResources({
+  entry,
+  detail = false,
+}: {
+  entry: Entry;
+  detail?: boolean;
+}) {
+  if (entry.collection !== "experiences" || entry.placeholder) return null;
+  const Heading = detail ? "h2" : "h3";
+  return (
+    <section
+      className="experience-resources"
+      aria-label={`${entry.title} resources`}
+    >
+      <Heading>Links & resources</Heading>
+      <div className="detail-links">
+        {entry.links.map((link) => (
+          <a className="text-link" href={link.href} key={link.href}>
+            {link.label} ↗
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -147,6 +187,7 @@ export function ExperienceList({ items }: { items: Entry[] }) {
               </div>
             </div>
             <p>{entry.summary}</p>
+            <ExperienceRoles entry={entry} />
             {!!entry.bullets?.length && (
               <ul>
                 {entry.bullets.map((bullet) => (
@@ -154,6 +195,7 @@ export function ExperienceList({ items }: { items: Entry[] }) {
                 ))}
               </ul>
             )}
+            <ExperienceResources entry={entry} />
           </div>
         </article>
       ))}
