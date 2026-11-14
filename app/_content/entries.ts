@@ -36,6 +36,7 @@ export type Entry = {
   startDate?: string;
   endDate?: string | null;
   bullets?: string[];
+  roles?: { title: string; startDate: string; endDate: string | null }[];
   cover: { placeholder: true } | ProjectPhoto;
   demoVideoId?: string;
   demoClip?: string;
@@ -454,11 +455,12 @@ export const records: Entry[] = [
     startDate: "2026-08",
     endDate: null,
     summary:
-      "Infrastructure engineering through UCF's experiential internship program.",
+      "Building cloud infrastructure, service monitoring, and recovery workflows for financial microservices in the UCF × BNY experiential program.",
     bullets: [
-      "Provisioned Azure VMs with Terraform to host five Spring Boot services using Docker Compose.",
-      "Balanced traffic across two VMs with Azure Application Gateway and health probes.",
-      "Reduced fund-query database reads by 40% with Azure Managed Redis caching.",
+      "Provisioned Azure VMs with Terraform to host five Spring Boot services via Docker Compose for repeatable builds.",
+      "Balanced traffic across two VMs using Azure Application Gateway and health probes for node failover.",
+      "Reduced fund-query database reads by 40% with Azure Managed Redis caching, easing PostgreSQL load during valuation.",
+      "Instrumented five services with Prometheus and Grafana for health tracking at 15-second intervals with 200-hour retention.",
     ],
     tone: "coral",
     context: "Software Engineer Intern",
@@ -468,7 +470,12 @@ export const records: Entry[] = [
       placeholder: true,
     },
     sections: [],
-    links: [],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
   },
   {
     collection: "experiences",
@@ -478,11 +485,12 @@ export const records: Entry[] = [
     startDate: "2026-01",
     endDate: "2026-04",
     summary:
-      "Built a fault-remediation pipeline in the UCF × BNY experiential program.",
+      "Built automated issue detection and remediation for financial microservices in the UCF × BNY experiential program.",
     bullets: [
-      "Architected a four-stage Python/FastAPI and Docker pipeline handling more than ten fault types.",
-      "Sped up fault detection by 75% across five Spring Boot services.",
-      "Trained anomaly-detection models on 4,250 samples covering six microservice fault types.",
+      "Architected a four-stage fault-remediation agent pipeline with Python, FastAPI, and Docker, handling more than ten fault types end to end.",
+      "Sped up fault detection by 75% by parallelizing Prometheus, Grafana, and Docker SDK operations across five Java Spring Boot services.",
+      "Achieved microservice health remediation in under 90 seconds by routing edge cases to an LLM fallback and persisting results to PostgreSQL.",
+      "Trained IsolationForest, RandomForest, and XGBoost on 4,250 samples to classify six microservice fault types.",
     ],
     tone: "pale",
     context: "Software Engineer Intern",
@@ -492,7 +500,12 @@ export const records: Entry[] = [
       placeholder: true,
     },
     sections: [],
-    links: [],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
   },
   {
     collection: "experiences",
@@ -502,11 +515,12 @@ export const records: Entry[] = [
     startDate: "2026-01",
     endDate: "2026-04",
     summary:
-      "Research on efficient long-video understanding and test-time training.",
+      "Studied efficient test-time adaptation for long videos, reducing repeated computation while preserving temporal context.",
     bullets: [
       "Co-authored an ECCV 2026 paper on a Frame Forgetting Network for Test-Time Training.",
-      "Built evaluation baselines across 2.5 million frames from 47 videos using SAM 3 and Slurm.",
-      "Automated COCO and RLE data processing with Python, PyTorch, and Bash.",
+      "Optimized long-form video segmentation by eliminating redundant sliding-window computations to process only three frames per update.",
+      "Established ground-truth evaluation baselines across 2.5 million frames from 47 videos using SAM 3 and Slurm on an HPC cluster.",
+      "Automated COCO and RLE data parsing with Python, PyTorch, and Bash pipelines to standardize research preprocessing.",
     ],
     tone: "slate",
     context: "Undergraduate Researcher",
@@ -515,48 +529,170 @@ export const records: Entry[] = [
     cover: {
       placeholder: true,
     },
-    sections: [],
-    links: [],
+    sections: [
+      {
+        heading: "Mentors",
+        text: "Yogesh S. Rawat and Rajat Modi.",
+      },
+    ],
+    links: [
+      {
+        label: "Paper: Forget, Anticipate and Adapt",
+        href: "https://arxiv.org/abs/2606.26515v2",
+      },
+    ],
   },
   {
     collection: "experiences",
     slug: "graphics-programming-knights",
     title: "Graphics Programming Knights",
-    role: "Co-founder & Software Engineer Lead",
+    role: "Co-founder, Secretary & Software Engineer Lead",
     startDate: "2025-07",
     endDate: null,
-    summary: "Building a home for graphics programming at UCF.",
+    summary:
+      "Co-founded a graphics programming community at UCF and now lead its website and Discord bot development team.",
     bullets: [
-      "Co-founded the student organization, growing membership to more than 200.",
-      "Led ten developers building the organization's website with TypeScript and Next.js.",
-      "Improved deployment time by 25% using Docker and GitHub Actions.",
+      "Co-founded the student organization, growing membership to more than 200 through outreach and events.",
+      "Led ten developers building the organization’s website with TypeScript and Next.js.",
+      "Reduced website deployment time by 25% with Docker and GitHub Actions CI/CD.",
     ],
     tone: "deep",
-    context: "Co-founder & Software Engineer Lead",
+    context: "Co-founder, Secretary & Software Engineer Lead",
     published: false,
     featured: true,
     cover: {
       placeholder: true,
     },
     sections: [],
-    links: [],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
+    roles: [
+      {
+        title: "Software Engineer Lead",
+        startDate: "2026-05",
+        endDate: null,
+      },
+      {
+        title: "Co-founder, Secretary",
+        startDate: "2025-07",
+        endDate: "2026-04",
+      },
+    ],
   },
   {
     collection: "experiences",
     slug: "knight-hacks",
     title: "Knight Hacks",
-    role: "Mentor & Outreach",
-    summary: "Supporting UCF's hackathon community.",
-    bullets: [],
+    role: "Mentor & Outreach Board Member",
+    startDate: "2026-01",
+    endDate: null,
+    summary:
+      "Mentor students in the Kickstart program and support UCF’s software development and hackathon community through social media, tabling, and presentations.",
+    bullets: [
+      "Mentoring four students in the Kickstart Mentorship Program.",
+      "(bullet 2)",
+      "(bullet 3)",
+      "(bullet 4)",
+    ],
     tone: "pale",
-    context: "Mentor & Outreach",
+    context: "Mentor & Outreach Board Member",
     published: false,
     featured: true,
     cover: {
       placeholder: true,
     },
     sections: [],
-    links: [],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
+    roles: [
+      {
+        title: "Mentor",
+        startDate: "2026-09",
+        endDate: null,
+      },
+      {
+        title: "Outreach Board Member",
+        startDate: "2026-01",
+        endDate: null,
+      },
+    ],
+  },
+  {
+    collection: "experiences",
+    slug: "ucf-ist",
+    title: "UCF Institute for Simulation and Training",
+    role: "Research & Development Intern",
+    startDate: "2026-05",
+    endDate: "2026-07",
+    summary:
+      "Investigated reproducible 3D reconstruction from photos and evaluated workflows for creating textured, riggable assets for Unity VR.",
+    bullets: [
+      "Researched and validated a four-stage photogrammetry pipeline, converting photos into textured, VR-ready 3D assets.",
+      "Evaluated RealityScan alignment and reconstruction workflows, producing more than ten 3D models to demonstrate pipeline reproducibility.",
+      "Authored a 23-page research guide and more than 17 minutes of tutorials documenting methods, tradeoffs, and common pitfalls.",
+      "Used Blender decimation to simplify geometry by 99.5%, from two million to ten thousand, for VR applications.",
+    ],
+    tone: "slate",
+    context: "Research & Development Intern",
+    published: false,
+    featured: false,
+    cover: {
+      placeholder: true,
+    },
+    sections: [
+      {
+        heading: "Mentor",
+        text: "Lauren Speer.",
+      },
+    ],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
+  },
+  {
+    collection: "experiences",
+    slug: "fsec",
+    title: "FSEC · Florida Solar Energy Center",
+    role: "Software Engineer Intern",
+    startDate: "2025-05",
+    endDate: "2025-09",
+    summary:
+      "Studied solar cell defects and electrical performance by combining image analysis with voltage prediction. Built photovoltaic image-processing pipelines and refactored Python and Marimo tooling.",
+    bullets: [
+      "Engineered a Python multimodal pipeline aligning 2,075 solar cell images with IV performance data for photovoltaic defect analysis.",
+      "Implemented wavelet-enhanced LSTM models for time-series analysis, achieving 77% voltage prediction accuracy.",
+      "Developed an image-processing pipeline with Marimo notebooks, decreasing data processing time by 30%.",
+    ],
+    tone: "coral",
+    context: "Software Engineer Intern",
+    published: false,
+    featured: false,
+    cover: {
+      placeholder: true,
+    },
+    sections: [
+      {
+        heading: "Mentor",
+        text: "Joseph Raby.",
+      },
+    ],
+    links: [
+      {
+        label: "LinkedIn experience",
+        href: "https://www.linkedin.com/in/snoel-dev/details/experience/",
+      },
+    ],
   },
   {
     collection: "projects",

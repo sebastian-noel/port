@@ -262,3 +262,9 @@ Sebastian supplied `sebastian@snoel.dev` and requested a direct email link on Ab
 without a contact form. Use the existing text-link styling in a Contact section so
 visitors can see the address and open their email app. The public resume remains
 contact-free. Updated the search and privacy specification and content guide.
+
+## 2026-11-14 experience and resume refresh
+
+Sebastian requested concise experience descriptions, at most four strong evidence-backed accomplishment bullets, and links/resources, with explicit bullet placeholders for missing facts. Reuse the existing typed content and shared templates rather than introducing a second content system. Keep organization cards together with dated role history for GPK and Knight Hacks so title changes stay visible without duplicating the organization. Preserve existing detail URLs. Use the updated resume and supplied screenshots as evidence, preferring LinkedIn role dates over older resume dates: IST May to July 2026; FSEC Software Engineer Intern May to September 2025; UCF AI January to April 2026. Use the four supplied IST bullets and three FSEC bullets without invented additions. Direct resource URLs were supplied only for the paper; use the updated LinkedIn experience profile for other roles until specific resources are supplied.
+
+Sebastian explicitly selected his updated resume with the new public email and LinkedIn slug. This supersedes the earlier contact-free PDF requirement for that approved address. Publish the exact reviewed PDF because no private contact information needs removal. Centralize LinkedIn actions at `https://www.linkedin.com/in/snoel-dev/`. The public email remains approved; private phone numbers and other private contact details remain excluded. Track in issue #43; implementation and authoring guidance are in `docs/content.md`.
