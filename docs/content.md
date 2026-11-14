@@ -1,11 +1,12 @@
 # Content and media
 
-Edit `app/_content/entries.ts` to add a project or experience. Collection cards and detail routes are generated from the same records.
+Edit `app/_content/entries.ts` to add a project or experience. Project cards and detail routes are generated from the same records. Experiences render completely on `/experiences` and use stable `#slug` anchors for incoming links; they have no case-study routes.
 
 - Give each record a stable slug, title, summary, cover, sections, and HTTPS source links.
 - Projects support `technologies`, `team`, and `event` for the search field. Search currently matches plain substrings across these fields and the title. Metadata is incomplete; verify it before expansion.
-- Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and up to four resume-style `bullets`. Optional `roles` preserve separate role titles and dates within one organization. Collection cards and detail pages share descriptions, role history, bullets, and a Links & resources section. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
+- Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and up to four resume-style `bullets`. Optional `roles` preserve separate role titles and dates within one organization. Experience cards show the role as the main heading, organization as secondary text, descriptions, role history, bullets, and a Links & Resources section. Dates sit above full-width cards so long bullets have room on desktop; text wraps on smaller screens. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
 - `placeholder: true` identifies a future entry. It is visibly labeled, has no collection-card link, and cannot be published.
+- Do not add future experience placeholders. Add actual new experiences with their verified start dates; they sort at the top.
 - A placeholder cover renders a letter on a flat color. Replace it with an optimized image in `public/media/`, with dimensions and meaningful alt text.
 - `published: true` requires real media and body content. All current records are drafts. Drafts appear in protected previews and are excluded once production indexing is enabled.
 - Review individual contributions, dates, metrics, photo permission, and content before publication.

@@ -1,6 +1,6 @@
 # Site structure and navigation
 
-Status: the four main pages and directly linkable details are confirmed. Section ordering and exact paths below are proposals.
+Status: Home, Experiences, Projects, About is the confirmed navigation order. Only projects have case-study detail pages. Experiences use complete cards and stable anchors on `/experiences`.
 
 ## Route map
 
@@ -10,7 +10,6 @@ Status: the four main pages and directly linkable details are confirmed. Section
 | `/projects` | All published projects with an image and a short explanation | Prerendered collection |
 | `/projects/[slug]` | A project case study with media and relevant links | Prerendered detail |
 | `/experiences` | Roles, research, internships, and student organization experience | Prerendered collection |
-| `/experiences/[slug]` | Expanded experience narrative, contributions, outcomes, media | Prerendered detail |
 | `/about` | Personal introduction, interests, background, selected photos | Prerendered content |
 | `/resume` | Shareable resume landing page and direct PDF action; expanded HTML resume can follow content review | Prerendered content |
 | `/resume.pdf` | Downloadable copy of the same reviewed public resume | Static file |
@@ -31,15 +30,15 @@ Do not place an About promotion or About link in home content. About remains in 
 ## Collections and case studies
 
 - Projects prioritize the problem, the result, Sebastian's role, and what the thing looks like. Hackathon awards and event names are visible without requiring hover.
-- Experiences identify organization, role, dates, context, and contribution. Explain experiential programs accurately rather than implying an employment relationship that has not been confirmed.
-- A detail page follows: summary and hero media; problem/context; personal contribution; approach; result/evidence; lessons; selected media and links. Omit empty sections.
+- Experiences prioritize the role heading, followed by the organization, dates, description, bullets, and Links & Resources. Explain experiential programs accurately rather than implying an employment relationship that has not been confirmed.
+- A project detail page follows: summary and hero media; problem/context; personal contribution; approach; result/evidence; lessons; selected media and links. Omit empty sections.
 - Give each YouTube demo a thumbnail, a short description of what it shows, and a direct link. Keep those available when the player fails or is blocked.
 - Keep the initial case study compact enough to scan, with deeper technical explanation only where it teaches something useful.
 - Full pages are the proposed first implementation of “expanded view.” Optional desktop modal/sheet presentation may be added later if direct URLs, reload, new-tab opening, history, and accessibility still work.
 - On mobile, prefer a full-page detail view for reading. If a sheet is added, provide a close button, focus management, ordinary Back behavior, and swipe dismissal without intercepting browser edge gestures.
 - Use a visible “All projects” or “All experiences” link. Do not add code-style breadcrumb paths.
 - Use standardized project cards and a single search field. Search matches names and available technology, teammate, and event metadata. Expand verified metadata later; no dense filter bar.
-- Experiences sort newest start date first in timeline cards. Show a small description, picture or flat letter placeholder, and resume bullets. Keep unknown dates empty. Clearly label dummy records.
+- Experiences sort newest start date first in timeline cards. Show a small description, picture or flat letter placeholder, and resume bullets. Keep unknown dates empty. Do not add future experience placeholders.
 
 ## Persistent navigation
 

@@ -8,7 +8,7 @@ export const metadata = pageMetadata(
 );
 export default function Experiences() {
   return (
-    <div className="wrap collection-page">
+    <div className="wrap collection-page experiences-page">
       <header className="page-heading">
         <h1>Experiences</h1>
       </header>

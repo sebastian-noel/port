@@ -1,25 +1,22 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  Cover,
-  Dates,
-  ExperienceResources,
-  ExperienceRoles,
-} from "../../_components/entries";
+import { Cover } from "../../_components/entries";
 import { entries } from "../../_content/entries";
 import { pageMetadata } from "../../_lib/site";
 
-type Props = { params: Promise<{ collection: string; slug: string }> };
+type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return entries.map(({ collection, slug }) => ({ collection, slug }));
+  return entries
+    .filter((entry) => entry.collection === "projects")
+    .map(({ slug }) => ({ slug }));
 }
 
 async function getEntry(params: Props["params"]) {
-  const { collection, slug } = await params;
+  const { slug } = await params;
   const entry = entries.find(
-    (entry) => entry.collection === collection && entry.slug === slug,
+    (entry) => entry.collection === "projects" && entry.slug === slug,
   );
   if (!entry) notFound();
   return entry;
@@ -44,14 +41,12 @@ export default async function Detail({ params }: Props) {
       <header className="page-heading">
         <h1>{entry.title}</h1>
         {entry.role && <p>{entry.role}</p>}
-        <Dates entry={entry} />
         <p>{entry.summary}</p>
         {entry.award && <p className="award">{entry.award}</p>}
       </header>
       {entry.collection === "projects" && <Cover entry={entry} />}
       <div className="detail-body">
         {entry.placeholder && <p>Placeholder. Details will be added later.</p>}
-        <ExperienceRoles entry={entry} />
         {!!entry.bullets?.length && (
           <ul>
             {entry.bullets.map((bullet) => (
@@ -65,7 +60,6 @@ export default async function Detail({ params }: Props) {
             <p>{section.text}</p>
           </section>
         ))}
-        <ExperienceResources entry={entry} detail />
         {entry.collection === "projects" && entry.links.length > 0 && (
           <nav className="detail-links" aria-label="Project links">
             {entry.links.map((link) => (

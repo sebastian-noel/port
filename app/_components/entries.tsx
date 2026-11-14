@@ -132,21 +132,14 @@ export function ExperienceRoles({ entry }: { entry: Entry }) {
   );
 }
 
-export function ExperienceResources({
-  entry,
-  detail = false,
-}: {
-  entry: Entry;
-  detail?: boolean;
-}) {
-  if (entry.collection !== "experiences" || entry.placeholder) return null;
-  const Heading = detail ? "h2" : "h3";
+export function ExperienceResources({ entry }: { entry: Entry }) {
+  if (!entry.links.length) return null;
   return (
     <section
       className="experience-resources"
       aria-label={`${entry.title} resources`}
     >
-      <Heading>Links & resources</Heading>
+      <h3>Links & Resources</h3>
       <div className="detail-links">
         {entry.links.map((link) => (
           <a className="text-link" href={link.href} key={link.href}>
@@ -162,10 +155,7 @@ export function ExperienceList({ items }: { items: Entry[] }) {
   return (
     <div className="timeline">
       {items.map((entry) => (
-        <article
-          className={`timeline-entry${entry.placeholder ? " is-placeholder" : ""}`}
-          key={entry.slug}
-        >
+        <article className="timeline-entry" id={entry.slug} key={entry.slug}>
           <div className="timeline-date">
             <Dates entry={entry} />
           </div>
@@ -173,17 +163,8 @@ export function ExperienceList({ items }: { items: Entry[] }) {
             <div className="experience-top">
               <Cover entry={entry} />
               <div>
-                <h2>
-                  {entry.placeholder ? (
-                    entry.title
-                  ) : (
-                    <Link href={`/experiences/${entry.slug}`}>
-                      {entry.title}
-                      <Icon name="external" />
-                    </Link>
-                  )}
-                </h2>
-                {entry.role && <p className="role">{entry.role}</p>}
+                <h2>{entry.role}</h2>
+                <p className="organization">{entry.title}</p>
               </div>
             </div>
             <p>{entry.summary}</p>

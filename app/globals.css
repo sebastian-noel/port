@@ -637,29 +637,30 @@ dialog nav a[aria-current] {
 .project-copy svg {
   width: 18px;
 }
-.project-card.is-placeholder,
-.timeline-entry.is-placeholder .experience-card {
+.project-card.is-placeholder {
   background: color-mix(in srgb, var(--canvas), var(--sky) 24%);
 }
 .empty-results {
   padding: 40px 0 100px;
 }
+.experiences-page {
+  width: min(1840px, calc(100% - 80px));
+}
 .timeline {
-  max-width: 1000px;
+  width: 100%;
 }
 .timeline-entry {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 34px;
   position: relative;
+  padding-left: 20px;
   padding-bottom: 28px;
+  scroll-margin-top: 100px;
 }
 .timeline-entry::before {
   content: "";
   position: absolute;
   width: 2px;
   background: var(--line);
-  left: 195px;
+  left: 3px;
   top: 12px;
   bottom: -12px;
 }
@@ -672,7 +673,7 @@ dialog nav a[aria-current] {
   width: 10px;
   height: 10px;
   background: var(--accent);
-  left: 191px;
+  left: -1px;
   top: 10px;
 }
 .timeline-date {
@@ -707,13 +708,9 @@ dialog nav a[aria-current] {
   font-size: 27px;
   margin: 0 0 8px;
 }
-.experience-top h2 a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.experience-top h2 svg {
-  width: 16px;
+.organization {
+  margin: 0;
+  font-size: 16px;
 }
 .role {
   margin: 0;
@@ -746,8 +743,7 @@ dialog nav a[aria-current] {
 .experience-resources {
   margin-top: 28px;
 }
-.experience-card .experience-resources h3,
-.detail-body .experience-resources h2 {
+.experience-card .experience-resources h3 {
   font-size: 18px;
   margin: 0;
 }
@@ -1026,7 +1022,8 @@ dialog nav a[aria-current] {
   }
 }
 @media (max-width: 600px) {
-  .wrap {
+  .wrap,
+  .experiences-page {
     width: calc(100% - 40px);
   }
   .nav-row {
