@@ -726,22 +726,6 @@ export const records: Entry[] = [
     sections: [],
     links: [],
   },
-  {
-    collection: "experiences",
-    slug: "placeholder-1",
-    title: "Future experience 1",
-    summary: "Placeholder · Details to come",
-    context: "Placeholder",
-    published: false,
-    featured: false,
-    placeholder: true,
-    cover: {
-      placeholder: true,
-    },
-    tone: "muted",
-    sections: [],
-    links: [],
-  },
 ];
 
 export function validateEntries(items: Entry[]) {

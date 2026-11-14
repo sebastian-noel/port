@@ -14,7 +14,9 @@ const routes = [
   "/experiences",
   "/about",
   "/resume",
-  ...records.map((entry) => `/${entry.collection}/${entry.slug}`),
+  ...records
+    .filter((entry) => entry.collection === "projects")
+    .map((entry) => `/projects/${entry.slug}`),
 ];
 
 test("content records validate and publication excludes drafts", () => {
@@ -145,6 +147,8 @@ test("missing content returns 404 and indexing endpoints stay closed for preview
   for (const path of [
     "/projects/missing",
     "/experiences/missing",
+    "/experiences/bny",
+    "/experiences/ucf-ist",
     "/other/permanence",
     "/missing",
   ]) {
@@ -289,9 +293,9 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
     name: "Featured Experiences",
   });
   await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
-    "BNY",
-    "UCF Institute of AI",
-    "Knight Hacks",
+    "Software engineering",
+    "Undergraduate research",
+    "Mentoring & outreach",
   ]);
   await expect(experiences.getByRole("link")).toHaveCount(5);
   const resume = page.locator(".resume-link");
@@ -370,7 +374,6 @@ test("experience chronology and timeline descriptions", async ({
     "2026-01",
     "2025-07",
     "2025-05",
-    "",
   ]);
   expect(() =>
     validateEntries([{ ...records[0], startDate: "2026-13" }]),
@@ -381,7 +384,33 @@ test("experience chronology and timeline descriptions", async ({
     ]),
   ).toThrow(/timeline/);
   await page.goto("/experiences");
-  await expect(page.locator(".experience-card")).toHaveCount(8);
+  await expect(page.locator(".experience-card")).toHaveCount(7);
+  await expect(
+    page
+      .getByRole("navigation", { name: "Main", exact: true })
+      .getByRole("link"),
+  ).toHaveText(["Home", "Experiences", "Projects", "About"]);
+  await expect(page.getByText("Future experience 1")).toHaveCount(0);
+  await expect(
+    page.locator(".experience-card").first().getByRole("heading", { level: 2 }),
+  ).toHaveText("Software Engineer Intern");
+  await expect(
+    page.locator(".experience-card a[href^='/experiences/']"),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Links & Resources", exact: true }),
+  ).toHaveCount(7);
+  await page.setViewportSize({ width: 1600, height: 900 });
+  expect(
+    await page.locator(".experience-card li").evaluateAll((items) =>
+      items.every((item) => {
+        const range = document.createRange();
+        range.selectNodeContents(item);
+        return range.getClientRects().length === 1;
+      }),
+    ),
+  ).toBe(true);
+
   await expect(
     page.locator(".experience-card").first().getByRole("listitem"),
   ).toHaveCount(4);
@@ -394,17 +423,20 @@ test("experience chronology and timeline descriptions", async ({
   const fsec = page
     .locator(".timeline-entry")
     .filter({ hasText: "Florida Solar Energy Center" });
-  await expect(fsec.locator(".role")).toHaveText("Software Engineer Intern");
+  await expect(fsec.getByRole("heading", { level: 2 })).toHaveText(
+    "Software Engineer Intern",
+  );
   await expect(fsec.locator("time")).toHaveText(["May 2025", "Sep 2025"]);
   await expect(fsec.getByRole("listitem")).toHaveCount(3);
-  await page.goto("/experiences/knight-hacks");
+  await page.goto("/experiences#knight-hacks");
   await expect(
-    page.locator(".experience-roles").getByText("Mentor", { exact: true }),
+    page
+      .locator("#knight-hacks .experience-roles")
+      .getByText("Mentor", { exact: true }),
   ).toBeVisible();
-  await expect(page.locator(".experience-roles time")).toHaveText([
-    "Sep 2026",
-    "Jan 2026",
-  ]);
+  await expect(page.locator("#knight-hacks .experience-roles time")).toHaveText(
+    ["Sep 2026", "Jan 2026"],
+  );
   await expect(page.getByText("(bullet 2)", { exact: true })).toBeVisible();
   await expect(
     page
@@ -414,13 +446,13 @@ test("experience chronology and timeline descriptions", async ({
     "href",
     "https://www.linkedin.com/in/snoel-dev/details/experience/",
   );
-  for (const width of [1280, 390]) {
+  for (const width of [1600, 390]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto("/experiences/ucf-ist");
+    await page.goto("/experiences");
     await expect(page.getByText(/99.5%/)).toBeVisible();
     await page.screenshot({
-      path: testInfo.outputPath(`ist-${width}.png`),
-      fullPage: true,
+      path: testInfo.outputPath(`experiences-${width}.png`),
+      fullPage: false,
     });
     expect(
       await page.evaluate(

@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/resume",
     ...entries
-      .filter((entry) => entry.published)
+      .filter((entry) => entry.published && entry.collection === "projects")
       .map((entry) => `/${entry.collection}/${entry.slug}`),
   ].map((path) => ({ url: `${site.origin}${path}` }));
 }

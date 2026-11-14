@@ -8,8 +8,8 @@ import { site } from "../_lib/site";
 
 const pages = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
   { href: "/experiences", label: "Experiences" },
+  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
 ];
 

@@ -225,13 +225,13 @@ export function HomeShowcase() {
                   {highlight.mark}
                 </div>
                 <div className={styles.experienceCopy}>
-                  <p className={styles.experienceRole}>{highlight.role}</p>
-                  <h3>{highlight.name}</h3>
+                  <p className={styles.experienceRole}>{highlight.name}</p>
+                  <h3>{highlight.role}</h3>
                   <p className={styles.experienceDetail}>{highlight.detail}</p>
                   <div className={styles.experienceLinks}>
                     {links.map(({ entry, label }) => (
                       <Link
-                        href={`/experiences/${entry.slug}`}
+                        href={`/experiences#${entry.slug}`}
                         key={entry.slug}
                       >
                         {label}
