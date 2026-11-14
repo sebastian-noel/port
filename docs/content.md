@@ -11,7 +11,7 @@ Edit `app/_content/entries.ts` to add a project or experience. Project cards and
 - `published: true` requires real media and body content. All current records are drafts. Drafts appear in protected previews and are excluded once production indexing is enabled.
 - Review individual contributions, dates, metrics, photo permission, and content before publication.
 
-The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume, including UCF's experiential context for BNY. The November 2026 refresh also uses owner-supplied LinkedIn and previous-resume screenshots. LinkedIn supplies role dates where older resume versions conflict; IST is May to July 2026 and FSEC is a Software Engineer Internship from May to September 2025. Keep missing accomplishments explicit, such as `(bullet 2)`, rather than inventing metrics. Resource links point to the supplied paper or LinkedIn experience until direct project resources are supplied. Unknown dates remain absent.
+The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume. The November 2026 refresh also uses owner-supplied LinkedIn and previous-resume screenshots. LinkedIn supplies role dates where older resume versions conflict; IST is May to July 2026 and FSEC is a Software Engineer Internship from May to September 2025. Use `**emphasis**` around phrases that were bold in the source; experience cards render those phrases in scarlet. Keep missing accomplishments explicit, such as `(bullet 2)`, rather than inventing metrics. Resource links point to the supplied paper or LinkedIn experience until direct project resources are supplied. Unknown dates remain absent.
 
 ## Contact
 

@@ -107,7 +107,7 @@ const experienceHighlights = [
   {
     name: "BNY",
     role: "Software engineering",
-    detail: "Two internships through UCF's experiential program.",
+    detail: "Two internships in software engineering at BNY.",
     slugs: ["bny", "bny-spring"],
     labels: ["Infrastructure engineering", "Fault remediation"],
     mark: "2×",

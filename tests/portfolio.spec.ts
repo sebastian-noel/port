@@ -406,7 +406,11 @@ test("experience chronology and timeline descriptions", async ({
       items.every((item) => {
         const range = document.createRange();
         range.selectNodeContents(item);
-        return range.getClientRects().length === 1;
+        return (
+          new Set(
+            Array.from(range.getClientRects(), (rect) => Math.round(rect.top)),
+          ).size === 1
+        );
       }),
     ),
   ).toBe(true);
@@ -415,6 +419,41 @@ test("experience chronology and timeline descriptions", async ({
     page.locator(".experience-card").first().getByRole("listitem"),
   ).toHaveCount(4);
   await expect(page.locator("time").first()).toHaveText("Aug 2026");
+  const bny = page.locator("#bny");
+  await expect(bny.locator("li strong")).toContainText([
+    "Azure VMs",
+    "Terraform",
+    "five Spring Boot",
+    "Docker Compose",
+    "two VMs",
+    "Azure Application Gateway",
+    "40%",
+    "Azure Managed Redis",
+    "PostgreSQL",
+    "five",
+    "Prometheus",
+    "Grafana",
+    "15-second",
+    "200-hour",
+  ]);
+  for (const id of ["bny", "bny-spring"]) {
+    await expect(page.locator(`#${id}`)).not.toContainText(
+      /experiential|UCF × BNY/i,
+    );
+  }
+  await expect(page.locator("#knight-hacks li strong")).toHaveCount(0);
+  expect(
+    await bny
+      .locator("li strong")
+      .first()
+      .evaluate((el) => getComputedStyle(el).color),
+  ).not.toBe(
+    await bny
+      .locator("li")
+      .first()
+      .evaluate((el) => getComputedStyle(el).color),
+  );
+
   const ist = page
     .locator(".timeline-entry")
     .filter({ hasText: "UCF Institute for Simulation and Training" });
