@@ -262,3 +262,21 @@ Sebastian supplied `sebastian@snoel.dev` and requested a direct email link on Ab
 without a contact form. Use the existing text-link styling in a Contact section so
 visitors can see the address and open their email app. The public resume remains
 contact-free. Updated the search and privacy specification and content guide.
+
+## 2026-11-14 experience and resume refresh
+
+Sebastian requested concise experience descriptions, at most four strong evidence-backed accomplishment bullets, and links/resources, with explicit bullet placeholders for missing facts. Reuse the existing typed content and shared templates rather than introducing a second content system. Keep organization cards together with dated role history for GPK and Knight Hacks so title changes stay visible without duplicating the organization. Preserve existing detail URLs. Use the updated resume and supplied screenshots as evidence, preferring LinkedIn role dates over older resume dates: IST May to July 2026; FSEC Software Engineer Intern May to September 2025; UCF AI January to April 2026. Use the four supplied IST bullets and three FSEC bullets without invented additions. Direct resource URLs were supplied only for the paper; use the updated LinkedIn experience profile for other roles until specific resources are supplied.
+
+Sebastian explicitly selected his updated resume with the new public email and LinkedIn slug. This supersedes the earlier contact-free PDF requirement for that approved address. Publish the exact reviewed PDF because no private contact information needs removal. Centralize LinkedIn actions at `https://www.linkedin.com/in/snoel-dev/`. The public email remains approved; private phone numbers and other private contact details remain excluded. Track in issue #43; implementation and authoring guidance are in `docs/content.md`.
+
+## 2026-11-14 experience layout refinement
+
+Sebastian requested Home, Experiences, Projects, About navigation; wider experience cards; role-first headings; Links & Resources capitalization; removal of the future experience placeholder; and removal of experience case-study pages. This supersedes the earlier requirement for experience detail URLs. Keep project case studies in the explicit `/projects/[slug]` route and use `/experiences#slug` anchors for homepage links, so navigation reaches the complete experience without duplicated pages. Put dates above cards and allow the experience collection to use the available desktop width rather than shrinking type or forcing horizontal scrolling. Full bullets fit on one line at 1600px; smaller screens retain normal wrapping. Apply the role-first hierarchy to homepage experience highlights for consistency. Track in issue #45; update content guidance and site structure together.
+
+## 2026-11-14 experience bullet emphasis
+
+Sebastian requested scarlet text for the parts of experience bullets that were bold in his supplied resume and screenshots, and removal of the UCF experiential-program wording from both BNY experience descriptions. Preserve existing bullet wording and mark only source-bold phrases with `**` in the typed records. Render those spans as semantic strong emphasis with a 65% mix of the existing scarlet and white: the lighter scarlet preserves contrast for small text on the navy cards while retaining the palette. Leave Knight Hacks placeholders plain because no matching bold source text was supplied. Remove the same BNY program wording from the homepage highlight so the site is consistent. Track in issue #47 and document the authoring syntax in `docs/content.md`.
+
+## 2026-11-14 stronger scarlet emphasis
+
+Sebastian requested bolder experience bullet emphasis and a color closer to the original scarlet. Mix the existing scarlet at 75% with white and render the marked phrases at weight 700. Varela Round only ships a regular weight in this project, so enable weight synthesis for these phrases only, preserving the existing typeface and avoiding a new font download. This supersedes the 65% normal-weight treatment from issue #47. Darken the experience card background from a 16% to an 8% sky mix to keep the stronger red readable at approximately 4.6:1 contrast. Verify reading and wrapping on desktop and mobile. Track the refinement in issue #49.

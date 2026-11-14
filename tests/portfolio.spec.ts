@@ -14,7 +14,9 @@ const routes = [
   "/experiences",
   "/about",
   "/resume",
-  ...records.map((entry) => `/${entry.collection}/${entry.slug}`),
+  ...records
+    .filter((entry) => entry.collection === "projects")
+    .map((entry) => `/projects/${entry.slug}`),
 ];
 
 test("content records validate and publication excludes drafts", () => {
@@ -145,6 +147,8 @@ test("missing content returns 404 and indexing endpoints stay closed for preview
   for (const path of [
     "/projects/missing",
     "/experiences/missing",
+    "/experiences/bny",
+    "/experiences/ucf-ist",
     "/other/permanence",
     "/missing",
   ]) {
@@ -289,9 +293,9 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
     name: "Featured Experiences",
   });
   await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
-    "BNY",
-    "UCF Institute of AI",
-    "Knight Hacks",
+    "Software engineering",
+    "Undergraduate research",
+    "Mentoring & outreach",
   ]);
   await expect(experiences.getByRole("link")).toHaveCount(5);
   const resume = page.locator(".resume-link");
@@ -358,15 +362,18 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   }
 });
 
-test("experience chronology and timeline descriptions", async ({ page }) => {
+test("experience chronology and timeline descriptions", async ({
+  page,
+}, testInfo) => {
   const items = collectionEntries("experiences");
   expect(items.map((e) => e.startDate ?? "")).toEqual([
     "2026-08",
+    "2026-05",
+    "2026-01",
     "2026-01",
     "2026-01",
     "2025-07",
-    "",
-    "",
+    "2025-05",
   ]);
   expect(() =>
     validateEntries([{ ...records[0], startDate: "2026-13" }]),
@@ -377,11 +384,121 @@ test("experience chronology and timeline descriptions", async ({ page }) => {
     ]),
   ).toThrow(/timeline/);
   await page.goto("/experiences");
-  await expect(page.locator(".experience-card")).toHaveCount(6);
+  await expect(page.locator(".experience-card")).toHaveCount(7);
+  await expect(
+    page
+      .getByRole("navigation", { name: "Main", exact: true })
+      .getByRole("link"),
+  ).toHaveText(["Home", "Experiences", "Projects", "About"]);
+  await expect(page.getByText("Future experience 1")).toHaveCount(0);
+  await expect(
+    page.locator(".experience-card").first().getByRole("heading", { level: 2 }),
+  ).toHaveText("Software Engineer Intern");
+  await expect(
+    page.locator(".experience-card a[href^='/experiences/']"),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Links & Resources", exact: true }),
+  ).toHaveCount(7);
+  await page.setViewportSize({ width: 1600, height: 900 });
+  expect(
+    await page.locator(".experience-card li").evaluateAll((items) =>
+      items.every((item) => {
+        const range = document.createRange();
+        range.selectNodeContents(item);
+        return (
+          new Set(
+            Array.from(range.getClientRects(), (rect) => Math.round(rect.top)),
+          ).size === 1
+        );
+      }),
+    ),
+  ).toBe(true);
+
   await expect(
     page.locator(".experience-card").first().getByRole("listitem"),
-  ).toHaveCount(3);
+  ).toHaveCount(4);
   await expect(page.locator("time").first()).toHaveText("Aug 2026");
+  const bny = page.locator("#bny");
+  await expect(bny.locator("li strong")).toContainText([
+    "Azure VMs",
+    "Terraform",
+    "five Spring Boot",
+    "Docker Compose",
+    "two VMs",
+    "Azure Application Gateway",
+    "40%",
+    "Azure Managed Redis",
+    "PostgreSQL",
+    "five",
+    "Prometheus",
+    "Grafana",
+    "15-second",
+    "200-hour",
+  ]);
+  for (const id of ["bny", "bny-spring"]) {
+    await expect(page.locator(`#${id}`)).not.toContainText(
+      /experiential|UCF × BNY/i,
+    );
+  }
+  await expect(page.locator("#knight-hacks li strong")).toHaveCount(0);
+  expect(
+    await bny
+      .locator("li strong")
+      .first()
+      .evaluate((el) => getComputedStyle(el).color),
+  ).not.toBe(
+    await bny
+      .locator("li")
+      .first()
+      .evaluate((el) => getComputedStyle(el).color),
+  );
+
+  const ist = page
+    .locator(".timeline-entry")
+    .filter({ hasText: "UCF Institute for Simulation and Training" });
+  await expect(ist.locator("time")).toHaveText(["May 2026", "Jul 2026"]);
+  await expect(ist.getByRole("listitem")).toHaveCount(4);
+  const fsec = page
+    .locator(".timeline-entry")
+    .filter({ hasText: "Florida Solar Energy Center" });
+  await expect(fsec.getByRole("heading", { level: 2 })).toHaveText(
+    "Software Engineer Intern",
+  );
+  await expect(fsec.locator("time")).toHaveText(["May 2025", "Sep 2025"]);
+  await expect(fsec.getByRole("listitem")).toHaveCount(3);
+  await page.goto("/experiences#knight-hacks");
+  await expect(
+    page
+      .locator("#knight-hacks .experience-roles")
+      .getByText("Mentor", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator("#knight-hacks .experience-roles time")).toHaveText(
+    ["Sep 2026", "Jan 2026"],
+  );
+  await expect(page.getByText("(bullet 2)", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "Knight Hacks resources" })
+      .getByRole("link"),
+  ).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/snoel-dev/details/experience/",
+  );
+  for (const width of [1600, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/experiences");
+    await expect(page.getByText(/99.5%/)).toBeVisible();
+    await page.screenshot({
+      path: testInfo.outputPath(`experiences-${width}.png`),
+      fullPage: false,
+    });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
 });
 
 test("intro replays on home navigation and refresh", async ({

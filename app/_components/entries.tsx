@@ -108,7 +108,7 @@ export function Dates({ entry }: { entry: Entry }) {
   return (
     <p className="dates">
       <time dateTime={entry.startDate}>{month(entry.startDate)}</time>
-      <span> — </span>
+      <span> to </span>
       {entry.endDate ? (
         <time dateTime={entry.endDate}>{month(entry.endDate)}</time>
       ) : (
@@ -118,14 +118,44 @@ export function Dates({ entry }: { entry: Entry }) {
   );
 }
 
+export function ExperienceRoles({ entry }: { entry: Entry }) {
+  if (!entry.roles?.length) return null;
+  return (
+    <div className="experience-roles">
+      {entry.roles.map((role) => (
+        <div key={role.title}>
+          <p className="role">{role.title}</p>
+          <Dates entry={{ ...entry, ...role }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function ExperienceResources({ entry }: { entry: Entry }) {
+  if (!entry.links.length) return null;
+  return (
+    <section
+      className="experience-resources"
+      aria-label={`${entry.title} resources`}
+    >
+      <h3>Links & Resources</h3>
+      <div className="detail-links">
+        {entry.links.map((link) => (
+          <a className="text-link" href={link.href} key={link.href}>
+            {link.label} ↗
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function ExperienceList({ items }: { items: Entry[] }) {
   return (
     <div className="timeline">
       {items.map((entry) => (
-        <article
-          className={`timeline-entry${entry.placeholder ? " is-placeholder" : ""}`}
-          key={entry.slug}
-        >
+        <article className="timeline-entry" id={entry.slug} key={entry.slug}>
           <div className="timeline-date">
             <Dates entry={entry} />
           </div>
@@ -133,27 +163,30 @@ export function ExperienceList({ items }: { items: Entry[] }) {
             <div className="experience-top">
               <Cover entry={entry} />
               <div>
-                <h2>
-                  {entry.placeholder ? (
-                    entry.title
-                  ) : (
-                    <Link href={`/experiences/${entry.slug}`}>
-                      {entry.title}
-                      <Icon name="external" />
-                    </Link>
-                  )}
-                </h2>
-                {entry.role && <p className="role">{entry.role}</p>}
+                <h2>{entry.role}</h2>
+                <p className="organization">{entry.title}</p>
               </div>
             </div>
             <p>{entry.summary}</p>
+            <ExperienceRoles entry={entry} />
             {!!entry.bullets?.length && (
               <ul>
                 {entry.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
+                  <li key={bullet}>
+                    {bullet
+                      .split(/(\*\*[^*]+\*\*)/g)
+                      .map((part, index) =>
+                        part.startsWith("**") ? (
+                          <strong key={index}>{part.slice(2, -2)}</strong>
+                        ) : (
+                          part
+                        ),
+                      )}
+                  </li>
                 ))}
               </ul>
             )}
+            <ExperienceResources entry={entry} />
           </div>
         </article>
       ))}

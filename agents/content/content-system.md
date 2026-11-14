@@ -80,4 +80,4 @@ Ten public Devpost projects are included as drafts: Permanence, Recall, GregHous
 
 The supplied resume was read for BNY, UCF AI, and GPK dates and bullets. BNY retains UCF experiential-program context. Knight Hacks dates remain unknown and omitted. Null end dates explicitly mean Present; author verified dates rather than inferring them.
 
-The contact-free PDF keeps the original education, experience, projects, and skills body. Its extracted body matches after Unicode ligature normalization, and private header contacts are absent. A rendered page was inspected. Resume actions open that PDF in a new tab.
+The November 14, 2026 public PDF is the updated file explicitly selected by Sebastian, including his approved public email and new LinkedIn slug. Text extraction and rendering were inspected before copying it. Resume actions open that PDF in a new tab. Private source resumes and other private contact details remain excluded.

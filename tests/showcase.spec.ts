@@ -439,7 +439,7 @@ test("mobile leads with Permanence and keeps visible keyboard links", async ({
   await link.focus();
   await expect(link).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/experiences\/bny$/);
+  await expect(page).toHaveURL(/\/experiences#bny$/);
 });
 
 test("showcase stays readable without JavaScript and loads only approved media", async ({

@@ -1,28 +1,29 @@
 # Content and media
 
-Edit `app/_content/entries.ts` to add a project or experience. Collection cards and detail routes are generated from the same records.
+Edit `app/_content/entries.ts` to add a project or experience. Project cards and detail routes are generated from the same records. Experiences render completely on `/experiences` and use stable `#slug` anchors for incoming links; they have no case-study routes.
 
 - Give each record a stable slug, title, summary, cover, sections, and HTTPS source links.
 - Projects support `technologies`, `team`, and `event` for the search field. Search currently matches plain substrings across these fields and the title. Metadata is incomplete; verify it before expansion.
-- Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and resume-style `bullets`. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
+- Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and up to four resume-style `bullets`. Optional `roles` preserve separate role titles and dates within one organization. Experience cards show the role as the main heading, organization as secondary text, descriptions, role history, bullets, and a Links & Resources section. Dates sit above full-width cards so long bullets have room on desktop; text wraps on smaller screens. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
 - `placeholder: true` identifies a future entry. It is visibly labeled, has no collection-card link, and cannot be published.
+- Do not add future experience placeholders. Add actual new experiences with their verified start dates; they sort at the top.
 - A placeholder cover renders a letter on a flat color. Replace it with an optimized image in `public/media/`, with dimensions and meaningful alt text.
 - `published: true` requires real media and body content. All current records are drafts. Drafts appear in protected previews and are excluded once production indexing is enabled.
 - Review individual contributions, dates, metrics, photo permission, and content before publication.
 
-The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume, including UCF's experiential context for BNY. Unknown dates remain absent.
+The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume. The November 2026 refresh also uses owner-supplied LinkedIn and previous-resume screenshots. LinkedIn supplies role dates where older resume versions conflict; IST is May to July 2026 and FSEC is a Software Engineer Internship from May to September 2025. Use `**emphasis**` around phrases that were bold in the source; experience cards render those phrases in scarlet. Keep missing accomplishments explicit, such as `(bullet 2)`, rather than inventing metrics. Resource links point to the supplied paper or LinkedIn experience until direct project resources are supplied. Unknown dates remain absent.
 
 ## Contact
 
 The About page links directly to Sebastian's approved public email,
 `sebastian@snoel.dev`, using a `mailto:` link. Edit `app/about/page.tsx` to update
-the address. The public resume remains contact-free.
+the address. The public resume includes this same approved public email.
 
 ## Resume
 
-`public/resume.pdf` is the contact-free public version of the supplied resume. Private contact text was removed from the page drawing operations, not covered visually. It retains the education, experience, projects, and skills sections, plus public profile links as text. Header and footer resume actions open this PDF in a new tab. `/resume` remains a shareable landing page.
+`public/resume.pdf` is the exact updated resume Sebastian selected on November 14, 2026. It includes his approved public email and the updated `linkedin.com/in/snoel-dev` profile. The supplied file was checked for private contact details before copying. Header and footer resume actions open this PDF in a new tab. `/resume` remains a shareable landing page.
 
-Do not commit the original resume, private contact information, original assets, or secrets. Review text extraction and rendering whenever replacing the public PDF.
+Only commit the deliberately selected public resume. Do not commit private source resumes, private contact information, original assets, or secrets. Review text extraction and rendering whenever replacing the public PDF.
 
 ## Motion and home layout
 
