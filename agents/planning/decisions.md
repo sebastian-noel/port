@@ -280,3 +280,8 @@ Sebastian requested scarlet text for the parts of experience bullets that were b
 ## 2026-11-14 stronger scarlet emphasis
 
 Sebastian requested bolder experience bullet emphasis and a color closer to the original scarlet. Mix the existing scarlet at 75% with white and render the marked phrases at weight 700. Varela Round only ships a regular weight in this project, so enable weight synthesis for these phrases only, preserving the existing typeface and avoiding a new font download. This supersedes the 65% normal-weight treatment from issue #47. Darken the experience card background from a 16% to an 8% sky mix to keep the stronger red readable at approximately 4.6:1 contrast. Verify reading and wrapping on desktop and mobile. Track the refinement in issue #49.
+
+
+## 2026-11-15 splash arrow and award logo corrections
+
+Issue #56 fixes the splash arrow's hover specificity conflict: its scale selector now overrides the generic diagonal link-arrow transform and also applies on keyboard focus. Knight Hacks IX keeps the supplied colored vector paths with a white stroked vector copy behind them, replacing the rasterized SVG morphology filter for sharper mobile rendering. NVIDIA uses only its original green eye path in a tighter viewBox, since the badge already names NVIDIA beneath the placement. These are bounded corrections to the existing design; the rejected homepage experience redesign remains excluded.
