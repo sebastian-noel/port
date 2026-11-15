@@ -236,8 +236,11 @@ button:active,
   box-shadow: none;
 }
 .nav-actions a:hover > svg,
-.menu-trigger:hover > svg,
-.splash-down:hover > svg {
+.menu-trigger:hover > svg {
+  transform: scale(1.18);
+}
+.splash-down:hover > svg:last-child,
+.splash-down:focus-visible > svg:last-child {
   transform: scale(1.18);
 }
 .menu-trigger {

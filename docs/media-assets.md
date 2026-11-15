@@ -3,14 +3,14 @@
 Only the assets requested for the experimental showcase are included. Original
 files and the private source resume stay outside the repository.
 
-| Asset                                          | Source                                                                                        | Preparation                                                                                                                                             |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `public/media/permanence-winners.webp`         | Sebastian's supplied `permanence_win.jpg`                                                     | Preserve the complete 16:9 collage, export WebP at quality 82, strip metadata. About 125 KB.                                                            |
-| `public/media/awards/hackusf-transparent.webp` | Sebastian's supplied `hackusf_logo.png`                                                       | Transparent cutout made with built-in imagegen; resize to 160px WebP. About 12 KB.                                                                      |
-| `public/media/awards/knight-hacks-ix.svg`      | Sebastian's supplied `khix-sigil.svg`                                                         | Preserve the supplied artwork and add a white alpha-dilation outline in the derived SVG for contrast.                                                   |
-| `public/media/awards/bloomknights.svg`         | Sebastian's supplied `BloomKnightsSigil.svg`                                                  | Preserve the supplied SVG artwork.                                                                                                                      |
-| `public/media/awards/nvidia.svg`               | [NVIDIA brand assets](https://www.nvidia.com/en-us/about-nvidia/legal-info/logo-brand-usage/) | Official vertical eyemark and NVIDIA wordmark. Crop empty artboard space to a padded square viewBox without changing the paths, proportions, or colors. |
-| `public/media/awards/hugging-face.svg`         | [Hugging Face brand assets](https://huggingface.co/brand)                                     | Official full-color icon without the wordmark.                                                                                                          |
+| Asset                                          | Source                                                                                        | Preparation                                                                                                                                                                        |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/media/permanence-winners.webp`         | Sebastian's supplied `permanence_win.jpg`                                                     | Preserve the complete 16:9 collage, export WebP at quality 82, strip metadata. About 125 KB.                                                                                       |
+| `public/media/awards/hackusf-transparent.webp` | Sebastian's supplied `hackusf_logo.png`                                                       | Transparent cutout made with built-in imagegen; resize to 160px WebP. About 12 KB.                                                                                                 |
+| `public/media/awards/knight-hacks-ix.svg`      | Sebastian's supplied `khix-sigil.svg`                                                         | Preserve the supplied artwork. A white stroked vector copy behind the colored paths supplies the outline without SVG filter rasterization on mobile.                               |
+| `public/media/awards/bloomknights.svg`         | Sebastian's supplied `BloomKnightsSigil.svg`                                                  | Preserve the supplied SVG artwork.                                                                                                                                                 |
+| `public/media/awards/nvidia.svg`               | [NVIDIA brand assets](https://www.nvidia.com/en-us/about-nvidia/legal-info/logo-brand-usage/) | Official green eyemark only. Remove the wordmark path and crop the viewBox around the eye, preserving its paths, proportions, and colors. The badge copy supplies the NVIDIA name. |
+| `public/media/awards/hugging-face.svg`         | [Hugging Face brand assets](https://huggingface.co/brand)                                     | Official full-color icon without the wordmark.                                                                                                                                     |
 
 Company SVGs were retrieved on November 12, 2026. Local SVGs contain no scripts,
 embedded foreign content, or external image references. Render them as images and
@@ -38,5 +38,5 @@ elements. Square composition with modest transparent padding. This is a small
 website award logo."
 
 The homepage's shared SVG alpha-dilation filter gives the HackUSF, NVIDIA, Hugging Face, and BloomKnights logo
-images a thin white outline matching the Knight Hacks IX treatment. Their original
+images a thin white outline. Knight Hacks IX uses a vector-stroke outline to avoid the filter rasterization that softened its small mobile rendering. Their original
 artwork and transparency remain unchanged; this is a rendering effect.
