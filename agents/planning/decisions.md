@@ -280,3 +280,8 @@ Sebastian requested scarlet text for the parts of experience bullets that were b
 ## 2026-11-14 stronger scarlet emphasis
 
 Sebastian requested bolder experience bullet emphasis and a color closer to the original scarlet. Mix the existing scarlet at 75% with white and render the marked phrases at weight 700. Varela Round only ships a regular weight in this project, so enable weight synthesis for these phrases only, preserving the existing typeface and avoiding a new font download. This supersedes the 65% normal-weight treatment from issue #47. Darken the experience card background from a 16% to an 8% sky mix to keep the stronger red readable at approximately 4.6:1 contrast. Verify reading and wrapping on desktop and mobile. Track the refinement in issue #49.
+
+
+## 2026-11-14 homepage experience redesign
+
+Sebastian requested a distinctive replacement for Featured Experiences, with creative freedom and the project showcase's quality as the styling reference. Issue #54 implements **In Good Company**: a wide stone-blue BNY panel above open research and community columns on navy. Role headings stay larger than organization names. Oversized source-backed figures (two internships, 2.5 million evaluated frames across 47 videos, four Kickstart mentees) supply visual variety without invented accomplishments or new media. Separate BNY links preserve direct access to both internships. The existing one-time reveal respects reduced motion and keyboard focus. This is requested site polish, with exact dev preview review required before a main release.

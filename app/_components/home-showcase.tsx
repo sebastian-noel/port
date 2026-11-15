@@ -4,6 +4,7 @@ import { collectionEntries, type Entry } from "../_content/entries";
 import { Icon } from "./icons";
 import { ShowcaseMotion } from "./showcase-motion";
 import styles from "./showcase.module.css";
+import impact from "./home-experiences.module.css";
 
 function FeaturedProject({ entry }: { entry: Entry }) {
   const centerpiece = entry.slug === "permanence";
@@ -107,26 +108,32 @@ const experienceHighlights = [
   {
     name: "BNY",
     role: "Software engineering",
-    detail: "Two internships in software engineering at BNY.",
+    detail:
+      "Cloud infrastructure, service monitoring, and automated recovery for financial microservices.",
     slugs: ["bny", "bny-spring"],
     labels: ["Infrastructure engineering", "Fault remediation"],
-    mark: "2×",
+    metric: "2×",
+    metricLabel: "software engineering internships",
   },
   {
     name: "UCF Institute of AI",
     role: "Undergraduate research",
-    detail: "Efficient long-video understanding and test-time training.",
+    detail:
+      "Making long-video understanding more efficient, with less repeated computation and more temporal context.",
     slugs: ["ucf-ai"],
     labels: ["Explore the research"],
-    mark: "AI",
+    metric: "2.5M",
+    metricLabel: "frames evaluated across 47 videos",
   },
   {
     name: "Knight Hacks",
     role: "Mentoring & outreach",
-    detail: "Supporting UCF's hackathon community.",
+    detail:
+      "Helping students find their footing through Kickstart mentorship, projects, and hackathon outreach.",
     slugs: ["knight-hacks"],
-    labels: ["Explore the experience"],
-    mark: "KH",
+    labels: ["Mentorship & outreach"],
+    metric: "4",
+    metricLabel: "students mentored through Kickstart",
   },
 ];
 
@@ -191,58 +198,62 @@ export function HomeShowcase() {
         </div>
       </section>
       <section
-        className={styles.experiences}
-        aria-labelledby="featured-experiences-heading"
+        className={impact.section}
+        aria-labelledby="home-experiences-heading"
       >
-        <div className={styles.experienceIntro}>
-          <h2
-            id="featured-experiences-heading"
-            aria-label="Featured Experiences"
-          >
-            Featured
-            <br />
-            Experiences<span className={styles.period}>.</span>
-          </h2>
-          <Link className={styles.allLink} href="/experiences">
-            All experiences <Icon name="external" />
-          </Link>
-        </div>
-        <div className={styles.experienceList}>
-          {experienceHighlights.map((highlight) => {
-            const links = highlight.slugs.flatMap((slug, index) =>
-              experiences
-                .filter((entry) => entry.slug === slug)
-                .map((entry) => ({ entry, label: highlight.labels[index] })),
-            );
-            if (!links.length) return null;
-            return (
-              <article
-                className={styles.experience}
-                key={highlight.name}
-                data-experience
-              >
-                <div className={styles.experienceMark} aria-hidden="true">
-                  {highlight.mark}
-                </div>
-                <div className={styles.experienceCopy}>
-                  <p className={styles.experienceRole}>{highlight.name}</p>
-                  <h3>{highlight.role}</h3>
-                  <p className={styles.experienceDetail}>{highlight.detail}</p>
-                  <div className={styles.experienceLinks}>
+        <div className={impact.inner}>
+          <div className={impact.heading}>
+            <h2 id="home-experiences-heading" aria-label="In Good Company">
+              In Good{" "}
+              <span>
+                Company<span className={styles.period}>.</span>
+              </span>
+            </h2>
+            <Link className={impact.allLink} href="/experiences">
+              All experiences <Icon name="arrow" />
+            </Link>
+          </div>
+          <div className={impact.highlights}>
+            {experienceHighlights.map((highlight) => {
+              const links = highlight.slugs.flatMap((slug, index) =>
+                experiences
+                  .filter((entry) => entry.slug === slug)
+                  .map((entry) => ({ entry, label: highlight.labels[index] })),
+              );
+              if (!links.length) return null;
+              return (
+                <article
+                  className={impact.experience}
+                  key={highlight.name}
+                  data-experience={highlight.slugs[0]}
+                  aria-labelledby={`home-${highlight.slugs[0]}-role`}
+                >
+                  <div className={impact.copy}>
+                    <p className={impact.organization}>{highlight.name}</p>
+                    <h3 id={`home-${highlight.slugs[0]}-role`}>
+                      {highlight.role}
+                    </h3>
+                    <p className={impact.detail}>{highlight.detail}</p>
+                  </div>
+                  <p className={impact.metric}>
+                    <span className={impact.figure}>{highlight.metric}</span>
+                    <span>{highlight.metricLabel}</span>
+                  </p>
+                  <div className={impact.links}>
                     {links.map(({ entry, label }) => (
                       <Link
                         href={`/experiences#${entry.slug}`}
                         key={entry.slug}
                       >
                         {label}
-                        <Icon name="external" />
+                        <Icon name="arrow" />
                       </Link>
                     ))}
                   </div>
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
     </ShowcaseMotion>

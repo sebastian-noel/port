@@ -21,9 +21,11 @@ Slugs remain stable. If one changes, preserve the old link with a redirect. Each
 
 ## Home sequence
 
-1. **Splash:** large centered “Sebastian Noel” typed live once per tab session, followed by the radial tile impulse. No subtitle or promotional copy. Navigation stays immediately usable.
-2. **Workspace:** reserve a large blank area for the future typing game. A small side column links to selected projects and experiences. Stack it below the reserved space on narrow screens.
-3. **Footer:** minimal name and public links.
+1. **Splash:** large centered “Sebastian Noel” typed on homepage entry, followed by the radial tile impulse. No subtitle or promotional copy. Navigation stays immediately usable.
+2. **Featured Projects:** wide dark-navy project stage, with Permanence centered between Recall and Greghouse on desktop and first on phones.
+3. **In Good Company:** distinct experience highlights with one wide BNY panel and two open research/community columns. Keep roles prominent, figures verified, and direct links to `/experiences` anchors.
+4. **Typing game:** keep the reserved blank area until the game is implemented separately.
+5. **Footer:** minimal name and public links.
 
 Do not place an About promotion or About link in home content. About remains in persistent navigation. The game is implemented after design acceptance in a separate PR.
 

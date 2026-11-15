@@ -290,7 +290,7 @@ test("home hierarchy, PDF new tab, and public PDF asset", async ({
   await expect(page.locator(".game-space").getByRole("button")).toHaveCount(0);
   await expect(page.locator(".game-space > :not(.sr-only)")).toHaveCount(0);
   const experiences = page.getByRole("region", {
-    name: "Featured Experiences",
+    name: "In Good Company",
   });
   await expect(experiences.getByRole("heading", { level: 3 })).toHaveText([
     "Software engineering",

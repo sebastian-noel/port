@@ -121,11 +121,23 @@ test("showcase has a centered lead project and balanced outer margins", async ({
     .locator("#workspace")
     .screenshot({ path: testInfo.outputPath("showcase-desktop.png") });
   await page
-    .getByRole("region", { name: "Featured Experiences" })
+    .getByRole("region", { name: "In Good Company" })
     .scrollIntoViewIfNeeded();
-  await page.getByRole("region", { name: "Featured Experiences" }).screenshot({
+  await page.getByRole("region", { name: "In Good Company" }).screenshot({
     path: testInfo.outputPath("showcase-experiences.png"),
   });
+  const company = page.getByRole("region", { name: "In Good Company" });
+  await expect(company.getByText("2×", { exact: true })).toBeVisible();
+  await expect(company.getByText("2.5M", { exact: true })).toBeVisible();
+  await expect(company.getByText("4", { exact: true })).toBeVisible();
+  const bny = company.locator("[data-experience='bny']");
+  const research = company.locator("[data-experience='ucf-ai']");
+  const community = company.locator("[data-experience='knight-hacks']");
+  const bounds = await Promise.all(
+    [bny, research, community].map((item) => item.boundingBox()),
+  );
+  expect(bounds[0]!.width).toBeGreaterThan(bounds[1]!.width * 1.8);
+  expect(Math.abs(bounds[1]!.y - bounds[2]!.y)).toBeLessThan(1);
   const footer = page.getByRole("contentinfo");
   await expect(footer).toContainText("Made with by Sebastian");
   await expect(footer.getByRole("img", { name: "love" })).toBeVisible();
@@ -432,6 +444,19 @@ test("mobile leads with Permanence and keeps visible keyboard links", async ({
   await page
     .locator("[data-project='permanence']")
     .screenshot({ path: testInfo.outputPath("showcase-mobile.png") });
+  const company = page.getByRole("region", { name: "In Good Company" });
+  await company.scrollIntoViewIfNeeded();
+  await company.screenshot({
+    path: testInfo.outputPath("company-mobile.png"),
+    style: ".site-header, .skip-link { visibility: hidden !important; }",
+  });
+  const highlights = await company
+    .locator("[data-experience]")
+    .evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().top),
+    );
+  expect(highlights[0]).toBeLessThan(highlights[1]);
+  expect(highlights[1]).toBeLessThan(highlights[2]);
   const link = page.getByRole("link", {
     name: "Infrastructure engineering",
     exact: true,
@@ -454,6 +479,13 @@ test("showcase stays readable without JavaScript and loads only approved media",
   });
   await page.goto("/");
   await expect(page.locator("[data-project]")).toHaveCount(3);
+  const company = page.getByRole("region", { name: "In Good Company" });
+  await expect(company.getByRole("link")).toHaveCount(5);
+  await expect(company.getByRole("heading", { level: 3 })).toHaveText([
+    "Software engineering",
+    "Undergraduate research",
+    "Mentoring & outreach",
+  ]);
   await expect(
     page.getByText("Video placeholder", { exact: true }),
   ).toHaveCount(2);

@@ -32,8 +32,12 @@ The name types on each home visit, then triggers a radial tile flip. The complet
 The experimental homepage has a wide project showcase, with Recall on the left,
 Permanence larger in the center, and Greghouse on the right. Desktop reveals run
 in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack as
-Permanence, Recall, Greghouse, matching source and keyboard order. Three experience rows follow, with separate links for both
-BNY internships. The typing-game space is still reserved.
+Permanence, Recall, Greghouse, matching source and keyboard order. "In Good Company" follows, with a wide stone-blue BNY panel and separate
+research and community columns. Its role headings, concise descriptions, and verified
+figures come from the existing experience content; update the highlight data in
+`app/_components/home-showcase.tsx` when the featured facts change. Each figure
+must stay supported by the corresponding experience record. Separate links open
+both BNY internships on the experience timeline. The typing-game space is still reserved.
 
 The project section uses a darker navy (`#020f20`) than the landing screen and
 wider 16:9 media frames. Only the project name overlays the bottom fade; the longer

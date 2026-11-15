@@ -24,9 +24,11 @@ white alpha outlines to HackUSF, NVIDIA, and Knight Hacks IX logos. Bring the st
 closer to the heading on desktop to occupy the empty space above the left panel. Stack Permanence, Recall, Greghouse on phones. Keep Varela Round and
 use scale and spacing to establish the new hierarchy without another font download.
 
-Featured experiences become spacious rows on a stone-blue field, with a sticky
-section heading on desktop and a normal stacked heading on mobile. Retain the
-verified BNY, UCF AI research, and Knight Hacks content and their direct links.
+The homepage experience section is now "In Good Company" (issue #54), replacing
+the sticky-heading experience rows. A wide stone-blue BNY panel leads into two
+open columns for UCF AI research and Knight Hacks on the navy canvas. Roles lead
+the hierarchy. Large verified figures replace the decorative initials, and direct
+experience-anchor links remain visible. Stack the panel and columns on phones.
 Use lighter scarlet for small text on navy and full scarlet for large award accents.
 Remaining media placeholders describe the needed clips; do not reuse the existing thumbnails.
 
@@ -74,4 +76,4 @@ Review at 320/375/390 px phones, tablet, wide desktop, landscape, 200% zoom, and
 
 ## First-design correction
 
-Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. The home page leads from the splash into a full-width Featured Projects strip. Recall, Permanence, and Greghouse sit in one row on desktop, with more room for Permanence in the center. The cards stack on phones. Each card shows a muted looping demo clip when available, a scarlet name, a short summary, and the project’s awards. Use a demo still while clips are pending and for reduced motion. An approved winner photo replaces the media on hover or keyboard focus. Feature three stone-blue experience cards below the projects, grouping both BNY internships alongside UCF AI research and Knight Hacks mentoring and outreach. Keep the reserved typing-game area below those sections. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.
+Use a name-first splash and genuinely tiny flipping background squares. Keep placeholders to a flat color and a letter, separate from the animated background. The home page leads from the splash into a full-width Featured Projects strip. Recall, Permanence, and Greghouse sit in one row on desktop, with more room for Permanence in the center. The cards stack on phones. Each card shows a muted looping demo clip when available, a scarlet name, a short summary, and the project’s awards. Use a demo still while clips are pending and for reduced motion. An approved winner photo replaces the media on hover or keyboard focus. Follow projects with "In Good Company": a wide stone-blue BNY panel above open UCF AI research and Knight Hacks columns, featuring verified figures and direct experience links. Keep the reserved typing-game area below those sections. Omit the home About promotion. Projects use standardized cards; experiences use chronological cards with descriptions, pictures, and resume-style bullets. Remove eyebrows, decorative section numbering, and redundant subtext.

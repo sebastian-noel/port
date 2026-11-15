@@ -33,19 +33,6 @@
 .period {
   color: var(--accent);
 }
-.allLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 44px;
-  padding-block: 8px;
-  border-bottom: 2px solid var(--accent);
-  font-size: 15px;
-  white-space: nowrap;
-}
-.allLink:hover {
-  color: var(--scarlet-text);
-}
 .projectStage {
   /* Shared preview and summary rows keep every card bottom aligned. */
   display: grid;
@@ -414,103 +401,6 @@
     filter: none;
   }
 }
-.experiences {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.65fr);
-  gap: clamp(32px, 7vw, 130px);
-  background: var(--sky);
-  color: var(--canvas);
-  padding: 90px max(var(--gutter), calc((100% - 1728px) / 2)) 100px;
-}
-.experienceIntro {
-  align-self: start;
-  position: sticky;
-  top: 130px;
-}
-.experienceIntro h2 {
-  margin: 0 0 36px;
-  font-size: clamp(38px, 4.2vw, 74px);
-  font-weight: 400;
-  line-height: 1.05;
-}
-.experiences .allLink:hover {
-  color: var(--canvas);
-  border-bottom-width: 4px;
-}
-.experience {
-  display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 22px;
-  padding: 32px 0;
-  border-top: 1px solid var(--canvas);
-}
-.experience:last-child {
-  border-bottom: 1px solid var(--canvas);
-}
-.experienceMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  background: var(--canvas);
-  color: var(--sky);
-  font-size: 24px;
-  transition:
-    color 200ms,
-    transform 200ms;
-}
-.experience:first-child .experienceMark {
-  background: var(--accent);
-  color: white;
-}
-.experience:focus-within .experienceMark {
-  transform: rotate(-6deg);
-}
-@media (hover: hover) {
-  .experience:hover .experienceMark {
-    transform: rotate(-6deg);
-  }
-}
-.experienceRole {
-  font-size: 13px;
-  margin: 0 0 8px;
-}
-.experienceCopy h3 {
-  font-weight: 400;
-  font-size: clamp(28px, 3vw, 44px);
-  margin-bottom: 12px;
-}
-.experienceDetail {
-  font-size: 15px;
-  max-width: 33em;
-  margin-bottom: 14px;
-}
-.experienceLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 24px;
-}
-.experienceLinks a {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  font-size: 13px;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  text-decoration-color: var(--canvas);
-}
-.experienceLinks a:hover {
-  text-decoration-thickness: 2px;
-}
-.experienceLinks svg {
-  width: 16px;
-}
-.experiences a:focus-visible {
-  outline-color: var(--canvas);
-  box-shadow: none;
-}
 @media (min-width: 1200px) {
   .sectionHeading {
     position: relative;
@@ -549,13 +439,6 @@
   .summary {
     font-size: 16px;
   }
-  .experiences {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
-    gap: 40px;
-  }
-  .experienceIntro h2 {
-    font-size: 42px;
-  }
 }
 @media (max-width: 899px) {
   .work {
@@ -563,21 +446,6 @@
   }
   .sectionHeading h2 {
     font-size: clamp(56px, 10vw, 88px);
-  }
-  .experiences {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding-block: 64px;
-  }
-  .experienceIntro {
-    position: static;
-  }
-  .experienceIntro h2 {
-    font-size: clamp(40px, 7vw, 60px);
-    margin-bottom: 20px;
-  }
-  .experienceCopy h3 {
-    font-size: 32px;
   }
 }
 @media (max-width: 599px) {
@@ -628,25 +496,6 @@
   .sectionHeading h2 {
     font-size: 58px;
   }
-  .experience {
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 16px;
-    padding-block: 28px;
-  }
-  .experienceMark {
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-  }
-  .experience:first-child .experienceMark {
-    font-size: 24px;
-  }
-  .experienceCopy h3 {
-    font-size: 29px;
-  }
-  .experienceIntro h2 {
-    font-size: 40px;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   .skeletonMedia::after,
@@ -656,8 +505,7 @@
   .projectLink,
   .media,
   .mediaVisual,
-  .projectArrow,
-  .experienceMark {
+  .projectArrow {
     transition: none;
     transform: none !important;
   }
