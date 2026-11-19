@@ -63,10 +63,7 @@ export default async function Detail({ params }: Props) {
         {entry.visualStudy ? (
           <figure className="study-hero">
             <Cover entry={entry} />
-            <figcaption>
-              The prototype: an iPhone supplies the eyes, a Jetson runs
-              perception and memory, and an Arduino drives the wheels.
-            </figcaption>
+            {entry.heroCaption && <figcaption>{entry.heroCaption}</figcaption>}
           </figure>
         ) : (
           <Cover entry={entry} />
@@ -75,19 +72,8 @@ export default async function Detail({ params }: Props) {
       {entry.visualStudy && (
         <nav className="study-nav" aria-label="Case study sections">
           {entry.sections.map((section) => (
-            <a key={section.id} href={`#${section.id}`}>
-              {
-                (
-                  {
-                    problem: "The problem",
-                    contribution: "My contribution",
-                    architecture: "Architecture",
-                    constraints: "Constraints",
-                    results: "Results",
-                    lessons: "Lessons",
-                  } as Record<string, string>
-                )[section.id!]
-              }
+            <a key={section.id ?? section.heading} href={`#${section.id}`}>
+              {section.navLabel ?? section.heading}
             </a>
           ))}
           <a href="#demo-heading">Demo</a>

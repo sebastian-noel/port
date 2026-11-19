@@ -45,10 +45,12 @@ export type Entry = {
   demoBrief?: string;
   winnerPhoto?: ProjectPhoto;
   visualStudy?: boolean;
+  heroCaption?: string;
   sections: {
     heading: string;
     text: string;
     id?: string;
+    navLabel?: string;
     paragraphs?: string[];
     image?: ProjectPhoto & { caption: string };
     diagram?: "permanence-system" | "permanence-memory";
@@ -99,6 +101,8 @@ export const records: Entry[] = [
     demoPosterAlt:
       "Permanence's winning team on stage for Best Overall, NVIDIA, and Hugging Face at Knight Hacks IX.",
     visualStudy: true,
+    heroCaption:
+      "The prototype: an iPhone supplies the eyes, a Jetson runs perception and memory, and an Arduino drives the wheels.",
     cover: {
       placeholder: false,
       src: "/media/permanence-rover.webp",
@@ -109,6 +113,7 @@ export const records: Entry[] = [
     sections: [
       {
         id: "problem",
+        navLabel: "The problem",
         heading: "Out of sight. Still in memory.",
         text: "Cover a ball with a cup and move the cup. The ball disappears from the camera, but it has not disappeared from the world. A robot needs to preserve that distinction before it can find the ball again.",
         paragraphs: [
@@ -118,6 +123,7 @@ export const records: Entry[] = [
       },
       {
         id: "contribution",
+        navLabel: "My contribution",
         heading: "My contribution",
         text: "I built the **Three.js dashboard**: the live viewer, top-down memory map, resource monitoring, and object inspection. My focus was making the robot's internal state visible, so someone watching could distinguish **what it sees from what it remembers**.",
         paragraphs: [
@@ -136,6 +142,7 @@ export const records: Entry[] = [
       },
       {
         id: "architecture",
+        navLabel: "Architecture",
         heading: "Understand once. Track continuously.",
         text: "An iPhone streams **RGB, LiDAR depth, and camera pose** over USB to an NVIDIA Jetson Orin Nano. Qwen-3D resolves a language request against a scan. Once a target is chosen, its process exits and the system hands over to YOLOE detection and the 3D tracker.",
         paragraphs: [
@@ -146,6 +153,7 @@ export const records: Entry[] = [
       },
       {
         id: "constraints",
+        navLabel: "Constraints",
         heading: "An 8 GB constraint shaped the system",
         text: "The Jetson shares memory between its CPU and GPU. The team's custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
         paragraphs: [
@@ -164,6 +172,7 @@ export const records: Entry[] = [
       },
       {
         id: "results",
+        navLabel: "Results",
         heading: "A result you can reveal",
         text: "The demonstration closes the loop: **show, hide, move, reveal**. The system commits to the ball's container, then checks the answer when the cup is lifted. A remembered position becomes something the rover can act on and an observer can verify.",
         paragraphs: [
@@ -181,6 +190,7 @@ export const records: Entry[] = [
       },
       {
         id: "lessons",
+        navLabel: "Lessons",
         heading: "What this taught me",
         text: "A useful robotics interface needs to communicate **uncertainty and freshness**, as well as position. Last-seen ages and separate observed and unseen states make the memory legible. When the display is frozen or the stream is unavailable, the viewer keeps ages tied to the displayed telemetry instead of advancing them on browser time.",
         paragraphs: [

@@ -113,8 +113,8 @@ disables movement and transitions.
 ## Visual project case studies
 
 Permanence is the first `visualStudy` record. Optional section fields add stable
-`id` anchors, additional `paragraphs`, captioned `image` evidence, and a typed
-`diagram` key. `**marked phrases**` render as semantic bold scarlet text using the
+`id` anchors, `navLabel` text, additional `paragraphs`, captioned `image` evidence, and a typed
+`diagram` key. `heroCaption` supplies the cover caption. `**marked phrases**` render as semantic bold scarlet text using the
 Experiences treatment. Other records retain the existing template until reviewed.
 Use optimized WebP derivatives in `public/media`, preserving original assets outside
 the repository. Figures retain their full aspect ratio and link to the full image.
