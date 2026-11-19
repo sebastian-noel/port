@@ -45,6 +45,14 @@ export function ProjectCard({
   const Heading = featured ? "h3" : "h2";
   const body = (
     <>
+      {!featured && (
+        <div className="project-title">
+          <h2>
+            {entry.title}
+            {!entry.placeholder && <Icon name="external" />}
+          </h2>
+        </div>
+      )}
       {featured ? (
         <div className="featured-media">
           {entry.cover.placeholder && entry.demoVideoId ? (
@@ -85,10 +93,7 @@ export function ProjectCard({
         <Cover entry={entry} />
       )}
       <div className="project-copy">
-        <Heading>
-          {entry.title}
-          {!featured && !entry.placeholder && <Icon name="external" />}
-        </Heading>
+        {featured && <Heading>{entry.title}</Heading>}
         <p>{entry.summary}</p>
         {featured && entry.award && (
           <p className="project-awards">{entry.award}</p>
@@ -98,7 +103,7 @@ export function ProjectCard({
   );
   return (
     <article
-      className={`project-card${entry.placeholder ? " is-placeholder" : ""}`}
+      className={`project-card${featured ? "" : " catalog-card"}${entry.placeholder ? " is-placeholder" : ""}`}
     >
       {entry.placeholder ? (
         body

@@ -99,3 +99,13 @@ profile links on desktop. The three groups stack and remain centered on phones.
 ## Release
 
 PR #5 holds the accepted first draft. Design polish is still pending, and a production release from `main` requires explicit approval. Protected previews remain noindex and have an empty sitemap. Real media, complete content, game features, and launch checks follow approval in separate scoped PRs.
+
+## Projects collection layout
+
+The Projects catalog uses two equal desktop columns. Each card is 16:9 overall,
+with its title above a flexible cover band and a short description below. Below 900px
+cards stack; phone cards use natural height and a 16:9 cover so text remains readable.
+Hover and keyboard focus lift the card over a soft scarlet underglow with a 420ms
+ease-out. Touch does not require hover, and reduced motion disables the lift and
+transitions while preserving the focus cue. These styles apply to collection
+cards; homepage showcase media and case-study covers retain their own layouts.
