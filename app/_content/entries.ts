@@ -31,6 +31,7 @@ export type Entry = {
   tone?: "pale" | "coral" | "slate" | "deep" | "muted";
   technologies?: string[];
   team?: string[];
+  teamProfiles?: { name: string; href: string }[];
   event?: string;
   role?: string;
   startDate?: string;
@@ -53,7 +54,8 @@ export type Entry = {
     navLabel?: string;
     paragraphs?: string[];
     image?: ProjectPhoto & { caption: string };
-    diagram?: "permanence-system" | "permanence-memory";
+    diagram?:
+      "permanence-system" | "permanence-memory" | "permanence-navigation";
   }[];
   links: { label: string; href: string }[];
 };
@@ -122,25 +124,6 @@ export const records: Entry[] = [
         diagram: "permanence-memory",
       },
       {
-        id: "contribution",
-        navLabel: "My contribution",
-        heading: "My contribution",
-        text: "I built the **Three.js dashboard**: the live viewer, top-down memory map, resource monitoring, and object inspection. My focus was making the robot's internal state visible, so someone watching could distinguish **what it sees from what it remembers**.",
-        paragraphs: [
-          "The calibrated robot view and camera feed sit together. An object inspector exposes distance, state, and time since the last observation; All, Observed, and Unseen filters help explore the scene. Selecting an object inspects it without commanding the rover to move.",
-          "This was a team effort. Bill Quach developed the AI and perception pipeline, rover autonomy, and voice integration. Isabelle Mathew worked on rover hardware, firmware, and head-tracked steering. Alejandro Jaimes built the AR glasses HUD.",
-        ],
-        image: {
-          placeholder: false,
-          src: "/media/permanence-dashboard-xray.webp",
-          alt: "Permanence dashboard with remembered cups and hidden balls in the 3D view, an x-ray camera overlay, and object memory ages.",
-          width: 1800,
-          height: 1125,
-          caption:
-            "The supplied dashboard capture shows 0 observed and 6 unseen objects. The memory view retains the cups and the balls inside them, with last-seen ages in the inspector.",
-        },
-      },
-      {
         id: "architecture",
         navLabel: "Architecture",
         heading: "Understand once. Track continuously.",
@@ -152,13 +135,23 @@ export const records: Entry[] = [
         diagram: "permanence-system",
       },
       {
+        id: "navigation",
+        navLabel: "Memory into motion",
+        heading: "Drive to what is no longer visible",
+        text: "A remembered location becomes an actionable target. The rover uses **the phone's pose and the persistent world state** to approach an object, routing around other objects, including ones it cannot currently see. A hidden ball can be reached by driving to the cup that contains it.",
+        paragraphs: [
+          "The team closed the loop with an Arduino Uno, an L298N motor driver, and low-cost motors. A pace controller adjusts starting and running power; command timeouts stop the motors if control messages stop arriving.",
+        ],
+        diagram: "permanence-navigation",
+      },
+      {
         id: "constraints",
         navLabel: "Constraints",
         heading: "An 8 GB constraint shaped the system",
         text: "The Jetson shares memory between its CPU and GPU. The team's custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
         paragraphs: [
           "That is a reduction in stored weight memory, not a claim that inference became faster. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning also let the phone settle between views, reducing blur from its tall mount.",
-          "I surfaced shared memory, GPU and CPU utilization, temperature, power, and swap in the dashboard. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
+          "The dashboard exposes shared memory, GPU and CPU utilization, temperature, power, and swap. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
         ],
         image: {
           placeholder: false,
@@ -168,6 +161,24 @@ export const records: Entry[] = [
           height: 1125,
           caption:
             "During scan processing, this supplied capture shows 6.1 / 7.4 GiB of shared memory in use. It is one observed moment, not a benchmark of peak usage.",
+        },
+      },
+      {
+        id: "dashboard",
+        navLabel: "See the memory",
+        heading: "Seeing through the occlusion",
+        text: "The team connected a live 3D viewer, top-down memory map, camera feed, and object inspector in one dashboard. It makes **hidden objects visible in the robot's remembered world**, even when the current camera image cannot show them.",
+        paragraphs: [
+          "The calibrated robot view and camera feed sit together. An object inspector exposes distance, state, and time since the last observation; All, Observed, and Unseen filters help explore the scene. Selecting an object inspects it without commanding the rover to move.",
+        ],
+        image: {
+          placeholder: false,
+          src: "/media/permanence-dashboard-xray.webp",
+          alt: "Permanence dashboard with remembered cups and hidden balls in the 3D view, an x-ray camera overlay, and object memory ages.",
+          width: 1800,
+          height: 1125,
+          caption:
+            "The supplied dashboard capture shows 0 observed and 6 unseen objects. The memory view retains the cups and the balls inside them, with last-seen ages in the inspector.",
         },
       },
       {
@@ -191,7 +202,7 @@ export const records: Entry[] = [
       {
         id: "lessons",
         navLabel: "Lessons",
-        heading: "What this taught me",
+        heading: "What the team learned",
         text: "A useful robotics interface needs to communicate **uncertainty and freshness**, as well as position. Last-seen ages and separate observed and unseen states make the memory legible. When the display is frozen or the stream is unavailable, the viewer keeps ages tied to the displayed telemetry instead of advancing them on browser time.",
         paragraphs: [
           "The current system has been tested on small scenes with a handful of objects. Containment rules are hand-written, and grounding is weaker with viewer-relative words such as left and right. Learned prediction, re-observing aging memories, and moving beyond the tabletop remain future work.",
@@ -228,7 +239,21 @@ export const records: Entry[] = [
       "Sebastian Noel",
       "Alejandro Jaimes",
     ],
-    role: "Three.js dashboard development",
+    teamProfiles: [
+      { name: "Bill Quach", href: "https://www.linkedin.com/in/billpquach/" },
+      {
+        name: "Isabelle Mathew",
+        href: "https://www.linkedin.com/in/isabelle-mathew-21159a3ab/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Alejandro Jaimes",
+        href: "https://www.linkedin.com/in/alejaimes/",
+      },
+    ],
   },
   {
     collection: "projects",

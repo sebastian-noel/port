@@ -128,3 +128,12 @@ code; public [repository](https://github.com/billpquach/permanence) and
 images are optimized without cropping or metadata. The award image reuses the
 existing approved site derivative. Captions distinguish observed screenshots from
 benchmark claims. Sebastian's dashboard ownership is separate from team outcomes.
+
+Permanence uses a team-focused narrative, without personal-role or contribution
+callouts. `teamProfiles` maps team names to verified LinkedIn URLs. Bill's URL comes
+from his linked Devpost profile; Isabelle's and Alejandro's come from the project
+README. The third conceptual diagram explains remembered-target navigation and
+is explicitly labeled as an illustration, not a captured trajectory.
+The case study centers prose, headings, and captions. Its desktop contents rail
+sticks to the left; at 1000px and below it becomes a horizontally scrollable sticky
+row beneath the site header. Section offsets keep headings clear of both bars.

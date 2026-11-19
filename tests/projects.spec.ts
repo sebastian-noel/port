@@ -52,15 +52,7 @@ for (const slug of selected) {
       `https://www.youtube.com/watch?v=${entry.demoVideoId}`,
     );
     await expect(page.locator("main")).not.toContainText(/hackathon projects/i);
-    if (
-      [
-        "permanence",
-        "greghouse",
-        "debt-escape",
-        "next-step",
-        "tidesense",
-      ].includes(slug)
-    ) {
+    if (["greghouse", "debt-escape", "next-step", "tidesense"].includes(slug)) {
       await expect(
         page.getByRole("heading", { name: "My contribution", exact: true }),
       ).toBeVisible();
@@ -183,17 +175,48 @@ test("Permanence tells a visual, navigable case study with real images", async (
 }, testInfo) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/projects/permanence");
-  await expect(page.locator(".study-diagram")).toHaveCount(2);
+  await expect(page.locator(".study-diagram")).toHaveCount(3);
   await expect(page.locator(".study-image")).toHaveCount(3);
-  await expect(page.locator("#contribution strong").first()).toHaveCSS(
+  await expect(page.locator("#constraints strong").first()).toHaveCSS(
     "font-weight",
     "700",
   );
   await page.getByRole("link", { name: "Architecture", exact: true }).click();
   await expect(page).toHaveURL(/#architecture$/);
   await expect(page.locator("#architecture")).toBeInViewport();
-  for (const width of [1280, 390]) {
+  await expect(page.locator("main")).not.toContainText(
+    /My contribution|My role|What this taught me|I built|I surfaced/,
+  );
+  for (const person of records[0].teamProfiles!) {
+    await expect(
+      page.getByRole("link", { name: `${person.name} on LinkedIn` }),
+    ).toHaveAttribute("href", person.href);
+  }
+  for (const width of [1280, 950, 390]) {
     await page.setViewportSize({ width, height: 900 });
+    await page.locator("#navigation").scrollIntoViewIfNeeded();
+    const contents = page.getByRole("navigation", {
+      name: "Case study sections",
+    });
+    await expect(contents).toHaveCSS("position", "sticky");
+    const rail = await contents.boundingBox();
+    expect(rail!.y).toBeGreaterThanOrEqual(76);
+    expect(rail!.y).toBeLessThan(150);
+    if (width <= 1000) expect(rail!.height).toBeLessThan(80);
+    await expect(page.locator("#navigation > p").first()).toHaveCSS(
+      "text-align",
+      "center",
+    );
+    await page.screenshot({
+      path: testInfo.outputPath(`permanence-navigation-${width}.png`),
+    });
+    await contents.getByRole("link", { name: "Results", exact: true }).click();
+    await expect(page).toHaveURL(/#results$/);
+    await expect(page.locator("#results h2")).toBeInViewport();
+    if (width <= 1000)
+      expect(
+        (await page.locator("#results h2").boundingBox())!.y,
+      ).toBeGreaterThan(rail!.y + rail!.height);
     await page.evaluate(() => window.scrollTo(0, 0));
     // Load the evidence below the fold before capturing the complete page.
     for (const image of await page.locator(".visual-study img").all()) {
