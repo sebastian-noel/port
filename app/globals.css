@@ -1735,6 +1735,8 @@ dialog nav a[aria-current] {
   grid-column: 1 / -1;
 }
 .visual-study .project-facts dd {
+  margin-inline: 0;
+  max-width: none;
   font-size: 14px;
   line-height: 1.8;
 }

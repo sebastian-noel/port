@@ -198,11 +198,9 @@ test("Permanence tells a visual, navigable case study with real images", async (
     await page.screenshot({
       path: testInfo.outputPath(`permanence-facts-${width}.png`),
     });
-    await page
-      .locator("#object-states .study-diagram")
-      .screenshot({
-        path: testInfo.outputPath(`permanence-states-${width}.png`),
-      });
+    await page.locator("#object-states .study-diagram").screenshot({
+      path: testInfo.outputPath(`permanence-states-${width}.png`),
+    });
     await page.locator("#object-states").scrollIntoViewIfNeeded();
     const contents = page.getByRole("navigation", {
       name: "Case study sections",
