@@ -48,7 +48,7 @@ export type Entry = {
   links: { label: string; href: string }[];
 };
 
-// Draft summaries describe team projects, not individual ownership.
+// Project copy credits team outcomes and identifies only sourced individual work.
 export const records: Entry[] = [
   {
     collection: "projects",
@@ -59,7 +59,7 @@ export const records: Entry[] = [
     demoVideoId: "GexOIHp7s1w",
     title: "Permanence",
     summary:
-      "A robot that remembers objects, even when they disappear from view.",
+      "A rover that remembers hidden objects and drives to them using a persistent 3D world map.",
     context: "Robotics · Knight Hacks IX",
     published: false,
     featured: true,
@@ -95,12 +95,24 @@ export const records: Entry[] = [
     },
     sections: [
       {
-        heading: "Out of sight. Still in memory.",
-        text: "Permanence gives a rover a persistent 3D memory of its surroundings. The team combined an iPhone's camera and depth data with vision models on an NVIDIA Jetson Orin Nano to track objects through occlusion.",
+        heading: "Remembering what the camera cannot see",
+        text: "When a robot loses sight of an object, a detector alone cannot tell it where that object went. Permanence explores object permanence with a tabletop rover: show it colored balls, cover them with cups, shuffle the cups, and ask it to find a hidden ball. Lifting the cup checks the robot's answer against the real scene.",
       },
       {
-        heading: "From perception to action",
-        text: "A language request identifies a target, while a tracker maintains its identity and position. The rover can use that remembered world state when the target is no longer visible to its camera.",
+        heading: "From a spoken request to a remembered target",
+        text: "An iPhone streams color, LiDAR depth, and camera position to an NVIDIA Jetson Orin Nano. Qwen-3D resolves a language request against a scan; YOLOE then detects objects while a custom 3D tracker maintains identity, position, and containment. The rover can navigate toward a remembered target while the dashboard distinguishes visible objects from hidden or lost ones.",
+      },
+      {
+        heading: "My contribution",
+        text: "I built the Three.js dashboard, including the live viewer, memory map, resource monitoring, and object inspection. It makes the team's perception system inspectable: visitors can see what the rover currently observes, what it remembers, and how the Jetson is using its limited resources.",
+      },
+      {
+        heading: "Working within 8 GB",
+        text: "The team reduced Qwen-3D's weight memory from 7.1 GB to 4.5 GB with custom 8-bit quantization and streamed loading. Grounding runs in a separate process that exits before tracking begins, freeing memory for the next stage. Stop-and-shoot scanning reduces camera blur, while geometry and motion checks help distinguish genuine containment from a missed detection.",
+      },
+      {
+        heading: "Results and boundaries",
+        text: "Permanence received first overall, first NVIDIA, and first Hugging Face at Knight Hacks IX. The demonstration closes the loop from perception and memory to physical action. Its current scope is tabletop scenes with a handful of objects and hand-written containment rules; learned prediction and stronger handling of uncertain, aging memories are future directions.",
       },
     ],
     links: [
@@ -109,9 +121,27 @@ export const records: Entry[] = [
         href: "https://devpost.com/software/permanence",
       },
     ],
-    technologies: ["Python", "C++", "PyTorch", "Jetson Orin Nano", "Three.js"],
+    technologies: [
+      "Python",
+      "C++",
+      "PyTorch",
+      "TensorRT",
+      "Qwen-3D",
+      "YOLOE",
+      "Jetson Orin Nano",
+      "Three.js",
+      "Arduino",
+      "Record3D",
+    ],
     event: "Knight Hacks IX",
     tone: "pale",
+    team: [
+      "Bill Quach",
+      "Isabelle Mathew",
+      "Sebastian Noel",
+      "Alejandro Jaimes",
+    ],
+    role: "Three.js dashboard development",
   },
   {
     collection: "projects",
@@ -121,7 +151,8 @@ export const records: Entry[] = [
     demoBrief: "Glasses capturing a moment. A memory recalled on screen.",
     demoVideoId: "Htq-73zA4mw",
     title: "Recall",
-    summary: "Wearable AI memory, built into a pair of glasses.",
+    summary:
+      "Prototype AI glasses that turn everyday sights and conversations into memories you can search by asking a question.",
     context: "Wearables · HackUSF 2026",
     published: false,
     featured: true,
@@ -141,11 +172,23 @@ export const records: Entry[] = [
     sections: [
       {
         heading: "A memory you can ask",
-        text: "Recall is a team-built prototype that captures visual and audio context through ESP32 hardware on a glasses frame. It organizes those observations so a person can ask about something they saw or heard.",
+        text: "Recall began with everyday questions that can become difficult for someone experiencing memory loss: where did I leave my keys, and did I lock the door? The team built a wearable prototype that records visual and audio context, curates moments, and lets a person retrieve them through natural-language questions.",
       },
       {
-        heading: "Making moments searchable",
-        text: "The system combines a vision pipeline, audio transcription, and semantic search. A web dashboard presents the memory timeline and hardware status. The prototype received second place overall at HackUSF 2026.",
+        heading: "From glasses to searchable moments",
+        text: "An ESP32-S3 and camera stream video over Wi-Fi, while a second ESP32 and microphone stream audio to a laptop. A Python pipeline batches frames, uses YOLOv8 to select relevant views, and asks Gemini for scene descriptions. SQLite stores the memories and ChromaDB indexes their meaning; ElevenLabs supplies transcription and spoken answers.",
+      },
+      {
+        heading: "Making the pipeline visible",
+        text: "The Next.js dashboard pairs a memory timeline with conversational search, mood tagging, and activity analytics. Hardware-health indicators expose connection problems. Queries retrieve relevant memories before Gemini composes a timestamped response, so a question can refer to the meaning of a scene rather than its exact stored words.",
+      },
+      {
+        heading: "Learning the limits of wearable capture",
+        text: "The team worked through Wi-Fi buffer overflows, microphone sample conversion, API limits, and concurrent database writes. Chunked transmission improved camera streaming, while larger frame batches and a local selection heuristic reduced external model calls. Coordinating the two streams and protecting SQLite writes mattered as much as the interface.",
+      },
+      {
+        heading: "Outcome and next steps",
+        text: "Recall received second overall at HackUSF 2026. The prototype demonstrated the path from wearable capture to searchable memories and spoken responses. A smaller glasses form factor, longer-term summaries, on-device processing, and offline operation remain future work. The current system uses a laptop and external AI services; it has not been established as a clinical memory aid.",
       },
     ],
     links: [
@@ -160,12 +203,17 @@ export const records: Entry[] = [
       "TypeScript",
       "ESP32",
       "Next.js",
+      "Flask",
+      "YOLOv8",
+      "OpenCV",
+      "ChromaDB",
       "SQLite",
       "Gemini",
       "ElevenLabs",
     ],
     event: "HackUSF 2026",
     tone: "coral",
+    team: ["Stevin George", "Sebastian Noel", "Nicole Bustos", "Chris Ho"],
   },
   {
     collection: "projects",
@@ -176,7 +224,7 @@ export const records: Entry[] = [
     demoVideoId: "eeHd84B9r5A",
     title: "Greghouse",
     summary:
-      "A living plant, a moisture sensor, and a multiplayer virtual garden.",
+      "A real plant connected to a multiplayer pixel garden, where soil readings shape its mood.",
     context: "Connected devices · BloomKnights 2026",
     published: false,
     featured: true,
@@ -195,12 +243,24 @@ export const records: Entry[] = [
     },
     sections: [
       {
-        heading: "A garden in two worlds",
-        text: "Greghouse connects a real plant to a shared pixel-art garden. An ESP32 reads soil moisture, and that reading influences the virtual plant's mood. Visitors can explore together and alert the owner when a plant needs water.",
+        heading: "Making plant care social",
+        text: "Greghouse connects the plant on your desk to a shared pixel-art garden. Friends can visit through a link, walk around as customizable avatars, chat, and remind the owner when a plant needs water. Expressive plants, recorded voices, and proximity audio make the garden feel inhabited.",
       },
       {
-        heading: "From sensor to shared experience",
-        text: "The team's pipeline carries sensor readings through AWS into the garden. The project brings physical hardware and multiplayer web interactions together, and received third place overall at BloomKnights 2026.",
+        heading: "One real plant, one shared world",
+        text: "A capacitive soil probe and ESP32 send moisture readings through AWS API Gateway, Lambda, and DynamoDB. A Node.js server proxies the latest reading to the React garden and uses WebSockets for multiplayer updates. A shared seed generates the same map for every visitor. The demonstration used one physical device alongside clearly labeled simulated plants.",
+      },
+      {
+        heading: "My contribution",
+        text: "I set up the AWS connection between the ESP32 and web app, using DynamoDB to track soil-moisture readings. I also built procedural map generation, owner notifications, player quality-of-life features, and debug systems. These pieces connect the physical plant to a garden that multiple people can explore together.",
+      },
+      {
+        heading: "Keeping the device and garden in agreement",
+        text: "Live sensor values must not be overwritten by stale browser state. The team kept live-plant moisture under the telemetry pipeline's control and matched mood thresholds across JavaScript and C++. Persistent TLS connections helped maintain the sampling cadence. When the probe stops reporting, the app freezes the last reading and shows that the probe is offline.",
+      },
+      {
+        heading: "Outcome and future growth",
+        text: "Greghouse received third overall at BloomKnights 2026. The team demonstrated a working loop from real soil to the device display and shared garden. Watering a simulated plant changes its virtual state; a real plant still needs physical care. Additional devices, more sensor types, and simpler hardware onboarding are planned extensions.",
       },
     ],
     links: [
@@ -214,20 +274,31 @@ export const records: Entry[] = [
       "JavaScript",
       "ESP32",
       "React",
+      "Node.js",
+      "WebSockets",
+      "Canvas",
       "AWS",
+      "API Gateway",
       "Lambda",
       "DynamoDB",
     ],
     event: "BloomKnights 2026",
     tone: "slate",
+    team: [
+      "Sebastian Noel",
+      "Alejandro Jaimes",
+      "Stevin George",
+      "Otavio Borrelly",
+    ],
+    role: "Cloud telemetry and garden systems",
   },
   {
     collection: "projects",
     slug: "tks-revenge",
     title: "T.K.'s Revenge",
     summary:
-      "A dungeon adventure on Roblox, built for solo runs and playing with friends.",
-    context: "Knight Hacks Project Launch 2026",
+      "A solo or co-op Roblox dungeon adventure with sword and bow classes, a cyber city, and payload progression.",
+    context: "Game development · Knight Hacks Project Launch, Spring 2026",
     published: false,
     featured: false,
     cover: {
@@ -236,8 +307,24 @@ export const records: Entry[] = [
     tone: "deep",
     sections: [
       {
-        heading: "The project",
-        text: "A dungeon adventure on Roblox, built for solo runs and playing with friends.",
+        heading: "An invitation to make games",
+        text: "After showing software to K-12 students through Knight Hacks outreach, the team noticed how games sparked curiosity about building things. T.K.'s Revenge became a way to introduce young students to what software development can create, using characters inspired by Knight Hacks.",
+      },
+      {
+        heading: "A dungeon run with friends",
+        text: "Players choose a short-range sword or a long-range bow, then explore a cyber city alone or with a team. Lenny has taken over T.K.'s friends, and players fight through his forces to help T.K. take revenge. A payload system guides progression through the adventure.",
+      },
+      {
+        heading: "Building the experience",
+        text: "The team used Roblox Studio and Luau for gameplay, with Blender and Maya for modeling and rigging. The repository uses Rojo to organize and synchronize scripts between the local codebase and Studio. Development ran across the spring semester as part of Knight Hacks Project Launch.",
+      },
+      {
+        heading: "Learning to control scope",
+        text: "For many teammates, Roblox or game development itself was new. Learning the engine and Luau happened alongside building gameplay and animations. Limited art resources and several changes in direction made scope management a central challenge; the team focused on delivering a working experience within the project deadlines.",
+      },
+      {
+        heading: "Outcome and next steps",
+        text: "T.K.'s Revenge received second overall and first in the community vote at Knight Hacks Spring 2026 Project Launch. The result is a playable adventure built around solo and cooperative runs. Additional levels, classes, customization, and expanded mechanics were proposed as future work.",
       },
     ],
     links: [
@@ -246,8 +333,8 @@ export const records: Entry[] = [
         href: "https://devpost.com/software/tk-s-revenge",
       },
     ],
-    technologies: ["Luau", "Roblox Studio", "Blender", "Maya"],
-    event: "Knight Hacks Project Launch 2026",
+    technologies: ["Luau", "Roblox Studio", "Blender", "Maya", "Rojo"],
+    event: "Knight Hacks Project Launch, Spring 2026",
     team: [
       "Alejandro Jaimes",
       "Stevin George",
@@ -256,15 +343,18 @@ export const records: Entry[] = [
       "Nicole Bustos",
       "Johaan Riat",
     ],
-    award: "2nd place",
+    award: "2nd overall · 1st community vote",
+    demoVideoId: "i1DoCyYBnj4",
+    demoBrief:
+      "Sword and bow gameplay, the cyber-city setting, and T.K.'s payload adventure.",
   },
   {
     collection: "projects",
     slug: "debt-escape",
     title: "Debt Escape",
     summary:
-      "Four Roblox minigames that turn financial literacy into something you can play.",
-    context: "Team project",
+      "Four Roblox minigames teach financial concepts as players work their way out of virtual debt.",
+    context: "Financial learning · SASEHacks 2026",
     published: false,
     featured: false,
     cover: {
@@ -273,8 +363,24 @@ export const records: Entry[] = [
     tone: "coral",
     sections: [
       {
-        heading: "The project",
-        text: "Four Roblox minigames that turn financial literacy into something you can play.",
+        heading: "Financial learning through play",
+        text: "Debt Escape brings financial concepts into a game young players can explore. Players begin with $10,000 of virtual debt and earn their way out through four minigames, then face a final boss named Bill. Progress gives the learning activities a shared goal.",
+      },
+      {
+        heading: "Four ways to practice",
+        text: "Common Cents quizzes financial terms under time pressure. Bill Blaster introduces the debt avalanche method, Side Hustle explores entrepreneurial basics, and Budget Factory asks players to sort bills into needs, wants, and savings. The final encounter adds movement, dodging, and combat to the progression.",
+      },
+      {
+        heading: "My contribution",
+        text: "I scripted all four minigames, helped build their environments and game spaces, and recorded and edited the demo video. This was an introduction to Roblox Studio and Luau scripting for me. My teammate Stevin handled level planning, the final boss's move set, modeling and textures, and visual design.",
+      },
+      {
+        heading: "Building around an animation constraint",
+        text: "The team built the experience in Roblox Studio with Luau, using Blender and Photoshop for the boss and Figma for interface design. When rigging the boss took too much time, the team switched to trigonometric animation, using sine waves to produce fluid movement without the original rigging approach.",
+      },
+      {
+        heading: "Outcome and next steps",
+        text: "Debt Escape won first place for Best Use of Roblox Studio, issued by VuPlay. The finished project combines financial activities with a playable progression and boss encounter. More minigames, bosses, and educational topics are future additions; the project does not claim measured improvements in financial literacy.",
       },
     ],
     links: [
@@ -283,16 +389,22 @@ export const records: Entry[] = [
         href: "https://devpost.com/software/debt-escape",
       },
     ],
-    technologies: ["Roblox"],
+    technologies: ["Luau", "Roblox Studio", "Blender", "Photoshop", "Figma"],
     team: ["Stevin George", "Sebastian Noel"],
+    award: "1st Best Use of Roblox Studio · VuPlay",
+    role: "Minigame scripting, environment building, and demo production",
+    demoVideoId: "319Eb29HI24",
+    demoBrief:
+      "Four financial-learning minigames and the final encounter with Bill.",
+    event: "SASEHacks 2026",
   },
   {
     collection: "projects",
     slug: "tidesense",
     title: "TideSense",
     summary:
-      "A prototype exploring how beach photos could help identify rip currents.",
-    context: "Team project",
+      "A mobile prototype exploring computer vision for rip-current awareness, with beach conditions and scan history.",
+    context: "Mobile computer vision · SharkByte 2025",
     published: false,
     featured: false,
     cover: {
@@ -301,8 +413,28 @@ export const records: Entry[] = [
     tone: "slate",
     sections: [
       {
-        heading: "The project",
-        text: "A prototype exploring how beach photos could help identify rip currents.",
+        heading: "Starting with a beach photo",
+        text: "TideSense explores whether a phone camera can make rip-current information easier to understand. The team built a mobile prototype that accepts a shoreline photo and presents a model-generated risk estimate alongside weather, location, and explanatory context.",
+      },
+      {
+        heading: "Putting the scan in context",
+        text: "The app combines camera capture with risk displays, detection history, analytics, and a safety-map interface. A Gemini assistant answers questions using the current detection context, and ElevenLabs provides audio summaries. Weather integrations bring forecast information into the same experience.",
+      },
+      {
+        heading: "The mobile and model pipeline",
+        text: "React Native, Expo, and TypeScript provide the mobile interface. A Python FastAPI backend handles image analysis with TensorFlow Lite and connects external AI and weather services. SQLite stores scans with their timestamps, locations, and confidence values for later review.",
+      },
+      {
+        heading: "My contribution",
+        text: "I integrated the National Weather Service API for current weather data and worked on the risk levels and safety status shown for detected rip currents. My focus was connecting environmental context to the result presented in the app, alongside the team's computer-vision and mobile work.",
+      },
+      {
+        heading: "Stabilizing noisy predictions",
+        text: "Identical images initially produced inconsistent risk estimates. The team combined the average of the five highest confidence scores with the maximum score, weighting them 70% and 30%. Other work included fixing conditional React hooks, checking Gemini model availability, and configuring different backend addresses for emulators and physical phones.",
+      },
+      {
+        heading: "What the prototype establishes",
+        text: "Built for SharkByte 2025, TideSense brought mobile capture, model inference, history, and AI explanations into one prototype. It does not establish that a shoreline is safe to enter. The backend includes simulated fallback results when inference is unavailable, so validating detection reliability and clearly separating test output are necessary before any real safety use. Community reporting and richer mapping remain future ideas.",
       },
     ],
     links: [
@@ -317,80 +449,26 @@ export const records: Entry[] = [
       "TypeScript",
       "Python",
       "FastAPI",
+      "TensorFlow Lite",
       "Gemini",
+      "ElevenLabs",
       "SQLite",
+      "NOAA",
     ],
-  },
-  {
-    collection: "projects",
-    slug: "alto",
-    title: "Alto",
-    summary:
-      "A financial calendar and AI spending assistant, demonstrated with sample transactions.",
-    context: "Knight Hacks VIII",
-    published: false,
-    featured: false,
-    cover: {
-      placeholder: true,
-    },
-    tone: "pale",
-    sections: [
-      {
-        heading: "The project",
-        text: "A financial calendar and AI spending assistant, demonstrated with sample transactions.",
-      },
-    ],
-    links: [
-      {
-        label: "Devpost",
-        href: "https://devpost.com/software/alto-m96ytw",
-      },
-    ],
-    technologies: ["Next.js", "React", "Python", "TypeScript", "Google ADK"],
-    event: "Knight Hacks VIII",
-    team: [
-      "Stevin George",
-      "Sebastian Noel",
-      "Christian Evans",
-      "Ibrahim Shaqqou",
-    ],
-  },
-  {
-    collection: "projects",
-    slug: "fe-ai",
-    title: "FE AI",
-    summary:
-      "An exam-practice whiteboard that uses Gemini to give feedback on worked solutions.",
-    context: "GemiKnights",
-    published: false,
-    featured: false,
-    cover: {
-      placeholder: true,
-    },
-    tone: "deep",
-    sections: [
-      {
-        heading: "The project",
-        text: "An exam-practice whiteboard that uses Gemini to give feedback on worked solutions.",
-      },
-    ],
-    links: [
-      {
-        label: "Devpost",
-        href: "https://devpost.com/software/untitled-project-g6fl50ordx7m",
-      },
-    ],
-    technologies: ["React", "Vite", "JavaScript", "TLDraw", "Gemini"],
-    event: "GemiKnights",
-    team: ["Christian Evans", "Stevin George", "Sebastian Noel"],
+    event: "SharkByte 2025",
+    team: ["Chris Ho", "Nicole Bustos", "Stevin George", "Sebastian Noel"],
+    demoVideoId: "cJQApi3ehAw",
+    demoBrief:
+      "The mobile camera, risk-analysis screens, scan history, and beach-information tools.",
+    role: "Weather integration and risk-status presentation",
   },
   {
     collection: "projects",
     slug: "next-step",
     title: "Next Step",
     summary:
-      "Voice-based practice conversations for explaining insurance and answering customer questions.",
-    context: "ShellHacks 2025",
+      "Practice auto, home, and health insurance emergencies through realistic conversations with an AI voice agent.",
+    context: "Conversational learning · ShellHacks 2025",
     published: false,
     featured: false,
     cover: {
@@ -399,8 +477,28 @@ export const records: Entry[] = [
     tone: "slate",
     sections: [
       {
-        heading: "The project",
-        text: "Voice-based practice conversations for explaining insurance and answering customer questions.",
+        heading: "Practicing the difficult moment",
+        text: "Next Step explores how to teach insurance through decisions rather than static reading. The team built an interactive practice environment where a person can rehearse responding to an insurance-related emergency, with a voice agent keeping the scenario conversational and time-sensitive.",
+      },
+      {
+        heading: "A scenario, a conversation, and feedback",
+        text: "Users choose auto, home, or health insurance and talk through a realistic situation. The experience scores responses from 0 to 100 across safety awareness, insurance knowledge, procedural understanding, and decision-making quality. The goal is to practice how to respond when the order of actions matters.",
+      },
+      {
+        heading: "Connecting voice and web interfaces",
+        text: "The frontend uses Next.js, React, TypeScript, and Tailwind CSS, backed by Python and Flask. Vapi drives the voice agent. The interface supports selecting a scenario, participating in the conversation, and reviewing results, bringing the learning flow into one web experience.",
+      },
+      {
+        heading: "My contribution",
+        text: "I worked on the frontend design and implementation with React, TypeScript, and Tailwind CSS, set up pages and routing in Next.js, and helped teammates with Git version control. This work connected the scenario-selection and conversation experience within a framework we were learning as we built.",
+      },
+      {
+        heading: "Learning a new interaction model",
+        text: "The team worked through unfamiliar Next.js routing, inconsistent Python environment setup, and a backend-to-agent connection problem caused by missing API configuration. Voice interactions also required attention to conversation flow and retained context, rather than treating the experience as a sequence of static pages.",
+      },
+      {
+        heading: "Outcome and next steps",
+        text: "Next Step received third place in State Farm's Best Insurance Learning Platform challenge at ShellHacks 2025. The prototype demonstrates scenario-based practice across three insurance categories. Additional categories such as renters, life, business, and pet insurance were proposed for later development.",
       },
     ],
     links: [
@@ -409,7 +507,15 @@ export const records: Entry[] = [
         href: "https://devpost.com/software/next-step-cme06a",
       },
     ],
-    technologies: ["Next.js", "React", "TypeScript", "Flask", "Python", "Vapi"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Flask",
+      "Python",
+      "Vapi",
+    ],
     event: "ShellHacks 2025",
     team: [
       "Sebastian Noel",
@@ -417,14 +523,19 @@ export const records: Entry[] = [
       "Stevin George",
       "Carlos Rincon",
     ],
-    award: "State Farm challenge winner",
+    award: "3rd Best Insurance Learning Platform · State Farm",
+    demoVideoId: "72e2HA9fW8Y",
+    demoBrief:
+      "Choosing an insurance scenario, speaking with the voice agent, and reviewing feedback.",
+    role: "Frontend development and Next.js routing",
   },
   {
     collection: "projects",
     slug: "dishdash",
     title: "DishDash",
-    summary: "Find recipes from the ingredients you already have.",
-    context: "Knight Hacks VII",
+    summary:
+      "Enter the ingredients you have and browse up to 100 matching recipes from a recipe database.",
+    context: "Recipe search · Knight Hacks VII, 2024",
     published: false,
     featured: false,
     cover: {
@@ -433,8 +544,24 @@ export const records: Entry[] = [
     tone: "coral",
     sections: [
       {
-        heading: "The project",
-        text: "Find recipes from the ingredients you already have.",
+        heading: "The ingredients already in the fridge",
+        text: "DishDash began with a familiar student problem: deciding what to cook from the food already available. The team built a simple web app where users enter ingredients and receive recipe ideas from an existing dataset.",
+      },
+      {
+        heading: "Matching instead of generating",
+        text: "The React interface sends ingredient selections to a Node.js and Express API. MongoDB aggregates matching recipes, sorts them by the number of matching ingredients, and returns up to 100 results. These are retrieved recipes; a match can still require ingredients beyond those the user entered.",
+      },
+      {
+        heading: "Building a first full-stack app",
+        text: "DishDash was my first project of this kind, built with Ibrahim Shaqqou at Knight Hacks VII in 2024. We came in with basic C and Java experience and learned JavaScript, React, Node.js, MongoDB, CSS, APIs, and Git while connecting the frontend, server, and database.",
+      },
+      {
+        heading: "Learning by debugging the connections",
+        text: "The backend and API failed before the frontend could show useful results, and further interface errors appeared once those connections worked. We used documentation, debugging, and AI assistance while learning the stack, including working through suggestions that did not solve the underlying problems.",
+      },
+      {
+        heading: "Outcome and next steps",
+        text: "The result was a working ingredient-to-recipe search flow and a first experience building a full-stack web application. The project's value was in completing that connection and learning how its pieces fit together. Further interface and functionality improvements remained ideas for a later iteration.",
       },
     ],
     links: [
@@ -443,9 +570,18 @@ export const records: Entry[] = [
         href: "https://devpost.com/software/dishdash-iy7rah",
       },
     ],
-    technologies: ["JavaScript", "React", "Node.js", "MongoDB"],
+    technologies: [
+      "JavaScript",
+      "CSS",
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+    ],
     event: "Knight Hacks VII",
     team: ["Ibrahim Shaqqou", "Sebastian Noel"],
+    demoVideoId: "Vx3j4eic42Q",
+    demoBrief: "Entering ingredients and browsing the matching recipe results.",
   },
   {
     collection: "experiences",
@@ -694,38 +830,6 @@ export const records: Entry[] = [
       },
     ],
   },
-  {
-    collection: "projects",
-    slug: "placeholder-1",
-    title: "Future project 1",
-    summary: "Placeholder · Details to come",
-    context: "Placeholder",
-    published: false,
-    featured: false,
-    placeholder: true,
-    cover: {
-      placeholder: true,
-    },
-    tone: "muted",
-    sections: [],
-    links: [],
-  },
-  {
-    collection: "projects",
-    slug: "placeholder-2",
-    title: "Future project 2",
-    summary: "Placeholder · Details to come",
-    context: "Placeholder",
-    published: false,
-    featured: false,
-    placeholder: true,
-    cover: {
-      placeholder: true,
-    },
-    tone: "muted",
-    sections: [],
-    links: [],
-  },
 ];
 
 export function validateEntries(items: Entry[]) {
@@ -743,6 +847,9 @@ export function validateEntries(items: Entry[]) {
       throw new Error(`Invalid or duplicate content record: ${path}`);
     }
     paths.add(path);
+    if (entry.demoVideoId && !/^[a-zA-Z0-9_-]{11}$/.test(entry.demoVideoId)) {
+      throw new Error(`Invalid demo video ID: ${path}`);
+    }
     if (
       [entry.startDate, entry.endDate].some(
         (date) => date != null && !/^\d{4}-(0[1-9]|1[0-2])$/.test(date),

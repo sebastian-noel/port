@@ -285,3 +285,14 @@ Sebastian requested bolder experience bullet emphasis and a color closer to the 
 ## 2026-11-15 splash arrow and award logo corrections
 
 Issue #56 fixes the splash arrow's hover specificity conflict: its scale selector now overrides the generic diagonal link-arrow transform and also applies on keyboard focus. Knight Hacks IX keeps the supplied colored vector paths with a white stroked vector copy behind them, replacing the rasterized SVG morphology filter for sharper mobile rendering. NVIDIA uses only its original green eye path in a tighter viewBox, since the badge already names NVIDIA beneath the placement. These are bounded corrections to the existing design; the rejected homepage experience redesign remains excluded.
+
+
+## 2026-11-19 project case studies
+
+Sebastian restricted the catalog to the eight projects in the selected section of ProjectsGuide.md and asked for full case studies without labeling the collection as hackathon projects. Remove Alto, FE AI, and future-project placeholders rather than discovering extra entries from his Devpost profile. Keep stable URLs for the eight retained projects. Use the existing structured sections instead of adding an authoring dependency because the content is plain text and the shared template already supports it.
+
+Use local README/devpost evidence as the primary source and Devpost to verify selected demo URLs, event metadata, and explicit creator attributions. Add My contribution sections for Permanence, Greghouse, and Debt Escape from local attributions, plus Next Step and TideSense from their public Devpost creator notes. Describe other implementation work as team outcomes instead of guessing ownership. Record awards from the current guide, including Next Step's third-place State Farm result and T.K.'s Revenge's community vote. Keep roadmap ideas separate from demonstrated features.
+
+Use verified YouTube thumbnails on project cards and lazy privacy-enhanced embeds with descriptions and direct links on case studies. This supplies real project media without committing originals or adding local video bandwidth. Direct Devpost image retrieval returned HTTP 403, so custom galleries and optimized clips remain pending rather than using unrelated imagery. Render the existing team, role, event, and technology fields in the template because visitors should be able to read the metadata already used in search. Keep publication flags and launch safeguards intact. TideSense's backend has a randomized simulated inference fallback, so the copy explicitly identifies its exploratory status and limits instead of repeating safety claims from the submission.
+
+Use a fresh worktree from origin/dev because the ordinary checkout contains substantial unrelated uncommitted files. Track implementation in issue #60, within the existing site-polish milestone; the game and remaining milestone work stay open.

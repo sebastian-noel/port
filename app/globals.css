@@ -794,6 +794,29 @@ dialog nav a[aria-current] {
 .detail-body p {
   max-width: 680px;
 }
+.project-facts {
+  display: grid;
+  gap: 16px;
+  margin: 0 0 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid currentColor;
+}
+.project-facts dt {
+  font-weight: 700;
+}
+.project-facts dd {
+  margin: 4px 0 0;
+  max-width: 680px;
+  overflow-wrap: anywhere;
+}
+.project-demo iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  margin-top: 20px;
+}
 .detail-links,
 .profile-links {
   display: flex;
