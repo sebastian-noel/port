@@ -81,3 +81,6 @@ Eight selected projects are included as drafts: Permanence, Recall, Greghouse, T
 The supplied resume was read for BNY, UCF AI, and GPK dates and bullets. BNY retains UCF experiential-program context. Knight Hacks dates remain unknown and omitted. Null end dates explicitly mean Present; author verified dates rather than inferring them.
 
 The November 14, 2026 public PDF is the updated file explicitly selected by Sebastian, including his approved public email and new LinkedIn slug. Text extraction and rendering were inspected before copying it. Resume actions open that PDF in a new tab. Private source resumes and other private contact details remain excluded.
+
+
+Permanence refinement (#68): prose is left aligned within a page-centered column, with centered section titles, sticky desktop contents, and compact event/team/technology facts. The third diagram explains observation, last-seen freshness, and depth-supported occlusion instead of routing. Public captions explain the system without author-facing sourcing notes. Diagram motion plays briefly once on entry and respects reduced-motion settings.

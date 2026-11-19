@@ -1,106 +1,140 @@
+import { MotionFigure } from "./motion-figure";
+
 export function ProjectDiagram({
   kind,
 }: {
-  kind: "permanence-system" | "permanence-memory" | "permanence-navigation";
+  kind: "permanence-system" | "permanence-memory" | "permanence-states";
 }) {
-  if (kind === "permanence-navigation") {
+  if (kind === "permanence-states") {
     return (
-      <figure className="study-diagram">
-        <ol className="navigation-sequence">
-          {[
-            [
-              "Choose a target",
-              "A language request identifies an object in the scanned scene.",
-            ],
-            [
-              "Keep its location",
-              "The world state retains the target when it is hidden or out of view.",
-            ],
-            [
-              "Move toward it",
-              "The rover approaches the remembered target while routing around other objects.",
-            ],
-          ].map(([title, description], index) => (
-            <li key={title}>
-              <svg viewBox="0 0 220 150" aria-hidden="true">
-                <path
-                  d="M20 135H200M20 15V135"
-                  fill="none"
-                  stroke="var(--sky)"
-                  opacity=".25"
-                />
-                <rect
-                  x="38"
-                  y="100"
-                  width="30"
-                  height="26"
-                  rx="5"
-                  fill="var(--sky)"
-                />
-                <path
-                  d="M35 106V119M71 106V119M53 100V90"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <rect
-                  x="95"
-                  y="65"
-                  width="34"
-                  height="34"
-                  rx="3"
-                  fill="var(--canvas)"
-                  stroke="var(--sky)"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M162 30H182L189 59H155Z"
-                  fill="var(--canvas)"
-                  stroke="var(--accent)"
-                  strokeWidth="2"
-                  strokeDasharray={index === 0 ? undefined : "4 3"}
-                />
-                <circle
-                  cx="172"
-                  cy="45"
-                  r="24"
-                  fill="none"
-                  stroke="var(--accent)"
-                  opacity=".4"
-                />
-                {index === 0 ? (
-                  <path
-                    d="M53 90L147 38M53 90L160 66"
-                    stroke="var(--sky)"
-                    strokeDasharray="3 4"
-                    opacity=".6"
-                  />
-                ) : index === 1 ? (
-                  <path d="M140 15V80" stroke="currentColor" strokeWidth="5" />
-                ) : (
-                  <path
-                    d="M53 90C53 45 90 40 142 45M134 38L143 45L134 52"
-                    stroke="var(--accent)"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                )}
-              </svg>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </li>
-          ))}
+      <MotionFigure className="study-diagram">
+        <ol className="navigation-sequence state-sequence">
+          <li>
+            <svg viewBox="0 0 220 150" aria-hidden="true">
+              <rect
+                x="20"
+                y="57"
+                width="32"
+                height="36"
+                rx="7"
+                fill="var(--sky)"
+              />
+              <path
+                d="M54 65L163 43M54 85L163 107"
+                stroke="var(--sky)"
+                strokeDasharray="4 5"
+              />
+              <path
+                d="M173 44H195L205 106H163Z"
+                fill="var(--canvas)"
+                stroke="var(--accent)"
+                strokeWidth="3"
+              />
+              <circle
+                cx="184"
+                cy="75"
+                r="32"
+                fill="none"
+                stroke="var(--accent)"
+                opacity=".3"
+              />
+            </svg>
+            <span className="state-label">Visible</span>
+            <h3>Seen now</h3>
+            <p>
+              A matched detection updates the object&apos;s position and
+              last-seen time.
+            </p>
+          </li>
+          <li>
+            <svg viewBox="0 0 220 150" aria-hidden="true">
+              <rect
+                x="22"
+                y="20"
+                width="176"
+                height="110"
+                rx="12"
+                fill="var(--canvas)"
+                stroke="var(--sky)"
+              />
+              <path
+                d="M50 43H72L82 105H40Z"
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth="2"
+                strokeDasharray="4 4"
+              />
+              <circle
+                cx="143"
+                cy="65"
+                r="24"
+                fill="none"
+                stroke="var(--sky)"
+                strokeWidth="2"
+              />
+              <path
+                d="M143 49V65L155 72M115 108H171"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+            </svg>
+            <span className="state-label">Last seen</span>
+            <h3>Keep the memory</h3>
+            <p>
+              Identity and position persist. Time since the last observation
+              communicates freshness.
+            </p>
+          </li>
+          <li>
+            <svg viewBox="0 0 220 150" aria-hidden="true">
+              <rect
+                x="20"
+                y="57"
+                width="32"
+                height="36"
+                rx="7"
+                fill="var(--sky)"
+              />
+              <path
+                d="M54 65L110 47M54 75H110M54 85L110 103"
+                stroke="var(--sky)"
+                strokeDasharray="4 5"
+              />
+              <rect
+                x="110"
+                y="27"
+                width="12"
+                height="96"
+                rx="3"
+                fill="var(--sky)"
+              />
+              <path
+                d="M173 44H195L205 106H163Z"
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth="2"
+                strokeDasharray="4 4"
+              />
+            </svg>
+            <span className="state-label">Occluded</span>
+            <h3>Explain the absence</h3>
+            <p>
+              A nearer depth surface blocks the expected position. The hidden
+              object remains a memory.
+            </p>
+          </li>
         </ol>
         <figcaption>
-          Conceptual top-down sequence, not a recorded trajectory. The dashed
-          cup marks a remembered target; the curved route illustrates
-          approaching around an obstacle.
+          LiDAR measures the visible surface. Dashed objects mark remembered
+          positions, while last-seen age records how long they have been unseen.
         </figcaption>
-      </figure>
+      </MotionFigure>
     );
   }
   if (kind === "permanence-memory") {
     return (
-      <figure className="study-diagram">
+      <MotionFigure className="study-diagram">
         <ol className="memory-sequence">
           {[
             ["Show", "A visible ball gets an identity and a 3D position."],
@@ -161,21 +195,21 @@ export function ProjectDiagram({
           ))}
         </ol>
         <figcaption>
-          Conceptual illustration of the shell-game demonstration. The dashed
-          ball represents remembered position, not a camera observation.
+          The ball&apos;s remembered position follows its container. Dashed
+          outlines distinguish memory from a current observation.
         </figcaption>
-      </figure>
+      </MotionFigure>
     );
   }
   return (
-    <figure className="study-diagram architecture-diagram">
+    <MotionFigure className="study-diagram architecture-diagram">
       <div className="system-input">
         <span>Sensor input</span>
         <h3>iPhone + Record3D</h3>
         <p>RGB · LiDAR depth · ARKit pose</p>
       </div>
       <div className="flow-arrow" aria-hidden="true">
-        ↓
+        <span>↓</span>
       </div>
       <div className="jetson-system">
         <p className="system-label">
@@ -189,7 +223,7 @@ export function ProjectDiagram({
             <small>Process exits at handoff</small>
           </div>
           <div className="flow-arrow" aria-hidden="true">
-            →
+            <span>→</span>
           </div>
           <div>
             <span>Track the scene</span>
@@ -200,7 +234,7 @@ export function ProjectDiagram({
         </div>
       </div>
       <div className="flow-arrow" aria-hidden="true">
-        ↓
+        <span>↓</span>
       </div>
       <div className="system-outputs">
         <div>
@@ -218,10 +252,9 @@ export function ProjectDiagram({
         </div>
       </div>
       <figcaption>
-        Simplified architecture reconstructed from the project README and viewer
-        interface contract. The dashboard consumes data from the system; it does
-        not run the perception models.
+        The Jetson runs perception, memory, and control. The dashboard turns its
+        state stream into an inspectable view of the world.
       </figcaption>
-    </figure>
+    </MotionFigure>
   );
 }
