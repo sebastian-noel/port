@@ -92,3 +92,89 @@ test("project collection and case study remain readable at desktop and mobile si
     }
   }
 });
+
+test("catalog cards use wide proportions and a smooth accessible scarlet lift", async ({
+  browser,
+}, testInfo) => {
+  const context = await browser.newContext({
+    baseURL: "http://127.0.0.1:3000",
+    viewport: { width: 1280, height: 900 },
+    recordVideo: {
+      dir: testInfo.outputPath("motion"),
+      size: { width: 1280, height: 900 },
+    },
+  });
+  const page = await context.newPage();
+  await page.goto("/projects");
+  const cards = page.locator(".catalog-card");
+  const card = cards.first();
+  const bounds = await cards.evaluateAll((items) =>
+    items.map((item) => {
+      const r = item.getBoundingClientRect();
+      return { x: r.x, y: r.y, width: r.width, height: r.height };
+    }),
+  );
+  expect(bounds[0].y).toBe(bounds[1].y);
+  expect(bounds[2].y).toBeGreaterThan(bounds[0].y);
+  expect(bounds[0].width / bounds[0].height).toBeCloseTo(16 / 9, 2);
+  expect(
+    await card
+      .locator("a")
+      .evaluate((link) =>
+        Array.from(link.children, (child) => child.className),
+      ),
+  ).toEqual(["project-title", "cover", "project-copy"]);
+  const glow = () =>
+    card.evaluate((el) => Number(getComputedStyle(el, "::before").opacity));
+  await card.hover();
+  await expect.poll(glow).toBe(0.75);
+  expect(
+    await card.evaluate(
+      (el) => new DOMMatrix(getComputedStyle(el).transform).m42,
+    ),
+  ).toBeLessThan(-9);
+  expect(
+    await card.evaluate(
+      (el) => getComputedStyle(el, "::before").backgroundImage,
+    ),
+  ).toContain("235, 47, 51");
+  await page.screenshot({
+    path: testInfo.outputPath("projects-hover-desktop.png"),
+    fullPage: true,
+  });
+  await page.mouse.move(0, 0);
+  await expect.poll(glow).toBe(0);
+  await card.locator("a").focus();
+  await expect.poll(glow).toBe(0.75);
+  await expect(card.locator("a")).toBeFocused();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(card).toHaveCSS("transform", "none");
+  await page.setViewportSize({ width: 768, height: 900 });
+  const tablet = await cards.evaluateAll((items) =>
+    items.map((item) => item.getBoundingClientRect().x),
+  );
+  expect(new Set(tablet).size).toBe(1);
+  expect(
+    await card
+      .locator(".cover")
+      .evaluate((el) => el.getBoundingClientRect().height),
+  ).toBeGreaterThan(100);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobile = await cards.evaluateAll((items) =>
+    items.map((item) => item.getBoundingClientRect().x),
+  );
+  expect(new Set(mobile).size).toBe(1);
+  expect(
+    await card.locator(".cover").evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return r.width / r.height;
+    }),
+  ).toBeCloseTo(16 / 9, 2);
+  await page.getByRole("heading", { name: "Projects", exact: true }).click();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({
+    path: testInfo.outputPath("projects-grid-mobile.png"),
+    fullPage: true,
+  });
+  await context.close();
+});
