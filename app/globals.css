@@ -623,8 +623,9 @@ dialog nav a[aria-current] {
 .catalog-card {
   position: relative;
   isolation: isolate;
-  aspect-ratio: 16 / 9;
   min-height: 0;
+  border-radius: 16px;
+  background: transparent;
   transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .catalog-card::before {
@@ -632,62 +633,130 @@ dialog nav a[aria-current] {
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  inset: auto 8% -18px;
-  height: 56px;
-  background: radial-gradient(ellipse, var(--accent) 0%, transparent 72%);
-  filter: blur(16px);
+  inset: 2px;
+  border-radius: inherit;
+  box-shadow:
+    0 0 28px 5px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 18px 48px -8px var(--accent);
   opacity: 0;
-  transform: translateY(0) scale(0.85);
-  transition:
-    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .catalog-card > a {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--sky) 38%, transparent);
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--canvas), var(--sky) 8%);
+  transition: border-color 420ms ease;
 }
 .catalog-card .cover {
-  flex: 1;
-  min-height: 0;
-  aspect-ratio: auto;
+  margin: 0 18px;
+  width: calc(100% - 36px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--canvas);
+}
+.catalog-card .cover img {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .project-title {
-  padding: 18px 24px;
+  padding: 22px 24px 18px;
+}
+.project-context {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sky);
 }
 .project-title h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  font-size: 25px;
+  font-size: 30px;
   margin: 0;
 }
 .project-title svg {
-  flex-shrink: 0;
-  width: 18px;
+  width: 20px;
+  color: var(--sky);
+  transition:
+    transform 420ms ease,
+    color 420ms ease;
 }
 .catalog-card .project-copy {
-  padding: 16px 24px 20px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 22px 24px;
 }
-.catalog-card .project-copy p {
-  min-height: 3em;
+.catalog-card .project-copy > p {
+  min-height: 0;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+.catalog-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--sky) 25%, transparent);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.catalog-card .catalog-result {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  margin: 0;
+  flex: 1 1 210px;
+}
+.catalog-result > span:first-child {
+  font-size: 26px;
+  color: color-mix(in srgb, var(--accent) 75%, white);
+}
+.catalog-cta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+.catalog-cta > span {
+  color: var(--accent);
+  font-size: 20px;
 }
 .catalog-card:has(> a:focus-visible) {
-  transform: translateY(-10px) scale(1.015);
+  transform: translateY(-8px);
 }
 .catalog-card:has(> a:focus-visible)::before {
   opacity: 0.75;
-  transform: translateY(12px) scale(1);
+}
+.catalog-card > a:focus-visible {
+  border-color: var(--accent);
 }
 @media (hover: hover) and (pointer: fine) {
   .catalog-card:has(a):hover {
-    transform: translateY(-10px) scale(1.015);
+    transform: translateY(-8px);
   }
   .catalog-card:has(a):hover::before {
     opacity: 0.75;
-    transform: translateY(12px) scale(1);
+  }
+  .catalog-card:hover > a {
+    border-color: var(--accent);
+  }
+  .catalog-card:hover .cover img {
+    transform: scale(1.035);
+  }
+  .catalog-card:hover .project-title svg {
+    transform: translate(2px, -2px);
+    color: var(--accent);
   }
 }
 @media (hover: none) {
@@ -1265,7 +1334,250 @@ dialog nav a[aria-current] {
     transform: none !important;
   }
   .catalog-card,
-  .catalog-card::before {
+  .catalog-card::before,
+  .catalog-card .cover img,
+  .catalog-card .project-title svg {
     transform: none !important;
+  }
+}
+
+/* Visual case studies keep evidence full-width and prose at a reading measure. */
+.visual-study {
+  max-width: 1160px;
+}
+.visual-study .page-heading {
+  max-width: 880px;
+}
+.visual-study .page-heading h1 {
+  font-size: clamp(40px, 5vw, 72px);
+}
+.visual-study .page-heading .award {
+  font-size: 16px;
+  color: color-mix(in srgb, var(--accent) 75%, white);
+}
+.study-hero,
+.study-image,
+.study-diagram {
+  margin: 0;
+}
+.visual-study .study-hero .cover {
+  width: 100%;
+  max-height: none;
+  aspect-ratio: 3 / 2;
+  border-radius: 14px;
+}
+.visual-study figcaption {
+  font-size: 13px;
+  line-height: 1.65;
+  color: color-mix(in srgb, white 75%, var(--sky));
+  margin-top: 14px;
+  max-width: 850px;
+}
+.study-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 24px 0;
+  margin: 30px 0 0;
+  border-block: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+}
+.study-nav a {
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.study-nav a:hover {
+  color: color-mix(in srgb, var(--accent) 75%, white);
+}
+.visual-study .detail-body {
+  padding: 36px 0 0;
+  background: var(--canvas);
+}
+.visual-study .project-facts {
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 48px;
+  border: 0;
+  padding: 28px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--canvas), var(--sky) 8%);
+}
+.visual-study .project-facts dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sky);
+}
+.visual-study .project-facts dd {
+  font-size: 14px;
+}
+.visual-study .detail-body > section {
+  margin-top: 72px;
+  scroll-margin-top: 120px;
+}
+.visual-study .detail-body h2 {
+  max-width: 760px;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.visual-study .detail-body > section > p {
+  max-width: 780px;
+  font-size: 18px;
+  line-height: 1.85;
+}
+.visual-study strong {
+  color: color-mix(in srgb, var(--accent) 75%, white);
+  font-weight: 700;
+  font-synthesis-weight: auto;
+}
+.study-image,
+.study-diagram {
+  margin-top: 32px;
+}
+.study-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+}
+.study-image a {
+  display: block;
+  border-radius: 12px;
+}
+.study-diagram {
+  padding: 28px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+  background: color-mix(in srgb, var(--canvas), var(--sky) 8%);
+}
+.visual-study .memory-sequence {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  gap: 24px;
+  list-style: none;
+}
+.memory-sequence svg {
+  display: block;
+  width: 100%;
+  max-height: 120px;
+}
+.memory-sequence h3 {
+  margin: 12px 0 8px;
+  font-size: 20px;
+}
+.visual-study .study-diagram p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.study-diagram figcaption {
+  border-top: 1px solid color-mix(in srgb, var(--sky) 25%, transparent);
+  padding-top: 20px;
+  margin-top: 24px;
+}
+.system-input {
+  text-align: center;
+}
+.study-diagram h3 {
+  font-size: 20px;
+  margin: 6px 0 10px;
+}
+.architecture-diagram span,
+.system-label {
+  color: var(--sky);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.flow-arrow {
+  text-align: center;
+  font-size: 28px;
+  color: var(--accent);
+  padding: 8px;
+}
+.jetson-system {
+  border: 1px solid var(--sky);
+  border-radius: 10px;
+  padding: 24px;
+}
+.system-stages {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+}
+.system-stages small {
+  display: block;
+  margin-top: 12px;
+  color: var(--sky);
+}
+.system-outputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.system-outputs > div {
+  border: 1px solid color-mix(in srgb, var(--sky) 35%, transparent);
+  padding: 24px;
+  border-radius: 10px;
+}
+.system-outputs .system-mine {
+  border-color: var(--accent);
+}
+.system-mine span {
+  color: color-mix(in srgb, var(--accent) 75%, white);
+}
+@media (max-width: 600px) {
+  .visual-study .project-facts {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .visual-study .detail-body > section {
+    margin-top: 48px;
+  }
+  .visual-study .detail-body > section > p {
+    font-size: 16px;
+  }
+  .study-diagram {
+    padding: 18px;
+  }
+  .visual-study .memory-sequence {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .system-stages,
+  .system-outputs {
+    grid-template-columns: 1fr;
+  }
+  .system-stages > .flow-arrow {
+    transform: rotate(90deg);
+  }
+  .jetson-system,
+  .system-outputs > div {
+    padding: 18px;
+  }
+  .project-title h2 {
+    font-size: 26px;
+  }
+}
+
+.study-intro {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: center;
+  padding-top: 32px;
+}
+.study-intro .page-heading {
+  padding: 0;
+}
+@media (max-width: 900px) {
+  .study-intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }

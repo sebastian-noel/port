@@ -1,8 +1,22 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ProjectDiagram } from "../../_components/project-diagrams";
 import { notFound } from "next/navigation";
 import { Cover } from "../../_components/entries";
 import { entries } from "../../_content/entries";
 import { pageMetadata } from "../../_lib/site";
+
+function Emphasis({ text }: { text: string }) {
+  return text
+    .split(/(\*\*[^*]+\*\*)/g)
+    .map((part, index) =>
+      part.startsWith("**") ? (
+        <strong key={index}>{part.slice(2, -2)}</strong>
+      ) : (
+        part
+      ),
+    );
+}
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -34,16 +48,37 @@ export async function generateMetadata({ params }: Props) {
 export default async function Detail({ params }: Props) {
   const entry = await getEntry(params);
   return (
-    <article className="wrap detail">
+    <article
+      className={`wrap detail${entry.visualStudy ? " visual-study" : ""}`}
+    >
       <Link className="back-link" href={`/${entry.collection}`}>
         ← All {entry.collection}
       </Link>
-      <header className="page-heading">
-        <h1>{entry.title}</h1>
-        <p>{entry.summary}</p>
-        {entry.award && <p className="award">{entry.award}</p>}
-      </header>
-      <Cover entry={entry} />
+      <div className={entry.visualStudy ? "study-intro" : undefined}>
+        <header className="page-heading">
+          <h1>{entry.title}</h1>
+          <p>{entry.summary}</p>
+          {entry.award && <p className="award">{entry.award}</p>}
+        </header>
+        {entry.visualStudy ? (
+          <figure className="study-hero">
+            <Cover entry={entry} />
+            {entry.heroCaption && <figcaption>{entry.heroCaption}</figcaption>}
+          </figure>
+        ) : (
+          <Cover entry={entry} />
+        )}
+      </div>
+      {entry.visualStudy && (
+        <nav className="study-nav" aria-label="Case study sections">
+          {entry.sections.map((section) => (
+            <a key={section.id ?? section.heading} href={`#${section.id}`}>
+              {section.navLabel ?? section.heading}
+            </a>
+          ))}
+          <a href="#demo-heading">Demo</a>
+        </nav>
+      )}
       <div className="detail-body">
         <dl className="project-facts">
           {entry.event && (
@@ -80,9 +115,34 @@ export default async function Detail({ params }: Props) {
           </ul>
         )}
         {entry.sections.map((section) => (
-          <section key={section.heading}>
+          <section key={section.heading} id={section.id}>
             <h2>{section.heading}</h2>
-            <p>{section.text}</p>
+            <p>
+              <Emphasis text={section.text} />
+            </p>
+            {section.paragraphs?.map((text) => (
+              <p key={text}>
+                <Emphasis text={text} />
+              </p>
+            ))}
+            {section.diagram && <ProjectDiagram kind={section.diagram} />}
+            {section.image && (
+              <figure className="study-image">
+                <a
+                  href={section.image.src}
+                  aria-label={`Open full image: ${section.image.alt}`}
+                >
+                  <Image
+                    src={section.image.src}
+                    alt={section.image.alt}
+                    width={section.image.width}
+                    height={section.image.height}
+                    sizes="(max-width: 900px) 100vw, 1100px"
+                  />
+                </a>
+                <figcaption>{section.image.caption}</figcaption>
+              </figure>
+            )}
           </section>
         ))}
         {entry.demoVideoId && (

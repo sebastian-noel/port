@@ -102,10 +102,29 @@ PR #5 holds the accepted first draft. Design polish is still pending, and a prod
 
 ## Projects collection layout
 
-The Projects catalog uses two equal desktop columns. Each card is 16:9 overall,
-with its title above a flexible cover band and a short description below. Below 900px
-cards stack; phone cards use natural height and a 16:9 cover so text remains readable.
-Hover and keyboard focus lift the card over a soft scarlet underglow with a 420ms
-ease-out. Touch does not require hover, and reduced motion disables the lift and
-transitions while preserving the focus cue. These styles apply to collection
-cards; homepage showcase media and case-study covers retain their own layouts.
+The Projects catalog uses two equal desktop columns with natural-height cards and
+16:9 cover images. Titles and categories sit above the image; descriptions and a
+compact award results strip sit below. The strip reuses verified award copy, not
+the homepage's badges. Below 900px cards stack. Hover and keyboard focus lift the
+card, fade in a full scarlet perimeter glow, and turn the border scarlet over 420ms.
+Fine-pointer hover adds a small image zoom. Touch needs no hover, and reduced motion
+disables movement and transitions.
+
+## Visual project case studies
+
+Permanence is the first `visualStudy` record. Optional section fields add stable
+`id` anchors, `navLabel` text, additional `paragraphs`, captioned `image` evidence, and a typed
+`diagram` key. `heroCaption` supplies the cover caption. `**marked phrases**` render as semantic bold scarlet text using the
+Experiences treatment. Other records retain the existing template until reviewed.
+Use optimized WebP derivatives in `public/media`, preserving original assets outside
+the repository. Figures retain their full aspect ratio and link to the full image.
+Diagrams are responsive server-rendered HTML/SVG with readable text, not screenshots
+or claimed experimental results. The diagrams describe the README's pipeline and
+shell-game behavior; they are not measurements.
+
+Permanence sources: local project README, devpost.md, viewer/README.md and containment
+code; public [repository](https://github.com/billpquach/permanence) and
+[submission](https://devpost.com/software/permanence). Supplied rover and dashboard
+images are optimized without cropping or metadata. The award image reuses the
+existing approved site derivative. Captions distinguish observed screenshots from
+benchmark claims. Sebastian's dashboard ownership is separate from team outcomes.
