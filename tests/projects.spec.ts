@@ -45,12 +45,14 @@ for (const slug of selected) {
       "src",
       `https://www.youtube-nocookie.com/embed/${entry.demoVideoId}`,
     );
-    await expect(
-      page.getByRole("link", { name: `Watch ${entry.title} on YouTube` }),
-    ).toHaveAttribute(
-      "href",
-      `https://www.youtube.com/watch?v=${entry.demoVideoId}`,
-    );
+    if (slug !== "permanence") {
+      await expect(
+        page.getByRole("link", { name: `Watch ${entry.title} on YouTube` }),
+      ).toHaveAttribute(
+        "href",
+        `https://www.youtube.com/watch?v=${entry.demoVideoId}`,
+      );
+    }
     await expect(page.locator("main")).not.toContainText(/hackathon projects/i);
     if (["greghouse", "debt-escape", "next-step", "tidesense"].includes(slug)) {
       await expect(
@@ -238,7 +240,9 @@ test("Permanence tells a visual, navigable case study with real images", async (
       ).toBeGreaterThan(rail!.y + rail!.height);
     await page.evaluate(() => window.scrollTo(0, 0));
     // Load the evidence below the fold before capturing the complete page.
-    for (const image of await page.locator(".visual-study img").all()) {
+    for (const image of await page
+      .locator(".visual-study .study-photo-trigger img")
+      .all()) {
       await image.scrollIntoViewIfNeeded();
       await expect
         .poll(() =>
@@ -286,4 +290,48 @@ test("Permanence arrows animate briefly on entry and respect reduced motion", as
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(arrow).toHaveCSS("animation-name", "none");
   await context.close();
+});
+
+test("Permanence images open in a captioned, dismissible dialog", async ({
+  page,
+}, testInfo) => {
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/projects/permanence");
+    const trigger = page.getByRole("button", { name: /Expand image:/ }).first();
+    await trigger.click();
+    const dialog = page.getByRole("dialog", { name: "Expanded project image" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator("figcaption")).toContainText("The prototype");
+    await expect
+      .poll(() =>
+        dialog
+          .locator("img")
+          .evaluate(
+            (image: HTMLImageElement) =>
+              image.complete && image.naturalWidth > 0,
+          ),
+      )
+      .toBe(true);
+    await page.screenshot({
+      path: testInfo.outputPath(`image-overlay-${width}.png`),
+    });
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible();
+    await expect(trigger).toBeFocused();
+    await page.locator(".study-image .study-photo-trigger").first().click();
+    const second = page.getByRole("dialog", { name: "Expanded project image" });
+    await expect(second).toBeVisible();
+    await second.getByRole("button", { name: "Close image" }).click();
+    await expect(second).not.toBeVisible();
+    await trigger.click();
+    await page.mouse.click(5, 100);
+    await expect(dialog).not.toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "Project links" }),
+    ).toContainText("LinkedIn");
+    await expect(
+      page.locator(".project-demo p, .project-demo > a"),
+    ).toHaveCount(0);
+  }
 });

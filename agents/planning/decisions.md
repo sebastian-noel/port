@@ -335,3 +335,7 @@ Issue #68 supersedes centered prose and the route illustration. Keep titles cent
 Replace the navigation diagram with visible observation, retained memory age, and depth-supported occlusion. Show rays ending at the foreground surface and use dashed outlines only for remembered positions. Explain out-of-view and lost separately in prose because elapsed time alone does not establish occlusion. Verify against the tracker implementation. Remove source/editorial notes from public captions while retaining useful explanations and accurate telemetry context.
 
 Use a small client figure wrapper with IntersectionObserver to trigger short, finite arrow and opacity animations once on entry. Keep diagram content server-rendered and visible without JavaScript. Avoid an animation dependency and continuous movement; reduced motion disables all added animation.
+
+## 2026-11-19 Permanence image viewing and links
+
+Issue #70 places the project resources in the introduction for immediate access and uses the owner's LinkedIn post URL. Describe work directly or as we, while preserving the factual team credits in the metadata and image descriptions. The demo retains its embedded video without surrounding descriptive and duplicate link lines on this visual study. A native modal dialog enlarges each project photograph and its caption, dims and blurs the page, and supports backdrop, close button, and Escape dismissal. Native modal focus management provides keyboard access without adding a dialog dependency. Other project templates retain their existing demo and link behavior.

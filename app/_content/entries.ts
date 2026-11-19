@@ -148,7 +148,7 @@ export const records: Entry[] = [
         id: "constraints",
         navLabel: "Constraints",
         heading: "An 8 GB constraint shaped the system",
-        text: "The Jetson shares memory between its CPU and GPU. The team's custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
+        text: "The Jetson shares memory between its CPU and GPU. Custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
         paragraphs: [
           "Reducing stored weight memory made room for the pipeline. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning also let the phone settle between views, reducing blur from its tall mount.",
           "The dashboard exposes shared memory, GPU and CPU utilization, temperature, power, and swap. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
@@ -167,7 +167,7 @@ export const records: Entry[] = [
         id: "dashboard",
         navLabel: "See the memory",
         heading: "What the robot remembers",
-        text: "The team connected a live 3D viewer, top-down memory map, camera feed, and object inspector in one dashboard. It makes **hidden objects visible in the robot's remembered world**, even when the current camera image cannot show them.",
+        text: "A live 3D viewer, top-down memory map, camera feed, and object inspector come together in one dashboard. It makes **hidden objects visible in the robot's remembered world**, even when the current camera image cannot show them.",
         paragraphs: [
           "The calibrated robot view and camera feed sit together. An object inspector exposes distance, state, and time since the last observation; All, Observed, and Unseen filters help explore the scene. Selecting an object inspects it without commanding the rover to move.",
         ],
@@ -196,13 +196,13 @@ export const records: Entry[] = [
           width: 1280,
           height: 720,
           caption:
-            "The Permanence team at Knight Hacks IX. Best Overall, NVIDIA, and Hugging Face: three first-place awards.",
+            "Permanence at Knight Hacks IX: first place for Best Overall, NVIDIA, and Hugging Face.",
         },
       },
       {
         id: "lessons",
         navLabel: "Lessons",
-        heading: "What the team learned",
+        heading: "What we learned",
         text: "A useful robotics interface needs to communicate **uncertainty and freshness**, as well as position. Last-seen ages and separate observed and unseen states make the memory legible. When the display is frozen or the stream is unavailable, the viewer keeps ages tied to the displayed telemetry instead of advancing them on browser time.",
         paragraphs: [
           "The current system has been tested on small scenes with a handful of objects. Containment rules are hand-written, and grounding is weaker with viewer-relative words such as left and right. Learned prediction, re-observing aging memories, and moving beyond the tabletop remain future work.",
@@ -211,12 +211,16 @@ export const records: Entry[] = [
     ],
     links: [
       {
-        label: "View on Devpost",
+        label: "Devpost",
         href: "https://devpost.com/software/permanence",
       },
       {
-        label: "Source code",
+        label: "GitHub",
         href: "https://github.com/billpquach/permanence",
+      },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/feed/update/urn:li:activity:7516558684559294465/",
       },
     ],
     technologies: [

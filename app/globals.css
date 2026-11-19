@@ -1830,3 +1830,88 @@ dialog nav a[aria-current] {
   font-size: inherit;
   color: inherit;
 }
+
+.study-top-links {
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 18px;
+}
+.study-photo-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: inherit;
+}
+.study-photo-trigger img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.study-photo-trigger:focus-visible,
+.photo-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.photo-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 64px 24px 24px;
+  border: 0;
+  background: transparent;
+  color: white;
+  overflow: auto;
+}
+.photo-dialog::backdrop {
+  background: rgb(0 12 28 / 88%);
+  backdrop-filter: blur(9px);
+}
+.photo-dialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-dialog figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.photo-dialog img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 160px);
+  object-fit: contain;
+  border-radius: 8px;
+}
+.photo-dialog figcaption {
+  max-width: 900px;
+  margin-top: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+.photo-close {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  background: rgb(3 25 48 / 85%);
+  color: white;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}

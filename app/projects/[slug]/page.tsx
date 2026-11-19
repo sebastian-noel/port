@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { StudyPhoto } from "../../_components/study-photo";
 import { ProjectDiagram } from "../../_components/project-diagrams";
 import { notFound } from "next/navigation";
 import { Cover } from "../../_components/entries";
@@ -59,12 +59,27 @@ export default async function Detail({ params }: Props) {
           <h1>{entry.title}</h1>
           <p>{entry.summary}</p>
           {entry.award && <p className="award">{entry.award}</p>}
+          {entry.visualStudy && (
+            <nav
+              className="detail-links study-top-links"
+              aria-label="Project links"
+            >
+              {entry.links.map((link) => (
+                <a className="text-link" href={link.href} key={link.href}>
+                  {link.label} ↗
+                </a>
+              ))}
+            </nav>
+          )}
         </header>
         {entry.visualStudy ? (
-          <figure className="study-hero">
-            <Cover entry={entry} />
-            {entry.heroCaption && <figcaption>{entry.heroCaption}</figcaption>}
-          </figure>
+          !entry.cover.placeholder && (
+            <StudyPhoto
+              {...entry.cover}
+              caption={entry.heroCaption ?? ""}
+              hero
+            />
+          )
         ) : (
           <Cover entry={entry} />
         )}
@@ -151,29 +166,13 @@ export default async function Detail({ params }: Props) {
                 </p>
               ))}
               {section.diagram && <ProjectDiagram kind={section.diagram} />}
-              {section.image && (
-                <figure className="study-image">
-                  <a
-                    href={section.image.src}
-                    aria-label={`Open full image: ${section.image.alt}`}
-                  >
-                    <Image
-                      src={section.image.src}
-                      alt={section.image.alt}
-                      width={section.image.width}
-                      height={section.image.height}
-                      sizes="(max-width: 900px) 100vw, 1100px"
-                    />
-                  </a>
-                  <figcaption>{section.image.caption}</figcaption>
-                </figure>
-              )}
+              {section.image && <StudyPhoto {...section.image} />}
             </section>
           ))}
           {entry.demoVideoId && (
             <section className="project-demo" aria-labelledby="demo-heading">
               <h2 id="demo-heading">Watch the demo</h2>
-              <p>{entry.demoBrief}</p>
+              {!entry.visualStudy && <p>{entry.demoBrief}</p>}
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${entry.demoVideoId}`}
                 title={`${entry.title} demo`}
@@ -184,23 +183,27 @@ export default async function Detail({ params }: Props) {
                 allowFullScreen
                 referrerPolicy="strict-origin-when-cross-origin"
               />
-              <a
-                className="text-link"
-                href={`https://www.youtube.com/watch?v=${entry.demoVideoId}`}
-              >
-                Watch {entry.title} on YouTube
-              </a>
+              {!entry.visualStudy && (
+                <a
+                  className="text-link"
+                  href={`https://www.youtube.com/watch?v=${entry.demoVideoId}`}
+                >
+                  Watch {entry.title} on YouTube
+                </a>
+              )}
             </section>
           )}
-          {entry.collection === "projects" && entry.links.length > 0 && (
-            <nav className="detail-links" aria-label="Project links">
-              {entry.links.map((link) => (
-                <a className="text-link" href={link.href} key={link.href}>
-                  {link.label} ↗
-                </a>
-              ))}
-            </nav>
-          )}
+          {entry.collection === "projects" &&
+            !entry.visualStudy &&
+            entry.links.length > 0 && (
+              <nav className="detail-links" aria-label="Project links">
+                {entry.links.map((link) => (
+                  <a className="text-link" href={link.href} key={link.href}>
+                    {link.label} ↗
+                  </a>
+                ))}
+              </nav>
+            )}
         </div>
       </div>
     </article>
