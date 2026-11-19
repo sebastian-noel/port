@@ -40,12 +40,37 @@ export default async function Detail({ params }: Props) {
       </Link>
       <header className="page-heading">
         <h1>{entry.title}</h1>
-        {entry.role && <p>{entry.role}</p>}
         <p>{entry.summary}</p>
         {entry.award && <p className="award">{entry.award}</p>}
       </header>
-      {entry.collection === "projects" && <Cover entry={entry} />}
+      <Cover entry={entry} />
       <div className="detail-body">
+        <dl className="project-facts">
+          {entry.event && (
+            <div>
+              <dt>Event</dt>
+              <dd>{entry.event}</dd>
+            </div>
+          )}
+          {entry.role && (
+            <div>
+              <dt>My role</dt>
+              <dd>{entry.role}</dd>
+            </div>
+          )}
+          {!!entry.team?.length && (
+            <div>
+              <dt>Team</dt>
+              <dd>{entry.team.join(", ")}</dd>
+            </div>
+          )}
+          {!!entry.technologies?.length && (
+            <div>
+              <dt>Built with</dt>
+              <dd>{entry.technologies.join(" · ")}</dd>
+            </div>
+          )}
+        </dl>
         {entry.placeholder && <p>Placeholder. Details will be added later.</p>}
         {!!entry.bullets?.length && (
           <ul>
@@ -60,6 +85,28 @@ export default async function Detail({ params }: Props) {
             <p>{section.text}</p>
           </section>
         ))}
+        {entry.demoVideoId && (
+          <section className="project-demo" aria-labelledby="demo-heading">
+            <h2 id="demo-heading">Watch the demo</h2>
+            <p>{entry.demoBrief}</p>
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${entry.demoVideoId}`}
+              title={`${entry.title} demo`}
+              width="560"
+              height="315"
+              loading="lazy"
+              allow="encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <a
+              className="text-link"
+              href={`https://www.youtube.com/watch?v=${entry.demoVideoId}`}
+            >
+              Watch {entry.title} on YouTube
+            </a>
+          </section>
+        )}
         {entry.collection === "projects" && entry.links.length > 0 && (
           <nav className="detail-links" aria-label="Project links">
             {entry.links.map((link) => (

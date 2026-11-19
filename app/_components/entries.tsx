@@ -4,7 +4,18 @@ import type { Entry } from "../_content/entries";
 import { Icon } from "./icons";
 
 export function Cover({ entry }: { entry: Entry }) {
-  return entry.cover.placeholder ? (
+  return entry.cover.placeholder && entry.demoVideoId ? (
+    <div className="cover">
+      <Image
+        src={`https://i.ytimg.com/vi/${entry.demoVideoId}/hqdefault.jpg`}
+        alt={`${entry.title} demo video thumbnail`}
+        width={480}
+        height={360}
+        sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw"
+        unoptimized
+      />
+    </div>
+  ) : entry.cover.placeholder ? (
     <div
       className={`cover placeholder-cover tone-${entry.tone ?? "pale"}`}
       aria-hidden="true"
