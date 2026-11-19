@@ -84,3 +84,5 @@ The November 14, 2026 public PDF is the updated file explicitly selected by Seba
 
 
 Permanence refinement (#68): prose is left aligned within a page-centered column, with centered section titles, sticky desktop contents, and compact event/team/technology facts. The third diagram explains observation, last-seen freshness, and depth-supported occlusion instead of routing. Public captions explain the system without author-facing sourcing notes. Diagram motion plays briefly once on entry and respects reduced-motion settings.
+
+Permanence (#70) places Devpost, GitHub, and the owner's LinkedIn post in its introduction. Case-study photographs, including the hero, open in captioned modal views with backdrop, close-button, and Escape dismissal. Its embedded demo stands alone under the heading.
