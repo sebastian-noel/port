@@ -194,7 +194,16 @@ test("Permanence tells a visual, navigable case study with real images", async (
   }
   for (const width of [1280, 950, 390]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.locator("#navigation").scrollIntoViewIfNeeded();
+    await page.locator(".project-facts").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: testInfo.outputPath(`permanence-facts-${width}.png`),
+    });
+    await page
+      .locator("#object-states .study-diagram")
+      .screenshot({
+        path: testInfo.outputPath(`permanence-states-${width}.png`),
+      });
+    await page.locator("#object-states").scrollIntoViewIfNeeded();
     const contents = page.getByRole("navigation", {
       name: "Case study sections",
     });
@@ -203,9 +212,21 @@ test("Permanence tells a visual, navigable case study with real images", async (
     expect(rail!.y).toBeGreaterThanOrEqual(76);
     expect(rail!.y).toBeLessThan(150);
     if (width <= 1000) expect(rail!.height).toBeLessThan(80);
-    await expect(page.locator("#navigation > p").first()).toHaveCSS(
+    await expect(page.locator("#object-states > p").first()).toHaveCSS(
+      "text-align",
+      "left",
+    );
+    const prose = await page
+      .locator("#object-states > p")
+      .first()
+      .boundingBox();
+    expect(Math.abs(prose!.x + prose!.width / 2 - width / 2)).toBeLessThan(2);
+    await expect(page.locator("#object-states h2")).toHaveCSS(
       "text-align",
       "center",
+    );
+    await expect(page.locator("main")).not.toContainText(
+      /README|supplied capture|reconstructed|routing around/,
     );
     await page.screenshot({
       path: testInfo.outputPath(`permanence-navigation-${width}.png`),
@@ -240,4 +261,31 @@ test("Permanence tells a visual, navigable case study with real images", async (
       fullPage: true,
     });
   }
+});
+
+test("Permanence arrows animate briefly on entry and respect reduced motion", async ({
+  browser,
+}, testInfo) => {
+  const context = await browser.newContext({
+    baseURL: "http://127.0.0.1:3000",
+    viewport: { width: 1280, height: 900 },
+    recordVideo: {
+      dir: testInfo.outputPath("motion"),
+      size: { width: 1280, height: 900 },
+    },
+  });
+  const page = await context.newPage();
+  await page.goto("/projects/permanence");
+  const diagram = page.locator(".architecture-diagram");
+  await diagram.scrollIntoViewIfNeeded();
+  await expect(diagram).toHaveAttribute("data-entered", "true");
+  const arrow = diagram.locator(".flow-arrow span").first();
+  await expect(arrow).toHaveCSS("animation-name", "study-flow-down");
+  await expect(arrow).toHaveCSS("animation-iteration-count", "2");
+  await expect
+    .poll(() => arrow.evaluate((el) => el.getAnimations().length))
+    .toBe(0);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(arrow).toHaveCSS("animation-name", "none");
+  await context.close();
 });

@@ -326,3 +326,12 @@ on narrower screens use a sticky horizontal row instead of squeezing the content
 Use a typed optional teamProfiles field rather than changing all existing team
 arrays. Verify Bill's LinkedIn via his Devpost profile; the other teammate URLs
 are explicitly linked by the local README. This revision is limited to Permanence.
+
+
+## 2026-11-19 Permanence observation and memory refinement
+
+Issue #68 supersedes centered prose and the route illustration. Keep titles centered, but left-align prose inside a page-centered reading column. Balanced desktop gutters accommodate the sticky left rail without shifting the text off center. Collapse the rail to its existing horizontal layout on narrower screens. Use a compact two-column facts strip with a full-width technology row instead of a tall filled panel. Keep teammate links.
+
+Replace the navigation diagram with visible observation, retained memory age, and depth-supported occlusion. Show rays ending at the foreground surface and use dashed outlines only for remembered positions. Explain out-of-view and lost separately in prose because elapsed time alone does not establish occlusion. Verify against the tracker implementation. Remove source/editorial notes from public captions while retaining useful explanations and accurate telemetry context.
+
+Use a small client figure wrapper with IntersectionObserver to trigger short, finite arrow and opacity animations once on entry. Keep diagram content server-rendered and visible without JavaScript. Avoid an animation dependency and continuous movement; reduced motion disables all added animation.

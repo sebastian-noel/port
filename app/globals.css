@@ -1587,8 +1587,8 @@ dialog nav a[aria-current] {
 }
 .study-layout {
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 40px;
+  grid-template-columns: 160px minmax(0, 1fr) 160px;
+  gap: 24px;
   align-items: start;
   margin-top: 40px;
 }
@@ -1705,4 +1705,126 @@ dialog nav a[aria-current] {
   .study-layout .study-nav {
     top: 80px;
   }
+}
+
+/* Balanced gutters keep the reading column on the page centerline. */
+.visual-study .detail-body {
+  grid-column: 2;
+}
+.visual-study .detail-body > section > p,
+.visual-study .page-heading > p,
+.visual-study figcaption {
+  text-align: left;
+}
+.visual-study .detail-body > section > p {
+  max-width: 720px;
+}
+.visual-study .detail-body h2 {
+  text-align: center;
+}
+.visual-study .project-facts {
+  grid-template-columns: 1fr 2fr;
+  gap: 20px 28px;
+  padding: 24px 0;
+  background: transparent;
+  border-block: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+  border-radius: 0;
+  text-align: left;
+}
+.visual-study .project-facts > div:last-child {
+  grid-column: 1 / -1;
+}
+.visual-study .project-facts dd {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.visual-study .project-facts dt {
+  margin-bottom: 5px;
+}
+.state-label {
+  color: var(--sky);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.flow-arrow span {
+  display: inline-block;
+}
+.study-diagram[data-entered="true"] .flow-arrow span {
+  animation: study-flow-down 1.8s ease-in-out 2;
+}
+.study-diagram[data-entered="true"] .system-stages .flow-arrow span {
+  animation-name: study-flow-right;
+}
+.study-diagram[data-entered="true"] li svg {
+  animation: study-ink 1.2s ease-out both;
+}
+.study-diagram li:nth-child(2) svg {
+  animation-delay: 0.12s;
+}
+.study-diagram li:nth-child(3) svg {
+  animation-delay: 0.24s;
+}
+.study-diagram li:nth-child(4) svg {
+  animation-delay: 0.36s;
+}
+.study-image a img {
+  transition: filter 0.3s ease;
+}
+.study-image a:hover img {
+  filter: brightness(1.06);
+}
+@keyframes study-flow-down {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+@keyframes study-flow-right {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}
+@keyframes study-ink {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 600px) {
+  .visual-study .project-facts {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .study-diagram *,
+  .study-image a img {
+    animation: none !important;
+    transition: none;
+  }
+}
+
+.visual-study .study-diagram p {
+  text-align: left;
+}
+.visual-study .study-diagram .system-label {
+  text-align: center;
+}
+.architecture-diagram .flow-arrow span {
+  font-size: inherit;
+  color: inherit;
 }
