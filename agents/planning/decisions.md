@@ -309,3 +309,20 @@ Use a 420ms eased transform for the lift and scale, and fade a softly blurred sc
 Issue #64 implements Sebastian's requested revision to the existing project design. Natural card height supersedes the exact 16:9 outer ratio so the cover, summary, and award results have room. Retain a 16:9 cover and two desktop columns; a concise results strip replaces reuse of homepage award badges. Use a full-perimeter static scarlet shadow faded with opacity, a scarlet border, and restrained lift/image zoom instead of animated blur or an animation dependency. Focus receives the same perimeter cue; reduced motion removes movement.
 
 Use Michael Rusu's linked case studies as structural inspiration: problem, personal contribution, architecture, constraints, results, and lessons. Keep all project facts grounded in Permanence's README, local submission, viewer contract, and containment code. Add optional rich section fields to the existing content model rather than a parallel hard-coded case-study route, so the accepted structure can later support other entries. Limit this content revision to Permanence. Use native HTML/SVG diagrams because they remain crisp, accessible and responsive without extra client JavaScript. Label diagrams as explanations rather than results. Use supplied rover and dashboard images as WebP derivatives, retain uncropped screenshots, reuse the existing awards photo, and exclude original files. Apply the existing Experiences scarlet bold style for visual consistency. Distinguish model-weight memory from total shared usage, and identify the telemetry screenshot as one observed moment, not a benchmark. Do not invent accuracy metrics or broaden Sebastian's contribution beyond the dashboard.
+
+
+## 2026-11-19 team-centered Permanence narrative
+
+Issue #66 follows Sebastian's request to emphasize the team's strongest technical
+achievements, remove individual contribution callouts, center the text, and keep
+a sticky contents rail on the left. Lead with object permanence, the two-stage
+pipeline, remembered-target navigation, and the 8 GB constraint before showing the
+dashboard. Keep all ownership collective; remove the role field and diagram's
+personal highlight. Add a third native illustration for target selection, memory,
+and obstacle-aware approach because it explains physical action with the same
+visual vocabulary as the shell game. Label it conceptual rather than measured.
+Keep the rail in a dedicated desktop grid column to avoid overlapping the story;
+on narrower screens use a sticky horizontal row instead of squeezing the content.
+Use a typed optional teamProfiles field rather than changing all existing team
+arrays. Verify Bill's LinkedIn via his Devpost profile; the other teammate URLs
+are explicitly linked by the local README. This revision is limited to Permanence.
