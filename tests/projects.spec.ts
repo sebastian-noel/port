@@ -116,7 +116,7 @@ test("catalog cards use wide proportions and a smooth accessible scarlet lift", 
   );
   expect(bounds[0].y).toBe(bounds[1].y);
   expect(bounds[2].y).toBeGreaterThan(bounds[0].y);
-  expect(bounds[0].width / bounds[0].height).toBeCloseTo(16 / 9, 2);
+  expect(bounds[0].height).toBeGreaterThan((bounds[0].width * 9) / 16);
   expect(
     await card
       .locator("a")
@@ -132,12 +132,11 @@ test("catalog cards use wide proportions and a smooth accessible scarlet lift", 
     await card.evaluate(
       (el) => new DOMMatrix(getComputedStyle(el).transform).m42,
     ),
-  ).toBeLessThan(-9);
+  ).toBeLessThan(-7);
   expect(
-    await card.evaluate(
-      (el) => getComputedStyle(el, "::before").backgroundImage,
-    ),
+    await card.evaluate((el) => getComputedStyle(el, "::before").boxShadow),
   ).toContain("235, 47, 51");
+  await expect(card.locator("a")).toHaveCSS("border-color", "rgb(235, 47, 51)");
   await page.screenshot({
     path: testInfo.outputPath("projects-hover-desktop.png"),
     fullPage: true,
@@ -177,4 +176,45 @@ test("catalog cards use wide proportions and a smooth accessible scarlet lift", 
     fullPage: true,
   });
   await context.close();
+});
+
+test("Permanence tells a visual, navigable case study with real images", async ({
+  page,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/projects/permanence");
+  await expect(page.locator(".study-diagram")).toHaveCount(2);
+  await expect(page.locator(".study-image")).toHaveCount(3);
+  await expect(page.locator("#contribution strong").first()).toHaveCSS(
+    "font-weight",
+    "700",
+  );
+  await page.getByRole("link", { name: "Architecture", exact: true }).click();
+  await expect(page).toHaveURL(/#architecture$/);
+  await expect(page.locator("#architecture")).toBeInViewport();
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    // Load the evidence below the fold before capturing the complete page.
+    for (const image of await page.locator(".visual-study img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          image.evaluate(
+            (el: HTMLImageElement) => el.complete && el.naturalWidth > 0,
+          ),
+        )
+        .toBe(true);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await page.screenshot({
+      path: testInfo.outputPath(`permanence-${width}.png`),
+      fullPage: true,
+    });
+  }
 });

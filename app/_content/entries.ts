@@ -44,7 +44,15 @@ export type Entry = {
   demoPosterAlt?: string;
   demoBrief?: string;
   winnerPhoto?: ProjectPhoto;
-  sections: { heading: string; text: string }[];
+  visualStudy?: boolean;
+  sections: {
+    heading: string;
+    text: string;
+    id?: string;
+    paragraphs?: string[];
+    image?: ProjectPhoto & { caption: string };
+    diagram?: "permanence-system" | "permanence-memory";
+  }[];
   links: { label: string; href: string }[];
 };
 
@@ -90,35 +98,104 @@ export const records: Entry[] = [
     demoPoster: "/media/permanence-winners.webp",
     demoPosterAlt:
       "Permanence's winning team on stage for Best Overall, NVIDIA, and Hugging Face at Knight Hacks IX.",
+    visualStudy: true,
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/permanence-rover.webp",
+      alt: "Two views of the Permanence rover with its mounted iPhone, Jetson, and motor hardware beside cups and colored balls.",
+      width: 1800,
+      height: 1200,
     },
     sections: [
       {
-        heading: "Remembering what the camera cannot see",
-        text: "When a robot loses sight of an object, a detector alone cannot tell it where that object went. Permanence explores object permanence with a tabletop rover: show it colored balls, cover them with cups, shuffle the cups, and ask it to find a hidden ball. Lifting the cup checks the robot's answer against the real scene.",
+        id: "problem",
+        heading: "Out of sight. Still in memory.",
+        text: "Cover a ball with a cup and move the cup. The ball disappears from the camera, but it has not disappeared from the world. A robot needs to preserve that distinction before it can find the ball again.",
+        paragraphs: [
+          "We built **Permanence**, a rover with a persistent 3D memory of objects. It combines a language model that identifies a target, a fast detector that follows the scene, and explicit memory that carries object identities through occlusion. The rover can then **drive toward a remembered target**.",
+        ],
+        diagram: "permanence-memory",
       },
       {
-        heading: "From a spoken request to a remembered target",
-        text: "An iPhone streams color, LiDAR depth, and camera position to an NVIDIA Jetson Orin Nano. Qwen-3D resolves a language request against a scan; YOLOE then detects objects while a custom 3D tracker maintains identity, position, and containment. The rover can navigate toward a remembered target while the dashboard distinguishes visible objects from hidden or lost ones.",
-      },
-      {
+        id: "contribution",
         heading: "My contribution",
-        text: "I built the Three.js dashboard, including the live viewer, memory map, resource monitoring, and object inspection. It makes the team's perception system inspectable: visitors can see what the rover currently observes, what it remembers, and how the Jetson is using its limited resources.",
+        text: "I built the **Three.js dashboard**: the live viewer, top-down memory map, resource monitoring, and object inspection. My focus was making the robot's internal state visible, so someone watching could distinguish **what it sees from what it remembers**.",
+        paragraphs: [
+          "The calibrated robot view and camera feed sit together. An object inspector exposes distance, state, and time since the last observation; All, Observed, and Unseen filters help explore the scene. Selecting an object inspects it without commanding the rover to move.",
+          "This was a team effort. Bill Quach developed the AI and perception pipeline, rover autonomy, and voice integration. Isabelle Mathew worked on rover hardware, firmware, and head-tracked steering. Alejandro Jaimes built the AR glasses HUD.",
+        ],
+        image: {
+          placeholder: false,
+          src: "/media/permanence-dashboard-xray.webp",
+          alt: "Permanence dashboard with remembered cups and hidden balls in the 3D view, an x-ray camera overlay, and object memory ages.",
+          width: 1800,
+          height: 1125,
+          caption:
+            "The supplied dashboard capture shows 0 observed and 6 unseen objects. The memory view retains the cups and the balls inside them, with last-seen ages in the inspector.",
+        },
       },
       {
-        heading: "Working within 8 GB",
-        text: "The team reduced Qwen-3D's weight memory from 7.1 GB to 4.5 GB with custom 8-bit quantization and streamed loading. Grounding runs in a separate process that exits before tracking begins, freeing memory for the next stage. Stop-and-shoot scanning reduces camera blur, while geometry and motion checks help distinguish genuine containment from a missed detection.",
+        id: "architecture",
+        heading: "Understand once. Track continuously.",
+        text: "An iPhone streams **RGB, LiDAR depth, and camera pose** over USB to an NVIDIA Jetson Orin Nano. Qwen-3D resolves a language request against a scan. Once a target is chosen, its process exits and the system hands over to YOLOE detection and the 3D tracker.",
+        paragraphs: [
+          "The tracker maintains identity, position, and state across frames. Containment logic ties a hidden ball to its cup, so the ball's remembered location follows the container. The navigator uses the phone's pose and the world state to steer through an Arduino Uno and L298N motor driver.",
+          "The dashboard reads the state stream, camera imagery, scene data, and compute metrics. It provides a window into the pipeline while the Jetson runs perception and control. Browser speech recognition uses an online service; the robot's models run on the Jetson.",
+        ],
+        diagram: "permanence-system",
       },
       {
-        heading: "Results and boundaries",
-        text: "Permanence received first overall, first NVIDIA, and first Hugging Face at Knight Hacks IX. The demonstration closes the loop from perception and memory to physical action. Its current scope is tabletop scenes with a handful of objects and hand-written containment rules; learned prediction and stronger handling of uncertain, aging memories are future directions.",
+        id: "constraints",
+        heading: "An 8 GB constraint shaped the system",
+        text: "The Jetson shares memory between its CPU and GPU. The team's custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
+        paragraphs: [
+          "That is a reduction in stored weight memory, not a claim that inference became faster. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning also let the phone settle between views, reducing blur from its tall mount.",
+          "I surfaced shared memory, GPU and CPU utilization, temperature, power, and swap in the dashboard. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
+        ],
+        image: {
+          placeholder: false,
+          src: "/media/permanence-dashboard-telemetry.webp",
+          alt: "Dashboard during Qwen-3D scan processing, showing the point cloud, live camera, and Jetson compute strip.",
+          width: 1800,
+          height: 1125,
+          caption:
+            "During scan processing, this supplied capture shows 6.1 / 7.4 GiB of shared memory in use. It is one observed moment, not a benchmark of peak usage.",
+        },
+      },
+      {
+        id: "results",
+        heading: "A result you can reveal",
+        text: "The demonstration closes the loop: **show, hide, move, reveal**. The system commits to the ball's container, then checks the answer when the cup is lifted. A remembered position becomes something the rover can act on and an observer can verify.",
+        paragraphs: [
+          "Permanence received **1st Best Overall, 1st NVIDIA, and 1st Hugging Face** at Knight Hacks IX. The working prototype connected language grounding, perception, memory, visualization, and physical movement on the same edge board.",
+        ],
+        image: {
+          placeholder: false,
+          src: "/media/permanence-winners.webp",
+          alt: "Permanence team on stage with awards at Knight Hacks IX.",
+          width: 1280,
+          height: 720,
+          caption:
+            "The Permanence team at Knight Hacks IX. Best Overall, NVIDIA, and Hugging Face: three first-place awards.",
+        },
+      },
+      {
+        id: "lessons",
+        heading: "What this taught me",
+        text: "A useful robotics interface needs to communicate **uncertainty and freshness**, as well as position. Last-seen ages and separate observed and unseen states make the memory legible. When the display is frozen or the stream is unavailable, the viewer keeps ages tied to the displayed telemetry instead of advancing them on browser time.",
+        paragraphs: [
+          "The current system has been tested on small scenes with a handful of objects. Containment rules are hand-written, and grounding is weaker with viewer-relative words such as left and right. Learned prediction, re-observing aging memories, and moving beyond the tabletop remain future work.",
+        ],
       },
     ],
     links: [
       {
         label: "View on Devpost",
         href: "https://devpost.com/software/permanence",
+      },
+      {
+        label: "Source code",
+        href: "https://github.com/billpquach/permanence",
       },
     ],
     technologies: [
@@ -865,7 +942,11 @@ export function validateEntries(items: Entry[]) {
         throw new Error(`Invalid content link: ${path}`);
       }
     }
-    for (const photo of [entry.cover, entry.winnerPhoto]) {
+    for (const photo of [
+      entry.cover,
+      entry.winnerPhoto,
+      ...entry.sections.map((section) => section.image),
+    ]) {
       if (!photo || photo.placeholder) continue;
       if (
         !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(photo.src) ||
@@ -914,7 +995,11 @@ for (const entry of records) {
   ) {
     throw new Error(`Invalid demo poster: ${entry.demoPoster}`);
   }
-  for (const photo of [entry.cover, entry.winnerPhoto]) {
+  for (const photo of [
+    entry.cover,
+    entry.winnerPhoto,
+    ...entry.sections.map((section) => section.image),
+  ]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
       throw new Error(`Missing cover file: ${photo.src}`);
     }

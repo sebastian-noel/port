@@ -31,9 +31,11 @@ test("content records validate and publication excludes drafts", () => {
   expect(() =>
     validateEntries([{ ...records[0], slug: "../escape" }]),
   ).toThrow();
-  expect(() => validateEntries([{ ...records[0], published: true }])).toThrow(
-    /real media/,
-  );
+  expect(() =>
+    validateEntries([
+      { ...records[0], published: true, cover: { placeholder: true } },
+    ]),
+  ).toThrow(/real media/);
   expect(() =>
     validateEntries([
       { ...records[0], links: [{ label: "Bad", href: "javascript:alert(1)" }] },

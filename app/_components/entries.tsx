@@ -11,7 +11,7 @@ export function Cover({ entry }: { entry: Entry }) {
         alt={`${entry.title} demo video thumbnail`}
         width={480}
         height={360}
-        sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw"
+        sizes="(max-width: 900px) 100vw, 50vw"
         unoptimized
       />
     </div>
@@ -29,7 +29,7 @@ export function Cover({ entry }: { entry: Entry }) {
         alt={entry.cover.alt}
         width={entry.cover.width}
         height={entry.cover.height}
-        sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw"
+        sizes="(max-width: 900px) 100vw, 50vw"
       />
     </div>
   );
@@ -47,6 +47,7 @@ export function ProjectCard({
     <>
       {!featured && (
         <div className="project-title">
+          <p className="project-context">{entry.context.split(" · ")[0]}</p>
           <h2>
             {entry.title}
             {!entry.placeholder && <Icon name="external" />}
@@ -95,6 +96,21 @@ export function ProjectCard({
       <div className="project-copy">
         {featured && <Heading>{entry.title}</Heading>}
         <p>{entry.summary}</p>
+        {!featured && (
+          <div className="catalog-footer">
+            {entry.award ? (
+              <p className="catalog-result">
+                <span aria-hidden="true">✦</span>
+                <span>{entry.award}</span>
+              </p>
+            ) : (
+              <span>Explore the project</span>
+            )}
+            <span className="catalog-cta">
+              Case study <span aria-hidden="true">↗</span>
+            </span>
+          </div>
+        )}
         {featured && entry.award && (
           <p className="project-awards">{entry.award}</p>
         )}
