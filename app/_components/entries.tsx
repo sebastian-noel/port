@@ -4,7 +4,18 @@ import type { Entry } from "../_content/entries";
 import { Icon } from "./icons";
 
 export function Cover({ entry }: { entry: Entry }) {
-  return entry.cover.placeholder ? (
+  return entry.cover.placeholder && entry.demoVideoId ? (
+    <div className="cover">
+      <Image
+        src={`https://i.ytimg.com/vi/${entry.demoVideoId}/hqdefault.jpg`}
+        alt={`${entry.title} demo video thumbnail`}
+        width={480}
+        height={360}
+        sizes="(max-width: 900px) 100vw, 50vw"
+        unoptimized
+      />
+    </div>
+  ) : entry.cover.placeholder ? (
     <div
       className={`cover placeholder-cover tone-${entry.tone ?? "pale"}`}
       aria-hidden="true"
@@ -18,7 +29,7 @@ export function Cover({ entry }: { entry: Entry }) {
         alt={entry.cover.alt}
         width={entry.cover.width}
         height={entry.cover.height}
-        sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw"
+        sizes="(max-width: 900px) 100vw, 50vw"
       />
     </div>
   );
@@ -34,6 +45,15 @@ export function ProjectCard({
   const Heading = featured ? "h3" : "h2";
   const body = (
     <>
+      {!featured && (
+        <div className="project-title">
+          <p className="project-context">{entry.context.split(" · ")[0]}</p>
+          <h2>
+            {entry.title}
+            {!entry.placeholder && <Icon name="external" />}
+          </h2>
+        </div>
+      )}
       {featured ? (
         <div className="featured-media">
           {entry.cover.placeholder && entry.demoVideoId ? (
@@ -74,11 +94,23 @@ export function ProjectCard({
         <Cover entry={entry} />
       )}
       <div className="project-copy">
-        <Heading>
-          {entry.title}
-          {!featured && !entry.placeholder && <Icon name="external" />}
-        </Heading>
+        {featured && <Heading>{entry.title}</Heading>}
         <p>{entry.summary}</p>
+        {!featured && (
+          <div className="catalog-footer">
+            {entry.award ? (
+              <p className="catalog-result">
+                <span aria-hidden="true">✦</span>
+                <span>{entry.award}</span>
+              </p>
+            ) : (
+              <span>Explore the project</span>
+            )}
+            <span className="catalog-cta">
+              Case study <span aria-hidden="true">↗</span>
+            </span>
+          </div>
+        )}
         {featured && entry.award && (
           <p className="project-awards">{entry.award}</p>
         )}
@@ -87,7 +119,7 @@ export function ProjectCard({
   );
   return (
     <article
-      className={`project-card${entry.placeholder ? " is-placeholder" : ""}`}
+      className={`project-card${featured ? "" : " catalog-card"}${entry.placeholder ? " is-placeholder" : ""}`}
     >
       {entry.placeholder ? (
         body

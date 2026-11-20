@@ -46,7 +46,7 @@ No changes to routing, collection markup, or card components should be needed fo
 
 ## Sources currently available
 
-Exclude class projects from the portfolio. Use Sebastian’s [Devpost profile](https://devpost.com/sebastian-noel) to discover and review hackathon projects, including those whose repositories have yet to be added to the local Projects folder.
+Exclude class projects from the portfolio. Use only the eight projects listed under the selected section of the local ProjectsGuide.md. The Devpost profile is a supporting source, not permission to expand the catalog. Present the collection as Projects without a hackathon-project label.
 
 The local project guide and supplied resume inform the source inventory. Review project repositories and media before publication.
 
@@ -76,8 +76,13 @@ Track original path, intended page, caption, alt text, crop, and publication sui
 
 ## Verified first-design revision
 
-Ten public Devpost projects are included as drafts: Permanence, Recall, GregHouse, T.K.'s Revenge, Debt Escape, TideSense, Alto, FE AI, Next Step, and DishDash. Two future projects and one future experience are visibly marked placeholders. Search supports project names and the available technology, teammate, and event metadata; filling out every field is later content work.
+Eight selected projects are included as drafts: Permanence, Recall, Greghouse, T.K.'s Revenge, Debt Escape, TideSense, Next Step, and DishDash. Alto, FE AI, and future-project placeholders are excluded by Sebastian's November 19, 2026 request. Each has at least five sourced case-study sections, searchable technology/team/event metadata, and a verified YouTube demo. Roles are shown only where local documents or public Devpost creator notes explicitly identify Sebastian's work. Published status stays false until the existing content/media review and launch gate are complete.
 
 The supplied resume was read for BNY, UCF AI, and GPK dates and bullets. BNY retains UCF experiential-program context. Knight Hacks dates remain unknown and omitted. Null end dates explicitly mean Present; author verified dates rather than inferring them.
 
 The November 14, 2026 public PDF is the updated file explicitly selected by Sebastian, including his approved public email and new LinkedIn slug. Text extraction and rendering were inspected before copying it. Resume actions open that PDF in a new tab. Private source resumes and other private contact details remain excluded.
+
+
+Permanence refinement (#68): prose is left aligned within a page-centered column, with centered section titles, sticky desktop contents, and compact event/team/technology facts. The third diagram explains observation, last-seen freshness, and depth-supported occlusion instead of routing. Public captions explain the system without author-facing sourcing notes. Diagram motion plays briefly once on entry and respects reduced-motion settings.
+
+Permanence (#70) places Devpost, GitHub, and the owner's LinkedIn post in its introduction. Case-study photographs, including the hero, open in captioned modal views with backdrop, close-button, and Escape dismissal. Its embedded demo stands alone under the heading.

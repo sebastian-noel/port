@@ -3,15 +3,15 @@
 Edit `app/_content/entries.ts` to add a project or experience. Project cards and detail routes are generated from the same records. Experiences render completely on `/experiences` and use stable `#slug` anchors for incoming links; they have no case-study routes.
 
 - Give each record a stable slug, title, summary, cover, sections, and HTTPS source links.
-- Projects support `technologies`, `team`, and `event` for the search field. Search currently matches plain substrings across these fields and the title. Metadata is incomplete; verify it before expansion.
+- Projects support `technologies`, `team`, and `event` for the search field. Search currently matches plain substrings across these fields and the title. The detail page shows verified teams, events, roles, and technologies as a compact fact list.
 - Experiences support `role`, `startDate` and `endDate` as YYYY-MM, and up to four resume-style `bullets`. Optional `roles` preserve separate role titles and dates within one organization. Experience cards show the role as the main heading, organization as secondary text, descriptions, role history, bullets, and a Links & Resources section. Dates sit above full-width cards so long bullets have room on desktop; text wraps on smaller screens. A null end date means Present. Records sort by start date descending; undated records follow. Never invent a date.
 - `placeholder: true` identifies a future entry. It is visibly labeled, has no collection-card link, and cannot be published.
 - Do not add future experience placeholders. Add actual new experiences with their verified start dates; they sort at the top.
-- A placeholder cover renders a letter on a flat color. Replace it with an optimized image in `public/media/`, with dimensions and meaningful alt text.
+- A placeholder cover uses the verified YouTube demo thumbnail when `demoVideoId` is available, otherwise it renders a letter on a flat color. Replace it with an optimized image in `public/media/`, with dimensions and meaningful alt text.
 - `published: true` requires real media and body content. All current records are drafts. Drafts appear in protected previews and are excluded once production indexing is enabled.
 - Review individual contributions, dates, metrics, photo permission, and content before publication.
 
-The ten project summaries come from Sebastian's public Devpost pages. Experience dates and bullets come from his supplied resume. The November 2026 refresh also uses owner-supplied LinkedIn and previous-resume screenshots. LinkedIn supplies role dates where older resume versions conflict; IST is May to July 2026 and FSEC is a Software Engineer Internship from May to September 2025. Use `**emphasis**` around phrases that were bold in the source; experience cards render those phrases in scarlet. Keep missing accomplishments explicit, such as `(bullet 2)`, rather than inventing metrics. Resource links point to the supplied paper or LinkedIn experience until direct project resources are supplied. Unknown dates remain absent.
+The project catalog contains only the eight projects selected in Sebastian's local project guide: Permanence, Recall, Greghouse, T.K.'s Revenge, Debt Escape, TideSense, Next Step, and DishDash. Do not add other Devpost entries or future-project placeholders. Case studies use each project's local README and devpost.md. Personal contribution sections are limited to explicit attribution in those sources or the selected project's public Devpost creator notes; other implementation details describe the team. Proposed features are identified as future work. Each case study includes a verified YouTube demo, a short description, and a direct watch link that remains usable if embedding is blocked. Images and videos are external embeds, not copied originals. TideSense is an exploratory prototype with simulated inference fallbacks, not a validated safety tool. Experience dates and bullets come from his supplied resume. The November 2026 refresh also uses owner-supplied LinkedIn and previous-resume screenshots. LinkedIn supplies role dates where older resume versions conflict; IST is May to July 2026 and FSEC is a Software Engineer Internship from May to September 2025. Use `**emphasis**` around phrases that were bold in the source; experience cards render those phrases in scarlet. Keep missing accomplishments explicit, such as `(bullet 2)`, rather than inventing metrics. Resource links point to the supplied paper or LinkedIn experience until direct project resources are supplied. Unknown dates remain absent.
 
 ## Contact
 
@@ -41,7 +41,7 @@ wider 16:9 media frames. Only the project name overlays the bottom fade; the lon
 The desktop heading overlaps the otherwise empty space above the left panel,
 bringing the project composition closer to the heading. Permanence's three-sentence
 homepage description also explains its Jetson hardware, rover action, and live 3D
-dashboard. Collection and detail pages retain their concise summaries and existing media.
+dashboard. Collection pages use concise summaries and demo thumbnails; detail pages add the complete case study, verified facts, and a lazy-loaded YouTube embed without autoplay.
 
 `featuredAwards` holds each placement, category, submitted-project count, and logo.
 Badges overlap the top edge of every video frame; hackathon names stay on the case-study pages.
@@ -99,3 +99,41 @@ profile links on desktop. The three groups stack and remain centered on phones.
 ## Release
 
 PR #5 holds the accepted first draft. Design polish is still pending, and a production release from `main` requires explicit approval. Protected previews remain noindex and have an empty sitemap. Real media, complete content, game features, and launch checks follow approval in separate scoped PRs.
+
+## Projects collection layout
+
+The Projects catalog uses two equal desktop columns with natural-height cards and
+16:9 cover images. Titles and categories sit above the image; descriptions and a
+compact award results strip sit below. The strip reuses verified award copy, not
+the homepage's badges. Below 900px cards stack. Hover and keyboard focus lift the
+card, fade in a full scarlet perimeter glow, and turn the border scarlet over 420ms.
+Fine-pointer hover adds a small image zoom. Touch needs no hover, and reduced motion
+disables movement and transitions.
+
+## Visual project case studies
+
+Permanence is the first `visualStudy` record. Optional section fields add stable
+`id` anchors, `navLabel` text, additional `paragraphs`, captioned `image` evidence, and a typed
+`diagram` key. `heroCaption` supplies the cover caption. `**marked phrases**` render as semantic bold scarlet text using the
+Experiences treatment. Other records retain the existing template until reviewed.
+Use optimized WebP derivatives in `public/media`, preserving original assets outside
+the repository. Figures retain their full aspect ratio and link to the full image.
+Diagrams are responsive server-rendered HTML/SVG with readable text, not screenshots
+or claimed experimental results. The diagrams describe the README's pipeline and
+shell-game behavior; they are not measurements.
+
+Permanence sources: local project README, devpost.md, viewer/README.md and containment
+code; public [repository](https://github.com/billpquach/permanence) and
+[submission](https://devpost.com/software/permanence). Supplied rover and dashboard
+images are optimized without cropping or metadata. The award image reuses the
+existing approved site derivative. Captions distinguish observed screenshots from
+benchmark claims. Sebastian's dashboard ownership is separate from team outcomes.
+
+Permanence uses a team-focused narrative, without personal-role or contribution
+callouts. `teamProfiles` maps team names to verified LinkedIn URLs. Bill's URL comes
+from his linked Devpost profile; Isabelle's and Alejandro's come from the project
+README. The third conceptual diagram explains remembered-target navigation and
+is explicitly labeled as an illustration, not a captured trajectory.
+The case study centers prose, headings, and captions. Its desktop contents rail
+sticks to the left; at 1000px and below it becomes a horizontally scrollable sticky
+row beneath the site header. Section offsets keep headings clear of both bars.

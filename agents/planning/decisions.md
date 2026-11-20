@@ -285,3 +285,57 @@ Sebastian requested bolder experience bullet emphasis and a color closer to the 
 ## 2026-11-15 splash arrow and award logo corrections
 
 Issue #56 fixes the splash arrow's hover specificity conflict: its scale selector now overrides the generic diagonal link-arrow transform and also applies on keyboard focus. Knight Hacks IX keeps the supplied colored vector paths with a white stroked vector copy behind them, replacing the rasterized SVG morphology filter for sharper mobile rendering. NVIDIA uses only its original green eye path in a tighter viewBox, since the badge already names NVIDIA beneath the placement. These are bounded corrections to the existing design; the rejected homepage experience redesign remains excluded.
+
+
+## 2026-11-19 project case studies
+
+Sebastian restricted the catalog to the eight projects in the selected section of ProjectsGuide.md and asked for full case studies without labeling the collection as hackathon projects. Remove Alto, FE AI, and future-project placeholders rather than discovering extra entries from his Devpost profile. Keep stable URLs for the eight retained projects. Use the existing structured sections instead of adding an authoring dependency because the content is plain text and the shared template already supports it.
+
+Use local README/devpost evidence as the primary source and Devpost to verify selected demo URLs, event metadata, and explicit creator attributions. Add My contribution sections for Permanence, Greghouse, and Debt Escape from local attributions, plus Next Step and TideSense from their public Devpost creator notes. Describe other implementation work as team outcomes instead of guessing ownership. Record awards from the current guide, including Next Step's third-place State Farm result and T.K.'s Revenge's community vote. Keep roadmap ideas separate from demonstrated features.
+
+Use verified YouTube thumbnails on project cards and lazy privacy-enhanced embeds with descriptions and direct links on case studies. This supplies real project media without committing originals or adding local video bandwidth. Direct Devpost image retrieval returned HTTP 403, so custom galleries and optimized clips remain pending rather than using unrelated imagery. Render the existing team, role, event, and technology fields in the template because visitors should be able to read the metadata already used in search. Keep publication flags and launch safeguards intact. TideSense's backend has a randomized simulated inference fallback, so the copy explicitly identifies its exploratory status and limits instead of repeating safety claims from the submission.
+
+Use a fresh worktree from origin/dev because the ordinary checkout contains substantial unrelated uncommitted files. Track implementation in issue #60, within the existing site-polish milestone; the game and remaining milestone work stay open.
+
+## 2026-11-19 Projects grid proportions and lift
+
+Sebastian requested two projects per row, a 16:9 rectangular shape, title above the cover, description below, and a smooth lift with a scarlet glow underneath. Interpret 16:9 as the complete desktop card proportion because the request describes the card shape, with the image filling its middle band. At 900px and below use a single column so tablet images retain room between the title and description. At phone widths use natural card height and a 16:9 image, preserving readable descriptions instead of squeezing text into a fixed-height rectangle. Keep the homepage showcase and case-study templates separate from these catalog-only styles.
+
+Use a 420ms eased transform for the lift and scale, and fade a softly blurred scarlet radial gradient beneath it. Animate only transform and opacity, rather than a large changing box shadow or a JavaScript animation loop, for smooth compositing and no extra dependencies. Apply the same feedback on keyboard focus. Limit hover movement to fine pointers to avoid sticky touch states; reduced motion retains the glow cue with no lift or transition. Track in issue #62.
+
+
+## 2026-11-19 visual Permanence case study and richer project cards
+
+Issue #64 implements Sebastian's requested revision to the existing project design. Natural card height supersedes the exact 16:9 outer ratio so the cover, summary, and award results have room. Retain a 16:9 cover and two desktop columns; a concise results strip replaces reuse of homepage award badges. Use a full-perimeter static scarlet shadow faded with opacity, a scarlet border, and restrained lift/image zoom instead of animated blur or an animation dependency. Focus receives the same perimeter cue; reduced motion removes movement.
+
+Use Michael Rusu's linked case studies as structural inspiration: problem, personal contribution, architecture, constraints, results, and lessons. Keep all project facts grounded in Permanence's README, local submission, viewer contract, and containment code. Add optional rich section fields to the existing content model rather than a parallel hard-coded case-study route, so the accepted structure can later support other entries. Limit this content revision to Permanence. Use native HTML/SVG diagrams because they remain crisp, accessible and responsive without extra client JavaScript. Label diagrams as explanations rather than results. Use supplied rover and dashboard images as WebP derivatives, retain uncropped screenshots, reuse the existing awards photo, and exclude original files. Apply the existing Experiences scarlet bold style for visual consistency. Distinguish model-weight memory from total shared usage, and identify the telemetry screenshot as one observed moment, not a benchmark. Do not invent accuracy metrics or broaden Sebastian's contribution beyond the dashboard.
+
+
+## 2026-11-19 team-centered Permanence narrative
+
+Issue #66 follows Sebastian's request to emphasize the team's strongest technical
+achievements, remove individual contribution callouts, center the text, and keep
+a sticky contents rail on the left. Lead with object permanence, the two-stage
+pipeline, remembered-target navigation, and the 8 GB constraint before showing the
+dashboard. Keep all ownership collective; remove the role field and diagram's
+personal highlight. Add a third native illustration for target selection, memory,
+and obstacle-aware approach because it explains physical action with the same
+visual vocabulary as the shell game. Label it conceptual rather than measured.
+Keep the rail in a dedicated desktop grid column to avoid overlapping the story;
+on narrower screens use a sticky horizontal row instead of squeezing the content.
+Use a typed optional teamProfiles field rather than changing all existing team
+arrays. Verify Bill's LinkedIn via his Devpost profile; the other teammate URLs
+are explicitly linked by the local README. This revision is limited to Permanence.
+
+
+## 2026-11-19 Permanence observation and memory refinement
+
+Issue #68 supersedes centered prose and the route illustration. Keep titles centered, but left-align prose inside a page-centered reading column. Balanced desktop gutters accommodate the sticky left rail without shifting the text off center. Collapse the rail to its existing horizontal layout on narrower screens. Use a compact two-column facts strip with a full-width technology row instead of a tall filled panel. Keep teammate links.
+
+Replace the navigation diagram with visible observation, retained memory age, and depth-supported occlusion. Show rays ending at the foreground surface and use dashed outlines only for remembered positions. Explain out-of-view and lost separately in prose because elapsed time alone does not establish occlusion. Verify against the tracker implementation. Remove source/editorial notes from public captions while retaining useful explanations and accurate telemetry context.
+
+Use a small client figure wrapper with IntersectionObserver to trigger short, finite arrow and opacity animations once on entry. Keep diagram content server-rendered and visible without JavaScript. Avoid an animation dependency and continuous movement; reduced motion disables all added animation.
+
+## 2026-11-19 Permanence image viewing and links
+
+Issue #70 places the project resources in the introduction for immediate access and uses the owner's LinkedIn post URL. Describe work directly or as we, while preserving the factual team credits in the metadata and image descriptions. The demo retains its embedded video without surrounding descriptive and duplicate link lines on this visual study. A native modal dialog enlarges each project photograph and its caption, dims and blurs the page, and supports backdrop, close button, and Escape dismissal. Native modal focus management provides keyboard access without adding a dialog dependency. Other project templates retain their existing demo and link behavior.
