@@ -231,7 +231,17 @@ test("Permanence tells a visual, navigable case study with real images", async (
     await page.screenshot({
       path: testInfo.outputPath(`permanence-navigation-${width}.png`),
     });
+    const mobileToggle = contents.getByRole("button", {
+      name: /On this page/,
+    });
+    if (width <= 1000) {
+      await expect(mobileToggle).toHaveAttribute("aria-expanded", "false");
+      await mobileToggle.click();
+      await expect(mobileToggle).toHaveAttribute("aria-expanded", "true");
+    }
     await contents.getByRole("link", { name: "Results", exact: true }).click();
+    if (width <= 1000)
+      await expect(mobileToggle).toHaveAttribute("aria-expanded", "false");
     await expect(page).toHaveURL(/#results$/);
     await expect(page.locator("#results h2")).toBeInViewport();
     if (width <= 1000)

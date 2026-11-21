@@ -10,35 +10,37 @@ export function ProjectDiagram({
       <MotionFigure className="study-diagram">
         <ol className="navigation-sequence state-sequence">
           <li>
-            <svg viewBox="0 0 220 150" aria-hidden="true">
-              <rect
-                x="20"
-                y="57"
-                width="32"
-                height="36"
-                rx="7"
-                fill="var(--sky)"
-              />
-              <path
-                d="M54 65L163 43M54 85L163 107"
-                stroke="var(--sky)"
-                strokeDasharray="4 5"
-              />
-              <path
-                d="M173 44H195L205 106H163Z"
-                fill="var(--canvas)"
-                stroke="var(--accent)"
-                strokeWidth="3"
-              />
-              <circle
-                cx="184"
-                cy="75"
-                r="32"
-                fill="none"
-                stroke="var(--accent)"
-                opacity=".3"
-              />
-            </svg>
+            <div className="diagram-art state-art">
+              <svg viewBox="0 0 220 150" aria-hidden="true">
+                <rect
+                  x="20"
+                  y="57"
+                  width="32"
+                  height="36"
+                  rx="7"
+                  fill="var(--sky)"
+                />
+                <path
+                  d="M54 65L163 43M54 85L163 107"
+                  stroke="var(--sky)"
+                  strokeDasharray="4 5"
+                />
+                <path
+                  d="M173 44H195L205 106H163Z"
+                  fill="var(--canvas)"
+                  stroke="var(--accent)"
+                  strokeWidth="3"
+                />
+                <circle
+                  cx="184"
+                  cy="75"
+                  r="32"
+                  fill="none"
+                  stroke="var(--accent)"
+                  opacity=".3"
+                />
+              </svg>
+            </div>
             <span className="state-label">Visible</span>
             <h3>Seen now</h3>
             <p>
@@ -47,38 +49,40 @@ export function ProjectDiagram({
             </p>
           </li>
           <li>
-            <svg viewBox="0 0 220 150" aria-hidden="true">
-              <rect
-                x="22"
-                y="20"
-                width="176"
-                height="110"
-                rx="12"
-                fill="var(--canvas)"
-                stroke="var(--sky)"
-              />
-              <path
-                d="M50 43H72L82 105H40Z"
-                fill="none"
-                stroke="var(--accent)"
-                strokeWidth="2"
-                strokeDasharray="4 4"
-              />
-              <circle
-                cx="143"
-                cy="65"
-                r="24"
-                fill="none"
-                stroke="var(--sky)"
-                strokeWidth="2"
-              />
-              <path
-                d="M143 49V65L155 72M115 108H171"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-            </svg>
+            <div className="diagram-art state-art">
+              <svg viewBox="0 0 220 150" aria-hidden="true">
+                <rect
+                  x="22"
+                  y="20"
+                  width="176"
+                  height="110"
+                  rx="12"
+                  fill="var(--canvas)"
+                  stroke="var(--sky)"
+                />
+                <path
+                  d="M50 43H72L82 105H40Z"
+                  fill="none"
+                  stroke="var(--accent)"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                />
+                <circle
+                  cx="143"
+                  cy="65"
+                  r="24"
+                  fill="none"
+                  stroke="var(--sky)"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M143 49V65L155 72M115 108H171"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+              </svg>
+            </div>
             <span className="state-label">Last seen</span>
             <h3>Keep the memory</h3>
             <p>
@@ -87,36 +91,38 @@ export function ProjectDiagram({
             </p>
           </li>
           <li>
-            <svg viewBox="0 0 220 150" aria-hidden="true">
-              <rect
-                x="20"
-                y="57"
-                width="32"
-                height="36"
-                rx="7"
-                fill="var(--sky)"
-              />
-              <path
-                d="M54 65L110 47M54 75H110M54 85L110 103"
-                stroke="var(--sky)"
-                strokeDasharray="4 5"
-              />
-              <rect
-                x="110"
-                y="27"
-                width="12"
-                height="96"
-                rx="3"
-                fill="var(--sky)"
-              />
-              <path
-                d="M173 44H195L205 106H163Z"
-                fill="none"
-                stroke="var(--accent)"
-                strokeWidth="2"
-                strokeDasharray="4 4"
-              />
-            </svg>
+            <div className="diagram-art state-art">
+              <svg viewBox="0 0 220 150" aria-hidden="true">
+                <rect
+                  x="20"
+                  y="57"
+                  width="32"
+                  height="36"
+                  rx="7"
+                  fill="var(--sky)"
+                />
+                <path
+                  d="M54 65L110 47M54 75H110M54 85L110 103"
+                  stroke="var(--sky)"
+                  strokeDasharray="4 5"
+                />
+                <rect
+                  x="110"
+                  y="27"
+                  width="12"
+                  height="96"
+                  rx="3"
+                  fill="var(--sky)"
+                />
+                <path
+                  d="M173 44H195L205 106H163Z"
+                  fill="none"
+                  stroke="var(--accent)"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                />
+              </svg>
+            </div>
             <span className="state-label">Occluded</span>
             <h3>Explain the absence</h3>
             <p>
@@ -146,49 +152,52 @@ export function ProjectDiagram({
             ["Reveal", "Lifting the cup lets the system check its answer."],
           ].map(([title, description], index) => (
             <li key={title}>
-              <svg viewBox="0 0 160 100" aria-hidden="true">
-                <path d="M12 85H148" stroke="currentColor" opacity=".25" />
-                <circle
-                  cx={index === 2 ? 103 : 80}
-                  cy="73"
-                  r="10"
-                  fill="var(--accent)"
-                  opacity={index === 1 || index === 2 ? ".65" : "1"}
-                />
-                {index > 0 && (
-                  <path
-                    d={
-                      index === 2
-                        ? "M83 32H123L134 85H72Z"
-                        : index === 3
-                          ? "M60 10H100L111 52H49Z"
-                          : "M60 32H100L111 85H49Z"
-                    }
-                    fill="var(--canvas)"
-                    fillOpacity=".45"
-                    stroke="var(--sky)"
-                    strokeWidth="2"
-                  />
-                )}
-                {(index === 1 || index === 2) && (
+              <div className={`diagram-art memory-art memory-art-${index}`}>
+                <svg viewBox="0 0 160 100" aria-hidden="true">
+                  <path d="M12 85H148" stroke="currentColor" opacity=".25" />
                   <circle
+                    className="memory-ball"
                     cx={index === 2 ? 103 : 80}
                     cy="73"
-                    r="13"
-                    fill="none"
-                    stroke="var(--accent)"
-                    strokeDasharray="3 3"
+                    r="10"
+                    fill="var(--accent)"
+                    opacity={index === 1 || index === 2 ? ".65" : "1"}
                   />
-                )}
-                {index === 2 && (
-                  <path
-                    d="M27 50H60M53 43L60 50L53 57"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                )}
-              </svg>
+                  {index > 0 && (
+                    <path
+                      d={
+                        index === 2
+                          ? "M83 32H123L134 85H72Z"
+                          : index === 3
+                            ? "M60 10H100L111 52H49Z"
+                            : "M60 32H100L111 85H49Z"
+                      }
+                      fill="var(--canvas)"
+                      fillOpacity=".45"
+                      stroke="var(--sky)"
+                      strokeWidth="2"
+                    />
+                  )}
+                  {(index === 1 || index === 2) && (
+                    <circle
+                      cx={index === 2 ? 103 : 80}
+                      cy="73"
+                      r="13"
+                      fill="none"
+                      stroke="var(--accent)"
+                      strokeDasharray="3 3"
+                    />
+                  )}
+                  {index === 2 && (
+                    <path
+                      d="M27 50H60M53 43L60 50L53 57"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
+                  )}
+                </svg>
+              </div>
               <h3>{title}</h3>
               <p>{description}</p>
             </li>
@@ -206,7 +215,7 @@ export function ProjectDiagram({
       <div className="system-input">
         <span>Sensor input</span>
         <h3>iPhone + Record3D</h3>
-        <p>RGB · LiDAR depth · ARKit pose</p>
+        <p className="system-input-detail">RGB · LiDAR depth · ARKit pose</p>
       </div>
       <div className="flow-arrow" aria-hidden="true">
         <span>↓</span>
