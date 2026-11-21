@@ -40,7 +40,6 @@ export function ProjectDiagram({
                   opacity=".3"
                 />
               </svg>
-              <span className="diagram-radar" aria-hidden="true" />
             </div>
             <span className="state-label">Visible</span>
             <h3>Seen now</h3>
@@ -83,7 +82,6 @@ export function ProjectDiagram({
                   strokeWidth="2"
                 />
               </svg>
-              <span className="diagram-radar" aria-hidden="true" />
             </div>
             <span className="state-label">Last seen</span>
             <h3>Keep the memory</h3>
@@ -124,7 +122,6 @@ export function ProjectDiagram({
                   strokeDasharray="4 4"
                 />
               </svg>
-              <span className="diagram-radar" aria-hidden="true" />
             </div>
             <span className="state-label">Occluded</span>
             <h3>Explain the absence</h3>
@@ -200,7 +197,6 @@ export function ProjectDiagram({
                     />
                   )}
                 </svg>
-                <span className="diagram-radar" aria-hidden="true" />
               </div>
               <h3>{title}</h3>
               <p>{description}</p>

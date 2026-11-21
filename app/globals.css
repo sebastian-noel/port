@@ -1505,7 +1505,7 @@ dialog nav a[aria-current] {
 }
 .flow-arrow {
   text-align: center;
-  font-size: 28px;
+  font-size: 44px;
   color: var(--accent);
   padding: 8px;
 }
@@ -1850,29 +1850,6 @@ dialog nav a[aria-current] {
   position: relative;
   z-index: 1;
 }
-.diagram-radar {
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  width: 48px;
-  aspect-ratio: 1;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  opacity: 0;
-  pointer-events: none;
-}
-.state-art .diagram-radar {
-  top: 50%;
-  left: 82%;
-  width: 52px;
-}
-.memory-art .diagram-radar {
-  top: 72%;
-  left: 50%;
-  width: 28px;
-}
 .flow-arrow span {
   display: inline-block;
 }
@@ -1893,9 +1870,6 @@ dialog nav a[aria-current] {
 }
 .study-diagram[data-entered="true"] .memory-art-3 {
   animation-delay: 360ms;
-}
-.study-diagram[data-entered="true"] .diagram-radar {
-  animation: study-radar 1.8s ease-out 3;
 }
 .study-diagram[data-entered="true"] .system-input,
 .study-diagram[data-entered="true"] .jetson-system,
@@ -1944,16 +1918,6 @@ dialog nav a[aria-current] {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-@keyframes study-radar {
-  0% {
-    opacity: 0.65;
-    scale: 0.55;
-  }
-  100% {
-    opacity: 0;
-    scale: 1.18;
   }
 }
 @keyframes study-panel-arrive {
