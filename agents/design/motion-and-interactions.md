@@ -74,3 +74,16 @@ Freeze ambient motion around the active typing test so performance and visual at
 ## Current foundation scope
 
 The name intro and radial impulse are part of the foundation, not deferred polish. The background uses a bounded visible viewport field, hidden-tab cancellation, and reduced-motion support. Reserve the game area without fake controls. Flat letter placeholders do not inherit the tile-photo treatment; real photos and their reveals come later.
+
+## Mobile viewport stability
+
+The decorative field uses the large viewport height (`100lvh`) so mobile browser
+chrome expansion and collapse do not resize it during scrolling. Observe the
+field's dimensions with ResizeObserver and rebuild only when those dimensions
+change. Real orientation, window, and layout-width changes still update coverage.
+Avoid rebuilding thousands of decorative nodes in response to window resize
+notifications alone. Track the regression in issue #74.
+
+Featured Projects skeletons are desktop-only at the existing 1200px showcase
+breakpoint. Narrower layouts keep their card reveal without a skeleton or its
+fade delay (issue #79).

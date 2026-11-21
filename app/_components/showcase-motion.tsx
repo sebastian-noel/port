@@ -77,9 +77,9 @@ export function ShowcaseMotion({ children }: { children: ReactNode }) {
       target.dataset.revealed = "true";
       const content =
         target.querySelector<HTMLElement>("[data-project-reveal]") ?? target;
-      const skeleton = target.querySelector<HTMLElement>(
-        "[data-project-skeleton]",
-      );
+      const skeleton = wide.matches
+        ? target.querySelector<HTMLElement>("[data-project-skeleton]")
+        : null;
       if (
         reduced.matches ||
         !target.dataset.pending ||

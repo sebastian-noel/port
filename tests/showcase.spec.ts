@@ -369,6 +369,10 @@ test("mobile leads with Permanence and keeps visible keyboard links", async ({
   expect(topPositions[1]).toBeLessThan(topPositions[2]);
   for (const width of [320, 375, 390, 768, 900, 1024, 1199, 1200, 1920]) {
     await page.setViewportSize({ width, height: 844 });
+    await expect(page.locator("[data-project-skeleton]").first()).toHaveCSS(
+      "display",
+      width < 1200 ? "none" : "grid",
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,

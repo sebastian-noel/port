@@ -339,3 +339,24 @@ Use a small client figure wrapper with IntersectionObserver to trigger short, fi
 ## 2026-11-19 Permanence image viewing and links
 
 Issue #70 places the project resources in the introduction for immediate access and uses the owner's LinkedIn post URL. Describe work directly or as we, while preserving the factual team credits in the metadata and image descriptions. The demo retains its embedded video without surrounding descriptive and duplicate link lines on this visual study. A native modal dialog enlarges each project photograph and its caption, dims and blurs the page, and supports backdrop, close button, and Escape dismissal. Native modal focus management provides keyboard access without adding a dialog dependency. Other project templates retain their existing demo and link behavior.
+
+## 2026-11-20 mobile scrolling stability
+
+Issue #74 addresses homepage scrolling stalls. The tile field rebuilt its entire
+three-element-per-tile subtree on every window resize, including mobile toolbar
+changes during scroll. Size the fixed decorative field with `100lvh` and observe
+its dimensions instead of window resize notifications. Cache the last dimensions
+to avoid an initial duplicate rebuild. This preserves the existing intro and
+real resize coverage rather than removing the effect or disabling mobile media.
+The regression simulates toolbar-only resize notifications while scrolling,
+asserts node preservation, and checks orientation and desktop height changes.
+The mobile-toolbar simulation is not a substitute for a physical phone check.
+See design/motion-and-interactions.md for the updated constraint.
+
+## 2026-11-20 mobile featured skeleton removal
+
+Issue #79 implements Sebastian's request to remove Featured Projects skeletons
+on mobile only. Use the existing single-column showcase breakpoint below 1200px
+rather than device detection, keeping the behavior aligned with the mobile
+layout. Hide skeletons there and skip their fade animation and associated delay.
+Retain the mobile card reveal and the desktop skeleton sequence.

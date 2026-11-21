@@ -528,6 +528,9 @@
   }
 }
 @media (max-width: 1199px) {
+  .skeleton {
+    display: none;
+  }
   .projectStage {
     grid-template-columns: 1fr;
     grid-template-rows: none;
