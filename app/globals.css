@@ -1874,7 +1874,7 @@ dialog nav a[aria-current] {
   display: inline-block;
 }
 .study-diagram[data-entered="true"] .flow-arrow span {
-  animation: study-flow-down 1.25s ease-in-out 3;
+  animation: study-flow-down 1.8s ease-in-out 2;
 }
 .study-diagram[data-entered="true"] .system-stages .flow-arrow span {
   animation-name: study-flow-right;
