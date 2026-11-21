@@ -89,11 +89,13 @@ export default async function Detail({ params }: Props) {
         {entry.visualStudy && (
           <StudyNavigation
             sections={[
+              ...(entry.demoVideoId
+                ? [{ id: "demo-heading", label: "Demo" }]
+                : []),
               ...entry.sections.map((section) => ({
                 id: section.id ?? section.heading,
                 label: section.navLabel ?? section.heading,
               })),
-              { id: "demo-heading", label: "Demo" },
             ]}
           />
         )}
