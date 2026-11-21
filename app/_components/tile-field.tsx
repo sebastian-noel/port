@@ -16,6 +16,8 @@ export function TileField() {
       y: number;
     }[] = [];
     let resize: number | undefined;
+    let width = 0;
+    let height = 0;
 
     function cancel() {
       const wasActive = element.dataset.wave === "active";
@@ -25,13 +27,15 @@ export function TileField() {
       if (wasActive) window.dispatchEvent(new Event("port:wave-complete"));
     }
     function build() {
+      const nextWidth = element.clientWidth;
+      const nextHeight = element.clientHeight;
+      if (nextWidth === width && nextHeight === height) return;
+      width = nextWidth;
+      height = nextHeight;
       cancel();
-      const size = Math.max(
-        18,
-        Math.ceil(Math.sqrt((innerWidth * innerHeight) / 3000)),
-      );
-      const cols = Math.ceil(innerWidth / size);
-      const rows = Math.ceil(innerHeight / size);
+      const size = Math.max(18, Math.ceil(Math.sqrt((width * height) / 3000)));
+      const cols = Math.ceil(width / size);
+      const rows = Math.ceil(height / size);
       const fragment = document.createDocumentFragment();
       tiles = [];
       for (let i = 0; i < cols * rows; i++) {
@@ -96,7 +100,9 @@ export function TileField() {
       resize = requestAnimationFrame(build);
     }
     build();
-    window.addEventListener("resize", onResize);
+    // Observe the stable field, not toolbar-driven window resize events.
+    const observer = new ResizeObserver(onResize);
+    observer.observe(element);
     window.addEventListener("port:intro-complete", wave);
     window.addEventListener("port:cancel-intro", cancel);
     document.addEventListener("visibilitychange", stopIfHidden);
@@ -104,7 +110,7 @@ export function TileField() {
     return () => {
       cancelAnimationFrame(resize ?? 0);
       cancel();
-      window.removeEventListener("resize", onResize);
+      observer.disconnect();
       window.removeEventListener("port:intro-complete", wave);
       window.removeEventListener("port:cancel-intro", cancel);
       document.removeEventListener("visibilitychange", stopIfHidden);

@@ -347,3 +347,24 @@ Issue #75 covers Sebastian's request for more movement in the Permanence diagram
 The follow-up widens case-study paragraphs to the full content column. Sebastian then asked to keep the text left-aligned, so do not justify it or insert automatic hyphenation. Use a lighter, brighter scarlet (`#ff6269`) for emphasized case-study copy and experience bullets so bold text stands out against the navy canvas. Put Demo first in the contents navigation because its panel appears before the written sections. Keep motion that explains sequence: staggered diagram reveals and directional arrows. Remove radar blinks, ambient bobbing, and ball movement because they decorate the scene without explaining it.
 
 For issue #75's later diagram refinement, remove the blinks from both the shell-game and object-state figures, retain the architecture arrows' finite motion, and enlarge those arrows so the flow reads clearly.
+
+## 2026-11-20 mobile scrolling stability
+
+Issue #74 addresses homepage scrolling stalls. The tile field rebuilt its entire
+three-element-per-tile subtree on every window resize, including mobile toolbar
+changes during scroll. Size the fixed decorative field with `100lvh` and observe
+its dimensions instead of window resize notifications. Cache the last dimensions
+to avoid an initial duplicate rebuild. This preserves the existing intro and
+real resize coverage rather than removing the effect or disabling mobile media.
+The regression simulates toolbar-only resize notifications while scrolling,
+asserts node preservation, and checks orientation and desktop height changes.
+The mobile-toolbar simulation is not a substitute for a physical phone check.
+See design/motion-and-interactions.md for the updated constraint.
+
+## 2026-11-20 mobile featured skeleton removal
+
+Issue #79 implements Sebastian's request to remove Featured Projects skeletons
+on mobile only. Use the existing single-column showcase breakpoint below 1200px
+rather than device detection, keeping the behavior aligned with the mobile
+layout. Hide skeletons there and skip their fade animation and associated delay.
+Retain the mobile card reveal and the desktop skeleton sequence.
