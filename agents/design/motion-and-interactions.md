@@ -83,3 +83,7 @@ field's dimensions with ResizeObserver and rebuild only when those dimensions
 change. Real orientation, window, and layout-width changes still update coverage.
 Avoid rebuilding thousands of decorative nodes in response to window resize
 notifications alone. Track the regression in issue #74.
+
+Featured Projects skeletons are desktop-only at the existing 1200px showcase
+breakpoint. Narrower layouts keep their card reveal without a skeleton or its
+fade delay (issue #79).
