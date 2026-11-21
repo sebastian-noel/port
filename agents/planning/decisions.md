@@ -352,3 +352,11 @@ The regression simulates toolbar-only resize notifications while scrolling,
 asserts node preservation, and checks orientation and desktop height changes.
 The mobile-toolbar simulation is not a substitute for a physical phone check.
 See design/motion-and-interactions.md for the updated constraint.
+
+## 2026-11-20 mobile featured skeleton removal
+
+Issue #79 implements Sebastian's request to remove Featured Projects skeletons
+on mobile only. Use the existing single-column showcase breakpoint below 1200px
+rather than device detection, keeping the behavior aligned with the mobile
+layout. Hide skeletons there and skip their fade animation and associated delay.
+Retain the mobile card reveal and the desktop skeleton sequence.
