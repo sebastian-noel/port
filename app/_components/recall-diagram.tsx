@@ -63,8 +63,8 @@ export function RecallDiagram({
             <span className="state-label">Camera</span>
             <h3>Pick a frame</h3>
             <p>
-              MJPEG over Wi-Fi → YOLOv8 ranks the frames → Gemini describes the
-              top three.
+              MJPEG over Wi-Fi → YOLOv8 tags objects → local ranking picks up to
+              three frames for Gemini to describe.
             </p>
           </div>
           <div className="recall-diagram-node">
