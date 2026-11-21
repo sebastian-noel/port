@@ -88,3 +88,5 @@ Permanence refinement (#68): prose is left aligned within a page-centered column
 Permanence (#70) places Devpost, GitHub, and the owner's LinkedIn post in its introduction. Case-study photographs, including the hero, open in captioned modal views with backdrop, close-button, and Escape dismissal. Its embedded demo stands alone under the heading.
 
 Permanence polish (#75) uses the exact site scarlet token for case-study emphasis and experience bullet emphasis. Keep the demo directly below the event, team, and technology facts inside a framed panel. The desktop contents rail remains sticky; mobile uses a compact active-section button with a vertical expandable list. Keep the prose left aligned in a centered, narrower phone reading column. Diagrams play short entry, pulse, and directional cues when they enter view, with motion disabled for reduced-motion preferences.
+
+Recall (#81) uses the shared visual case-study template, with capture and retrieval diagrams and an ordered image list per section. Related detail photos can share a row while retaining independent captions and full-size viewing.

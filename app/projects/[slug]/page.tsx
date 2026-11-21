@@ -188,7 +188,16 @@ export default async function Detail({ params }: Props) {
                 </p>
               ))}
               {section.diagram && <ProjectDiagram kind={section.diagram} />}
-              {section.image && <StudyPhoto {...section.image} />}
+              {section.images?.length === 1 && (
+                <StudyPhoto {...section.images[0]} />
+              )}
+              {section.images && section.images.length > 1 && (
+                <div className="study-photo-pair">
+                  {section.images.map((photo) => (
+                    <StudyPhoto key={photo.src} {...photo} />
+                  ))}
+                </div>
+              )}
             </section>
           ))}
           {entry.demoVideoId && !entry.visualStudy && (
