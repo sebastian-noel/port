@@ -1428,9 +1428,7 @@ dialog nav a[aria-current] {
   max-width: none;
   font-size: 18px;
   line-height: 1.85;
-  text-align: justify;
-  text-justify: inter-word;
-  hyphens: auto;
+  text-align: left;
 }
 .visual-study strong,
 .experiences-page .experience-card li strong {
@@ -1812,8 +1810,7 @@ dialog nav a[aria-current] {
   width: 100%;
   max-width: none;
   margin-inline: 0;
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: left;
 }
 .visual-study .detail-body h2 {
   text-align: center;
@@ -2004,7 +2001,6 @@ dialog nav a[aria-current] {
     width: 100%;
     max-width: none;
     margin-inline: 0;
-    text-align: justify;
   }
   .visual-study .project-facts {
     width: 100%;
@@ -2023,7 +2019,6 @@ dialog nav a[aria-current] {
   .visual-study .detail-body > section > p {
     font-size: 16px;
     line-height: 1.8;
-    hyphens: auto;
   }
 }
 
