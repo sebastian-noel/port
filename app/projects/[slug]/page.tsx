@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { StudyPhoto } from "../../_components/study-photo";
 import { ProjectDiagram } from "../../_components/project-diagrams";
+import { StudyNavigation } from "../../_components/study-navigation";
 import { notFound } from "next/navigation";
 import { Cover } from "../../_components/entries";
 import { entries } from "../../_content/entries";
@@ -86,15 +87,15 @@ export default async function Detail({ params }: Props) {
       </div>
       <div className={entry.visualStudy ? "study-layout" : undefined}>
         {entry.visualStudy && (
-          <nav className="study-nav" aria-label="Case study sections">
-            <span className="study-nav-title">On this page</span>
-            {entry.sections.map((section) => (
-              <a key={section.id ?? section.heading} href={`#${section.id}`}>
-                {section.navLabel ?? section.heading}
-              </a>
-            ))}
-            <a href="#demo-heading">Demo</a>
-          </nav>
+          <StudyNavigation
+            sections={[
+              ...entry.sections.map((section) => ({
+                id: section.id ?? section.heading,
+                label: section.navLabel ?? section.heading,
+              })),
+              { id: "demo-heading", label: "Demo" },
+            ]}
+          />
         )}
         <div className="detail-body">
           <dl className="project-facts">
@@ -144,6 +145,25 @@ export default async function Detail({ params }: Props) {
               </div>
             )}
           </dl>
+          {entry.demoVideoId && entry.visualStudy && (
+            <section
+              className="project-demo study-demo-frame"
+              aria-labelledby="demo-heading"
+              id="demo"
+            >
+              <h2 id="demo-heading">Watch the demo</h2>
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${entry.demoVideoId}`}
+                title={`${entry.title} demo`}
+                width="560"
+                height="315"
+                loading="lazy"
+                allow="encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </section>
+          )}
           {entry.placeholder && (
             <p>Placeholder. Details will be added later.</p>
           )}
@@ -169,7 +189,7 @@ export default async function Detail({ params }: Props) {
               {section.image && <StudyPhoto {...section.image} />}
             </section>
           ))}
-          {entry.demoVideoId && (
+          {entry.demoVideoId && !entry.visualStudy && (
             <section className="project-demo" aria-labelledby="demo-heading">
               <h2 id="demo-heading">Watch the demo</h2>
               {!entry.visualStudy && <p>{entry.demoBrief}</p>}

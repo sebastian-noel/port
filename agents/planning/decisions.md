@@ -339,3 +339,7 @@ Use a small client figure wrapper with IntersectionObserver to trigger short, fi
 ## 2026-11-19 Permanence image viewing and links
 
 Issue #70 places the project resources in the introduction for immediate access and uses the owner's LinkedIn post URL. Describe work directly or as we, while preserving the factual team credits in the metadata and image descriptions. The demo retains its embedded video without surrounding descriptive and duplicate link lines on this visual study. A native modal dialog enlarges each project photograph and its caption, dims and blurs the page, and supports backdrop, close button, and Escape dismissal. Native modal focus management provides keyboard access without adding a dialog dependency. Other project templates retain their existing demo and link behavior.
+
+## 2026-11-20 Permanence motion and mobile reading
+
+Issue #75 covers Sebastian's request for more movement in the Permanence diagrams, the site's exact scarlet accent for highlighted text, a framed demo near the top, and a better mobile contents menu. Keep the desktop sticky rail. On mobile, use an active-section button and vertical expandable list instead of horizontal scrolling. Center the left-aligned reading column with balanced phone gutters. Place the framed demo after the event, team, and technology facts. Diagram cues play briefly when scrolled into view and respect reduced-motion preferences.

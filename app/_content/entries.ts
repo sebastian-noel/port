@@ -118,7 +118,7 @@ export const records: Entry[] = [
         heading: "Out of sight. Still in memory.",
         text: "Cover a ball with a cup and move the cup. The ball disappears from the camera, but it has not disappeared from the world. A robot needs to preserve that distinction before it can find the ball again.",
         paragraphs: [
-          "We built **Permanence**, a rover with a persistent 3D memory of objects. It combines a language model that identifies a target, a fast detector that follows the scene, and explicit memory that carries object identities through occlusion. The rover can then **drive toward a remembered target**.",
+          "Permanence is a rover with a persistent 3D memory of objects. It combines a language model that identifies a target, a fast detector that follows the scene, and explicit memory that carries object identities through occlusion. The rover can then **drive toward a remembered target**.",
         ],
         diagram: "permanence-memory",
       },
@@ -150,7 +150,7 @@ export const records: Entry[] = [
         heading: "An 8 GB constraint shaped the system",
         text: "The Jetson shares memory between its CPU and GPU. Custom 8-bit quantization reduced **Qwen-3D weight memory from 7.1 GB to 4.5 GB**. Loading one tensor at a time avoids creating a full-precision copy, and exiting the grounding process frees its memory before tracking.",
         paragraphs: [
-          "Reducing stored weight memory made room for the pipeline. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning also let the phone settle between views, reducing blur from its tall mount.",
+          "Reducing stored weight memory made room for the pipeline. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning let the phone settle between views, reducing blur from its tall mount.",
           "The dashboard exposes shared memory, GPU and CPU utilization, temperature, power, and swap. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
         ],
         image: {
