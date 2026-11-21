@@ -316,7 +316,8 @@ dialog nav a[aria-current] {
 }
 .tile-field {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto;
+  height: 100lvh;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
