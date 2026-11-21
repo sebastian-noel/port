@@ -412,6 +412,16 @@ export const records: Entry[] = [
           "The build exposed three practical constraints: keeping the camera stream stable, limiting model requests, and coordinating reads and writes to the same memory store. Chunked camera writes, local frame selection, and a lock around SQLite access addressed those constraints.",
           "The prototype depends on a laptop, Wi-Fi, and cloud services that process selected images and audio. A smaller frame, longer-term summaries, and local processing are the next directions for making the device more practical.",
         ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-awards.webp",
+            alt: "Recall teammates on stage with a boxed prize.",
+            width: 800,
+            height: 533,
+            caption: "Recall placed second overall at HackUSF 2026.",
+          },
+        ],
       },
     ],
     links: [
@@ -422,6 +432,10 @@ export const records: Entry[] = [
       {
         label: "GitHub",
         href: "https://github.com/sebastian-noel/recall",
+      },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/posts/sebastian-noel-ucf_hackathon-hackusf-knighthacks-activity-7445107718484496384-0lck",
       },
     ],
     technologies: [
@@ -441,6 +455,24 @@ export const records: Entry[] = [
     event: "HackUSF 2026",
     tone: "coral",
     team: ["Stevin George", "Sebastian Noel", "Nicole Bustos", "Chris Ho"],
+    teamProfiles: [
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Nicole Bustos",
+        href: "https://www.linkedin.com/in/nicolebustos/",
+      },
+      {
+        name: "Chris Ho",
+        href: "https://www.linkedin.com/in/chris-ho-15a039329/",
+      },
+    ],
   },
   {
     collection: "projects",
