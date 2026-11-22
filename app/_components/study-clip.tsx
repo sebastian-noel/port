@@ -19,23 +19,23 @@ export function StudyClip({
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let inView = false;
 
-    function updatePlayback() {
+    const updatePlayback = () => {
       if (reducedMotion.matches || !inView) {
         video.pause();
         return;
       }
       void video.play().catch(() => {});
-    }
+    };
 
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       updatePlayback();
     });
 
-    function handleMotionChange() {
+    const handleMotionChange = () => {
       if (reducedMotion.matches) video.load();
       updatePlayback();
-    }
+    };
 
     observer.observe(video);
     reducedMotion.addEventListener("change", handleMotionChange);
