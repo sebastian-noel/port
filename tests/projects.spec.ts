@@ -53,7 +53,7 @@ for (const slug of selected) {
       );
     }
     await expect(page.locator("main")).not.toContainText(/hackathon projects/i);
-    if (["greghouse", "next-step", "tidesense"].includes(slug)) {
+    if (["greghouse", "tks-revenge", "next-step", "tidesense"].includes(slug)) {
       await expect(
         page.getByRole("heading", { name: "My contribution", exact: true }),
       ).toBeVisible();
