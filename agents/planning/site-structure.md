@@ -4,18 +4,18 @@ Status: Home, Experiences, Projects, About is the confirmed navigation order. On
 
 ## Route map
 
-| Route              | Purpose                                                                                             | Default rendering                                     |
-| ------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `/`                | Introduction, selected work, experience preview, personal photos, typing challenge                  | Prerendered content with isolated interactive regions |
-| `/projects`        | All published projects with an image and a short explanation                                        | Prerendered collection                                |
-| `/projects/[slug]` | A project case study with media and relevant links                                                  | Prerendered detail                                    |
-| `/experiences`     | Roles, research, internships, and student organization experience                                   | Prerendered collection                                |
-| `/about`           | Personal introduction, interests, background, selected photos                                       | Prerendered content                                   |
-| `/resume`          | Shareable resume landing page and direct PDF action; expanded HTML resume can follow content review | Prerendered content                                   |
-| `/resume.pdf`      | Downloadable copy of the same reviewed public resume                                                | Static file                                           |
-| `/admin`           | Owner sign-in/entry                                                                                 | Private flow; no public navigation                    |
-| `/admin/analytics` | Sebastian's analytics                                                                               | Authenticated, uncached                               |
-| `/privacy`         | Brief explanation of analytics, anonymous game sessions, and data retention                         | Prerendered utility page                              |
+| Route | Purpose | Default rendering |
+| --- | --- | --- |
+| `/` | Introduction, selected work, experience preview, personal photos, typing challenge | Prerendered content with isolated interactive regions |
+| `/projects` | All published projects with an image and a short explanation | Prerendered collection |
+| `/projects/[slug]` | A project case study with media and relevant links | Prerendered detail |
+| `/experiences` | Roles, research, internships, and student organization experience | Prerendered collection |
+| `/about` | Personal introduction, interests, background, selected photos | Prerendered content |
+| `/resume` | Shareable resume landing page and direct PDF action; expanded HTML resume can follow content review | Prerendered content |
+| `/resume.pdf` | Downloadable copy of the same reviewed public resume | Static file |
+| `/admin` | Owner sign-in/entry | Private flow; no public navigation |
+| `/admin/analytics` | Sebastian's analytics | Authenticated, uncached |
+| `/privacy` | Brief explanation of analytics, anonymous game sessions, and data retention | Prerendered utility page |
 
 Slugs remain stable. If one changes, preserve the old link with a redirect. Each public detail page gets its own title, description, canonical URL, and social preview. Use the [search visibility plan](search-visibility.md) for metadata and publication rules.
 

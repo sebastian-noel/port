@@ -50,7 +50,6 @@ export function ProjectCard({
     <>
       {!featured && (
         <div className="project-title">
-          <p className="project-context">{entry.context.split(" · ")[0]}</p>
           <h2>
             {entry.title}
             {!entry.placeholder && <Icon name="external" />}

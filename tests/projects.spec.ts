@@ -28,9 +28,9 @@ for (const slug of selected) {
   }) => {
     const entry = records.find((e) => e.slug === slug)!;
     await page.goto(`/projects/${slug}`);
-    expect(
-      await page.locator(".detail-body section").count(),
-    ).toBeGreaterThanOrEqual(6);
+    expect(await page.locator(".detail-body section").count()).toBe(
+      entry.sections.length + 1,
+    );
     await expect(page.locator(".project-facts")).toContainText(
       entry.technologies!.join(" · "),
     );
@@ -53,10 +53,13 @@ for (const slug of selected) {
       );
     }
     await expect(page.locator("main")).not.toContainText(/hackathon projects/i);
-    if (["greghouse", "next-step", "tidesense"].includes(slug)) {
+    if (["greghouse", "tks-revenge"].includes(slug)) {
       await expect(
         page.getByRole("heading", { name: "My contribution", exact: true }),
       ).toBeVisible();
+    }
+    if (["next-step", "tidesense"].includes(slug)) {
+      await expect(page.locator("main")).not.toContainText("My contribution");
     }
   });
 }

@@ -74,7 +74,13 @@ export type Entry = {
       | "recall-capture"
       | "recall-retrieval"
       | "greghouse-telemetry"
-      | "greghouse-multiplayer";
+      | "greghouse-multiplayer"
+      | "tks-progression"
+      | "tks-combat"
+      | "tide-scan"
+      | "next-practice"
+      | "next-feedback"
+      | "dish-ranking";
   }[];
   links: { label: string; href: string }[];
 };
@@ -570,6 +576,7 @@ export const records: Entry[] = [
         text: "**A shared seed** generates the same paths, ponds, trees, and decorations in each visitor’s browser. The Node.js server uses WebSockets to relay positions, chat, and garden updates to everyone in the room.",
         paragraphs: [
           "Friends can wander with custom avatars and send the owner a watering reminder. The reminder arrives as a banner and chime, so someone visiting the digital garden can prompt care for the real plant.",
+          "**The seed and map dimensions travel together.** Browsers can recreate the terrain locally, and the server can send smaller updates for things that change during a session, such as which way another player is facing. A fresh soil reading follows a separate path so all visitors can see Greg’s mood without one player’s garden state overwriting it.",
         ],
         diagram: "greghouse-multiplayer",
         clip: {
@@ -681,36 +688,116 @@ export const records: Entry[] = [
     context: "Game development · Knight Hacks Project Launch, Spring 2026",
     published: false,
     featured: false,
+    visualStudy: true,
+    heroCaption:
+      "T.K. stands above the streets of the cyber city as a robot approaches.",
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/tks-revenge/cover.webp",
+      alt: "T.K. towers over a small red robot in a neon-lit Roblox city.",
+      width: 1440,
+      height: 811,
     },
     tone: "deep",
     sections: [
       {
-        heading: "An invitation to make games",
-        text: "After showing software to K-12 students through Knight Hacks outreach, the team noticed how games sparked curiosity about building things. T.K.'s Revenge became a way to introduce young students to what software development can create, using characters inspired by Knight Hacks.",
+        heading: "Start with a game students already know",
+        navLabel: "The idea",
+        id: "idea",
+        text: "During a Knight Hacks outreach event, K–12 students got especially curious when the conversation turned to games they recognized. We used **Roblox as an entry point into making games** and built a dungeon adventure around characters from Knight Hacks.",
+        paragraphs: [
+          "Lenny takes control of T.K.’s friends and turns them against him. Players head into the cyber city alone or together, choosing between a close-range sword and a ranged crossbow before taking on Lenny’s robots.",
+        ],
       },
       {
-        heading: "A dungeon run with friends",
-        text: "Players choose a short-range sword or a long-range bow, then explore a cyber city alone or with a team. Lenny has taken over T.K.'s friends, and players fight through his forces to help T.K. take revenge. A payload system guides progression through the adventure.",
+        heading: "Build the run around T.K.",
+        navLabel: "Progression",
+        id: "progression",
+        text: "T.K. is a **moving objective**. The server moves him toward a stop authored in the map, then starts a robot encounter around that point. Players work through encounters to power up T.K. and advance toward the fight with Lenny.",
+        paragraphs: [
+          "Each level has its own stop and spawn zones. The enemy controller places robots within those zones, giving level designers control over where a fight happens while allowing the exact starting positions to vary.",
+          "The **server waits for the movement to finish** before starting the encounter. That handoff ties the encounter to a place in the city. The stop, nearby robot placement, and next destination can then be authored as part of the level itself.",
+        ],
+        diagram: "tks-progression",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/map.webp",
+            width: 1100,
+            height: 622,
+            alt: "Overhead view of the cyber city, showing streets between blocks of neon-lit buildings.",
+            caption:
+              "The city from above. Encounters take place along T.K.’s route through its streets.",
+          },
+        ],
       },
       {
-        heading: "Building the experience",
-        text: "The team used Roblox Studio and Luau for gameplay, with Blender and Maya for modeling and rigging. The repository uses Rojo to organize and synchronize scripts between the local codebase and Studio. Development ran across the spring semester as part of Knight Hacks Project Launch.",
+        heading: "Two classes, two ways to land a hit",
+        navLabel: "Combat",
+        id: "combat",
+        text: "Sword attacks check a box in front of the player and apply knockback to each enemy caught in it. The third swing in the combo uses a **larger hitbox and a stronger push**. A crossbow shot spawns a physical bolt and applies knockback when it touches a robot.",
+        paragraphs: [
+          "The two classes give players different reasons to move. Getting close puts more robots within a sword swing. Keeping distance gives the crossbow player room to line up a shot.",
+          "The sword tracks where the player is in a three-swing combo. The crossbow shows **charge and cooldown** in the aim interface, so lining up a shot and choosing when to release it are part of the interaction. Once a bolt is fired, the server lets physics carry it through the world with reduced gravity.",
+        ],
+        diagram: "tks-combat",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/enemies.webp",
+            width: 1100,
+            height: 621,
+            alt: "Red hovering robots on a purple-lit city street.",
+            caption: "The common robot enemies in the cyber city.",
+          },
+        ],
       },
       {
-        heading: "Learning to control scope",
-        text: "For many teammates, Roblox or game development itself was new. Learning the engine and Luau happened alongside building gameplay and animations. Limited art resources and several changes in direction made scope management a central challenge; the team focused on delivering a working experience within the project deadlines.",
+        heading: "Build the world and the scripts together",
+        navLabel: "Production",
+        id: "production",
+        text: "The city, encounters, and character animations came together in **Roblox Studio**, with models and rigs built in Blender and Maya. Gameplay scripts were written in Luau, with Rojo connecting the local source files to the Studio project.",
+        paragraphs: [
+          "Several of us were new to Roblox development. Building a playable run for the spring showcase meant learning the engine while settling on a scope we could finish: a cyber city, two classes, a shared objective, and a final encounter.",
+          "Roblox Studio held the scene and its authored waypoints and spawn parts. Luau code ran the encounters against those parts, and Rojo kept the scripts available for local collaboration. This division gave the level layout and the rules that use it separate places to change.",
+        ],
       },
       {
-        heading: "Outcome and next steps",
-        text: "T.K.'s Revenge received second overall and first in the community vote at Knight Hacks Spring 2026 Project Launch. The result is a playable adventure built around solo and cooperative runs. Additional levels, classes, customization, and expanded mechanics were proposed as future work.",
+        heading: "My contribution",
+        navLabel: "My contribution",
+        id: "contribution",
+        text: "I scripted enemy attacks and tuned their health, damage, and placement. I also recorded and edited the demo so it could show how the classes, city, and payload fit together in one run.",
+      },
+      {
+        heading: "Second overall and the community vote",
+        navLabel: "Results",
+        id: "results",
+        text: "T.K.’s Revenge placed **second overall out of 33 finished projects** and won **first in the community vote with 96 of 256 votes** at Knight Hacks Project Launch. At the expo, visitors could try the game and see how the sword, crossbow, and payload worked together.",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/demo-table.webp",
+            width: 800,
+            height: 536,
+            alt: "Teammates at the T.K.’s Revenge demo table with laptops, a game display, and a sign.",
+            caption: "The playable demo at Project Launch.",
+          },
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/awards.webp",
+            width: 800,
+            height: 533,
+            alt: "The T.K.’s Revenge group poses in front of the game’s title art at Project Launch.",
+            caption: "The group after the Project Launch awards.",
+          },
+        ],
       },
     ],
     links: [
+      { label: "Devpost", href: "https://devpost.com/software/tk-s-revenge" },
       {
-        label: "Devpost",
-        href: "https://devpost.com/software/tk-s-revenge",
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/posts/snoel-dev_knighthacks-projectlaunch-roblox-activity-7454907280065687553-Z_3d",
       },
     ],
     technologies: ["Luau", "Roblox Studio", "Blender", "Maya", "Rojo"],
@@ -722,6 +809,32 @@ export const records: Entry[] = [
       "Chris Ho",
       "Nicole Bustos",
       "Johaan Riat",
+    ],
+    teamProfiles: [
+      {
+        name: "Alejandro Jaimes",
+        href: "https://www.linkedin.com/in/alejaimes/",
+      },
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Chris Ho",
+        href: "https://www.linkedin.com/in/chris-ho-15a039329/",
+      },
+      {
+        name: "Nicole Bustos",
+        href: "https://www.linkedin.com/in/nicolebustos/",
+      },
+      {
+        name: "Johaan Riat",
+        href: "https://www.linkedin.com/in/johaan-riat-238aa2330/",
+      },
     ],
     award: "2nd overall · 1st community vote",
     demoVideoId: "i1DoCyYBnj4",
@@ -737,37 +850,94 @@ export const records: Entry[] = [
     context: "Mobile computer vision · SharkByte 2025",
     published: false,
     featured: false,
+    visualStudy: true,
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/tidesense/cover.webp",
+      width: 1440,
+      height: 872,
+      alt: "TideSense wordmark with a stylized wave.",
     },
     tone: "slate",
     sections: [
       {
-        heading: "Starting with a beach photo",
-        text: "TideSense explores whether a phone camera can make rip-current information easier to understand. The team built a mobile prototype that accepts a shoreline photo and presents a model-generated risk estimate alongside weather, location, and explanatory context.",
+        heading: "Start with a photo of the shoreline",
+        navLabel: "The idea",
+        id: "idea",
+        text: "TideSense explores how **a phone camera and computer vision** could help people learn about rip-current conditions. The prototype puts photo capture, a model estimate, and local conditions on the same screen flow. A single photo captures one view at one moment. That constraint shaped what the project could test: how an estimate, its context, and its uncertainty can be presented on a small screen.",
       },
       {
-        heading: "Putting the scan in context",
-        text: "The app combines camera capture with risk displays, detection history, analytics, and a safety-map interface. A Gemini assistant answers questions using the current detection context, and ElevenLabs provides audio summaries. Weather integrations bring forecast information into the same experience.",
+        heading: "Turn a capture into a model estimate",
+        navLabel: "Capture and inference",
+        id: "scan",
+        text: "The Expo app sends the image to a **Python FastAPI server**. The server prepares it for TensorFlow Lite and translates model output into a low, moderate, or high risk label for the results screen.",
+        paragraphs: [
+          "To reduce the influence of one unusually high score, the server blends the mean of the five strongest detection scores with the maximum score, weighted **70% and 30%**. That changes how scores are combined. Establishing reliability would require testing on labeled shoreline images and comparing the output with observed conditions.",
+          "The server reads the model’s input dimensions and data type, converts the image to RGB, and resizes it before inference. For detection-shaped output, it blends the confidence scores before separately mapping the result to the value shown in the app. A high model score in this flow is a signal from the prototype, with no field calibration to interpret it as a measured probability.",
+        ],
+        diagram: "tide-scan",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tidesense/camera.webp",
+            width: 499,
+            height: 1080,
+            alt: "TideSense camera screen showing a shoreline preview and capture button.",
+            caption:
+              "The camera screen frames the part of the shoreline to analyze.",
+          },
+          {
+            placeholder: false,
+            src: "/media/tidesense/analysis.webp",
+            width: 499,
+            height: 1080,
+            alt: "Dark TideSense screen displaying the photo-analysis progress state.",
+            caption:
+              "The app shows a progress screen while it waits for inference.",
+          },
+        ],
       },
       {
-        heading: "The mobile and model pipeline",
-        text: "React Native, Expo, and TypeScript provide the mobile interface. A Python FastAPI backend handles image analysis with TensorFlow Lite and connects external AI and weather services. SQLite stores scans with their timestamps, locations, and confidence values for later review.",
+        heading: "Put the estimate beside local conditions",
+        navLabel: "Results and history",
+        id: "context",
+        text: "The result page pairs the estimate with local context. National Weather Service lookups use the phone’s coordinates, and a **Gemini assistant** can use the scan context in its explanation. ElevenLabs provides an audio version of the generated summary.",
+        paragraphs: [
+          "Scan history is stored on the phone using SQLite. A visitor can return to the saved result and compare it with earlier scans instead of relying on a screenshot or memory.",
+          "**The saved record contains the estimate and its context.** It records a timestamp, the confidence, and the coordinates when the location lookup succeeds. The history view reconstructs the result from those fields. The live capture flow leaves the stored photo field empty, so the record captures what the app reported without storing the original image.",
+        ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tidesense/risk.webp",
+            width: 499,
+            height: 1080,
+            alt: "TideSense risk result with a category, confidence, and scan details.",
+            caption: "Example result from the prototype interface.",
+          },
+          {
+            placeholder: false,
+            src: "/media/tidesense/history.webp",
+            width: 499,
+            height: 1080,
+            alt: "TideSense history screen displaying previous detection entries.",
+            caption: "Saved scans include the result and when it was captured.",
+          },
+        ],
       },
       {
-        heading: "My contribution",
-        text: "I integrated the National Weather Service API for current weather data and worked on the risk levels and safety status shown for detected rip currents. My focus was connecting environmental context to the result presented in the app, alongside the team's computer-vision and mobile work.",
-      },
-      {
-        heading: "Stabilizing noisy predictions",
-        text: "Identical images initially produced inconsistent risk estimates. The team combined the average of the five highest confidence scores with the maximum score, weighting them 70% and 30%. Other work included fixing conditional React hooks, checking Gemini model availability, and configuring different backend addresses for emulators and physical phones.",
-      },
-      {
-        heading: "What the prototype establishes",
-        text: "Built for SharkByte 2025, TideSense brought mobile capture, model inference, history, and AI explanations into one prototype. It does not establish that a shoreline is safe to enter. The backend includes simulated fallback results when inference is unavailable, so validating detection reliability and clearly separating test output are necessary before any real safety use. Community reporting and richer mapping remain future ideas.",
+        heading: "What the prototype demonstrates",
+        navLabel: "Prototype limits",
+        id: "results",
+        text: "The demo connects capture, inference, context, and history in one mobile app. The server can produce **simulated results when inference is unavailable**. Those values are for testing the interface. TideSense remains an exploratory prototype. It cannot establish that the water is safe to enter.",
+        paragraphs: [
+          "Before any field use, the app would need to distinguish simulated results from model output in the interface and validate the model against observed rip currents.",
+          "The simulated path returns the same category and score fields as the real path. That helped the rest of the app run while the interpreter was unavailable, but it also made the origin of a result invisible to a viewer. Carrying a source field into the result and saved history would make a repeat test understandable.",
+        ],
       },
     ],
     links: [
+      { label: "GitHub", href: "https://github.com/StevScripts/TideSense" },
       {
         label: "Devpost",
         href: "https://devpost.com/software/riptide-wip",
@@ -790,7 +960,24 @@ export const records: Entry[] = [
     demoVideoId: "cJQApi3ehAw",
     demoBrief:
       "The mobile camera, risk-analysis screens, scan history, and beach-information tools.",
-    role: "Weather integration and risk-status presentation",
+    teamProfiles: [
+      {
+        name: "Chris Ho",
+        href: "https://www.linkedin.com/in/chris-ho-15a039329/",
+      },
+      {
+        name: "Nicole Bustos",
+        href: "https://www.linkedin.com/in/nicolebustos/",
+      },
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+    ],
   },
   {
     collection: "projects",
@@ -801,34 +988,81 @@ export const records: Entry[] = [
     context: "Conversational learning · ShellHacks 2025",
     published: false,
     featured: false,
+    visualStudy: true,
+    heroCaption: "Choose a topic to begin a guided practice conversation.",
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/next-step/cover.webp",
+      width: 1440,
+      height: 900,
+      alt: "Next Step landing page with auto, home, and health practice cards.",
     },
     tone: "slate",
     sections: [
       {
-        heading: "Practicing the difficult moment",
-        text: "Next Step explores how to teach insurance through decisions rather than static reading. The team built an interactive practice environment where a person can rehearse responding to an insurance-related emergency, with a voice agent keeping the scenario conversational and time-sensitive.",
+        heading: "Practice a decision out loud",
+        navLabel: "The idea",
+        id: "idea",
+        text: "Next Step puts learners in a **simulated insurance emergency** and asks what they would do next. A voice conversation lets them explain their reasoning in their own words and see how their response holds up against a rubric.",
       },
       {
-        heading: "A scenario, a conversation, and feedback",
-        text: "Users choose auto, home, or health insurance and talk through a realistic situation. The experience scores responses from 0 to 100 across safety awareness, insurance knowledge, procedural understanding, and decision-making quality. The goal is to practice how to respond when the order of actions matters.",
+        heading: "Choose a scenario and start a conversation",
+        navLabel: "Voice practice",
+        id: "practice",
+        text: "The landing page offers **auto, home, and health** scenarios. The choice travels into the practice page through the route, where the user can start and end a Vapi call. The page shows when the call is connecting or active.",
+        paragraphs: [
+          "Spoken answers give the session context across turns. A learner can explain the steps they would take and respond to follow-up questions as the scenario unfolds.",
+          "The practice page separates **connecting, active, and finished** states. The microphone interface belongs to the active call. Once the learner ends the session, the next task is evaluation, so the results page can open immediately even when the score is still being prepared.",
+        ],
+        diagram: "next-practice",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/next-step/scenarios.webp",
+            width: 1100,
+            height: 688,
+            alt: "Three Next Step scenario cards for auto, home, and health insurance.",
+            caption:
+              "Choose one of three insurance categories before starting the practice call.",
+          },
+        ],
       },
       {
-        heading: "Connecting voice and web interfaces",
-        text: "The frontend uses Next.js, React, TypeScript, and Tailwind CSS, backed by Python and Flask. Vapi drives the voice agent. The interface supports selecting a scenario, participating in the conversation, and reviewing results, bringing the learning flow into one web experience.",
+        heading: "Turn the completed call into feedback",
+        navLabel: "Feedback",
+        id: "feedback",
+        text: "When the call ends, the browser opens the results page in a **pending state**. The app polls a Flask endpoint using the call ID. Flask retrieves the call analysis and summary from Vapi, and the browser stores the returned result in session storage so the results view can pick it up.",
+        paragraphs: [
+          "The rubric focuses on safety awareness, insurance knowledge, procedure, and decision quality. The results page gives the learner a score and a written summary to reflect on before trying again.",
+          "The results page reads the four category values from the structured response, uses their total when available, and falls back to an overall score returned by the analysis. The written summary gives context for the numeric result. This is feedback from the practice agent’s rubric, with no independent assessment of the learner’s insurance knowledge.",
+        ],
+        diagram: "next-feedback",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/next-step/results.webp",
+            width: 1100,
+            height: 618,
+            alt: "Next Step results page with a score, written summary, and breakdown cards.",
+            caption:
+              "A completed practice session opens a score and a written summary.",
+          },
+        ],
       },
       {
-        heading: "My contribution",
-        text: "I worked on the frontend design and implementation with React, TypeScript, and Tailwind CSS, set up pages and routing in Next.js, and helped teammates with Git version control. This work connected the scenario-selection and conversation experience within a framework we were learning as we built.",
+        heading: "Build the experience around the wait",
+        navLabel: "Design tradeoff",
+        id: "tradeoff",
+        text: "The voice call and its evaluation finish on different timelines. Opening the results page in a pending state gives the learner a clear place to go while the client checks for both structured analysis and a summary. Using **session storage** lets the practice and results pages share that completed response in the same browser session.",
+        paragraphs: [
+          "A follow-on version could give this wait a defined timeout and a way to resume a pending result. That would make the transition clearer when an evaluation takes longer than expected.",
+        ],
       },
       {
-        heading: "Learning a new interaction model",
-        text: "The team worked through unfamiliar Next.js routing, inconsistent Python environment setup, and a backend-to-agent connection problem caused by missing API configuration. Voice interactions also required attention to conversation flow and retained context, rather than treating the experience as a sequence of static pages.",
-      },
-      {
-        heading: "Outcome and next steps",
-        text: "Next Step received third place in State Farm's Best Insurance Learning Platform challenge at ShellHacks 2025. The prototype demonstrates scenario-based practice across three insurance categories. Additional categories such as renters, life, business, and pet insurance were proposed for later development.",
+        heading: "A working practice loop in three categories",
+        navLabel: "Results",
+        id: "results",
+        text: "Next Step earned **third place in State Farm’s Best Insurance Learning Platform challenge** at ShellHacks 2025. The demo delivered a full loop from scenario choice to spoken practice and feedback. Renters, life, business, and pet insurance were proposed as future scenarios.",
       },
     ],
     links: [
@@ -857,7 +1091,20 @@ export const records: Entry[] = [
     demoVideoId: "72e2HA9fW8Y",
     demoBrief:
       "Choosing an insurance scenario, speaking with the voice agent, and reviewing feedback.",
-    role: "Frontend development and Next.js routing",
+    teamProfiles: [
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Alejandro Jaimes",
+        href: "https://www.linkedin.com/in/alejaimes/",
+      },
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+    ],
   },
   {
     collection: "projects",
@@ -868,33 +1115,100 @@ export const records: Entry[] = [
     context: "Recipe search · Knight Hacks VII, 2024",
     published: false,
     featured: false,
+    visualStudy: true,
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/dishdash/cover.webp",
+      width: 1329,
+      height: 662,
+      alt: "DishDash wordmark with colorful circles inside the letter D.",
     },
     tone: "coral",
     sections: [
       {
-        heading: "The ingredients already in the fridge",
-        text: "DishDash began with a familiar student problem: deciding what to cook from the food already available. The team built a simple web app where users enter ingredients and receive recipe ideas from an existing dataset.",
+        heading: "My first project outside class",
+        navLabel: "The idea",
+        id: "idea",
+        text: "DishDash was **my first hackathon project and the first thing I built outside class**. I came to Knight Hacks VII knowing only the basics of C and Java. We built DishDash in JavaScript, so I was learning a new language and how web apps fit together at the same time.",
+        paragraphs: [
+          "We started with a question we kept asking as students: what can I cook with what’s left in the fridge? DishDash gives people a starting point for dinner by searching a recipe collection using the ingredients they enter.",
+        ],
       },
       {
-        heading: "Matching instead of generating",
-        text: "The React interface sends ingredient selections to a Node.js and Express API. MongoDB aggregates matching recipes, sorts them by the number of matching ingredients, and returns up to 100 results. These are retrieved recipes; a match can still require ingredients beyond those the user entered.",
+        heading: "Make an ingredient list easy to change",
+        navLabel: "Ingredient entry",
+        id: "input",
+        text: "A React search field suggests common ingredient names as the user types. Each accepted ingredient becomes a removable chip. Adding or removing a chip sends the updated list to the Express API, so the result set changes as the user revises what they have.",
+        paragraphs: [
+          "The suggestions use a list built into the frontend. The recipe search itself runs against the database.",
+          "Suggestions match the beginning of the text as the user types, and the interface shows up to three choices. A cook can also submit a term directly. Keeping these two interactions separate means suggesting an ingredient only needs a local list, while accepting it can trigger a full database search.",
+        ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/dishdash/ingredients.webp",
+            width: 1100,
+            height: 688,
+            alt: "DishDash page with an ingredient field, selected chips, and visible recipe text.",
+            caption: "Selected ingredients are kept in editable chips.",
+          },
+          {
+            placeholder: false,
+            src: "/media/dishdash/suggestions.webp",
+            width: 1100,
+            height: 619,
+            alt: "DishDash showing green ingredient suggestions beneath the search field.",
+            caption:
+              "Autocomplete provides a quick way to add common ingredients.",
+          },
+        ],
       },
       {
-        heading: "Building a first full-stack app",
-        text: "DishDash was my first project of this kind, built with Ibrahim Shaqqou at Knight Hacks VII in 2024. We came in with basic C and Java experience and learned JavaScript, React, Node.js, MongoDB, CSS, APIs, and Git while connecting the frontend, server, and database.",
+        heading: "Rank recipes by the overlap",
+        navLabel: "Recipe ranking",
+        id: "ranking",
+        text: "The API lowercases the submitted names. **MongoDB counts the unique names shared** by the submitted list and each recipe’s searchable ingredient tags, drops recipes with zero matches, and sorts the rest by the number of matches.",
+        paragraphs: [
+          "For example, if the list contains tomato and rice, a recipe tagged with both ranks above a recipe tagged only with tomato. The endpoint returns up to 100 existing recipes. A highly ranked result can still require other ingredients, which the full ingredient list shows.",
+          "**The searchable tags and the recipe’s ingredient list serve different purposes.** Matching against tags can find a recipe without comparing an input like “tomato” to a line containing quantities or preparation notes. The results still show those original ingredient lines and the directions needed to cook it.",
+        ],
+        diagram: "dish-ranking",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/dishdash/recipes.webp",
+            width: 1100,
+            height: 688,
+            alt: "DishDash results showing recipe titles, ingredients, and cooking instructions.",
+            caption:
+              "Results show the full ingredients and instructions for each matching recipe.",
+          },
+        ],
       },
       {
-        heading: "Learning by debugging the connections",
-        text: "The backend and API failed before the frontend could show useful results, and further interface errors appeared once those connections worked. We used documentation, debugging, and AI assistance while learning the stack, including working through suggestions that did not solve the underlying problems.",
+        heading: "Connect the frontend, API, and database",
+        navLabel: "Building it",
+        id: "implementation",
+        text: "Getting the first request to work was a milestone. We built the core search across **React, Node.js, Express, and MongoDB** and debugged the API and frontend until a change in the input reliably produced a new list of recipes.",
       },
       {
-        heading: "Outcome and next steps",
-        text: "The result was a working ingredient-to-recipe search flow and a first experience building a full-stack web application. The project's value was in completing that connection and learning how its pieces fit together. Further interface and functionality improvements remained ideas for a later iteration.",
+        heading: "What overlap leaves out",
+        navLabel: "Ranking tradeoff",
+        id: "tradeoff",
+        text: "Counting shared tags gives the search a predictable rule. It does not account for what’s missing, quantities, or substitutions. Two recipes can tie on overlap while requiring very different shopping lists.",
+        paragraphs: [
+          "Keeping the full ingredient list in the result makes that limit visible. A pantry-focused ranking could show **matched and missing ingredients** together and let a cook choose between maximum overlap and the fewest extra items.",
+        ],
+      },
+      {
+        heading: "A working first full-stack project",
+        navLabel: "Outcome",
+        id: "results",
+        text: "The demo at Knight Hacks VII showed the complete ingredient-to-recipe flow. Watching an ingredient I typed return a list of recipes made it clear how the browser, API, and database fit together.",
       },
     ],
     links: [
+      { label: "GitHub", href: "https://github.com/sebastian-noel/DishDash" },
       {
         label: "Devpost",
         href: "https://devpost.com/software/dishdash-iy7rah",
@@ -912,6 +1226,16 @@ export const records: Entry[] = [
     team: ["Ibrahim Shaqqou", "Sebastian Noel"],
     demoVideoId: "Vx3j4eic42Q",
     demoBrief: "Entering ingredients and browsing the matching recipe results.",
+    teamProfiles: [
+      {
+        name: "Ibrahim Shaqqou",
+        href: "https://www.linkedin.com/in/ibrahim-shaqqou-5866b0329/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+    ],
   },
   {
     collection: "experiences",

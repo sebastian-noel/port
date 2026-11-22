@@ -1,0 +1,246 @@
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.panel {
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(12px, 2vw, 18px);
+  border: 1px solid color-mix(in srgb, var(--sky) 32%, transparent);
+  border-radius: 12px;
+  background: var(--canvas);
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: #ff6269;
+}
+
+.zone {
+  background: #d0a5ff;
+}
+
+.inactive {
+  background: var(--sky);
+}
+
+:global(.study-diagram[data-entered="true"]) .trace {
+  animation: trace-in 1.45s ease-out both;
+}
+
+.trace {
+  stroke-dasharray: 1;
+}
+
+@keyframes trace-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.scoreChart {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.barWell {
+  display: flex;
+  align-items: flex-end;
+  height: clamp(62px, 10vw, 104px);
+  margin-top: 6px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--sky) 12%, transparent);
+  border-radius: 5px;
+}
+
+.bar {
+  width: 100%;
+  min-height: 3px;
+  background: var(--sky);
+  transform-origin: bottom;
+}
+
+.barPeak {
+  background: #ff6269;
+}
+
+:global(.study-diagram[data-entered="true"]) .bar {
+  animation: fill-bar 760ms ease-out both;
+}
+
+@keyframes fill-bar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.formula {
+  display: grid;
+  align-content: center;
+  gap: 14px;
+}
+
+.formula strong {
+  display: block;
+  color: #ff7d82;
+  font-size: clamp(23px, 3vw, 36px);
+  font-variant-numeric: tabular-nums;
+}
+
+.weight {
+  display: flex;
+  overflow: hidden;
+  height: 8px;
+  gap: 3px;
+  border-radius: 20px;
+}
+
+.weight span:first-child {
+  width: 70%;
+  background: var(--sky);
+}
+
+.weight span:last-child {
+  width: 30%;
+  background: #ff6269;
+}
+
+.conversation {
+  display: grid;
+  gap: 11px;
+  padding: clamp(12px, 3vw, 24px);
+  border-radius: 12px;
+  background: var(--canvas);
+}
+
+.conversation > p {
+  width: fit-content;
+  max-width: min(90%, 410px);
+  padding: 9px 13px;
+  border: 1px solid color-mix(in srgb, var(--sky) 38%, transparent);
+  border-radius: 12px 12px 12px 3px;
+  background: color-mix(in srgb, var(--canvas), var(--sky) 15%);
+}
+
+.conversation > .learner {
+  justify-self: end;
+  border-radius: 12px 12px 3px 12px;
+  border-color: color-mix(in srgb, #ff6269 50%, transparent);
+  background: color-mix(in srgb, var(--canvas), #ff6269 17%);
+}
+
+.conversation strong {
+  display: block;
+  font-size: 11px;
+  color: white;
+}
+
+.pantry {
+  margin: 12px 0 16px;
+}
+
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.ingredients span {
+  border: 1px solid color-mix(in srgb, var(--sky) 42%, transparent);
+  border-radius: 20px;
+  padding: 3px 9px;
+  font-size: 13px;
+}
+
+.ingredients .match {
+  color: #ffe2e4;
+  border-color: #ff7d82;
+  background: color-mix(in srgb, var(--canvas), #ff6269 18%);
+}
+
+.recipeRows {
+  display: grid;
+  gap: 8px;
+}
+
+.recipeRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+  background: var(--canvas);
+}
+
+.recipeRow strong {
+  color: #ff9a9e;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.filtered {
+  border-style: dashed;
+}
+
+.seed {
+  color: #b7e2a8;
+  display: inline-block;
+  margin-bottom: 12px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+}
+
+@media (max-width: 620px) {
+  .pair {
+    grid-template-columns: 1fr;
+  }
+  .recipeRow {
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.study-diagram[data-entered="true"]) .trace,
+  :global(.study-diagram[data-entered="true"]) .bar {
+    animation: none;
+  }
+}
