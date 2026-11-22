@@ -1134,10 +1134,13 @@ export const records: Entry[] = [
     tone: "coral",
     sections: [
       {
-        heading: "Start with the food you already have",
+        heading: "My first project outside class",
         navLabel: "The idea",
         id: "idea",
-        text: "DishDash came from a question we kept asking as students: what can I cook with what’s left in the fridge? The project gives people **a starting point for dinner** by searching a recipe collection using the ingredients they enter.",
+        text: "DishDash was **my first hackathon project and the first thing I built outside class**. I came to Knight Hacks VII knowing only the basics of C and Java. We built DishDash in JavaScript, so I was learning a new language and how web apps fit together at the same time.",
+        paragraphs: [
+          "We started with a question we kept asking as students: what can I cook with what’s left in the fridge? DishDash gives people a starting point for dinner by searching a recipe collection using the ingredients they enter.",
+        ],
       },
       {
         heading: "Make an ingredient list easy to change",
@@ -1194,7 +1197,7 @@ export const records: Entry[] = [
         heading: "Connect the frontend, API, and database",
         navLabel: "Building it",
         id: "implementation",
-        text: "With only introductory C and Java experience between us, getting the first request to work was a milestone. We built the core search across **React, Node.js, Express, and MongoDB** and debugged the API and frontend until a change in the input reliably produced a new list of recipes.",
+        text: "Getting the first request to work was a milestone. We built the core search across **React, Node.js, Express, and MongoDB** and debugged the API and frontend until a change in the input reliably produced a new list of recipes.",
       },
       {
         heading: "What overlap leaves out",
@@ -1209,7 +1212,7 @@ export const records: Entry[] = [
         heading: "A working first full-stack project",
         navLabel: "Outcome",
         id: "results",
-        text: "The demo at Knight Hacks VII showed the complete ingredient-to-recipe flow. It was our first full-stack project and a practical way to learn how a browser, server, and database exchange data.",
+        text: "The demo at Knight Hacks VII showed the complete ingredient-to-recipe flow. Watching an ingredient I typed return a list of recipes made it clear how the browser, API, and database fit together.",
       },
     ],
     links: [
