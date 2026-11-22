@@ -188,6 +188,22 @@ export default async function Detail({ params }: Props) {
                 </p>
               ))}
               {section.diagram && <ProjectDiagram kind={section.diagram} />}
+              {section.clip && (
+                <figure className="study-clip">
+                  <video
+                    aria-label={section.clip.caption}
+                    src={section.clip.src}
+                    poster={section.clip.poster}
+                    width={800}
+                    height={450}
+                    preload="none"
+                    controls
+                    playsInline
+                    muted
+                  />
+                  <figcaption>{section.clip.caption}</figcaption>
+                </figure>
+              )}
               {section.images?.length === 1 && (
                 <StudyPhoto {...section.images[0]} />
               )}
