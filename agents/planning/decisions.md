@@ -378,3 +378,19 @@ Issue #81 reuses the approved case-study layout for Recall and adds two native d
 Issue #87 reuses the shared case-study layout for GregHouse. The two diagrams separate sensor telemetry from multiplayer sync so visitors can trace how a real reading reaches the game. Select the device, garden features, and multiplayer animations from the original media and encode them as smaller, silent clips with posters and playback controls. Use the setup and award photos where they document the prototype and result.
 
 Issue #89 changes the inline clips to silent loops without controls so they read as moving figures. Play clips while visible to limit work offscreen, and retain the posters for reduced motion. Put the real diagnostic device and garden together on the cover so the connection is visible before the case study opens. Add the recorded-voice path because it shows that the browser could also send something back to Greg’s device.
+
+## Debt Escape catalog removal
+
+Issue #94 removes Debt Escape from the shared project records at Sebastian’s request. The catalog and generated detail routes now use the same seven-project selection.
+
+## T.K.’s Revenge visual case study
+
+Issue #96 uses the shared visual study layout with the original in-game cover, map and enemy images, and two Project Launch photos. Reuse the diagram cards for the payload sequence and branch the combat diagram to show how each class lands a hit. The photos and diagrams show different parts of the project without duplicating the demo.
+
+## Remaining visual case studies
+
+Issue #98 completes the seven-project catalog. Use the same layout so demo placement, section navigation, and image enlargement work consistently. Reuse the flow diagram cards for each project's two main workflows. Select original interface screenshots to illustrate the interaction, and ground implementation details in the local source.
+
+For the #98 revision, replace most generic workflow cards with figures that show what changes in each project. Keep a short workflow for the asynchronous Next Step handoff, where the order of systems matters. Add code-grounded implementation detail and tradeoffs to the draft case studies, and use motion only where it shows a route, a signal, or a numeric comparison.
+
+Issue #100 gives the catalog search a wider field, a visible search hint and result count, and a touch-sized clear button. Clearing restores input focus, and Escape provides a keyboard shortcut. Remove the personal contribution sections for TideSense and Next Step at Sebastian’s request.

@@ -6,13 +6,12 @@ const selected = [
   "recall",
   "greghouse",
   "tks-revenge",
-  "debt-escape",
   "tidesense",
   "next-step",
   "dishdash",
 ];
 
-test("project scope matches the owner's selected eight projects", () => {
+test("project scope matches the owner's selected seven projects", () => {
   expect(
     records
       .filter((entry) => entry.collection === "projects")
@@ -29,9 +28,9 @@ for (const slug of selected) {
   }) => {
     const entry = records.find((e) => e.slug === slug)!;
     await page.goto(`/projects/${slug}`);
-    expect(
-      await page.locator(".detail-body section").count(),
-    ).toBeGreaterThanOrEqual(6);
+    expect(await page.locator(".detail-body section").count()).toBe(
+      entry.sections.length + 1,
+    );
     await expect(page.locator(".project-facts")).toContainText(
       entry.technologies!.join(" · "),
     );
@@ -54,10 +53,13 @@ for (const slug of selected) {
       );
     }
     await expect(page.locator("main")).not.toContainText(/hackathon projects/i);
-    if (["greghouse", "debt-escape", "next-step", "tidesense"].includes(slug)) {
+    if (["greghouse", "tks-revenge"].includes(slug)) {
       await expect(
         page.getByRole("heading", { name: "My contribution", exact: true }),
       ).toBeVisible();
+    }
+    if (["next-step", "tidesense"].includes(slug)) {
+      await expect(page.locator("main")).not.toContainText("My contribution");
     }
   });
 }
@@ -70,7 +72,7 @@ test("project collection and case study remain readable at desktop and mobile si
     await page.setViewportSize({ width, height: 900 });
     for (const [name, route] of [
       ["catalog", "/projects"],
-      ["case-study", "/projects/debt-escape"],
+      ["case-study", "/projects/tidesense"],
       ["recall", "/projects/recall"],
     ]) {
       await page.goto(route);

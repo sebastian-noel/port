@@ -46,7 +46,7 @@ No changes to routing, collection markup, or card components should be needed fo
 
 ## Sources currently available
 
-Exclude class projects from the portfolio. Use only the eight projects listed under the selected section of the local ProjectsGuide.md. The Devpost profile is a supporting source, not permission to expand the catalog. Present the collection as Projects without a hackathon-project label.
+Exclude class projects from the portfolio. Use only the seven projects listed under the selected section of the local ProjectsGuide.md. The Devpost profile is a supporting source, not permission to expand the catalog. Present the collection as Projects without a hackathon-project label.
 
 The local project guide and supplied resume inform the source inventory. Review project repositories and media before publication.
 
@@ -76,7 +76,7 @@ Track original path, intended page, caption, alt text, crop, and publication sui
 
 ## Verified first-design revision
 
-Eight selected projects are included as drafts: Permanence, Recall, Greghouse, T.K.'s Revenge, Debt Escape, TideSense, Next Step, and DishDash. Alto, FE AI, and future-project placeholders are excluded by Sebastian's November 19, 2026 request. Each has at least five sourced case-study sections, searchable technology/team/event metadata, and a verified YouTube demo. Roles are shown only where local documents or public Devpost creator notes explicitly identify Sebastian's work. Published status stays false until the existing content/media review and launch gate are complete.
+Seven selected projects are included as drafts: Permanence, Recall, Greghouse, T.K.'s Revenge, TideSense, Next Step, and DishDash. Alto, FE AI, and future-project placeholders are excluded by Sebastian's November 19, 2026 request. Each has at least five sourced case-study sections, searchable technology/team/event metadata, and a verified YouTube demo. Roles are shown only where local documents or public Devpost creator notes explicitly identify Sebastian's work. Published status stays false until the existing content/media review and launch gate are complete.
 
 The supplied resume was read for BNY, UCF AI, and GPK dates and bullets. BNY retains UCF experiential-program context. Knight Hacks dates remain unknown and omitted. Null end dates explicitly mean Present; author verified dates rather than inferring them.
 
@@ -92,3 +92,9 @@ Permanence polish (#75) uses the exact site scarlet token for case-study emphasi
 Recall (#81) uses the shared visual case-study template, with capture and retrieval diagrams and an ordered image list per section. Related detail photos can share a row while retaining independent captions and full-size viewing.
 
 GregHouse (#87) adds optional section clips to the visual case-study format. Clips use local WebM or MP4 files with static posters and descriptive captions. The short clips loop silently while in view without playback controls (#89). Show the poster for reduced motion and keep the original GIFs outside the portfolio repository.
+
+T.K.’s Revenge (#96) uses the visual case-study format with a framed demo, two diagrams, and optimized WebP copies of selected gameplay and launch images. The original downloads stay in the external media folder.
+
+TideSense, Next Step, and DishDash (#98) use the shared visual case-study format. Each uses project-specific diagrams and selected WebP derivatives from its original gallery. TideSense captions identify prototype output, and its case study explains the simulated fallback.
+
+The #98 diagram revision uses an illustrated garden and combat scenes, a worked inference example, a sample conversation, and ingredient overlap. Keep example values and scenes labeled so viewers can distinguish them from measurements or screenshots.
