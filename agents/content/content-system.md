@@ -91,4 +91,4 @@ Permanence polish (#75) uses the exact site scarlet token for case-study emphasi
 
 Recall (#81) uses the shared visual case-study template, with capture and retrieval diagrams and an ordered image list per section. Related detail photos can share a row while retaining independent captions and full-size viewing.
 
-GregHouse (#87) adds optional section clips to the visual case-study format. Clips use local WebM or MP4 files with static posters, descriptive captions, and playback controls. Keep the original GIFs outside the portfolio repository.
+GregHouse (#87) adds optional section clips to the visual case-study format. Clips use local WebM or MP4 files with static posters and descriptive captions. The short clips loop silently while in view without playback controls (#89). Show the poster for reduced motion and keep the original GIFs outside the portfolio repository.

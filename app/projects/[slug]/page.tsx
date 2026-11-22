@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StudyClip } from "../../_components/study-clip";
 import { StudyPhoto } from "../../_components/study-photo";
 import { ProjectDiagram } from "../../_components/project-diagrams";
 import { StudyNavigation } from "../../_components/study-navigation";
@@ -188,22 +189,7 @@ export default async function Detail({ params }: Props) {
                 </p>
               ))}
               {section.diagram && <ProjectDiagram kind={section.diagram} />}
-              {section.clip && (
-                <figure className="study-clip">
-                  <video
-                    aria-label={section.clip.caption}
-                    src={section.clip.src}
-                    poster={section.clip.poster}
-                    width={800}
-                    height={450}
-                    preload="none"
-                    controls
-                    playsInline
-                    muted
-                  />
-                  <figcaption>{section.clip.caption}</figcaption>
-                </figure>
-              )}
+              {section.clip && <StudyClip {...section.clip} />}
               {section.images?.length === 1 && (
                 <StudyPhoto {...section.images[0]} />
               )}

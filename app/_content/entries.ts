@@ -508,13 +508,13 @@ export const records: Entry[] = [
     ],
     visualStudy: true,
     heroCaption:
-      "Visitors share a pixel garden where Greg’s virtual mood reflects the moisture in his real pot.",
+      "Greg’s soil-monitoring device alongside the shared pixel garden where his digital twin lives.",
     cover: {
       placeholder: false,
-      src: "/media/greghouse/multiplayer.webp",
-      alt: "Greghouse’s pixel garden with players, potted plants, a pond, and a live chat panel.",
-      width: 800,
-      height: 450,
+      src: "/media/greghouse/device-and-garden.webp",
+      alt: "Cover montage of Greg’s touchscreen diagnostic device in a blue planter beside the multiplayer pixel garden.",
+      width: 1440,
+      height: 810,
     },
     sections: [
       {
@@ -574,6 +574,15 @@ export const records: Entry[] = [
           caption:
             "Several visitors move through the same garden while their positions and chat update live.",
         },
+      },
+      {
+        heading: "Give Greg a voice in both worlds",
+        navLabel: "Plant voices",
+        id: "plant-voices",
+        text: "The owner can record a greeting and a thirsty message for each plant in the browser. As a visitor approaches, **the plant’s voice gets louder**. Which recording plays depends on its mood, and plants without a recording use synthesized chirps.",
+        paragraphs: [
+          "Greg’s physical device can play his greeting through its speaker, too. The Node.js server uses FFmpeg to convert that recording into **8 kHz mono PCM** for the ESP32. When the device receives a new greeting, it stops the playback timer, switches to the new audio buffer, and restarts the timer before freeing the old buffer. That keeps the timer from reading memory that has already been released.",
+        ],
       },
       {
         heading: "Keeping the readings honest",
