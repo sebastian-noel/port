@@ -12,6 +12,12 @@ type ProjectPhoto = {
 
 type StudyImage = ProjectPhoto & { caption: string };
 
+type StudyClip = {
+  src: string;
+  poster: string;
+  caption: string;
+};
+
 export type Entry = {
   collection: Collection;
   slug: string;
@@ -56,12 +62,15 @@ export type Entry = {
     navLabel?: string;
     paragraphs?: string[];
     images?: StudyImage[];
+    clip?: StudyClip;
     diagram?:
       | "permanence-system"
       | "permanence-memory"
       | "permanence-states"
       | "recall-capture"
-      | "recall-retrieval";
+      | "recall-retrieval"
+      | "greghouse-telemetry"
+      | "greghouse-multiplayer";
   }[];
   links: { label: string; href: string }[];
 };
@@ -497,35 +506,126 @@ export const records: Entry[] = [
         logo: "/media/awards/bloomknights.svg",
       },
     ],
+    visualStudy: true,
+    heroCaption:
+      "Greg’s soil-monitoring device alongside the shared pixel garden where his digital twin lives.",
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/greghouse/device-and-garden.webp",
+      alt: "Cover montage of Greg’s touchscreen diagnostic device in a blue planter beside the multiplayer pixel garden.",
+      width: 1440,
+      height: 540,
     },
     sections: [
       {
-        heading: "Making plant care social",
-        text: "Greghouse connects the plant on your desk to a shared pixel-art garden. Friends can visit through a link, walk around as customizable avatars, chat, and remind the owner when a plant needs water. Expressive plants, recorded voices, and proximity audio make the garden feel inhabited.",
+        heading: "Give a real plant a place online",
+        navLabel: "The idea",
+        id: "idea",
+        text: "Greghouse makes plant care something friends can do together. Visitors join through a link and walk around a shared pixel garden, where plants have personalities, talk in a live feed, and can play a recorded voice as you approach.",
+        paragraphs: [
+          "One of those plants is **Greg, a living plant with a digital twin**. His mood in the garden follows a probe in his pot. Other plants are clearly marked as simulated, and players can water them with a virtual watering can.",
+        ],
+        clip: {
+          src: "/media/greghouse/garden-features.webm",
+          poster: "/media/greghouse/garden-features.webp",
+          caption:
+            "Exploring the garden and opening plant profiles with the real plant pictured beside its virtual twin.",
+        },
       },
       {
-        heading: "One real plant, one shared world",
-        text: "A capacitive soil probe and ESP32 send moisture readings through AWS API Gateway, Lambda, and DynamoDB. A Node.js server proxies the latest reading to the React garden and uses WebSockets for multiplayer updates. A shared seed generates the same map for every visitor. The demonstration used one physical device alongside clearly labeled simulated plants.",
+        heading: "From soil to the shared garden",
+        navLabel: "Sensor and telemetry",
+        id: "telemetry",
+        text: "A capacitive probe sits in Greg’s soil and connects to an ESP32 inside a 3D-printed enclosure. The device reads the soil about every two seconds, updates the face on its touchscreen, and sends the reading to AWS.",
+        paragraphs: [
+          "**API Gateway, Lambda, and DynamoDB** accept and store the timestamps and moisture readings. A Node.js proxy retrieves the latest value, and the browser applies the same mood thresholds as the device. The screen on the desk and Greg’s digital twin respond to the same measurement.",
+        ],
+        diagram: "greghouse-telemetry",
+        clip: {
+          src: "/media/greghouse/device-demo.webm",
+          poster: "/media/greghouse/device-demo.webp",
+          caption:
+            "The handheld prototype and its live touchscreen, with Greg’s face and a separate soil stats view.",
+        },
+        images: [
+          {
+            placeholder: false,
+            src: "/media/greghouse/setup.webp",
+            alt: "A laptop showing the virtual garden beside the diagnostic device mounted on Greg’s planter.",
+            width: 430,
+            height: 573,
+            caption:
+              "The demo setup puts the real plant beside its virtual garden.",
+          },
+        ],
+      },
+      {
+        heading: "One map for everyone",
+        navLabel: "Multiplayer",
+        id: "multiplayer",
+        text: "**A shared seed** generates the same paths, ponds, trees, and decorations in each visitor’s browser. The Node.js server uses WebSockets to relay positions, chat, and garden updates to everyone in the room.",
+        paragraphs: [
+          "Friends can wander with custom avatars and send the owner a watering reminder. The reminder arrives as a banner and chime, so someone visiting the digital garden can prompt care for the real plant.",
+        ],
+        diagram: "greghouse-multiplayer",
+        clip: {
+          src: "/media/greghouse/multiplayer.webm",
+          poster: "/media/greghouse/multiplayer.webp",
+          caption:
+            "Several visitors move through the same garden while their positions and chat update live.",
+        },
+      },
+      {
+        heading: "Give Greg a voice in both worlds",
+        navLabel: "Plant voices",
+        id: "plant-voices",
+        text: "The owner can record a greeting and a thirsty message for each plant in the browser. As a visitor approaches, **the plant’s voice gets louder**. Which recording plays depends on its mood, and plants without a recording use synthesized chirps.",
+        paragraphs: [
+          "Greg’s physical device can play his greeting through its speaker, too. The Node.js server uses FFmpeg to convert that recording into **8 kHz mono PCM** for the ESP32. When the device receives a new greeting, it stops the playback timer, switches to the new audio buffer, and restarts the timer before freeing the old buffer. That keeps the timer from reading memory that has already been released.",
+        ],
+      },
+      {
+        heading: "Keeping the readings honest",
+        navLabel: "What broke",
+        id: "constraints",
+        text: "Opening a fresh TLS connection for every reading took too much of the two-second interval. The firmware reused the connection, and the server cached readings so several visitors could view the same garden without each polling AWS directly.",
+        paragraphs: [
+          "A browser with stale garden state could overwrite a newer reading. The server excludes live moisture from garden sync and lets the telemetry path own it. If a reading is more than ten seconds old, the garden shows **Probe offline** and keeps the last value.",
+        ],
       },
       {
         heading: "My contribution",
-        text: "I set up the AWS connection between the ESP32 and web app, using DynamoDB to track soil-moisture readings. I also built procedural map generation, owner notifications, player quality-of-life features, and debug systems. These pieces connect the physical plant to a garden that multiple people can explore together.",
+        navLabel: "My contribution",
+        id: "contribution",
+        text: "I built the AWS telemetry path from the ESP32 through API Gateway, Lambda, and DynamoDB so the garden could display live soil readings. I also implemented procedural map generation, watering reminders, and tools for testing garden behavior during development.",
       },
       {
-        heading: "Keeping the device and garden in agreement",
-        text: "Live sensor values must not be overwritten by stale browser state. The team kept live-plant moisture under the telemetry pipeline's control and matched mood thresholds across JavaScript and C++. Persistent TLS connections helped maintain the sampling cadence. When the probe stops reporting, the app freezes the last reading and shows that the probe is offline.",
-      },
-      {
-        heading: "Outcome and future growth",
-        text: "Greghouse received third overall at BloomKnights 2026. The team demonstrated a working loop from real soil to the device display and shared garden. Watering a simulated plant changes its virtual state; a real plant still needs physical care. Additional devices, more sensor types, and simpler hardware onboarding are planned extensions.",
+        heading: "A working garden in twelve hours",
+        navLabel: "Results",
+        id: "results",
+        text: "Greghouse earned **3rd Best Overall out of 86 projects** at BloomKnights 2026. The demo paired one working diagnostic device with a multiplayer garden, so visitors could see a real reading reach both the device and the browser.",
+        paragraphs: [
+          "More devices, light and temperature sensors, and a simpler pairing flow would extend the prototype from one instrumented plant to a larger garden.",
+        ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/greghouse/awards.webp",
+            alt: "The four Greghouse teammates holding their prize bears in front of the BloomKnights presentation slide.",
+            width: 800,
+            height: 533,
+            caption:
+              "The Greghouse team with their third-place prizes at BloomKnights.",
+          },
+        ],
       },
     ],
     links: [
+      { label: "Devpost", href: "https://devpost.com/software/greghouse" },
+      { label: "GitHub", href: "https://github.com/sebastian-noel/greghouse" },
       {
-        label: "View on Devpost",
-        href: "https://devpost.com/software/greghouse",
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/posts/snoel-dev_greghouse-hackathon-bloomknights-ugcPost-7483158821662769152-rfww/",
       },
     ],
     technologies: [
@@ -549,7 +649,24 @@ export const records: Entry[] = [
       "Stevin George",
       "Otavio Borrelly",
     ],
-    role: "Cloud telemetry and garden systems",
+    teamProfiles: [
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Alejandro Jaimes",
+        href: "https://www.linkedin.com/in/alejaimes/",
+      },
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Otavio Borrelly",
+        href: "https://www.linkedin.com/in/otavioborrelly/",
+      },
+    ],
   },
   {
     collection: "projects",
@@ -1184,6 +1301,18 @@ for (const entry of records) {
   ]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
       throw new Error(`Missing cover file: ${photo.src}`);
+    }
+  }
+  for (const { clip } of entry.sections) {
+    if (
+      clip &&
+      (!/^\/media\/[a-z0-9/-]+\.(webm|mp4)$/.test(clip.src) ||
+        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(clip.poster) ||
+        !clip.caption.trim() ||
+        !existsSync(`public${clip.src}`) ||
+        !existsSync(`public${clip.poster}`))
+    ) {
+      throw new Error(`Invalid section clip: ${clip.src}`);
     }
   }
 }

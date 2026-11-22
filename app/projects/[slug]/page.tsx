@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StudyClip } from "../../_components/study-clip";
 import { StudyPhoto } from "../../_components/study-photo";
 import { ProjectDiagram } from "../../_components/project-diagrams";
 import { StudyNavigation } from "../../_components/study-navigation";
@@ -188,6 +189,7 @@ export default async function Detail({ params }: Props) {
                 </p>
               ))}
               {section.diagram && <ProjectDiagram kind={section.diagram} />}
+              {section.clip && <StudyClip {...section.clip} />}
               {section.images?.length === 1 && (
                 <StudyPhoto {...section.images[0]} />
               )}
