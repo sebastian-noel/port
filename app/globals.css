@@ -1498,19 +1498,6 @@ dialog nav a[aria-current] {
     transform: translate(50%, -50%) rotate(90deg);
   }
 }
-@media (min-width: 651px) {
-  .visual-study .project-flow-branches {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .project-flow-branches li:last-child {
-    grid-column: 1 / -1;
-  }
-  .project-flow-branches .project-flow-arrow {
-    top: -13px;
-    right: 50%;
-    transform: translate(50%, -50%) rotate(90deg);
-  }
-}
 .study-photo-pair,
 .recall-inputs,
 .recall-retrieval {

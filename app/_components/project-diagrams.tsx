@@ -1,6 +1,11 @@
 import { MotionFigure } from "./motion-figure";
 import { RecallDiagram } from "./recall-diagram";
-import { ProjectFlow } from "./project-flow";
+import { NextFeedback } from "./project-flow";
+import { GardenReading, SharedGarden } from "./study-diagrams/garden-twins";
+import { NextConversation } from "./study-diagrams/next-conversation";
+import { PantryRanking } from "./study-diagrams/pantry-ranking";
+import { TideScore } from "./study-diagrams/tide-score";
+import { TksCombat, TksRoute } from "./study-diagrams/tks";
 import type { Entry } from "../_content/entries";
 
 export function ProjectDiagram({
@@ -11,19 +16,23 @@ export function ProjectDiagram({
   if (kind === "recall-capture" || kind === "recall-retrieval") {
     return <RecallDiagram kind={kind} />;
   }
-  if (
-    kind === "greghouse-telemetry" ||
-    kind === "greghouse-multiplayer" ||
-    kind === "tks-progression" ||
-    kind === "tks-combat" ||
-    kind === "tide-scan" ||
-    kind === "tide-context" ||
-    kind === "next-practice" ||
-    kind === "next-feedback" ||
-    kind === "dish-input" ||
-    kind === "dish-ranking"
-  ) {
-    return <ProjectFlow kind={kind} />;
+  switch (kind) {
+    case "greghouse-telemetry":
+      return <GardenReading />;
+    case "greghouse-multiplayer":
+      return <SharedGarden />;
+    case "tks-progression":
+      return <TksRoute />;
+    case "tks-combat":
+      return <TksCombat />;
+    case "tide-scan":
+      return <TideScore />;
+    case "next-practice":
+      return <NextConversation />;
+    case "next-feedback":
+      return <NextFeedback />;
+    case "dish-ranking":
+      return <PantryRanking />;
   }
   if (kind === "permanence-states") {
     return (

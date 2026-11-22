@@ -96,3 +96,5 @@ GregHouse (#87) adds optional section clips to the visual case-study format. Cli
 T.K.’s Revenge (#96) uses the visual case-study format with a framed demo, two diagrams, and optimized WebP copies of selected gameplay and launch images. The original downloads stay in the external media folder.
 
 TideSense, Next Step, and DishDash (#98) use the shared visual case-study format. Each uses project-specific diagrams and selected WebP derivatives from its original gallery. TideSense captions identify prototype output, and its case study explains the simulated fallback.
+
+The #98 diagram revision uses an illustrated garden and combat scenes, a worked inference example, a sample conversation, and ingredient overlap. Keep example values and scenes labeled so viewers can distinguish them from measurements or screenshots.

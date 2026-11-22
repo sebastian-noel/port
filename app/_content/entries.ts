@@ -74,10 +74,8 @@ export type Entry = {
       | "tks-progression"
       | "tks-combat"
       | "tide-scan"
-      | "tide-context"
       | "next-practice"
       | "next-feedback"
-      | "dish-input"
       | "dish-ranking";
   }[];
   links: { label: string; href: string }[];
@@ -574,6 +572,7 @@ export const records: Entry[] = [
         text: "**A shared seed** generates the same paths, ponds, trees, and decorations in each visitor’s browser. The Node.js server uses WebSockets to relay positions, chat, and garden updates to everyone in the room.",
         paragraphs: [
           "Friends can wander with custom avatars and send the owner a watering reminder. The reminder arrives as a banner and chime, so someone visiting the digital garden can prompt care for the real plant.",
+          "**The seed and map dimensions travel together.** Browsers can recreate the terrain locally, and the server can send smaller updates for things that change during a session, such as which way another player is facing. A fresh soil reading follows a separate path so all visitors can see Greg’s mood without one player’s garden state overwriting it.",
         ],
         diagram: "greghouse-multiplayer",
         clip: {
@@ -713,6 +712,7 @@ export const records: Entry[] = [
         text: "T.K. is a **moving objective**. The server moves him toward a stop authored in the map, then starts a robot encounter around that point. Players work through encounters to power up T.K. and advance toward the fight with Lenny.",
         paragraphs: [
           "Each level has its own stop and spawn zones. The enemy controller places robots within those zones, giving level designers control over where a fight happens while allowing the exact starting positions to vary.",
+          "The **server waits for the movement to finish** before starting the encounter. That handoff ties the encounter to a place in the city. The stop, nearby robot placement, and next destination can then be authored as part of the level itself.",
         ],
         diagram: "tks-progression",
         images: [
@@ -734,6 +734,7 @@ export const records: Entry[] = [
         text: "Sword attacks check a box in front of the player and apply knockback to each enemy caught in it. The third swing in the combo uses a **larger hitbox and a stronger push**. A crossbow shot spawns a physical bolt and applies knockback when it touches a robot.",
         paragraphs: [
           "The two classes give players different reasons to move. Getting close puts more robots within a sword swing. Keeping distance gives the crossbow player room to line up a shot.",
+          "The sword tracks where the player is in a three-swing combo. The crossbow shows **charge and cooldown** in the aim interface, so lining up a shot and choosing when to release it are part of the interaction. Once a bolt is fired, the server lets physics carry it through the world with reduced gravity.",
         ],
         diagram: "tks-combat",
         images: [
@@ -754,6 +755,7 @@ export const records: Entry[] = [
         text: "The city, encounters, and character animations came together in **Roblox Studio**, with models and rigs built in Blender and Maya. Gameplay scripts were written in Luau, with Rojo connecting the local source files to the Studio project.",
         paragraphs: [
           "Several of us were new to Roblox development. Building a playable run for the spring showcase meant learning the engine while settling on a scope we could finish: a cyber city, two classes, a shared objective, and a final encounter.",
+          "Roblox Studio held the scene and its authored waypoints and spawn parts. Luau code ran the encounters against those parts, and Rojo kept the scripts available for local collaboration. This division gave the level layout and the rules that use it separate places to change.",
         ],
       },
       {
@@ -858,7 +860,7 @@ export const records: Entry[] = [
         heading: "Start with a photo of the shoreline",
         navLabel: "The idea",
         id: "idea",
-        text: "TideSense explores how **a phone camera and computer vision** could help people learn about rip-current conditions. The prototype puts photo capture, a model estimate, and local conditions on the same screen flow. A single photo can only capture one view at one moment.",
+        text: "TideSense explores how **a phone camera and computer vision** could help people learn about rip-current conditions. The prototype puts photo capture, a model estimate, and local conditions on the same screen flow. A single photo captures one view at one moment. That constraint shaped what the project could test: how an estimate, its context, and its uncertainty can be presented on a small screen.",
       },
       {
         heading: "Turn a capture into a model estimate",
@@ -867,6 +869,7 @@ export const records: Entry[] = [
         text: "The Expo app sends the image to a **Python FastAPI server**. The server prepares it for TensorFlow Lite and translates model output into a low, moderate, or high risk label for the results screen.",
         paragraphs: [
           "To reduce the influence of one unusually high score, the server blends the mean of the five strongest detection scores with the maximum score, weighted **70% and 30%**. That changes how scores are combined. Establishing reliability would require testing on labeled shoreline images and comparing the output with observed conditions.",
+          "The server reads the model’s input dimensions and data type, converts the image to RGB, and resizes it before inference. For detection-shaped output, it blends the confidence scores before separately mapping the result to the value shown in the app. A high model score in this flow is a signal from the prototype, with no field calibration to interpret it as a measured probability.",
         ],
         diagram: "tide-scan",
         images: [
@@ -897,8 +900,8 @@ export const records: Entry[] = [
         text: "The result page pairs the estimate with local context. National Weather Service lookups use the phone’s coordinates, and a **Gemini assistant** can use the scan context in its explanation. ElevenLabs provides an audio version of the generated summary.",
         paragraphs: [
           "Scan history is stored on the phone using SQLite. A visitor can return to the saved result and compare it with earlier scans instead of relying on a screenshot or memory.",
+          "**The saved record contains the estimate and its context.** It records a timestamp, the confidence, and the coordinates when the location lookup succeeds. The history view reconstructs the result from those fields. The live capture flow leaves the stored photo field empty, so the record captures what the app reported without storing the original image.",
         ],
-        diagram: "tide-context",
         images: [
           {
             placeholder: false,
@@ -931,6 +934,7 @@ export const records: Entry[] = [
         text: "The demo connects capture, inference, context, and history in one mobile app. The server can produce **simulated results when inference is unavailable**. Those values are for testing the interface. TideSense remains an exploratory prototype. It cannot establish that the water is safe to enter.",
         paragraphs: [
           "Before any field use, the app would need to distinguish simulated results from model output in the interface and validate the model against observed rip currents.",
+          "The simulated path returns the same category and score fields as the real path. That helped the rest of the app run while the interpreter was unavailable, but it also made the origin of a result invisible to a viewer. Carrying a source field into the result and saved history would make a repeat test understandable.",
         ],
       },
     ],
@@ -1010,6 +1014,7 @@ export const records: Entry[] = [
         text: "The landing page offers **auto, home, and health** scenarios. The choice travels into the practice page through the route, where the user can start and end a Vapi call. The page shows when the call is connecting or active.",
         paragraphs: [
           "Spoken answers give the session context across turns. A learner can explain the steps they would take and respond to follow-up questions as the scenario unfolds.",
+          "The practice page separates **connecting, active, and finished** states. The microphone interface belongs to the active call. Once the learner ends the session, the next task is evaluation, so the results page can open immediately even when the score is still being prepared.",
         ],
         diagram: "next-practice",
         images: [
@@ -1031,6 +1036,7 @@ export const records: Entry[] = [
         text: "When the call ends, the browser opens the results page in a **pending state**. The app polls a Flask endpoint using the call ID. Flask retrieves the call analysis and summary from Vapi, and the browser stores the returned result in session storage so the results view can pick it up.",
         paragraphs: [
           "The rubric focuses on safety awareness, insurance knowledge, procedure, and decision quality. The results page gives the learner a score and a written summary to reflect on before trying again.",
+          "The results page reads the four category values from the structured response, uses their total when available, and falls back to an overall score returned by the analysis. The written summary gives context for the numeric result. This is feedback from the practice agent’s rubric, with no independent assessment of the learner’s insurance knowledge.",
         ],
         diagram: "next-feedback",
         images: [
@@ -1050,6 +1056,15 @@ export const records: Entry[] = [
         navLabel: "My contribution",
         id: "contribution",
         text: "I designed and built parts of the frontend with React, TypeScript, and Tailwind CSS, set up Next.js pages and routing, and helped teammates work with Git. The routing connected the scenario choice to the practice session and the results page.",
+      },
+      {
+        heading: "Build the experience around the wait",
+        navLabel: "Design tradeoff",
+        id: "tradeoff",
+        text: "The voice call and its evaluation finish on different timelines. Opening the results page in a pending state gives the learner a clear place to go while the client checks for both structured analysis and a summary. Using **session storage** lets the practice and results pages share that completed response in the same browser session.",
+        paragraphs: [
+          "A follow-on version could give this wait a defined timeout and a way to resume a pending result. That would make the transition clearer when an evaluation takes longer than expected.",
+        ],
       },
       {
         heading: "A working practice loop in three categories",
@@ -1131,8 +1146,8 @@ export const records: Entry[] = [
         text: "A React search field suggests common ingredient names as the user types. Each accepted ingredient becomes a removable chip. Adding or removing a chip sends the updated list to the Express API, so the result set changes as the user revises what they have.",
         paragraphs: [
           "The suggestions use a list built into the frontend. The recipe search itself runs against the database.",
+          "Suggestions match the beginning of the text as the user types, and the interface shows up to three choices. A cook can also submit a term directly. Keeping these two interactions separate means suggesting an ingredient only needs a local list, while accepting it can trigger a full database search.",
         ],
-        diagram: "dish-input",
         images: [
           {
             placeholder: false,
@@ -1160,6 +1175,7 @@ export const records: Entry[] = [
         text: "The API lowercases the submitted names. **MongoDB counts the unique names shared** by the submitted list and each recipe’s searchable ingredient tags, drops recipes with zero matches, and sorts the rest by the number of matches.",
         paragraphs: [
           "For example, if the list contains tomato and rice, a recipe tagged with both ranks above a recipe tagged only with tomato. The endpoint returns up to 100 existing recipes. A highly ranked result can still require other ingredients, which the full ingredient list shows.",
+          "**The searchable tags and the recipe’s ingredient list serve different purposes.** Matching against tags can find a recipe without comparing an input like “tomato” to a line containing quantities or preparation notes. The results still show those original ingredient lines and the directions needed to cook it.",
         ],
         diagram: "dish-ranking",
         images: [
@@ -1181,10 +1197,19 @@ export const records: Entry[] = [
         text: "With only introductory C and Java experience between us, getting the first request to work was a milestone. We built the core search across **React, Node.js, Express, and MongoDB** and debugged the API and frontend until a change in the input reliably produced a new list of recipes.",
       },
       {
+        heading: "What overlap leaves out",
+        navLabel: "Ranking tradeoff",
+        id: "tradeoff",
+        text: "Counting shared tags gives the search a predictable rule. It does not account for what’s missing, quantities, or substitutions. Two recipes can tie on overlap while requiring very different shopping lists.",
+        paragraphs: [
+          "Keeping the full ingredient list in the result makes that limit visible. A pantry-focused ranking could show **matched and missing ingredients** together and let a cook choose between maximum overlap and the fewest extra items.",
+        ],
+      },
+      {
         heading: "A working first full-stack project",
         navLabel: "Outcome",
         id: "results",
-        text: "The demo at Knight Hacks VII showed the complete ingredient-to-recipe flow. It was our first full-stack project and a practical way to learn how a browser, server, and database exchange data. Ranking by what is still missing would be a natural next improvement for a tighter pantry search.",
+        text: "The demo at Knight Hacks VII showed the complete ingredient-to-recipe flow. It was our first full-stack project and a practical way to learn how a browser, server, and database exchange data.",
       },
     ],
     links: [
