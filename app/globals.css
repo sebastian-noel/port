@@ -572,6 +572,7 @@ dialog nav a[aria-current] {
 }
 .project-search {
   width: min(100%, 640px);
+  margin-inline: auto;
   margin-bottom: clamp(26px, 4vw, 42px);
 }
 .search-field {
