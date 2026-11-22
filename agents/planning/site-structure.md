@@ -4,18 +4,18 @@ Status: Home, Experiences, Projects, About is the confirmed navigation order. On
 
 ## Route map
 
-| Route | Purpose | Default rendering |
-| --- | --- | --- |
-| `/` | Introduction, selected work, experience preview, personal photos, typing challenge | Prerendered content with isolated interactive regions |
-| `/projects` | All published projects with an image and a short explanation | Prerendered collection |
-| `/projects/[slug]` | A project case study with media and relevant links | Prerendered detail |
-| `/experiences` | Roles, research, internships, and student organization experience | Prerendered collection |
-| `/about` | Personal introduction, interests, background, selected photos | Prerendered content |
-| `/resume` | Shareable resume landing page and direct PDF action; expanded HTML resume can follow content review | Prerendered content |
-| `/resume.pdf` | Downloadable copy of the same reviewed public resume | Static file |
-| `/admin` | Owner sign-in/entry | Private flow; no public navigation |
-| `/admin/analytics` | Sebastian's analytics | Authenticated, uncached |
-| `/privacy` | Brief explanation of analytics, anonymous game sessions, and data retention | Prerendered utility page |
+| Route              | Purpose                                                                                             | Default rendering                                     |
+| ------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `/`                | Introduction, selected work, experience preview, personal photos, typing challenge                  | Prerendered content with isolated interactive regions |
+| `/projects`        | All published projects with an image and a short explanation                                        | Prerendered collection                                |
+| `/projects/[slug]` | A project case study with media and relevant links                                                  | Prerendered detail                                    |
+| `/experiences`     | Roles, research, internships, and student organization experience                                   | Prerendered collection                                |
+| `/about`           | Personal introduction, interests, background, selected photos                                       | Prerendered content                                   |
+| `/resume`          | Shareable resume landing page and direct PDF action; expanded HTML resume can follow content review | Prerendered content                                   |
+| `/resume.pdf`      | Downloadable copy of the same reviewed public resume                                                | Static file                                           |
+| `/admin`           | Owner sign-in/entry                                                                                 | Private flow; no public navigation                    |
+| `/admin/analytics` | Sebastian's analytics                                                                               | Authenticated, uncached                               |
+| `/privacy`         | Brief explanation of analytics, anonymous game sessions, and data retention                         | Prerendered utility page                              |
 
 Slugs remain stable. If one changes, preserve the old link with a redirect. Each public detail page gets its own title, description, canonical URL, and social preview. Use the [search visibility plan](search-visibility.md) for metadata and publication rules.
 
@@ -38,7 +38,7 @@ Do not place an About promotion or About link in home content. About remains in 
 - On mobile, prefer a full-page detail view for reading. If a sheet is added, provide a close button, focus management, ordinary Back behavior, and swipe dismissal without intercepting browser edge gestures.
 - Use a visible “All projects” or “All experiences” link. Do not add code-style breadcrumb paths.
 - Use standardized project cards and a single search field. Search matches names and available technology, teammate, and event metadata. Expand verified metadata later; no dense filter bar.
-- Experiences sort newest start date first in timeline cards. Show a small description, picture or flat letter placeholder, and resume bullets. Keep unknown dates empty. Do not add future experience placeholders.
+- Experiences sort newest start date first in rounded cards capped at 720px. Show role, company, company mark, image carousel, and summary by default. Per-card disclosures reveal role history, resume bullets, contextual sections, and resources; a top control opens or closes all details. Approved blank gallery slots remain clearly labeled. A sticky desktop timeline follows scrolling and links to the stable card anchors; phones use a compact jump menu. Keep unknown dates empty and do not add future experience placeholders.
 
 ## Persistent navigation
 

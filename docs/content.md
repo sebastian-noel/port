@@ -137,3 +137,31 @@ is explicitly labeled as an illustration, not a captured trajectory.
 The case study centers prose, headings, and captions. Its desktop contents rail
 sticks to the left; at 1000px and below it becomes a horizontally scrollable sticky
 row beneath the site header. Section offsets keep headings clear of both bars.
+
+## Experience galleries and details
+
+The Experiences page uses rounded cards capped at 720px, a sticky desktop timeline,
+and a compact jump menu on phones. The timeline follows the visible experience;
+its links preserve existing `/experiences#slug` anchors and move keyboard focus to
+the role heading. Dates remain outside the cards.
+
+Cards show the role, company, company mark, image carousel, and summary first.
+Native Show more details disclosures contain role history, bullets, contextual
+sections, and links. Show all details opens every card; Hide all details closes them.
+Individual disclosures also work without JavaScript. Opening or closing one card
+keeps the global control in sync.
+
+Optional `gallery` arrays accept the same reviewed photo shape as real covers:
+`{ placeholder: false, src, alt, width, height }`. Add approved optimized derivatives
+under `public/media`; builds verify those files exist. Omitted galleries show three
+explicitly labeled blank slots. Carousels support swipe, previous/next, image dots,
+and Left/Right/Home/End keys while the image viewport is focused, without autoplay.
+Optional `logo` records use `{ src, alt }`; `logoText` is a typographic fallback until
+approved organization artwork is supplied. Knight Hacks reuses the existing approved
+sigil. Other marks currently use company names/initials, not invented logo artwork.
+`organizationShortName` controls compact timeline labels without changing company names.
+
+Scroll entrances run once with Web Animations; hover lifts the card and gently
+rotates the company mark. Focus finishes pending entrances. Reduced motion removes
+entrances, lifts, rotations, and smooth scrolling. No content waits hidden for a
+scroll trigger, and touch does not depend on hover.

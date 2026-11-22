@@ -792,40 +792,7 @@ dialog nav a[aria-current] {
   padding: 40px 0 100px;
 }
 .experiences-page {
-  width: min(1840px, calc(100% - 80px));
-}
-.timeline {
-  width: 100%;
-}
-.timeline-entry {
-  position: relative;
-  padding-left: 20px;
-  padding-bottom: 28px;
-  scroll-margin-top: 100px;
-}
-.timeline-entry::before {
-  content: "";
-  position: absolute;
-  width: 2px;
-  background: var(--line);
-  left: 3px;
-  top: 12px;
-  bottom: -12px;
-}
-.timeline-entry:last-child::before {
-  bottom: 28px;
-}
-.timeline-entry::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: var(--accent);
-  left: -1px;
-  top: 10px;
-}
-.timeline-date {
-  padding-top: 4px;
+  width: min(1100px, calc(100% - 80px));
 }
 .dates {
   font-size: 14px;
@@ -1186,16 +1153,6 @@ dialog nav a[aria-current] {
   .splash {
     min-height: calc(100svh - 76px);
   }
-  .timeline-entry {
-    grid-template-columns: 140px minmax(0, 1fr);
-    gap: 28px;
-  }
-  .timeline-entry::before {
-    left: 152px;
-  }
-  .timeline-entry::after {
-    left: 148px;
-  }
   .about-columns {
     gap: 30px;
   }
@@ -1252,21 +1209,6 @@ dialog nav a[aria-current] {
   }
   .placeholder-cover span {
     font-size: 72px;
-  }
-  .timeline-entry {
-    display: block;
-    padding-left: 20px;
-    padding-bottom: 28px;
-  }
-  .timeline-entry::before {
-    left: 3px;
-    top: 12px;
-  }
-  .timeline-entry::after {
-    left: -1px;
-  }
-  .timeline-date {
-    padding-top: 0;
   }
   .dates {
     display: table;

@@ -121,66 +121,66 @@ Updated November 7, 2026. **Confirmed** means Sebastian stated the requirement. 
 
 Class projects are out of scope. Sebastian’s [Devpost profile](https://devpost.com/sebastian-noel) is a source for hackathon projects that are unavailable locally.
 
-| Decision | Source/context |
-| --- | --- |
-| Portfolio for Sebastian Noel; planning lives under `agents/` | Workspace setup and planning request |
-| `port_global` provides optional resources; other projects are read-only sources | Workspace setup and ProjectsGuide.md |
-| Cornflower blue `#4e87ec` canvas for the current palette pass | Palette follow-up |
-| Supporting blues/light grays and white text; coral `#ff8a75` as the selected accent | Planning request and follow-up |
-| Home, Experiences, Projects, About; linkable detail/case-study pages | Planning request |
-| Easy addition of projects/experiences and rich media | Planning request |
-| Winning team-photo hover on awarded projects when a photo exists | Planning request |
-| Typed name, tile-flip impulse, persistent grayscale-to-color photo patches | Planning request |
-| Many small interactions with mobile considered throughout | Planning request |
-| Persistent resume/GitHub/LinkedIn access and mobile hamburger | Planning request |
-| Next.js, Vercel, Cloudflare-owned `snoel.dev` | Planning request |
-| No-login home typing challenge; at least 100 WPM wins | Planning request |
-| Each accepted start counts; unfinished/below-threshold attempts lose | Planning request |
-| Realtime shared counts/percentages and a monthly top-10 initials leaderboard accepting only wins, including when empty | Planning request and follow-up |
-| Passages use lowercase letters and spaces without punctuation | Follow-up |
-| Show a live 100 WPM ghost cursor and count confirmed fraud as a loss | Plan review follow-up |
-| Hosting and every additional service must cost $0 | Follow-up |
-| Supabase Free is the selected backend, including its Postgres database | Backend selection follow-up |
-| Custom randomized keyboard samples and abuse prevention | Planning request |
-| Private owner analytics/dashboard for views and key external-link clicks | Planning request; dashboard direction endorsed in follow-up |
-| Discoverable name, work, resume, LinkedIn, GitHub, and selected photos, with private contact details kept out of public search content | Search follow-up |
+| Decision                                                                                                                               | Source/context                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Portfolio for Sebastian Noel; planning lives under `agents/`                                                                           | Workspace setup and planning request                        |
+| `port_global` provides optional resources; other projects are read-only sources                                                        | Workspace setup and ProjectsGuide.md                        |
+| Cornflower blue `#4e87ec` canvas for the current palette pass                                                                          | Palette follow-up                                           |
+| Supporting blues/light grays and white text; coral `#ff8a75` as the selected accent                                                    | Planning request and follow-up                              |
+| Home, Experiences, Projects, About; linkable detail/case-study pages                                                                   | Planning request                                            |
+| Easy addition of projects/experiences and rich media                                                                                   | Planning request                                            |
+| Winning team-photo hover on awarded projects when a photo exists                                                                       | Planning request                                            |
+| Typed name, tile-flip impulse, persistent grayscale-to-color photo patches                                                             | Planning request                                            |
+| Many small interactions with mobile considered throughout                                                                              | Planning request                                            |
+| Persistent resume/GitHub/LinkedIn access and mobile hamburger                                                                          | Planning request                                            |
+| Next.js, Vercel, Cloudflare-owned `snoel.dev`                                                                                          | Planning request                                            |
+| No-login home typing challenge; at least 100 WPM wins                                                                                  | Planning request                                            |
+| Each accepted start counts; unfinished/below-threshold attempts lose                                                                   | Planning request                                            |
+| Realtime shared counts/percentages and a monthly top-10 initials leaderboard accepting only wins, including when empty                 | Planning request and follow-up                              |
+| Passages use lowercase letters and spaces without punctuation                                                                          | Follow-up                                                   |
+| Show a live 100 WPM ghost cursor and count confirmed fraud as a loss                                                                   | Plan review follow-up                                       |
+| Hosting and every additional service must cost $0                                                                                      | Follow-up                                                   |
+| Supabase Free is the selected backend, including its Postgres database                                                                 | Backend selection follow-up                                 |
+| Custom randomized keyboard samples and abuse prevention                                                                                | Planning request                                            |
+| Private owner analytics/dashboard for views and key external-link clicks                                                               | Planning request; dashboard direction endorsed in follow-up |
+| Discoverable name, work, resume, LinkedIn, GitHub, and selected photos, with private contact details kept out of public search content | Search follow-up                                            |
 
 ## Design choices to review first
 
-| Topic | Status | Recommendation/choice needed |
-| --- | --- | --- |
-| Accent | Confirmed starting direction | Use coral `#ff8a75`; replaces the original amber direction |
-| White text contrast | Selected for current review | White large headings on cornflower blue, with dark navy for smaller canvas text |
-| Typography | Direction confirmed, family open | Choose a distinctive, readable face during development. Avoid generic type treatments and fonts strongly associated with AI-generated templates. |
-| Responsive review | Confirmed | Review and refine on real layouts during development. Skip the separate prototype and case-study draft for this planning round. |
-| Overall composition | Proposed | Open, image-led layout with broad blue fields and a few grid/photo clusters; no repeated bordered-card shell |
-| Mobile persistent links | Proposed | Compact sticky header with social/resume actions and hamburger, adapting when the keyboard opens |
-| Detail presentation | Proposed | Full pages first; optional routed modal/sheet enhancement later |
-| Intro replay | Proposed | First home visit per session; immediate settled view on repeat navigation |
+| Topic                   | Status                           | Recommendation/choice needed                                                                                                                     |
+| ----------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Accent                  | Confirmed starting direction     | Use coral `#ff8a75`; replaces the original amber direction                                                                                       |
+| White text contrast     | Selected for current review      | White large headings on cornflower blue, with dark navy for smaller canvas text                                                                  |
+| Typography              | Direction confirmed, family open | Choose a distinctive, readable face during development. Avoid generic type treatments and fonts strongly associated with AI-generated templates. |
+| Responsive review       | Confirmed                        | Review and refine on real layouts during development. Skip the separate prototype and case-study draft for this planning round.                  |
+| Overall composition     | Proposed                         | Open, image-led layout with broad blue fields and a few grid/photo clusters; no repeated bordered-card shell                                     |
+| Mobile persistent links | Proposed                         | Compact sticky header with social/resume actions and hamburger, adapting when the keyboard opens                                                 |
+| Detail presentation     | Proposed                         | Full pages first; optional routed modal/sheet enhancement later                                                                                  |
+| Intro replay            | Proposed                         | First home visit per session; immediate settled view on repeat navigation                                                                        |
 
 ## Game rules needing review
 
-| Topic | Status | Recommendation/choice needed |
-| --- | --- | --- |
-| Benchmark validation | Proposed next step | Retest Sebastian's 100 WPM benchmark on the new passage-completion format |
-| Test length | Working interpretation | Exactly 30 words per passage. Sebastian wrote “30 words per minute” while retaining a 100 WPM benchmark. |
-| Test format | Interpreted from length request | Finish the passage and calculate WPM from elapsed time; replaces the fixed 30-second proposal |
-| Text normalization | Confirmed | Lowercase letters and spaces with no punctuation; preserve sentence-derived wording |
-| Start moment | Proposed | Count explicit server-accepted Start; use 3-second countdown, with departure afterward still counted |
-| Completion/scoring | Proposed | Require the full normalized passage, correct errors before completion, and calculate five-character WPM from verified elapsed time |
-| Minimum accuracy | Proposed | Display accuracy but do not add an extra win condition beyond valid completion and at least 100 WPM |
-| Percent denominator | Proposed | Wins/losses among settled attempts; show pending separately. Alternative: all-start percentages including pending |
-| Initials format | Proposed | Exactly two A–Z letters, uppercase after normalization |
-| Leaderboard eligibility | Confirmed | Only verified wins at least 100 WPM can qualify, even on an empty board |
-| Reset cadence | Confirmed | New leaderboard every calendar month |
-| Reset timezone | Proposed | Midnight on the first in America/New_York; exact timezone remains open |
-| Month assignment | Proposed | Validated completion instant determines the month; late initials remain bound to that month |
-| Lifetime statistics | Interpreted scope | Lifetime attempts/wins/losses continue; user requested only leaderboard resets |
-| Multiple entries per person | Proposed | Permit multiple valid attempts; no-login identity cannot reliably enforce one person/one score |
-| Tie order | Proposed | WPM, accuracy, earlier completion, stable ID |
-| Sound default | Proposed | Muted until enabled, with remembered volume/preferences |
-| Timing/expiry | Proposed | 3-second countdown, elapsed-time test, 120-second abandonment limit, bounded 15-second result grace, 10-second expiration sweep |
-| Data retention | Proposed | Short-lived operation histories, durable compact results; final policy before launch |
+| Topic                       | Status                          | Recommendation/choice needed                                                                                                       |
+| --------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Benchmark validation        | Proposed next step              | Retest Sebastian's 100 WPM benchmark on the new passage-completion format                                                          |
+| Test length                 | Working interpretation          | Exactly 30 words per passage. Sebastian wrote “30 words per minute” while retaining a 100 WPM benchmark.                           |
+| Test format                 | Interpreted from length request | Finish the passage and calculate WPM from elapsed time; replaces the fixed 30-second proposal                                      |
+| Text normalization          | Confirmed                       | Lowercase letters and spaces with no punctuation; preserve sentence-derived wording                                                |
+| Start moment                | Proposed                        | Count explicit server-accepted Start; use 3-second countdown, with departure afterward still counted                               |
+| Completion/scoring          | Proposed                        | Require the full normalized passage, correct errors before completion, and calculate five-character WPM from verified elapsed time |
+| Minimum accuracy            | Proposed                        | Display accuracy but do not add an extra win condition beyond valid completion and at least 100 WPM                                |
+| Percent denominator         | Proposed                        | Wins/losses among settled attempts; show pending separately. Alternative: all-start percentages including pending                  |
+| Initials format             | Proposed                        | Exactly two A–Z letters, uppercase after normalization                                                                             |
+| Leaderboard eligibility     | Confirmed                       | Only verified wins at least 100 WPM can qualify, even on an empty board                                                            |
+| Reset cadence               | Confirmed                       | New leaderboard every calendar month                                                                                               |
+| Reset timezone              | Proposed                        | Midnight on the first in America/New_York; exact timezone remains open                                                             |
+| Month assignment            | Proposed                        | Validated completion instant determines the month; late initials remain bound to that month                                        |
+| Lifetime statistics         | Interpreted scope               | Lifetime attempts/wins/losses continue; user requested only leaderboard resets                                                     |
+| Multiple entries per person | Proposed                        | Permit multiple valid attempts; no-login identity cannot reliably enforce one person/one score                                     |
+| Tie order                   | Proposed                        | WPM, accuracy, earlier completion, stable ID                                                                                       |
+| Sound default               | Proposed                        | Muted until enabled, with remembered volume/preferences                                                                            |
+| Timing/expiry               | Proposed                        | 3-second countdown, elapsed-time test, 120-second abandonment limit, bounded 15-second result grace, 10-second expiration sweep    |
+| Data retention              | Proposed                        | Short-lived operation histories, durable compact results; final policy before launch                                               |
 
 These settings are documented so we can reason concretely. They must not be mistaken for user-approved game rules or copied blindly into an irreversible public leaderboard.
 
@@ -188,23 +188,23 @@ These settings are documented so we can reason concretely. They must not be mist
 
 Foundation implementation in PR #5: begin with typed records and structured text sections rather than MDX, because the first case studies only require plain text and verified links. Shared routes and templates remain reusable. Bricolage Grotesque, the deep-blue contrast areas, and the first layout are implemented for visual review, not recorded as final design approval. Search indexing stays disabled; no private resume source is copied. Browser tests use Playwright with Chromium alongside existing CI checks.
 
-| Topic | Status | Recommendation/choice needed |
-| --- | --- | --- |
-| Content authoring | Proposed | Repository metadata plus MDX and shared templates |
-| Animation library | Proposed | Motion plus CSS; native view transitions as enhancement |
-| Data/realtime | Backend confirmed; implementation proposed | Supabase Free selected; use its included Postgres, Realtime, Cron, and Auth, with sanitized public state only |
-| Redis alternative | Evaluated, not selected | Retain the Upstash comparison as decision context; no Redis dependency in the initial stack |
-| Analytics | Direction endorsed; implementation proposed | Small first-party collector and private dashboard within free quotas; paid Vercel custom events excluded |
-| Admin sign-in | Open | Propose GitHub OAuth through Supabase to avoid an email-delivery service; verify owner identity at setup |
-| Monthly budget | Confirmed | $0 for hosting and all additional services; no paid trials/automatic upgrades/PAYG assumptions |
-| Homepage projects | Confirmed | Permanence, Recall, GregHouse |
-| Homepage experiences | Confirmed | BNY, Knight Hacks involvement, and Graphics Programming Knights (GPK) involvement. Verify precise role wording and dates before publication. |
-| Assets and destinations | Partially supplied | The original resume is available in the local source materials. Use temporary project covers, photos, and links during development. Keyboard recordings will come later. |
-| Video delivery | Confirmed | Embed YouTube demos and provide a thumbnail, short description, and direct link as a fallback. Local clips are allowed in selected sections. |
-| Hosting fallback | Conditional | Launch on Vercel Hobby. Evaluate AWS or Sebastian’s spare Mac mini if Hobby becomes too restrictive and the alternative fits the $0 budget. |
-| Canonical domain | Selected for implementation | `https://snoel.dev`; redirect `www` if configured |
-| Public resume and search | Selected for implementation | Public PDF with private contact details removed, plus a shareable HTML landing page. Expanded HTML content can follow review. Keep the original for direct sharing. [Search visibility](search-visibility.md) |
-| Database delivery and recovery | Selected for implementation | Versioned migrations, explicit production approval, compatibility checks, private exports, and a restore rehearsal. [Release operations](../engineering/release-operations.md) |
+| Topic                          | Status                                      | Recommendation/choice needed                                                                                                                                                                                  |
+| ------------------------------ | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Content authoring              | Proposed                                    | Repository metadata plus MDX and shared templates                                                                                                                                                             |
+| Animation library              | Proposed                                    | Motion plus CSS; native view transitions as enhancement                                                                                                                                                       |
+| Data/realtime                  | Backend confirmed; implementation proposed  | Supabase Free selected; use its included Postgres, Realtime, Cron, and Auth, with sanitized public state only                                                                                                 |
+| Redis alternative              | Evaluated, not selected                     | Retain the Upstash comparison as decision context; no Redis dependency in the initial stack                                                                                                                   |
+| Analytics                      | Direction endorsed; implementation proposed | Small first-party collector and private dashboard within free quotas; paid Vercel custom events excluded                                                                                                      |
+| Admin sign-in                  | Open                                        | Propose GitHub OAuth through Supabase to avoid an email-delivery service; verify owner identity at setup                                                                                                      |
+| Monthly budget                 | Confirmed                                   | $0 for hosting and all additional services; no paid trials/automatic upgrades/PAYG assumptions                                                                                                                |
+| Homepage projects              | Confirmed                                   | Permanence, Recall, GregHouse                                                                                                                                                                                 |
+| Homepage experiences           | Confirmed                                   | BNY, Knight Hacks involvement, and Graphics Programming Knights (GPK) involvement. Verify precise role wording and dates before publication.                                                                  |
+| Assets and destinations        | Partially supplied                          | The original resume is available in the local source materials. Use temporary project covers, photos, and links during development. Keyboard recordings will come later.                                      |
+| Video delivery                 | Confirmed                                   | Embed YouTube demos and provide a thumbnail, short description, and direct link as a fallback. Local clips are allowed in selected sections.                                                                  |
+| Hosting fallback               | Conditional                                 | Launch on Vercel Hobby. Evaluate AWS or Sebastian’s spare Mac mini if Hobby becomes too restrictive and the alternative fits the $0 budget.                                                                   |
+| Canonical domain               | Selected for implementation                 | `https://snoel.dev`; redirect `www` if configured                                                                                                                                                             |
+| Public resume and search       | Selected for implementation                 | Public PDF with private contact details removed, plus a shareable HTML landing page. Expanded HTML content can follow review. Keep the original for direct sharing. [Search visibility](search-visibility.md) |
+| Database delivery and recovery | Selected for implementation                 | Versioned migrations, explicit production approval, compatibility checks, private exports, and a restore rehearsal. [Release operations](../engineering/release-operations.md)                                |
 
 ## Change log
 
@@ -281,11 +281,9 @@ Sebastian requested scarlet text for the parts of experience bullets that were b
 
 Sebastian requested bolder experience bullet emphasis and a color closer to the original scarlet. Mix the existing scarlet at 75% with white and render the marked phrases at weight 700. Varela Round only ships a regular weight in this project, so enable weight synthesis for these phrases only, preserving the existing typeface and avoiding a new font download. This supersedes the 65% normal-weight treatment from issue #47. Darken the experience card background from a 16% to an 8% sky mix to keep the stronger red readable at approximately 4.6:1 contrast. Verify reading and wrapping on desktop and mobile. Track the refinement in issue #49.
 
-
 ## 2026-11-15 splash arrow and award logo corrections
 
 Issue #56 fixes the splash arrow's hover specificity conflict: its scale selector now overrides the generic diagonal link-arrow transform and also applies on keyboard focus. Knight Hacks IX keeps the supplied colored vector paths with a white stroked vector copy behind them, replacing the rasterized SVG morphology filter for sharper mobile rendering. NVIDIA uses only its original green eye path in a tighter viewBox, since the badge already names NVIDIA beneath the placement. These are bounded corrections to the existing design; the rejected homepage experience redesign remains excluded.
-
 
 ## 2026-11-19 project case studies
 
@@ -303,13 +301,11 @@ Sebastian requested two projects per row, a 16:9 rectangular shape, title above 
 
 Use a 420ms eased transform for the lift and scale, and fade a softly blurred scarlet radial gradient beneath it. Animate only transform and opacity, rather than a large changing box shadow or a JavaScript animation loop, for smooth compositing and no extra dependencies. Apply the same feedback on keyboard focus. Limit hover movement to fine pointers to avoid sticky touch states; reduced motion retains the glow cue with no lift or transition. Track in issue #62.
 
-
 ## 2026-11-19 visual Permanence case study and richer project cards
 
 Issue #64 implements Sebastian's requested revision to the existing project design. Natural card height supersedes the exact 16:9 outer ratio so the cover, summary, and award results have room. Retain a 16:9 cover and two desktop columns; a concise results strip replaces reuse of homepage award badges. Use a full-perimeter static scarlet shadow faded with opacity, a scarlet border, and restrained lift/image zoom instead of animated blur or an animation dependency. Focus receives the same perimeter cue; reduced motion removes movement.
 
 Use Michael Rusu's linked case studies as structural inspiration: problem, personal contribution, architecture, constraints, results, and lessons. Keep all project facts grounded in Permanence's README, local submission, viewer contract, and containment code. Add optional rich section fields to the existing content model rather than a parallel hard-coded case-study route, so the accepted structure can later support other entries. Limit this content revision to Permanence. Use native HTML/SVG diagrams because they remain crisp, accessible and responsive without extra client JavaScript. Label diagrams as explanations rather than results. Use supplied rover and dashboard images as WebP derivatives, retain uncropped screenshots, reuse the existing awards photo, and exclude original files. Apply the existing Experiences scarlet bold style for visual consistency. Distinguish model-weight memory from total shared usage, and identify the telemetry screenshot as one observed moment, not a benchmark. Do not invent accuracy metrics or broaden Sebastian's contribution beyond the dashboard.
-
 
 ## 2026-11-19 team-centered Permanence narrative
 
@@ -326,7 +322,6 @@ on narrower screens use a sticky horizontal row instead of squeezing the content
 Use a typed optional teamProfiles field rather than changing all existing team
 arrays. Verify Bill's LinkedIn via his Devpost profile; the other teammate URLs
 are explicitly linked by the local README. This revision is limited to Permanence.
-
 
 ## 2026-11-19 Permanence observation and memory refinement
 
@@ -382,3 +377,13 @@ Issue #89 changes the inline clips to silent loops without controls so they read
 ## Debt Escape catalog removal
 
 Issue #94 removes Debt Escape from the shared project records at Sebastian’s request. The catalog and generated detail routes now use the same seven-project selection.
+
+## 2026-11-22 experience gallery cards
+
+Sebastian requested narrower, rounded experience cards emphasizing company logos and
+image carousels. Show role, company, logo, carousel, and summary initially; reveal
+bullets, role history, links, and resources through per-card disclosures, with a top
+control to open all. Blank image slots are approved for structure. Preserve chronology
+and anchors, add interactive timeline navigation, scroll entrances, and hover motion,
+and retain keyboard, touch, no-JavaScript reading, and reduced-motion support.
+Tracked in [issue #101](https://github.com/sebastian-noel/port/issues/101).

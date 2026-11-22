@@ -42,6 +42,10 @@ export type Entry = {
   teamProfiles?: { name: string; href: string }[];
   event?: string;
   role?: string;
+  organizationShortName?: string;
+  logo?: { src: string; alt: string };
+  logoText?: string;
+  gallery?: ProjectPhoto[];
   startDate?: string;
   endDate?: string | null;
   bullets?: string[];
@@ -912,6 +916,7 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "bny",
+    logoText: "BNY",
     title: "BNY",
     role: "Software Engineer Intern",
     startDate: "2026-08",
@@ -942,6 +947,7 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "bny-spring",
+    logoText: "BNY",
     title: "BNY",
     role: "Software Engineer Intern",
     startDate: "2026-01",
@@ -972,6 +978,8 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "ucf-ai",
+    organizationShortName: "UCF · AI Research",
+    logoText: "UCF",
     title: "UCF Institute of Artificial Intelligence",
     role: "Undergraduate Researcher",
     startDate: "2026-01",
@@ -1007,6 +1015,8 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "graphics-programming-knights",
+    organizationShortName: "Graphics Programming Knights",
+    logoText: "GPK",
     title: "Graphics Programming Knights",
     role: "Co-founder, Secretary & Software Engineer Lead",
     startDate: "2025-07",
@@ -1048,6 +1058,7 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "knight-hacks",
+    logo: { src: "/media/awards/knight-hacks-ix.svg", alt: "Knight Hacks" },
     title: "Knight Hacks",
     role: "Mentor & Outreach Board Member",
     startDate: "2026-01",
@@ -1090,6 +1101,8 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "ucf-ist",
+    organizationShortName: "UCF · Simulation & Training",
+    logoText: "UCF",
     title: "UCF Institute for Simulation and Training",
     role: "Research & Development Intern",
     startDate: "2026-05",
@@ -1125,6 +1138,8 @@ export const records: Entry[] = [
   {
     collection: "experiences",
     slug: "fsec",
+    organizationShortName: "FSEC",
+    logoText: "FSEC",
     title: "FSEC · Florida Solar Energy Center",
     role: "Software Engineer Intern",
     startDate: "2025-05",
@@ -1247,6 +1262,7 @@ for (const entry of records) {
   for (const photo of [
     entry.cover,
     entry.winnerPhoto,
+    ...(entry.gallery ?? []),
     ...entry.sections.flatMap((section) => section.images ?? []),
   ]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {

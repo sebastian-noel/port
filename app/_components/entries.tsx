@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Entry } from "../_content/entries";
 import { Icon } from "./icons";
+import { ExperienceGallery } from "./experience-gallery";
+import { ExperienceTimeline } from "./experience-timeline";
+import styles from "./experiences.module.css";
 
 export function Cover({ entry }: { entry: Entry }) {
   return entry.cover.placeholder && entry.demoVideoId ? (
@@ -185,43 +188,107 @@ export function ExperienceResources({ entry }: { entry: Entry }) {
 
 export function ExperienceList({ items }: { items: Entry[] }) {
   return (
-    <div className="timeline">
+    <ExperienceTimeline
+      items={items.map((entry) => ({
+        slug: entry.slug,
+        title: entry.organizationShortName ?? entry.title,
+        date: entry.startDate ? month(entry.startDate) : "",
+      }))}
+    >
       {items.map((entry) => (
-        <article className="timeline-entry" id={entry.slug} key={entry.slug}>
-          <div className="timeline-date">
+        <article
+          className={`timeline-entry ${styles.entry}`}
+          id={entry.slug}
+          key={entry.slug}
+          aria-labelledby={`${entry.slug}-role`}
+        >
+          <div className={styles.cardDate}>
             <Dates entry={entry} />
           </div>
-          <div className="experience-card">
-            <div className="experience-top">
-              <Cover entry={entry} />
-              <div>
-                <h2>{entry.role}</h2>
-                <p className="organization">{entry.title}</p>
+          <div
+            className={`experience-card ${styles.card}`}
+            data-experience-card
+          >
+            <ExperienceGallery
+              entry={{ title: entry.title, gallery: entry.gallery }}
+            />
+            <div className={styles.copy}>
+              <div className={styles.identity}>
+                <div
+                  className={styles.logo}
+                  data-logo={entry.logoText?.toLowerCase()}
+                >
+                  {entry.logo ? (
+                    <Image
+                      src={entry.logo.src}
+                      alt={entry.logo.alt}
+                      width={64}
+                      height={64}
+                    />
+                  ) : (
+                    <span aria-label={entry.title}>
+                      {entry.logoText ?? entry.title.charAt(0)}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h2 id={`${entry.slug}-role`} tabIndex={-1}>
+                    {entry.role}
+                  </h2>
+                  <p className={`organization ${styles.organization}`}>
+                    {entry.title}
+                  </p>
+                </div>
               </div>
+              <p className={styles.description}>{entry.summary}</p>
+              <details className={styles.details}>
+                <summary>
+                  <span className={styles.showLabel}>Show more details</span>
+                  <span className={styles.hideLabel}>Hide details</span>
+                  <span className="sr-only">
+                    {" "}
+                    for {entry.title},{" "}
+                    {entry.startDate ? month(entry.startDate) : entry.role}
+                  </span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className={styles.detailsBody}>
+                  <ExperienceRoles entry={entry} />
+                  {!!entry.bullets?.length && (
+                    <ul>
+                      {entry.bullets.map((bullet) => (
+                        <li key={bullet}>
+                          {bullet
+                            .split(/(\*\*[^*]+\*\*)/g)
+                            .map((part, index) =>
+                              part.startsWith("**") ? (
+                                <strong key={index}>{part.slice(2, -2)}</strong>
+                              ) : (
+                                part
+                              ),
+                            )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {entry.sections.map((section) => (
+                    <section
+                      className={styles.extraSection}
+                      key={section.heading}
+                    >
+                      <h3>{section.heading}</h3>
+                      <p>{section.text}</p>
+                    </section>
+                  ))}
+                  <ExperienceResources entry={entry} />
+                </div>
+              </details>
             </div>
-            <p>{entry.summary}</p>
-            <ExperienceRoles entry={entry} />
-            {!!entry.bullets?.length && (
-              <ul>
-                {entry.bullets.map((bullet) => (
-                  <li key={bullet}>
-                    {bullet
-                      .split(/(\*\*[^*]+\*\*)/g)
-                      .map((part, index) =>
-                        part.startsWith("**") ? (
-                          <strong key={index}>{part.slice(2, -2)}</strong>
-                        ) : (
-                          part
-                        ),
-                      )}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <ExperienceResources entry={entry} />
           </div>
         </article>
       ))}
-    </div>
+    </ExperienceTimeline>
   );
 }
