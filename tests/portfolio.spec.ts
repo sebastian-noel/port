@@ -407,23 +407,22 @@ test("experience chronology and timeline descriptions", async ({
   await expect(
     page.locator(".experience-card a[href^='/experiences/']"),
   ).toHaveCount(0);
+  await expect(page.locator("details[open]")).toHaveCount(0);
+  await expect(page.locator("#bny li").first()).not.toBeVisible();
+  await page
+    .getByRole("button", { name: "Show all details", exact: true })
+    .click();
+  await expect(page.locator("details[open]")).toHaveCount(7);
   await expect(
     page.getByRole("heading", { name: "Links & Resources", exact: true }),
   ).toHaveCount(7);
   await page.setViewportSize({ width: 1600, height: 900 });
-  expect(
-    await page.locator(".experience-card li").evaluateAll((items) =>
-      items.every((item) => {
-        const range = document.createRange();
-        range.selectNodeContents(item);
-        return (
-          new Set(
-            Array.from(range.getClientRects(), (rect) => Math.round(rect.top)),
-          ).size === 1
-        );
-      }),
-    ),
-  ).toBe(true);
+  const cardSize = await page.locator(".experience-card").first().boundingBox();
+  expect(cardSize!.width).toBeLessThanOrEqual(720);
+  await expect(page.locator(".experience-card").first()).toHaveCSS(
+    "border-radius",
+    "26px",
+  );
 
   await expect(
     page.locator(".experience-card").first().getByRole("listitem"),
@@ -478,6 +477,8 @@ test("experience chronology and timeline descriptions", async ({
   await expect(fsec.locator("time")).toHaveText(["May 2025", "Sep 2025"]);
   await expect(fsec.getByRole("listitem")).toHaveCount(3);
   await page.goto("/experiences#knight-hacks");
+  await page.reload();
+  await page.locator("#knight-hacks summary").click();
   await expect(
     page
       .locator("#knight-hacks .experience-roles")
@@ -498,6 +499,9 @@ test("experience chronology and timeline descriptions", async ({
   for (const width of [1600, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/experiences");
+    await page
+      .getByRole("button", { name: "Show all details", exact: true })
+      .click();
     await expect(page.getByText(/99.5%/)).toBeVisible();
     await page.screenshot({
       path: testInfo.outputPath(`experiences-${width}.png`),

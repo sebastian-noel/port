@@ -38,7 +38,7 @@ Do not place an About promotion or About link in home content. About remains in 
 - On mobile, prefer a full-page detail view for reading. If a sheet is added, provide a close button, focus management, ordinary Back behavior, and swipe dismissal without intercepting browser edge gestures.
 - Use a visible “All projects” or “All experiences” link. Do not add code-style breadcrumb paths.
 - Use standardized project cards and a single search field. Search matches names and available technology, teammate, and event metadata. Expand verified metadata later; no dense filter bar.
-- Experiences sort newest start date first in timeline cards. Show a small description, picture or flat letter placeholder, and resume bullets. Keep unknown dates empty. Do not add future experience placeholders.
+- Experiences sort newest start date first in rounded cards capped at 720px. Show role, company, company mark, image carousel, and summary by default. Per-card disclosures reveal role history, resume bullets, contextual sections, and resources; a top control opens or closes all details. Approved blank gallery slots remain clearly labeled. A sticky desktop timeline follows scrolling and links to the stable card anchors; phones use a compact jump menu. Keep unknown dates empty and do not add future experience placeholders.
 
 ## Persistent navigation
 

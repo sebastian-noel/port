@@ -394,3 +394,13 @@ Issue #98 completes the seven-project catalog. Use the same layout so demo place
 For the #98 revision, replace most generic workflow cards with figures that show what changes in each project. Keep a short workflow for the asynchronous Next Step handoff, where the order of systems matters. Add code-grounded implementation detail and tradeoffs to the draft case studies, and use motion only where it shows a route, a signal, or a numeric comparison.
 
 Issue #100 gives the catalog search a wider field, a visible search hint and result count, and a touch-sized clear button. Clearing restores input focus, and Escape provides a keyboard shortcut. Remove the personal contribution sections for TideSense and Next Step at Sebastian’s request.
+
+## 2026-11-22 experience gallery cards
+
+Sebastian requested narrower, rounded experience cards emphasizing company logos and
+image carousels. Show role, company, logo, carousel, and summary initially; reveal
+bullets, role history, links, and resources through per-card disclosures, with a top
+control to open all. Blank image slots are approved for structure. Preserve chronology
+and anchors, add interactive timeline navigation, scroll entrances, and hover motion,
+and retain keyboard, touch, no-JavaScript reading, and reduced-motion support.
+Tracked in [issue #101](https://github.com/sebastian-noel/port/issues/101).
