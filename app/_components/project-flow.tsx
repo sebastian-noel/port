@@ -41,18 +41,67 @@ const flows = {
     caption:
       "Clients generate the scenery locally. The server sends room state and events as visitors move around.",
   },
+  "tks-progression": {
+    steps: [
+      {
+        label: "Escort",
+        title: "Reach the next stop",
+        text: "T.K. moves to a waypoint placed in the level.",
+      },
+      {
+        label: "Fight",
+        title: "Face a robot encounter",
+        text: "The server spawns robots inside zones authored for that level.",
+      },
+      {
+        label: "Advance",
+        title: "Push deeper into the city",
+        text: "Build up T.K.’s power to continue toward Lenny.",
+      },
+    ],
+    caption:
+      "The route alternates movement through the city with encounters at T.K.’s stops.",
+  },
+  "tks-combat": {
+    steps: [
+      {
+        label: "Sword",
+        title: "Check the space ahead",
+        text: "A box in front of the player finds enemies in striking distance.",
+      },
+      {
+        label: "Crossbow",
+        title: "Send a bolt into the world",
+        text: "A physics-driven projectile checks for contact along its path.",
+      },
+      {
+        label: "On hit",
+        title: "Push the enemy back",
+        text: "The server applies an impulse so a successful hit moves the robot.",
+      },
+    ],
+    caption:
+      "The first two cards show alternate ways to land the same kind of knockback.",
+  },
 };
 
-export function GregHouseDiagram({ kind }: { kind: keyof typeof flows }) {
+export function ProjectFlow({ kind }: { kind: keyof typeof flows }) {
   const { steps, caption } = flows[kind];
+
+  const branches = kind === "tks-combat";
 
   return (
     <figure className="study-diagram">
-      <ol className="greghouse-flow" role="list">
+      <ol
+        className={
+          branches ? "project-flow project-flow-branches" : "project-flow"
+        }
+        role="list"
+      >
         {steps.map(({ label, title, text }, index) => (
           <li key={label}>
-            {index > 0 && (
-              <span className="greghouse-flow-arrow" aria-hidden="true">
+            {(branches ? index === steps.length - 1 : index > 0) && (
+              <span className="project-flow-arrow" aria-hidden="true">
                 →
               </span>
             )}

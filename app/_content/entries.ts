@@ -70,7 +70,9 @@ export type Entry = {
       | "recall-capture"
       | "recall-retrieval"
       | "greghouse-telemetry"
-      | "greghouse-multiplayer";
+      | "greghouse-multiplayer"
+      | "tks-progression"
+      | "tks-combat";
   }[];
   links: { label: string; href: string }[];
 };
@@ -677,36 +679,113 @@ export const records: Entry[] = [
     context: "Game development · Knight Hacks Project Launch, Spring 2026",
     published: false,
     featured: false,
+    visualStudy: true,
+    heroCaption:
+      "T.K. stands above the streets of the cyber city as a robot approaches.",
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/tks-revenge/cover.webp",
+      alt: "T.K. towers over a small red robot in a neon-lit Roblox city.",
+      width: 1440,
+      height: 811,
     },
     tone: "deep",
     sections: [
       {
-        heading: "An invitation to make games",
-        text: "After showing software to K-12 students through Knight Hacks outreach, the team noticed how games sparked curiosity about building things. T.K.'s Revenge became a way to introduce young students to what software development can create, using characters inspired by Knight Hacks.",
+        heading: "Start with a game students already know",
+        navLabel: "The idea",
+        id: "idea",
+        text: "During a Knight Hacks outreach event, K–12 students got especially curious when the conversation turned to games they recognized. We used **Roblox as an entry point into making games** and built a dungeon adventure around characters from Knight Hacks.",
+        paragraphs: [
+          "Lenny takes control of T.K.’s friends and turns them against him. Players head into the cyber city alone or together, choosing between a close-range sword and a ranged crossbow before taking on Lenny’s robots.",
+        ],
       },
       {
-        heading: "A dungeon run with friends",
-        text: "Players choose a short-range sword or a long-range bow, then explore a cyber city alone or with a team. Lenny has taken over T.K.'s friends, and players fight through his forces to help T.K. take revenge. A payload system guides progression through the adventure.",
+        heading: "Build the run around T.K.",
+        navLabel: "Progression",
+        id: "progression",
+        text: "T.K. is a **moving objective**. The server moves him toward a stop authored in the map, then starts a robot encounter around that point. Players work through encounters to power up T.K. and advance toward the fight with Lenny.",
+        paragraphs: [
+          "Each level has its own stop and spawn zones. The enemy controller places robots within those zones, giving level designers control over where a fight happens while allowing the exact starting positions to vary.",
+        ],
+        diagram: "tks-progression",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/map.webp",
+            width: 1100,
+            height: 622,
+            alt: "Overhead view of the cyber city, showing streets between blocks of neon-lit buildings.",
+            caption:
+              "The city from above. Encounters take place along T.K.’s route through its streets.",
+          },
+        ],
       },
       {
-        heading: "Building the experience",
-        text: "The team used Roblox Studio and Luau for gameplay, with Blender and Maya for modeling and rigging. The repository uses Rojo to organize and synchronize scripts between the local codebase and Studio. Development ran across the spring semester as part of Knight Hacks Project Launch.",
+        heading: "Two classes, two ways to land a hit",
+        navLabel: "Combat",
+        id: "combat",
+        text: "Sword attacks check a box in front of the player and apply knockback to each enemy caught in it. The third swing in the combo uses a **larger hitbox and a stronger push**. A crossbow shot spawns a physical bolt and applies knockback when it touches a robot.",
+        paragraphs: [
+          "The two classes give players different reasons to move. Getting close puts more robots within a sword swing. Keeping distance gives the crossbow player room to line up a shot.",
+        ],
+        diagram: "tks-combat",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/enemies.webp",
+            width: 1100,
+            height: 621,
+            alt: "Red hovering robots on a purple-lit city street.",
+            caption: "The common robot enemies in the cyber city.",
+          },
+        ],
       },
       {
-        heading: "Learning to control scope",
-        text: "For many teammates, Roblox or game development itself was new. Learning the engine and Luau happened alongside building gameplay and animations. Limited art resources and several changes in direction made scope management a central challenge; the team focused on delivering a working experience within the project deadlines.",
+        heading: "Build the world and the scripts together",
+        navLabel: "Production",
+        id: "production",
+        text: "The city, encounters, and character animations came together in **Roblox Studio**, with models and rigs built in Blender and Maya. Gameplay scripts were written in Luau, with Rojo connecting the local source files to the Studio project.",
+        paragraphs: [
+          "Several of us were new to Roblox development. Building a playable run for the spring showcase meant learning the engine while settling on a scope we could finish: a cyber city, two classes, a shared objective, and a final encounter.",
+        ],
       },
       {
-        heading: "Outcome and next steps",
-        text: "T.K.'s Revenge received second overall and first in the community vote at Knight Hacks Spring 2026 Project Launch. The result is a playable adventure built around solo and cooperative runs. Additional levels, classes, customization, and expanded mechanics were proposed as future work.",
+        heading: "My contribution",
+        navLabel: "My contribution",
+        id: "contribution",
+        text: "I scripted enemy attacks and tuned their health, damage, and placement. I also recorded and edited the demo so it could show how the classes, city, and payload fit together in one run.",
+      },
+      {
+        heading: "Second overall and the community vote",
+        navLabel: "Results",
+        id: "results",
+        text: "T.K.’s Revenge placed **second overall out of 33 finished projects** and won **first in the community vote with 96 of 256 votes** at Knight Hacks Project Launch. At the expo, visitors could try the game and see how the sword, crossbow, and payload worked together.",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/demo-table.webp",
+            width: 800,
+            height: 536,
+            alt: "Teammates at the T.K.’s Revenge demo table with laptops, a game display, and a sign.",
+            caption: "The playable demo at Project Launch.",
+          },
+          {
+            placeholder: false,
+            src: "/media/tks-revenge/awards.webp",
+            width: 800,
+            height: 533,
+            alt: "The T.K.’s Revenge group poses in front of the game’s title art at Project Launch.",
+            caption: "The group after the Project Launch awards.",
+          },
+        ],
       },
     ],
     links: [
+      { label: "Devpost", href: "https://devpost.com/software/tk-s-revenge" },
       {
-        label: "Devpost",
-        href: "https://devpost.com/software/tk-s-revenge",
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/posts/snoel-dev_knighthacks-projectlaunch-roblox-activity-7454907280065687553-Z_3d",
       },
     ],
     technologies: ["Luau", "Roblox Studio", "Blender", "Maya", "Rojo"],
@@ -718,6 +797,32 @@ export const records: Entry[] = [
       "Chris Ho",
       "Nicole Bustos",
       "Johaan Riat",
+    ],
+    teamProfiles: [
+      {
+        name: "Alejandro Jaimes",
+        href: "https://www.linkedin.com/in/alejaimes/",
+      },
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Chris Ho",
+        href: "https://www.linkedin.com/in/chris-ho-15a039329/",
+      },
+      {
+        name: "Nicole Bustos",
+        href: "https://www.linkedin.com/in/nicolebustos/",
+      },
+      {
+        name: "Johaan Riat",
+        href: "https://www.linkedin.com/in/johaan-riat-238aa2330/",
+      },
     ],
     award: "2nd overall · 1st community vote",
     demoVideoId: "i1DoCyYBnj4",

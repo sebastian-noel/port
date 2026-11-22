@@ -382,3 +382,7 @@ Issue #89 changes the inline clips to silent loops without controls so they read
 ## Debt Escape catalog removal
 
 Issue #94 removes Debt Escape from the shared project records at Sebastian’s request. The catalog and generated detail routes now use the same seven-project selection.
+
+## T.K.’s Revenge visual case study
+
+Issue #96 uses the shared visual study layout with the original in-game cover, map and enemy images, and two Project Launch photos. Reuse the diagram cards for the payload sequence and branch the combat diagram to show how each class lands a hit. The photos and diagrams show different parts of the project without duplicating the demo.

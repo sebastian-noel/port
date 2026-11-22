@@ -1,6 +1,6 @@
 import { MotionFigure } from "./motion-figure";
 import { RecallDiagram } from "./recall-diagram";
-import { GregHouseDiagram } from "./greghouse-diagram";
+import { ProjectFlow } from "./project-flow";
 import type { Entry } from "../_content/entries";
 
 export function ProjectDiagram({
@@ -11,8 +11,13 @@ export function ProjectDiagram({
   if (kind === "recall-capture" || kind === "recall-retrieval") {
     return <RecallDiagram kind={kind} />;
   }
-  if (kind === "greghouse-telemetry" || kind === "greghouse-multiplayer") {
-    return <GregHouseDiagram kind={kind} />;
+  if (
+    kind === "greghouse-telemetry" ||
+    kind === "greghouse-multiplayer" ||
+    kind === "tks-progression" ||
+    kind === "tks-combat"
+  ) {
+    return <ProjectFlow kind={kind} />;
   }
   if (kind === "permanence-states") {
     return (

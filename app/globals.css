@@ -1458,7 +1458,7 @@ dialog nav a[aria-current] {
   max-width: 430px;
   margin-inline: auto;
 }
-.visual-study .greghouse-flow {
+.visual-study .project-flow {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
@@ -1466,7 +1466,7 @@ dialog nav a[aria-current] {
   padding: 0;
   list-style: none;
 }
-.visual-study .greghouse-flow li {
+.visual-study .project-flow li {
   position: relative;
   margin: 0;
   padding: clamp(14px, 2.5vw, 22px);
@@ -1475,7 +1475,7 @@ dialog nav a[aria-current] {
   background: var(--canvas);
   text-align: left;
 }
-.greghouse-flow-arrow {
+.project-flow-arrow {
   position: absolute;
   top: 50%;
   right: calc(100% + 13px);
@@ -1484,15 +1484,28 @@ dialog nav a[aria-current] {
   font-size: 20px;
   line-height: 1;
 }
-.greghouse-flow .state-label {
+.project-flow .state-label {
   display: block;
   margin-bottom: 6px;
 }
 @media (max-width: 650px) {
-  .visual-study .greghouse-flow {
+  .visual-study .project-flow {
     grid-template-columns: 1fr;
   }
-  .greghouse-flow-arrow {
+  .project-flow-arrow {
+    top: -13px;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(90deg);
+  }
+}
+@media (min-width: 651px) {
+  .visual-study .project-flow-branches {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-flow-branches li:last-child {
+    grid-column: 1 / -1;
+  }
+  .project-flow-branches .project-flow-arrow {
     top: -13px;
     right: 50%;
     transform: translate(50%, -50%) rotate(90deg);
