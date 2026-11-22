@@ -514,7 +514,7 @@ export const records: Entry[] = [
       src: "/media/greghouse/device-and-garden.webp",
       alt: "Cover montage of Greg’s touchscreen diagnostic device in a blue planter beside the multiplayer pixel garden.",
       width: 1440,
-      height: 810,
+      height: 540,
     },
     sections: [
       {
@@ -667,7 +667,6 @@ export const records: Entry[] = [
         href: "https://www.linkedin.com/in/otavioborrelly/",
       },
     ],
-    role: "Cloud telemetry and garden systems",
   },
   {
     collection: "projects",
