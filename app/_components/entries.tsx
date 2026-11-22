@@ -208,37 +208,37 @@ export function ExperienceList({ items }: { items: Entry[] }) {
             className={`experience-card ${styles.card}`}
             data-experience-card
           >
+            <div className={styles.identity}>
+              <div
+                className={styles.logo}
+                data-logo={entry.logoText?.toLowerCase()}
+              >
+                {entry.logo ? (
+                  <Image
+                    src={entry.logo.src}
+                    alt={entry.logo.alt}
+                    width={64}
+                    height={64}
+                  />
+                ) : (
+                  <span aria-label={entry.title}>
+                    {entry.logoText ?? entry.title.charAt(0)}
+                  </span>
+                )}
+              </div>
+              <div>
+                <h2 id={`${entry.slug}-role`} tabIndex={-1}>
+                  {entry.role}
+                </h2>
+                <p className={`organization ${styles.organization}`}>
+                  {entry.title}
+                </p>
+              </div>
+            </div>
             <ExperienceGallery
               entry={{ title: entry.title, gallery: entry.gallery }}
             />
             <div className={styles.copy}>
-              <div className={styles.identity}>
-                <div
-                  className={styles.logo}
-                  data-logo={entry.logoText?.toLowerCase()}
-                >
-                  {entry.logo ? (
-                    <Image
-                      src={entry.logo.src}
-                      alt={entry.logo.alt}
-                      width={64}
-                      height={64}
-                    />
-                  ) : (
-                    <span aria-label={entry.title}>
-                      {entry.logoText ?? entry.title.charAt(0)}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <h2 id={`${entry.slug}-role`} tabIndex={-1}>
-                    {entry.role}
-                  </h2>
-                  <p className={`organization ${styles.organization}`}>
-                    {entry.title}
-                  </p>
-                </div>
-              </div>
               <p className={styles.description}>{entry.summary}</p>
               <details className={styles.details}>
                 <summary>

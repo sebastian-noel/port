@@ -477,6 +477,7 @@ test("experience chronology and timeline descriptions", async ({
   await expect(fsec.locator("time")).toHaveText(["May 2025", "Sep 2025"]);
   await expect(fsec.getByRole("listitem")).toHaveCount(3);
   await page.goto("/experiences#knight-hacks");
+  await page.reload();
   await page.locator("#knight-hacks summary").click();
   await expect(
     page

@@ -830,6 +830,13 @@ dialog nav a[aria-current] {
 .experiences-page {
   width: min(1100px, calc(100% - 80px));
 }
+.experiences-page .page-heading {
+  padding: 44px 0 24px;
+}
+.experiences-page .page-heading h1 {
+  font-size: clamp(44px, 6vw, 64px);
+  margin-bottom: 0;
+}
 .dates {
   font-size: 14px;
   background: var(--canvas);
