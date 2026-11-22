@@ -368,3 +368,7 @@ on mobile only. Use the existing single-column showcase breakpoint below 1200px
 rather than device detection, keeping the behavior aligned with the mobile
 layout. Hide skeletons there and skip their fade animation and associated delay.
 Retain the mobile card reveal and the desktop skeleton sequence.
+
+## 2026-11-21 Recall visual case study
+
+Issue #81 reuses the approved case-study layout for Recall and adds two native diagrams, one for capture and one for retrieval, so the prototype can be understood without playing the demo. Use the checked-in audio firmware and active Python logging path to explain how the latest transcript joins a selected frame. Show the two hardware views together, then place storage and dashboard screenshots beside the corresponding explanation. Use resized, metadata-free WebP copies of the supplied media and keep the original files outside the portfolio.
