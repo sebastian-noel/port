@@ -55,8 +55,7 @@ button {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-main:focus-visible,
-.search-field:focus-within {
+main:focus-visible {
   outline: 3px solid var(--on-canvas);
   outline-offset: 3px;
   box-shadow: 0 0 0 3px var(--on-canvas);
@@ -571,28 +570,40 @@ dialog nav a[aria-current] {
 .collection-page {
   padding-bottom: 100px;
 }
+.project-search {
+  width: min(100%, 640px);
+  margin-bottom: clamp(26px, 4vw, 42px);
+}
 .search-field {
-  max-width: 440px;
-  background: var(--paper);
-  color: var(--on-canvas);
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 4px 12px 4px 18px;
-  margin-bottom: 36px;
-  min-height: 54px;
+  gap: clamp(10px, 2vw, 16px);
+  min-height: 58px;
+  padding: 4px 6px 4px clamp(12px, 3vw, 18px);
+  border: 1px solid var(--sky);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--canvas), var(--sky) 11%);
+  box-shadow: 0 8px 22px rgb(0 12 26 / 18%);
+}
+.search-field:focus-within {
+  border-color: #ff6269;
+  outline: 2px solid #ff6269;
+  outline-offset: 2px;
+}
+.search-symbol {
+  color: #9ac6e6;
 }
 .search-field input {
   background: transparent;
   border: 0;
-  outline-offset: 0;
   min-width: 0;
   flex: 1;
-  padding: 10px 0;
+  min-height: 48px;
+  padding: 0 6px 0 0;
   width: 100%;
 }
 .search-field input::placeholder {
-  color: var(--on-canvas);
+  color: #b7d5ec;
   opacity: 1;
 }
 .search-field input:focus-visible {
@@ -601,6 +612,37 @@ dialog nav a[aria-current] {
 }
 .search-field input::-webkit-search-cancel-button {
   display: none;
+}
+.search-clear {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: 9px;
+  background: var(--paper);
+}
+.search-clear:hover {
+  background: var(--deep);
+}
+.search-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3px 16px;
+  margin: 10px 2px 0;
+  color: #b7d5ec;
+  font-size: 13px;
+}
+.search-details p {
+  margin: 0;
+}
+.search-details [role="status"] {
+  font-variant-numeric: tabular-nums;
+}
+@media (forced-colors: active) {
+  .search-field:focus-within {
+    outline-color: Highlight;
+  }
 }
 .project-grid {
   display: grid;

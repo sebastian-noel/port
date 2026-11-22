@@ -922,12 +922,6 @@ export const records: Entry[] = [
         ],
       },
       {
-        heading: "My contribution",
-        navLabel: "My contribution",
-        id: "contribution",
-        text: "I integrated National Weather Service data and worked on how the app shows risk levels and safety status. This brought weather context into the same experience as the model output.",
-      },
-      {
         heading: "What the prototype demonstrates",
         navLabel: "Prototype limits",
         id: "results",
@@ -1050,12 +1044,6 @@ export const records: Entry[] = [
               "A completed practice session opens a score and a written summary.",
           },
         ],
-      },
-      {
-        heading: "My contribution",
-        navLabel: "My contribution",
-        id: "contribution",
-        text: "I designed and built parts of the frontend with React, TypeScript, and Tailwind CSS, set up Next.js pages and routing, and helped teammates work with Git. The routing connected the scenario choice to the practice session and the results page.",
       },
       {
         heading: "Build the experience around the wait",

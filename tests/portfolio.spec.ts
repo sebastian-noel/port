@@ -347,6 +347,10 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await expect(page.getByText(/No projects match/)).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("0 projects shown");
   await page.getByRole("button", { name: "Clear search" }).click();
+  await expect(search).toBeFocused();
+  await search.fill("recall");
+  await search.press("Escape");
+  await expect(search).toHaveValue("");
   await expect(page.locator(".project-card")).toHaveCount(7);
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
   for (const width of [1280, 390, 320]) {
