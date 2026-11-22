@@ -1438,8 +1438,64 @@ dialog nav a[aria-current] {
   font-synthesis-weight: auto;
 }
 .study-image,
+.study-clip,
 .study-diagram {
   margin-top: 32px;
+}
+.study-clip {
+  margin-inline: 0;
+}
+.study-clip video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--sky) 30%, transparent);
+  background: var(--canvas);
+}
+.study-clip + .study-image {
+  max-width: 430px;
+  margin-inline: auto;
+}
+.visual-study .greghouse-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.visual-study .greghouse-flow li {
+  position: relative;
+  margin: 0;
+  padding: clamp(14px, 2.5vw, 22px);
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--sky) 35%, transparent);
+  background: var(--canvas);
+  text-align: left;
+}
+.greghouse-flow-arrow {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 13px);
+  transform: translate(50%, -50%);
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+}
+.greghouse-flow .state-label {
+  display: block;
+  margin-bottom: 6px;
+}
+@media (max-width: 650px) {
+  .visual-study .greghouse-flow {
+    grid-template-columns: 1fr;
+  }
+  .greghouse-flow-arrow {
+    top: -13px;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(90deg);
+  }
 }
 .study-photo-pair,
 .recall-inputs,
