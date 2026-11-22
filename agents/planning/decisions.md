@@ -378,3 +378,7 @@ Issue #81 reuses the approved case-study layout for Recall and adds two native d
 Issue #87 reuses the shared case-study layout for GregHouse. The two diagrams separate sensor telemetry from multiplayer sync so visitors can trace how a real reading reaches the game. Select the device, garden features, and multiplayer animations from the original media and encode them as smaller, silent clips with posters and playback controls. Use the setup and award photos where they document the prototype and result.
 
 Issue #89 changes the inline clips to silent loops without controls so they read as moving figures. Play clips while visible to limit work offscreen, and retain the posters for reduced motion. Put the real diagnostic device and garden together on the cover so the connection is visible before the case study opens. Add the recorded-voice path because it shows that the browser could also send something back to Greg’s device.
+
+## Debt Escape catalog removal
+
+Issue #94 removes Debt Escape from the shared project records at Sebastian’s request. The catalog and generated detail routes now use the same seven-project selection.

@@ -332,7 +332,7 @@ test("project search covers names, technology, teammate, event, and reset", asyn
 }) => {
   await page.goto("/projects");
   const search = page.getByRole("searchbox", { name: "Search projects" });
-  await expect(page.locator(".project-card")).toHaveCount(8);
+  await expect(page.locator(".project-card")).toHaveCount(7);
   for (const [query, title] of [
     ["permanence", "Permanence"],
     ["mongodb", "DishDash"],
@@ -347,7 +347,7 @@ test("project search covers names, technology, teammate, event, and reset", asyn
   await expect(page.getByText(/No projects match/)).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("0 projects shown");
   await page.getByRole("button", { name: "Clear search" }).click();
-  await expect(page.locator(".project-card")).toHaveCount(8);
+  await expect(page.locator(".project-card")).toHaveCount(7);
   await expect(page.locator(".project-card.is-placeholder a")).toHaveCount(0);
   for (const width of [1280, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });

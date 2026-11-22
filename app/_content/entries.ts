@@ -726,56 +726,6 @@ export const records: Entry[] = [
   },
   {
     collection: "projects",
-    slug: "debt-escape",
-    title: "Debt Escape",
-    summary:
-      "Four Roblox minigames teach financial concepts as players work their way out of virtual debt.",
-    context: "Financial learning · SASEHacks 2026",
-    published: false,
-    featured: false,
-    cover: {
-      placeholder: true,
-    },
-    tone: "coral",
-    sections: [
-      {
-        heading: "Financial learning through play",
-        text: "Debt Escape brings financial concepts into a game young players can explore. Players begin with $10,000 of virtual debt and earn their way out through four minigames, then face a final boss named Bill. Progress gives the learning activities a shared goal.",
-      },
-      {
-        heading: "Four ways to practice",
-        text: "Common Cents quizzes financial terms under time pressure. Bill Blaster introduces the debt avalanche method, Side Hustle explores entrepreneurial basics, and Budget Factory asks players to sort bills into needs, wants, and savings. The final encounter adds movement, dodging, and combat to the progression.",
-      },
-      {
-        heading: "My contribution",
-        text: "I scripted all four minigames, helped build their environments and game spaces, and recorded and edited the demo video. This was an introduction to Roblox Studio and Luau scripting for me. My teammate Stevin handled level planning, the final boss's move set, modeling and textures, and visual design.",
-      },
-      {
-        heading: "Building around an animation constraint",
-        text: "The team built the experience in Roblox Studio with Luau, using Blender and Photoshop for the boss and Figma for interface design. When rigging the boss took too much time, the team switched to trigonometric animation, using sine waves to produce fluid movement without the original rigging approach.",
-      },
-      {
-        heading: "Outcome and next steps",
-        text: "Debt Escape won first place for Best Use of Roblox Studio, issued by VuPlay. The finished project combines financial activities with a playable progression and boss encounter. More minigames, bosses, and educational topics are future additions; the project does not claim measured improvements in financial literacy.",
-      },
-    ],
-    links: [
-      {
-        label: "Devpost",
-        href: "https://devpost.com/software/debt-escape",
-      },
-    ],
-    technologies: ["Luau", "Roblox Studio", "Blender", "Photoshop", "Figma"],
-    team: ["Stevin George", "Sebastian Noel"],
-    award: "1st Best Use of Roblox Studio · VuPlay",
-    role: "Minigame scripting, environment building, and demo production",
-    demoVideoId: "319Eb29HI24",
-    demoBrief:
-      "Four financial-learning minigames and the final encounter with Bill.",
-    event: "SASEHacks 2026",
-  },
-  {
-    collection: "projects",
     slug: "tidesense",
     title: "TideSense",
     summary:
