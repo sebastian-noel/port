@@ -340,6 +340,14 @@ Use a small client figure wrapper with IntersectionObserver to trigger short, fi
 
 Issue #70 places the project resources in the introduction for immediate access and uses the owner's LinkedIn post URL. Describe work directly or as we, while preserving the factual team credits in the metadata and image descriptions. The demo retains its embedded video without surrounding descriptive and duplicate link lines on this visual study. A native modal dialog enlarges each project photograph and its caption, dims and blurs the page, and supports backdrop, close button, and Escape dismissal. Native modal focus management provides keyboard access without adding a dialog dependency. Other project templates retain their existing demo and link behavior.
 
+## 2026-11-20 Permanence motion and mobile reading
+
+Issue #75 covers Sebastian's request for more movement in the Permanence diagrams, the site's exact scarlet accent for highlighted text, a framed demo near the top, and a better mobile contents menu. Keep the desktop sticky rail. On mobile, use an active-section button and vertical expandable list instead of horizontal scrolling. Center the left-aligned reading column with balanced phone gutters. Place the framed demo after the event, team, and technology facts. Diagram cues play briefly when scrolled into view and respect reduced-motion preferences.
+
+The follow-up widens case-study paragraphs to the full content column. Sebastian then asked to keep the text left-aligned, so do not justify it or insert automatic hyphenation. Use a lighter, brighter scarlet (`#ff6269`) for emphasized case-study copy and experience bullets so bold text stands out against the navy canvas. Put Demo first in the contents navigation because its panel appears before the written sections. Keep motion that explains sequence: staggered diagram reveals and directional arrows. Remove radar blinks, ambient bobbing, and ball movement because they decorate the scene without explaining it.
+
+For issue #75's later diagram refinement, remove the blinks from both the shell-game and object-state figures, retain the architecture arrows' finite motion, and enlarge those arrows so the flow reads clearly.
+
 ## 2026-11-20 mobile scrolling stability
 
 Issue #74 addresses homepage scrolling stalls. The tile field rebuilt its entire
