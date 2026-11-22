@@ -1,10 +1,15 @@
 import { MotionFigure } from "./motion-figure";
+import { RecallDiagram } from "./recall-diagram";
+import type { Entry } from "../_content/entries";
 
 export function ProjectDiagram({
   kind,
 }: {
-  kind: "permanence-system" | "permanence-memory" | "permanence-states";
+  kind: NonNullable<Entry["sections"][number]["diagram"]>;
 }) {
+  if (kind === "recall-capture" || kind === "recall-retrieval") {
+    return <RecallDiagram kind={kind} />;
+  }
   if (kind === "permanence-states") {
     return (
       <MotionFigure className="study-diagram">

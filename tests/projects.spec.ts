@@ -45,7 +45,7 @@ for (const slug of selected) {
       "src",
       `https://www.youtube-nocookie.com/embed/${entry.demoVideoId}`,
     );
-    if (slug !== "permanence") {
+    if (!entry.visualStudy) {
       await expect(
         page.getByRole("link", { name: `Watch ${entry.title} on YouTube` }),
       ).toHaveAttribute(
@@ -71,6 +71,7 @@ test("project collection and case study remain readable at desktop and mobile si
     for (const [name, route] of [
       ["catalog", "/projects"],
       ["case-study", "/projects/debt-escape"],
+      ["recall", "/projects/recall"],
     ]) {
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);

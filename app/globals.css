@@ -1441,6 +1441,54 @@ dialog nav a[aria-current] {
 .study-diagram {
   margin-top: 32px;
 }
+.study-photo-pair,
+.recall-inputs,
+.recall-retrieval {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 3vw, 24px);
+}
+.visual-study .recall-retrieval {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.recall-diagram-node {
+  padding: clamp(14px, 2.5vw, 22px);
+  border: 1px solid color-mix(in srgb, var(--sky) 35%, transparent);
+  border-radius: 10px;
+  background: var(--canvas);
+  text-align: left;
+}
+.visual-study .recall-retrieval li {
+  margin: 0;
+}
+.recall-diagram-node svg {
+  display: block;
+  width: 32px;
+  margin-bottom: 12px;
+  color: var(--sky);
+}
+.recall-diagram .recall-merge-arrow {
+  line-height: 1;
+}
+.recall-memory-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: fit-content;
+  margin-inline: auto;
+}
+.recall-memory-node svg {
+  flex: 0 0 32px;
+}
+@media (max-width: 650px) {
+  .recall-inputs,
+  .visual-study .recall-retrieval {
+    grid-template-columns: 1fr;
+  }
+}
 .study-image img {
   display: block;
   width: 100%;

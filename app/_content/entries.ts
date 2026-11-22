@@ -10,6 +10,8 @@ type ProjectPhoto = {
   height: number;
 };
 
+type StudyImage = ProjectPhoto & { caption: string };
+
 export type Entry = {
   collection: Collection;
   slug: string;
@@ -53,8 +55,13 @@ export type Entry = {
     id?: string;
     navLabel?: string;
     paragraphs?: string[];
-    image?: ProjectPhoto & { caption: string };
-    diagram?: "permanence-system" | "permanence-memory" | "permanence-states";
+    images?: StudyImage[];
+    diagram?:
+      | "permanence-system"
+      | "permanence-memory"
+      | "permanence-states"
+      | "recall-capture"
+      | "recall-retrieval";
   }[];
   links: { label: string; href: string }[];
 };
@@ -153,15 +160,17 @@ export const records: Entry[] = [
           "Reducing stored weight memory made room for the pipeline. Scheduling the stages mattered as much as choosing the models. Stop-and-shoot scanning let the phone settle between views, reducing blur from its tall mount.",
           "The dashboard exposes shared memory, GPU and CPU utilization, temperature, power, and swap. Those readings make resource pressure visible alongside the scene, rather than requiring a separate terminal.",
         ],
-        image: {
-          placeholder: false,
-          src: "/media/permanence-dashboard-telemetry.webp",
-          alt: "Dashboard during Qwen-3D scan processing, showing the point cloud, live camera, and Jetson compute strip.",
-          width: 1800,
-          height: 1125,
-          caption:
-            "Jetson telemetry during scan processing: 6.1 / 7.4 GiB of shared memory in use.",
-        },
+        images: [
+          {
+            placeholder: false,
+            src: "/media/permanence-dashboard-telemetry.webp",
+            alt: "Dashboard during Qwen-3D scan processing, showing the point cloud, live camera, and Jetson compute strip.",
+            width: 1800,
+            height: 1125,
+            caption:
+              "Jetson telemetry during scan processing: 6.1 / 7.4 GiB of shared memory in use.",
+          },
+        ],
       },
       {
         id: "dashboard",
@@ -171,15 +180,17 @@ export const records: Entry[] = [
         paragraphs: [
           "The calibrated robot view and camera feed sit together. An object inspector exposes distance, state, and time since the last observation; All, Observed, and Unseen filters help explore the scene. Selecting an object inspects it without commanding the rover to move.",
         ],
-        image: {
-          placeholder: false,
-          src: "/media/permanence-dashboard-xray.webp",
-          alt: "Permanence dashboard with remembered cups and hidden balls in the 3D view, an x-ray camera overlay, and object memory ages.",
-          width: 1800,
-          height: 1125,
-          caption:
-            "The dashboard shows 0 observed and 6 unseen objects. The memory view retains the cups and the balls inside them, with last-seen ages in the inspector.",
-        },
+        images: [
+          {
+            placeholder: false,
+            src: "/media/permanence-dashboard-xray.webp",
+            alt: "Permanence dashboard with remembered cups and hidden balls in the 3D view, an x-ray camera overlay, and object memory ages.",
+            width: 1800,
+            height: 1125,
+            caption:
+              "The dashboard shows 0 observed and 6 unseen objects. The memory view retains the cups and the balls inside them, with last-seen ages in the inspector.",
+          },
+        ],
       },
       {
         id: "results",
@@ -189,15 +200,17 @@ export const records: Entry[] = [
         paragraphs: [
           "Permanence received **1st Best Overall, 1st NVIDIA, and 1st Hugging Face** at Knight Hacks IX. The working prototype connected language grounding, perception, memory, visualization, and physical movement on the same edge board.",
         ],
-        image: {
-          placeholder: false,
-          src: "/media/permanence-winners.webp",
-          alt: "Permanence team on stage with awards at Knight Hacks IX.",
-          width: 1280,
-          height: 720,
-          caption:
-            "Permanence at Knight Hacks IX: first place for Best Overall, NVIDIA, and Hugging Face.",
-        },
+        images: [
+          {
+            placeholder: false,
+            src: "/media/permanence-winners.webp",
+            alt: "Permanence team on stage with awards at Knight Hacks IX.",
+            width: 1280,
+            height: 720,
+            caption:
+              "Permanence at Knight Hacks IX: first place for Best Overall, NVIDIA, and Hugging Face.",
+          },
+        ],
       },
       {
         id: "lessons",
@@ -282,35 +295,147 @@ export const records: Entry[] = [
         logo: "/media/awards/hackusf-transparent.webp",
       },
     ],
+    visualStudy: true,
     cover: {
-      placeholder: true,
+      placeholder: false,
+      src: "/media/recall-glasses.webp",
+      alt: "Recall prototype glasses on a table, with a camera, microphone, and wired electronics attached to the frame.",
+      width: 1210,
+      height: 999,
     },
+    heroCaption:
+      "The wearable prototype mounts a camera and microphone on opposite sides of a glasses frame.",
     sections: [
       {
-        heading: "A memory you can ask",
-        text: "Recall began with everyday questions that can become difficult for someone experiencing memory loss: where did I leave my keys, and did I lock the door? The team built a wearable prototype that records visual and audio context, curates moments, and lets a person retrieve them through natural-language questions.",
+        id: "problem",
+        navLabel: "The idea",
+        heading: "Make a moment easy to find again",
+        text: "Where did I put my keys? A recording might hold the answer, but scrolling through footage still leaves the search to the wearer. Recall explores a different approach for people who have difficulty remembering everyday details: **turn a moment into a short, searchable memory**.",
+        paragraphs: [
+          "The prototype captures sights and speech from the wearer's point of view. A laptop turns selected frames and available transcripts into timestamped entries that can be browsed or retrieved with a question.",
+        ],
       },
       {
-        heading: "From glasses to searchable moments",
-        text: "An ESP32-S3 and camera stream video over Wi-Fi, while a second ESP32 and microphone stream audio to a laptop. A Python pipeline batches frames, uses YOLOv8 to select relevant views, and asks Gemini for scene descriptions. SQLite stores the memories and ChromaDB indexes their meaning; ElevenLabs supplies transcription and spoken answers.",
+        id: "hardware",
+        navLabel: "The glasses",
+        heading: "Two boards on one frame",
+        text: "The video side pairs an **ESP32-S3 with an OV2640 camera** and sends MJPEG over Wi-Fi. The audio side pairs an **ESP32-WROOM-32E with an INMP441 microphone** and records short windows of 16 kHz mono audio.",
+        paragraphs: [
+          "The camera sends each JPEG in chunks to keep writes manageable. The audio firmware sends a WAV recording to ElevenLabs Scribe and exposes the latest transcript over HTTP, where the laptop can pick it up.",
+        ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-video-left.webp",
+            alt: "Left side of the Recall glasses being worn, showing the camera hardware mounted near the temple.",
+            width: 960,
+            height: 1280,
+            caption:
+              "Video side. The ESP32-S3 streams frames from the glasses over Wi-Fi.",
+          },
+          {
+            placeholder: false,
+            src: "/media/recall-audio-right.webp",
+            alt: "Right side of the Recall glasses being worn, showing the wired audio hardware attached to the frame.",
+            width: 960,
+            height: 1280,
+            caption:
+              "Audio side. The INMP441 microphone captures speech near the wearer.",
+          },
+        ],
       },
       {
-        heading: "Making the pipeline visible",
-        text: "The Next.js dashboard pairs a memory timeline with conversational search, mood tagging, and activity analytics. Hardware-health indicators expose connection problems. Queries retrieve relevant memories before Gemini composes a timestamped response, so a question can refer to the meaning of a scene rather than its exact stored words.",
+        id: "capture",
+        navLabel: "Capture pipeline",
+        heading: "Describe the useful frames",
+        text: "On the laptop, OpenCV collects a batch of frames and **YOLOv8 tags the objects** in each one. A local heuristic ranks frames by the number of detected tags. Only the top three go to Gemini 2.5 Flash for descriptions that focus on actions and where objects are.",
+        paragraphs: [
+          "Each selected frame becomes a record with its capture time, scene description, object tags, and the latest transcript when available. **SQLite stores the record**, and **ChromaDB indexes its text** so retrieval can match meaning.",
+        ],
+        diagram: "recall-capture",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-sqlite-db.webp",
+            alt: "SQLite table showing timestamped Recall memories with summaries, object tags, and a transcript column.",
+            width: 874,
+            height: 598,
+            caption:
+              "The SQLite table keeps each timestamp, generated scene summary, detected objects, and any accompanying transcript together.",
+          },
+        ],
       },
       {
-        heading: "Learning the limits of wearable capture",
-        text: "The team worked through Wi-Fi buffer overflows, microphone sample conversion, API limits, and concurrent database writes. Chunked transmission improved camera streaming, while larger frame batches and a local selection heuristic reduced external model calls. Coordinating the two streams and protecting SQLite writes mattered as much as the interface.",
+        id: "retrieval",
+        navLabel: "Memory search",
+        heading: "Find a memory by meaning",
+        text: "A question about a drink can surface a memory about a cup. Recall searches ChromaDB for **related memories**, then adds recent SQLite entries and the latest available transcript. Gemini uses that context to draft a short answer and is prompted to say when the evidence is missing.",
+        paragraphs: [
+          "The answer appears in the dashboard chat, and ElevenLabs can read it aloud. The pipeline uses a short list of stored observations so it can give a time or location when the record supports one.",
+        ],
+        diagram: "recall-retrieval",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-dashboard.webp",
+            alt: "Recall dashboard with a timestamped memory timeline beside a conversational query panel.",
+            width: 1903,
+            height: 907,
+            caption:
+              "The timeline makes saved moments browsable alongside the chat for asking a specific question.",
+          },
+        ],
       },
       {
-        heading: "Outcome and next steps",
-        text: "Recall received second overall at HackUSF 2026. The prototype demonstrated the path from wearable capture to searchable memories and spoken responses. A smaller glasses form factor, longer-term summaries, on-device processing, and offline operation remain future work. The current system uses a laptop and external AI services; it has not been established as a clinical memory aid.",
+        id: "dashboard",
+        navLabel: "Dashboard",
+        heading: "See what the system captured",
+        text: "The Next.js dashboard shows **connection status and recent memories** alongside the conversation. The analytics view groups captures by hour and counts recurring object tags. Mood labels are added by hand in the timeline and kept in the browser session.",
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-analytics.webp",
+            alt: "Recall memory analytics showing an hourly activity histogram, frequent objects, and mood totals.",
+            width: 1895,
+            height: 785,
+            caption:
+              "The analytics view summarizes the saved captures by hour, frequently detected objects, and user-applied mood tags.",
+          },
+        ],
+      },
+      {
+        id: "results",
+        navLabel: "Results",
+        heading: "From a wearable prototype to a spoken answer",
+        text: "Recall placed **2nd Best Overall at HackUSF 2026**. The prototype demonstrated a complete path from glasses-mounted capture to a timestamped memory and a spoken response.",
+        paragraphs: [
+          "The build exposed three practical constraints: keeping the camera stream stable, limiting model requests, and coordinating reads and writes to the same memory store. Chunked camera writes, local frame selection, and a lock around SQLite access addressed those constraints.",
+          "The prototype depends on a laptop, Wi-Fi, and cloud services that process selected images and audio. A smaller frame, longer-term summaries, and local processing are the next directions for making the device more practical.",
+        ],
+        images: [
+          {
+            placeholder: false,
+            src: "/media/recall-awards.webp",
+            alt: "Recall teammates on stage with a boxed prize.",
+            width: 800,
+            height: 533,
+            caption: "Recall placed second overall at HackUSF 2026.",
+          },
+        ],
       },
     ],
     links: [
       {
-        label: "View on Devpost",
+        label: "Devpost",
         href: "https://devpost.com/software/recall-oswlh3",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/sebastian-noel/recall",
+      },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/posts/sebastian-noel-ucf_hackathon-hackusf-knighthacks-activity-7445107718484496384-0lck",
       },
     ],
     technologies: [
@@ -330,6 +455,24 @@ export const records: Entry[] = [
     event: "HackUSF 2026",
     tone: "coral",
     team: ["Stevin George", "Sebastian Noel", "Nicole Bustos", "Chris Ho"],
+    teamProfiles: [
+      {
+        name: "Stevin George",
+        href: "https://www.linkedin.com/in/georgestevin/",
+      },
+      {
+        name: "Sebastian Noel",
+        href: "https://www.linkedin.com/in/snoel-dev/",
+      },
+      {
+        name: "Nicole Bustos",
+        href: "https://www.linkedin.com/in/nicolebustos/",
+      },
+      {
+        name: "Chris Ho",
+        href: "https://www.linkedin.com/in/chris-ho-15a039329/",
+      },
+    ],
   },
   {
     collection: "projects",
@@ -984,7 +1127,7 @@ export function validateEntries(items: Entry[]) {
     for (const photo of [
       entry.cover,
       entry.winnerPhoto,
-      ...entry.sections.map((section) => section.image),
+      ...entry.sections.flatMap((section) => section.images ?? []),
     ]) {
       if (!photo || photo.placeholder) continue;
       if (
@@ -1037,7 +1180,7 @@ for (const entry of records) {
   for (const photo of [
     entry.cover,
     entry.winnerPhoto,
-    ...entry.sections.map((section) => section.image),
+    ...entry.sections.flatMap((section) => section.images ?? []),
   ]) {
     if (photo && !photo.placeholder && !existsSync(`public${photo.src}`)) {
       throw new Error(`Missing cover file: ${photo.src}`);
