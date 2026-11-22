@@ -386,3 +386,7 @@ Issue #94 removes Debt Escape from the shared project records at Sebastian’s r
 ## T.K.’s Revenge visual case study
 
 Issue #96 uses the shared visual study layout with the original in-game cover, map and enemy images, and two Project Launch photos. Reuse the diagram cards for the payload sequence and branch the combat diagram to show how each class lands a hit. The photos and diagrams show different parts of the project without duplicating the demo.
+
+## Remaining visual case studies
+
+Issue #98 completes the seven-project catalog. Use the same layout so demo placement, section navigation, and image enlargement work consistently. Reuse the flow diagram cards for each project's two main workflows. Select original interface screenshots to illustrate the interaction, and ground implementation details in the local source.

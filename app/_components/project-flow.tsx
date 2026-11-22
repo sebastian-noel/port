@@ -83,6 +83,132 @@ const flows = {
     caption:
       "The first two cards show alternate ways to land the same kind of knockback.",
   },
+  "tide-scan": {
+    steps: [
+      {
+        label: "Mobile",
+        title: "Frame the shoreline",
+        text: "The camera supplies a still image to the server.",
+      },
+      {
+        label: "FastAPI",
+        title: "Run TensorFlow Lite",
+        text: "The server prepares the image and combines model scores.",
+      },
+      {
+        label: "Results",
+        title: "Show the risk estimate",
+        text: "The app displays the category and confidence from the response.",
+      },
+    ],
+    caption:
+      "This is a prototype inference path. A simulated response can appear when the model is unavailable.",
+  },
+  "tide-context": {
+    steps: [
+      {
+        label: "Result",
+        title: "Review the estimate",
+        text: "The results view displays the scan and local conditions together.",
+      },
+      {
+        label: "Explanation",
+        title: "Ask about this scan",
+        text: "The assistant can use the detection context in its reply.",
+      },
+      {
+        label: "History",
+        title: "Reopen a previous scan",
+        text: "SQLite keeps the result on the device for later review.",
+      },
+    ],
+    caption:
+      "The estimate, explanation, and saved record serve different purposes.",
+  },
+  "next-practice": {
+    steps: [
+      {
+        label: "Pick",
+        title: "Choose a category",
+        text: "Start with auto, home, or health insurance.",
+      },
+      {
+        label: "Speak",
+        title: "Work through the situation",
+        text: "Explain what you would do and respond to follow-up questions.",
+      },
+      {
+        label: "Finish",
+        title: "End the practice call",
+        text: "The app opens the results view while the analysis is prepared.",
+      },
+    ],
+    caption:
+      "A session takes a learner from scenario choice to a spoken response and feedback.",
+  },
+  "next-feedback": {
+    steps: [
+      {
+        label: "Browser",
+        title: "Request the call result",
+        text: "The client sends the completed call ID to Flask.",
+      },
+      {
+        label: "Flask and Vapi",
+        title: "Retrieve the analysis",
+        text: "Flask fetches the structured evaluation and summary for that call.",
+      },
+      {
+        label: "Results",
+        title: "Show feedback",
+        text: "The results view reads the returned score and summary from session storage.",
+      },
+    ],
+    caption:
+      "The browser can display a pending state while it waits for the evaluation.",
+  },
+  "dish-input": {
+    steps: [
+      {
+        label: "Type",
+        title: "Find a common ingredient",
+        text: "The search field filters a list of suggested ingredients.",
+      },
+      {
+        label: "Select",
+        title: "Keep each choice visible",
+        text: "Accepted ingredients appear as removable chips.",
+      },
+      {
+        label: "Search",
+        title: "Send the updated list",
+        text: "Each change starts a new recipe search against the server.",
+      },
+    ],
+    caption:
+      "The frontend manages suggestions and the selected list. The backend finds the recipes.",
+  },
+  "dish-ranking": {
+    steps: [
+      {
+        label: "Normalize",
+        title: "Lowercase the query",
+        text: "The API prepares the submitted ingredient names for lookup.",
+      },
+      {
+        label: "Match",
+        title: "Count the shared names",
+        text: "MongoDB compares the submitted names with each recipe’s ingredient tags.",
+      },
+      {
+        label: "Rank",
+        title: "Return the strongest matches",
+        text: "Recipes with at least one match are sorted by overlap, up to 100 results.",
+      },
+    ],
+    caption:
+      "For tomato and rice, a recipe tagged with both appears above a recipe tagged only with tomato.",
+  },
 };
 
 export function ProjectFlow({ kind }: { kind: keyof typeof flows }) {

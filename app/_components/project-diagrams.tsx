@@ -15,7 +15,13 @@ export function ProjectDiagram({
     kind === "greghouse-telemetry" ||
     kind === "greghouse-multiplayer" ||
     kind === "tks-progression" ||
-    kind === "tks-combat"
+    kind === "tks-combat" ||
+    kind === "tide-scan" ||
+    kind === "tide-context" ||
+    kind === "next-practice" ||
+    kind === "next-feedback" ||
+    kind === "dish-input" ||
+    kind === "dish-ranking"
   ) {
     return <ProjectFlow kind={kind} />;
   }
