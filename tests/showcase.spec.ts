@@ -121,9 +121,9 @@ test("showcase has a centered lead project and balanced outer margins", async ({
     .locator("#workspace")
     .screenshot({ path: testInfo.outputPath("showcase-desktop.png") });
   await page
-    .getByRole("region", { name: "Featured Experiences" })
+    .getByRole("region", { name: "What has shaped me" })
     .scrollIntoViewIfNeeded();
-  await page.getByRole("region", { name: "Featured Experiences" }).screenshot({
+  await page.getByRole("region", { name: "What has shaped me" }).screenshot({
     path: testInfo.outputPath("showcase-experiences.png"),
   });
   const footer = page.getByRole("contentinfo");

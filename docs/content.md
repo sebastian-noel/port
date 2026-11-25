@@ -32,8 +32,8 @@ The name types on each home visit, then triggers a radial tile flip. The complet
 The experimental homepage has a wide project showcase, with Recall on the left,
 Permanence larger in the center, and Greghouse on the right. Desktop reveals run
 in the order Recall, Greghouse, Permanence. Below 1200px, the projects stack as
-Permanence, Recall, Greghouse, matching source and keyboard order. Three experience rows follow, with separate links for both
-BNY internships. The typing-game space is still reserved.
+Permanence, Recall, Greghouse, matching source and keyboard order. “What has shaped me” follows with three organization cards. Role labels sit above
+the panels, and BNY has separate links to its two experiences. The typing-game space is still reserved.
 
 The project section uses a darker navy (`#020f20`) than the landing screen and
 wider 16:9 media frames. Only the project name overlays the bottom fade; the longer
