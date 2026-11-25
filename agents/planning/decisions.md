@@ -404,3 +404,7 @@ control to open all. Blank image slots are approved for structure. Preserve chro
 and anchors, add interactive timeline navigation, scroll entrances, and hover motion,
 and retain keyboard, touch, no-JavaScript reading, and reduced-motion support.
 Tracked in [issue #101](https://github.com/sebastian-noel/port/issues/101).
+
+## Homepage experience highlights
+
+Issue #54 names the section “What has shaped me.” Reuse the project showcase’s large typography, framed surfaces, and scarlet accents. Lead with the organizations and put role labels above the panels to establish the focus on experience. Present BNY under its name and keep both role links.

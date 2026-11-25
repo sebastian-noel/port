@@ -415,76 +415,92 @@
   }
 }
 .experiences {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.65fr);
-  gap: clamp(32px, 7vw, 130px);
   background: var(--sky);
   color: var(--canvas);
-  padding: 90px max(var(--gutter), calc((100% - 1728px) / 2)) 100px;
+  padding: clamp(56px, 7vw, 108px) max(var(--gutter), calc((100% - 1728px) / 2));
 }
 .experienceIntro {
-  align-self: start;
-  position: sticky;
-  top: 130px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-bottom: clamp(48px, 5vw, 80px);
 }
 .experienceIntro h2 {
-  margin: 0 0 36px;
-  font-size: clamp(38px, 4.2vw, 74px);
+  margin: 0;
+  font-size: clamp(48px, 6.6vw, 96px);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+.experienceIntro h2 span {
+  display: block;
+  color: #24445c;
 }
 .experiences .allLink:hover {
   color: var(--canvas);
-  border-bottom-width: 4px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.experienceList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 42px);
 }
 .experience {
+  min-width: 0;
+}
+.experiencePanel {
+  position: relative;
   display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 22px;
-  padding: 32px 0;
-  border-top: 1px solid var(--canvas);
-}
-.experience:last-child {
-  border-bottom: 1px solid var(--canvas);
-}
-.experienceMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  background: var(--canvas);
-  color: var(--sky);
-  font-size: 24px;
+  align-items: end;
+  min-height: clamp(156px, 16vw, 242px);
+  padding: 32px clamp(18px, 2vw, 36px) 24px;
+  border: 2px solid var(--canvas);
+  border-radius: 16px;
+  background:
+    linear-gradient(0deg, #071827 10%, transparent),
+    repeating-linear-gradient(135deg, #ffffff12 0 1px, transparent 1px 24px),
+    #284961;
+  color: white;
   transition:
-    color 200ms,
+    border-color 200ms,
     transform 200ms;
 }
-.experience:first-child .experienceMark {
-  background: var(--accent);
-  color: white;
+.experience:focus-within .experiencePanel {
+  transform: translateY(-4px);
+  border-color: var(--accent);
 }
-.experience:focus-within .experienceMark {
-  transform: rotate(-6deg);
-}
-@media (hover: hover) {
-  .experience:hover .experienceMark {
-    transform: rotate(-6deg);
+@media (hover: hover) and (pointer: fine) {
+  .experience:hover .experiencePanel {
+    transform: translateY(-4px);
+    border-color: var(--accent);
   }
 }
 .experienceRole {
+  position: absolute;
+  inset: 0 auto auto clamp(14px, 1.6vw, 28px);
+  margin: 0;
+  padding: 7px 12px;
+  transform: translateY(-50%);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--canvas);
+  color: white;
   font-size: 13px;
-  margin: 0 0 8px;
 }
-.experienceCopy h3 {
+.experiencePanel h3 {
+  max-width: 12ch;
+  margin: 0;
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 44px);
-  margin-bottom: 12px;
+  font-size: clamp(32px, 4vw, 68px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 .experienceDetail {
+  margin: 16px 0 4px;
   font-size: 15px;
-  max-width: 33em;
-  margin-bottom: 14px;
 }
 .experienceLinks {
   display: flex;
@@ -552,13 +568,6 @@
   .summary {
     font-size: 16px;
   }
-  .experiences {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
-    gap: 40px;
-  }
-  .experienceIntro h2 {
-    font-size: 42px;
-  }
 }
 @media (max-width: 899px) {
   .work {
@@ -567,20 +576,9 @@
   .sectionHeading h2 {
     font-size: clamp(56px, 10vw, 88px);
   }
-  .experiences {
+  .experienceList {
     grid-template-columns: 1fr;
-    gap: 36px;
-    padding-block: 64px;
-  }
-  .experienceIntro {
-    position: static;
-  }
-  .experienceIntro h2 {
-    font-size: clamp(40px, 7vw, 60px);
-    margin-bottom: 20px;
-  }
-  .experienceCopy h3 {
-    font-size: 32px;
+    gap: 34px;
   }
 }
 @media (max-width: 599px) {
@@ -631,25 +629,6 @@
   .sectionHeading h2 {
     font-size: 58px;
   }
-  .experience {
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 16px;
-    padding-block: 28px;
-  }
-  .experienceMark {
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-  }
-  .experience:first-child .experienceMark {
-    font-size: 24px;
-  }
-  .experienceCopy h3 {
-    font-size: 29px;
-  }
-  .experienceIntro h2 {
-    font-size: 40px;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   .skeletonMedia::after,
@@ -660,7 +639,7 @@
   .media,
   .mediaVisual,
   .projectArrow,
-  .experienceMark {
+  .experiencePanel {
     transition: none;
     transform: none !important;
   }
