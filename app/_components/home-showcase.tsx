@@ -106,27 +106,24 @@ function FeaturedProject({ entry }: { entry: Entry }) {
 const experienceHighlights = [
   {
     name: "BNY",
-    role: "Software engineering",
-    detail: "Two internships in software engineering at BNY.",
+    role: "Software Engineering",
+    detail: "Building infrastructure and automating fault remediation.",
     slugs: ["bny", "bny-spring"],
     labels: ["Infrastructure engineering", "Fault remediation"],
-    mark: "2×",
   },
   {
-    name: "UCF Institute of AI",
-    role: "Undergraduate research",
+    name: "UCF IAI",
+    role: "Undergraduate Research",
     detail: "Efficient long-video understanding and test-time training.",
     slugs: ["ucf-ai"],
     labels: ["Explore the research"],
-    mark: "AI",
   },
   {
     name: "Knight Hacks",
-    role: "Mentoring & outreach",
+    role: "Mentoring & Outreach",
     detail: "Supporting UCF's hackathon community.",
     slugs: ["knight-hacks"],
     labels: ["Explore the experience"],
-    mark: "KH",
   },
 ];
 
@@ -179,9 +176,7 @@ export function HomeShowcase() {
           <h2 id="featured-projects-heading" aria-label="Featured Projects">
             Featured
             <br />
-            <span>
-              Projects<span className={styles.period}>.</span>
-            </span>
+            <span>Projects</span>
           </h2>
         </div>
         <div className={styles.projectStage} data-project-stage>
@@ -195,13 +190,8 @@ export function HomeShowcase() {
         aria-labelledby="featured-experiences-heading"
       >
         <div className={styles.experienceIntro}>
-          <h2
-            id="featured-experiences-heading"
-            aria-label="Featured Experiences"
-          >
-            Featured
-            <br />
-            Experiences<span className={styles.period}>.</span>
+          <h2 id="featured-experiences-heading">
+            What has <span>shaped me</span>
           </h2>
           <Link className={styles.allLink} href="/experiences">
             All experiences <Icon name="external" />
@@ -221,24 +211,18 @@ export function HomeShowcase() {
                 key={highlight.name}
                 data-experience
               >
-                <div className={styles.experienceMark} aria-hidden="true">
-                  {highlight.mark}
+                <div className={styles.experiencePanel}>
+                  <p className={styles.experienceRole}>{highlight.role}</p>
+                  <h3>{highlight.name}</h3>
                 </div>
-                <div className={styles.experienceCopy}>
-                  <p className={styles.experienceRole}>{highlight.name}</p>
-                  <h3>{highlight.role}</h3>
-                  <p className={styles.experienceDetail}>{highlight.detail}</p>
-                  <div className={styles.experienceLinks}>
-                    {links.map(({ entry, label }) => (
-                      <Link
-                        href={`/experiences#${entry.slug}`}
-                        key={entry.slug}
-                      >
-                        {label}
-                        <Icon name="external" />
-                      </Link>
-                    ))}
-                  </div>
+                <p className={styles.experienceDetail}>{highlight.detail}</p>
+                <div className={styles.experienceLinks}>
+                  {links.map(({ entry, label }) => (
+                    <Link href={`/experiences#${entry.slug}`} key={entry.slug}>
+                      {label}
+                      <Icon name="external" />
+                    </Link>
+                  ))}
                 </div>
               </article>
             );

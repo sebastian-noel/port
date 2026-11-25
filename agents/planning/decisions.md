@@ -394,3 +394,7 @@ Issue #98 completes the seven-project catalog. Use the same layout so demo place
 For the #98 revision, replace most generic workflow cards with figures that show what changes in each project. Keep a short workflow for the asynchronous Next Step handoff, where the order of systems matters. Add code-grounded implementation detail and tradeoffs to the draft case studies, and use motion only where it shows a route, a signal, or a numeric comparison.
 
 Issue #100 gives the catalog search a wider field, a visible search hint and result count, and a touch-sized clear button. Clearing restores input focus, and Escape provides a keyboard shortcut. Remove the personal contribution sections for TideSense and Next Step at Sebastian’s request.
+
+## Homepage experience highlights
+
+Issue #54 names the section “What has shaped me.” Reuse the project showcase’s large typography, framed surfaces, and scarlet accents. Lead with the organizations and place role labels above the panels. Present BNY under its name and keep both role links. Use UCF IAI as the homepage label and omit the period from the Featured Projects heading.
