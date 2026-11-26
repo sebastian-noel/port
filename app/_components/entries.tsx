@@ -109,7 +109,7 @@ export function ProjectCard({
               <span>Explore the project</span>
             )}
             <span className="catalog-cta">
-              Case study <span aria-hidden="true">↗</span>
+              Case study <Icon name="external" />
             </span>
           </div>
         )}
@@ -177,7 +177,7 @@ export function ExperienceResources({ entry }: { entry: Entry }) {
       <div className="detail-links">
         {entry.links.map((link) => (
           <a className="text-link" href={link.href} key={link.href}>
-            {link.label} ↗
+            {link.label} <Icon name="external" />
           </a>
         ))}
       </div>

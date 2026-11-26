@@ -1,3 +1,4 @@
+import { Icon } from "./_components/icons";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -6,7 +7,7 @@ export default function NotFound() {
       <h1>Page not found</h1>
       <p>The address may have changed, or this page doesn’t exist yet.</p>
       <Link className="button" href="/">
-        Back to home →
+        Back to home <Icon name="arrow" />
       </Link>
     </div>
   );

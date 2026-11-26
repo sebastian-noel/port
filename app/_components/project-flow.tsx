@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 const callFeedback = {
   steps: [
     {
@@ -30,7 +31,7 @@ export function NextFeedback() {
           <li key={label}>
             {index > 0 && (
               <span className="project-flow-arrow" aria-hidden="true">
-                →
+                <Icon name="arrow" />
               </span>
             )}
             <span className="state-label">{label}</span>
