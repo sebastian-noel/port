@@ -1,3 +1,4 @@
+import { Icon } from "../_components/icons";
 import Link from "next/link";
 import { pageMetadata, site } from "../_lib/site";
 
@@ -50,12 +51,12 @@ export default function About() {
             development for Graphics Programming Knights.
           </p>
           <Link className="text-link" href="/experiences">
-            Explore my experiences ↗
+            Explore my experiences <Icon name="external" />
           </Link>
           <nav className="profile-links" aria-label="Public profiles">
             {site.profiles.map((profile) => (
               <a className="text-link" href={profile.href} key={profile.label}>
-                {profile.label} ↗
+                {profile.label} <Icon name="external" />
               </a>
             ))}
           </nav>

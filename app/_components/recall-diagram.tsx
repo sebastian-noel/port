@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import { MotionFigure } from "./motion-figure";
 
 type SymbolName = "camera" | "mic" | "store" | "question" | "search" | "speak";
@@ -63,8 +64,21 @@ export function RecallDiagram({
             <span className="state-label">Camera</span>
             <h3>Pick a frame</h3>
             <p>
-              MJPEG over Wi-Fi → YOLOv8 tags objects → local ranking picks up to
-              three frames for Gemini to describe.
+              MJPEG over Wi-Fi{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              YOLOv8 tags objects{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              local ranking picks up to three frames for Gemini to describe.
             </p>
           </div>
           <div className="recall-diagram-node">
@@ -72,12 +86,28 @@ export function RecallDiagram({
             <span className="state-label">Microphone</span>
             <h3>Transcribe the audio</h3>
             <p>
-              16 kHz mono WAV → ElevenLabs Scribe → latest transcript over HTTP.
+              16 kHz mono WAV{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              ElevenLabs Scribe{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              latest transcript over HTTP.
             </p>
           </div>
         </div>
         <div className="flow-arrow recall-merge-arrow" aria-hidden="true">
-          <span>↓</span>
+          <span>
+            <Icon name="down" />
+          </span>
         </div>
         <div className="recall-diagram-node recall-memory-node">
           <DiagramIcon name="store" />

@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import { MotionFigure } from "./motion-figure";
 import { RecallDiagram } from "./recall-diagram";
 import { NextFeedback } from "./project-flow";
@@ -247,7 +248,9 @@ export function ProjectDiagram({
         <p className="system-input-detail">RGB · LiDAR depth · ARKit pose</p>
       </div>
       <div className="flow-arrow" aria-hidden="true">
-        <span>↓</span>
+        <span>
+          <Icon name="down" />
+        </span>
       </div>
       <div className="jetson-system">
         <p className="system-label">
@@ -257,27 +260,58 @@ export function ProjectDiagram({
           <div>
             <span>Ground a request</span>
             <h3>Scan + Qwen-3D</h3>
-            <p>Language and scene → selected target</p>
+            <p>
+              Language and scene{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              selected target
+            </p>
             <small>Process exits at handoff</small>
           </div>
           <div className="flow-arrow" aria-hidden="true">
-            <span>→</span>
+            <span>
+              <Icon name="arrow" />
+            </span>
           </div>
           <div>
             <span>Track the scene</span>
             <h3>YOLOE + 3D memory</h3>
-            <p>Live detections → identity, position, containment</p>
+            <p>
+              Live detections{" "}
+              <Icon
+                name="arrow"
+                role="img"
+                aria-hidden={false}
+                aria-label="leads to"
+              />{" "}
+              identity, position, containment
+            </p>
             <small>Target retained through occlusion</small>
           </div>
         </div>
       </div>
       <div className="flow-arrow" aria-hidden="true">
-        <span>↓</span>
+        <span>
+          <Icon name="down" />
+        </span>
       </div>
       <div className="system-outputs">
         <div>
           <span>Act on memory</span>
-          <h3>Navigator → motors</h3>
+          <h3>
+            Navigator{" "}
+            <Icon
+              name="arrow"
+              role="img"
+              aria-hidden={false}
+              aria-label="leads to"
+            />{" "}
+            motors
+          </h3>
           <p>Arduino Uno + L298N drive the rover toward its target.</p>
         </div>
         <div className="system-view">

@@ -1,3 +1,4 @@
+import { Icon } from "../../_components/icons";
 import Link from "next/link";
 import { StudyClip } from "../../_components/study-clip";
 import { StudyPhoto } from "../../_components/study-photo";
@@ -54,7 +55,7 @@ export default async function Detail({ params }: Props) {
       className={`wrap detail${entry.visualStudy ? " visual-study" : ""}`}
     >
       <Link className="back-link" href={`/${entry.collection}`}>
-        ← All {entry.collection}
+        <Icon name="left" /> All {entry.collection}
       </Link>
       <div className={entry.visualStudy ? "study-intro" : undefined}>
         <header className="page-heading">
@@ -68,7 +69,7 @@ export default async function Detail({ params }: Props) {
             >
               {entry.links.map((link) => (
                 <a className="text-link" href={link.href} key={link.href}>
-                  {link.label} ↗
+                  {link.label} <Icon name="external" />
                 </a>
               ))}
             </nav>
@@ -232,7 +233,7 @@ export default async function Detail({ params }: Props) {
               <nav className="detail-links" aria-label="Project links">
                 {entry.links.map((link) => (
                   <a className="text-link" href={link.href} key={link.href}>
-                    {link.label} ↗
+                    {link.label} <Icon name="external" />
                   </a>
                 ))}
               </nav>
