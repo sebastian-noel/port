@@ -105,9 +105,6 @@ export function ProjectCard({
             ) : (
               <span>Explore the project</span>
             )}
-            <span className="catalog-cta">
-              Case study <span aria-hidden="true">↗</span>
-            </span>
           </div>
         )}
         {featured && entry.award && (
