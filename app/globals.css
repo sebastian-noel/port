@@ -759,16 +759,6 @@ dialog nav a[aria-current] {
   font-size: 26px;
   color: color-mix(in srgb, var(--accent) 75%, white);
 }
-.catalog-cta {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  white-space: nowrap;
-}
-.catalog-cta > span {
-  color: var(--accent);
-  font-size: 20px;
-}
 .catalog-card:has(> a:focus-visible) {
   transform: translateY(-8px);
 }
