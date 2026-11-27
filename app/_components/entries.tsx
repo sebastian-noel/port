@@ -231,12 +231,12 @@ export function ExperienceList({ items }: { items: Entry[] }) {
                   {entry.title}
                 </p>
               </div>
+              <p className={styles.description}>{entry.summary}</p>
             </div>
             <ExperienceGallery
               entry={{ title: entry.title, gallery: entry.gallery }}
             />
             <div className={styles.copy}>
-              <p className={styles.description}>{entry.summary}</p>
               <details className={styles.details}>
                 <summary>
                   <span className={styles.showLabel}>Show more details</span>

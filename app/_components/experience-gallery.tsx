@@ -70,8 +70,9 @@ export function ExperienceGallery({
               <Image
                 src={photo.src}
                 alt={photo.alt}
+                unoptimized={photo.src.endsWith(".gif")}
                 fill
-                sizes="(max-width: 840px) 92vw, 720px"
+                sizes="(max-width: 840px) 92vw, (min-width: 1050px) 400px, 720px"
               />
             ) : (
               <div className={styles.blankImage}>
