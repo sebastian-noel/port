@@ -65,10 +65,10 @@ export function ExperienceTimeline({
           if (!card) return;
           const animation = card.animate(
             [
-              { opacity: 0, transform: "translateY(28px)" },
+              { opacity: 0.55, transform: "translateY(16px)" },
               { opacity: 1, transform: "translateY(0)" },
             ],
-            { duration: 650, easing: "cubic-bezier(.22,1,.36,1)" },
+            { duration: 390, easing: "cubic-bezier(.22,1,.36,1)" },
           );
           animations.add(animation);
           animation.onfinish = () => animations.delete(animation);
@@ -141,25 +141,6 @@ export function ExperienceTimeline({
       </div>
       <div className={styles.layout}>
         <nav className={styles.timelineNav} aria-label="Experience timeline">
-          <div className={styles.mobileJump}>
-            <label htmlFor="experience-jump">Jump to</label>
-            <div className={styles.selectWrap}>
-              <select
-                id="experience-jump"
-                value={active}
-                onChange={(event) => jumpTo(event.target.value)}
-              >
-                {items.map((item) => (
-                  <option key={item.slug} value={item.slug}>
-                    {item.title} · {item.date}
-                  </option>
-                ))}
-              </select>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </div>
-          </div>
           <div className={styles.desktopTimeline}>
             <p className={styles.timelineLabel}>Timeline</p>
             <ol>

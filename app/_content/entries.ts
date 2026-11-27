@@ -1446,12 +1446,7 @@ export const records: Entry[] = [
     cover: {
       placeholder: true,
     },
-    sections: [
-      {
-        heading: "Mentor",
-        text: "Lauren Speer.",
-      },
-    ],
+    sections: [],
     links: [
       {
         label: "LinkedIn experience",
@@ -1482,12 +1477,7 @@ export const records: Entry[] = [
     cover: {
       placeholder: true,
     },
-    sections: [
-      {
-        heading: "Mentor",
-        text: "Joseph Raby.",
-      },
-    ],
+    sections: [],
     links: [
       {
         label: "LinkedIn experience",
@@ -1537,7 +1527,9 @@ export function validateEntries(items: Entry[]) {
     ]) {
       if (!photo || photo.placeholder) continue;
       if (
-        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg)$/.test(photo.src) ||
+        !/^\/media\/[a-z0-9/-]+\.(avif|webp|png|jpg|jpeg|gif)$/.test(
+          photo.src,
+        ) ||
         !photo.alt.trim() ||
         !Number.isInteger(photo.width) ||
         !Number.isInteger(photo.height) ||

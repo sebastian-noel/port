@@ -129,9 +129,6 @@
   font-size: 16px;
   line-height: 1.4;
 }
-.mobileJump {
-  display: none;
-}
 .cards {
   min-width: 0;
 }
@@ -151,28 +148,26 @@
   color: var(--muted);
 }
 .entry .card {
-  padding: 0;
-  border-radius: 26px;
-  background: var(--surface);
-  box-shadow: 0 12px 32px #00112224;
-  transition:
-    box-shadow 350ms ease,
-    translate 350ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.entry .card:focus-within {
-  box-shadow:
-    0 16px 48px #00112255,
-    0 0 0 1px #639cc55c;
+  display: grid;
+  gap: 24px;
+  padding: 24px 0 0;
+  border-top: 1px solid #64819a;
+  background: transparent;
 }
 .copy {
-  padding: 24px 32px;
+  grid-column: 1 / -1;
 }
 .identity {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin: 0;
-  padding: 28px 32px 24px;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+@media (min-width: 1050px) {
+  .entry .card {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    column-gap: 32px;
+  }
 }
 .logo {
   display: grid;
@@ -220,7 +215,7 @@
   line-height: 1.5;
 }
 .description {
-  margin: 0 0 22px;
+  margin: 0;
   font-size: 16px;
   line-height: 1.75;
   color: #e0e9f1;
@@ -253,8 +248,7 @@
   border-radius: 4px;
 }
 .details summary svg,
-.galleryArrows svg,
-.selectWrap svg {
+.galleryArrows svg {
   width: 20px;
   height: 20px;
   stroke: currentColor;
@@ -301,7 +295,7 @@
   color: var(--muted);
 }
 .gallery {
-  margin-inline: 20px;
+  min-width: 0;
   overflow: hidden;
   border-radius: 16px;
   background: #193b58;
@@ -325,7 +319,7 @@
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  aspect-ratio: 16 / 8.5;
+  aspect-ratio: 4 / 3;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   background: #234765;
@@ -430,28 +424,12 @@
     transform: translateY(0);
   }
 }
-@media (hover: hover) and (pointer: fine) {
-  .entry .card:hover {
-    translate: 0 -5px;
-    box-shadow:
-      0 24px 54px #00112266,
-      0 0 0 1px #639cc55c;
-  }
-  .card:hover .logo {
-    rotate: -3deg;
-  }
-}
 @media (max-width: 1000px) {
   .layout {
     grid-template-columns: 190px minmax(0, 1fr);
     gap: 36px;
   }
-  .copy {
-    padding-inline: 26px;
-  }
-  .identity {
-    padding-inline: 26px;
-  }
+
   .identity {
     gap: 16px;
   }
@@ -474,54 +452,12 @@
   .toolbar {
     margin-bottom: 20px;
   }
+  .entry .card {
+    grid-template-columns: minmax(0, 1fr);
+    overflow-wrap: anywhere;
+  }
   .timelineNav {
-    top: 76px;
-    z-index: 4;
-    padding: 10px 0;
-    margin-bottom: 24px;
-    background: var(--canvas);
-  }
-  .desktopTimeline {
     display: none;
-  }
-  .mobileJump {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .mobileJump label {
-    font-size: 14px;
-    flex-shrink: 0;
-    color: var(--muted);
-  }
-  .selectWrap {
-    position: relative;
-    flex: 1;
-    min-width: 0;
-  }
-  .selectWrap select {
-    appearance: none;
-    display: block;
-    width: 100%;
-    min-height: 48px;
-    padding: 10px 42px 10px 16px;
-    border: 1px solid #45627a;
-    border-radius: 14px;
-    background: var(--surface);
-    color: white;
-    font: inherit;
-    font-size: 14px;
-    text-overflow: ellipsis;
-  }
-  .selectWrap select:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 3px;
-  }
-  .selectWrap svg {
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    pointer-events: none;
   }
   .experiences .entry {
     scroll-margin-top: 72px;
@@ -534,24 +470,33 @@
     margin-top: 36px;
   }
   .identity h2 {
-    font-size: 25px;
+    font-size: 1.5rem;
+    font-weight: 650;
+  }
+  .identity .organization,
+  .description,
+  .detailsBody li,
+  .detailsBody p,
+  .detailsBody a,
+  .details summary {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .toolbar,
+  .expandAll,
+  .cardDate :global(.dates) {
+    font-size: 0.875rem;
   }
 }
 @media (max-width: 480px) {
   .toolbar {
     gap: 8px;
-    font-size: 14px;
+    flex-wrap: wrap;
   }
   .expandAll {
     padding-inline: 14px;
-    font-size: 14px;
   }
-  .entry .card {
-    border-radius: 20px;
-  }
-  .gallery {
-    margin-inline: 12px;
-  }
+
   .gallery,
   .galleryTrack {
     border-radius: 14px;
@@ -573,26 +518,18 @@
     overflow: hidden;
     clip-path: inset(50%);
   }
-  .copy {
-    padding: 22px 22px 20px;
-  }
+
   .identity {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    margin-top: 0;
-    padding: 24px 22px 22px;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .description {
+    grid-column: 1 / -1;
   }
   .logo {
     width: 70px;
     height: 70px;
     flex-basis: 70px;
-  }
-  .identity h2 {
-    font-size: 24px;
-  }
-  .description {
-    line-height: 1.7;
   }
 }
 @media (prefers-reduced-motion: reduce) {
