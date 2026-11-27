@@ -1446,12 +1446,7 @@ export const records: Entry[] = [
     cover: {
       placeholder: true,
     },
-    sections: [
-      {
-        heading: "Mentor",
-        text: "Lauren Speer.",
-      },
-    ],
+    sections: [],
     links: [
       {
         label: "LinkedIn experience",
@@ -1482,12 +1477,7 @@ export const records: Entry[] = [
     cover: {
       placeholder: true,
     },
-    sections: [
-      {
-        heading: "Mentor",
-        text: "Joseph Raby.",
-      },
-    ],
+    sections: [],
     links: [
       {
         label: "LinkedIn experience",

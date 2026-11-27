@@ -81,7 +81,7 @@ test("image carousels support controls and keyboard without leaving their bounds
   ).toHaveAttribute("aria-pressed", "true");
 });
 
-test("timeline tracks scrolling, navigates anchors, and offers a mobile jump menu", async ({
+test("timeline tracks scrolling, navigates anchors, and leaves mobile navigation clear", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -102,12 +102,14 @@ test("timeline tracks scrolling, navigates anchors, and offers a mobile jump men
     timeline.getByRole("link", { name: /May 2025.*FSEC/ }),
   ).toHaveAttribute("aria-current", "step");
   await page.setViewportSize({ width: 390, height: 844 });
-  await timeline.getByLabel("Jump to").selectOption("ucf-ist");
-  await expect(page).toHaveURL(/#ucf-ist$/);
-  await expect(page.locator("#ucf-ist h2")).toBeFocused();
-  expect(
-    (await page.locator("#ucf-ist").boundingBox())!.y,
-  ).toBeGreaterThanOrEqual(160);
+  await expect(timeline).toBeHidden();
+  await expect(page.getByRole("combobox")).toHaveCount(0);
+  await page.getByRole("button", { name: "Show all details" }).click();
+  const mentors = page.getByRole("heading", { name: /^mentors?$/i });
+  await expect(mentors).toHaveCount(1);
+  await expect(
+    page.locator("#ucf-ai").getByRole("heading", { name: "Mentors" }),
+  ).toBeVisible();
 });
 
 test("rounded cards fit phone, tablet, wide desktop, and enlarged text", async ({
