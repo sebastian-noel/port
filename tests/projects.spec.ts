@@ -105,6 +105,8 @@ test("catalog cards use wide proportions and a smooth accessible scarlet lift", 
   await page.goto("/projects");
   const cards = page.locator(".catalog-card");
   const card = cards.first();
+  await expect(card.locator(".project-title svg")).toBeVisible();
+  await expect(card).not.toContainText("Case study");
   const bounds = await cards.evaluateAll((items) =>
     items.map((item) => {
       const r = item.getBoundingClientRect();
