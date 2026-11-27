@@ -171,7 +171,7 @@ export function ExperienceResources({ entry }: { entry: Entry }) {
       <div className="detail-links">
         {entry.links.map((link) => (
           <a className="text-link" href={link.href} key={link.href}>
-            {link.label} ↗
+            {link.label} <Icon name="external" />
           </a>
         ))}
       </div>

@@ -3,6 +3,7 @@ import type { SVGProps } from "react";
 const paths = {
   arrow: "M5 12h14m-6-6 6 6-6 6",
   external: "M7 17 17 7M7 7h10v10",
+  left: "M19 12H5m6-6-6 6 6 6",
   down: "M12 4v16m-6-6 6 6 6-6",
   search: "m21 21-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0",
   file: "M14 2H5v20h14V7l-5-5Zm0 0v5h5M8 12h8m-8 4h8",
